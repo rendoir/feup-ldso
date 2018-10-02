@@ -18,6 +18,7 @@
   },
   "homepage": "https://gitlab.com/ldso18-19/t3g2#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "pg": "^7.4.3"
   },
