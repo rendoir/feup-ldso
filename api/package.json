@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "UP Cultural Agenda",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ldso18-19/t3g2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ldso18-19/t3g2/issues"
+  },
+  "homepage": "https://gitlab.com/ldso18-19/t3g2#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
