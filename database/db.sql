@@ -41,8 +41,6 @@ CREATE TABLE events (
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP,
     image_path TEXT,
-    latitude REAL,
-    longitude REAL,
     location TEXT,
     price REAL,
 
