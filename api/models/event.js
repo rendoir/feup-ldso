@@ -11,7 +11,14 @@ const event = (sequelize, DataTypes) => {
         price: DataTypes.REAL,
     }, {
         timestamps: false,
-        underscored: true
+        underscored: true,
+        validate: {
+            checkDates() {
+                if(this.end_date !== null)
+                    if(this.start_date > this.end_date)
+                        throw new Error("The end date must be after the start date");
+            }
+        }
     });
 
     EventModel.associate = function (models) {
