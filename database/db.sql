@@ -1,5 +1,5 @@
 
-DROP TABLE IF EXISTS categories_event;
+DROP TABLE IF EXISTS event_categories;
 DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS categories;
@@ -24,8 +24,13 @@ CREATE TABLE entities (
     initials TEXT NOT NULL UNIQUE,
     description TEXT,
     image_path TEXT,
-    admin BOOLEAN NOT NULL
+    admin BOOLEAN NOT NULL DEFAULT false,
+    color TEXT NOT NULL DEFAULT '#FFFFFF',
+    color2 TEXT,
+    location TEXT
 );
+
+
 
 
 CREATE TABLE events (
@@ -38,6 +43,7 @@ CREATE TABLE events (
     image_path TEXT,
     latitude REAL,
     longitude REAL,
+    location TEXT,
     price REAL,
 
     entity_id INTEGER REFERENCES entities(id)
@@ -76,12 +82,12 @@ ALTER TABLE ONLY favorites
     ADD CONSTRAINT favorites_pkey PRIMARY KEY (user_id, event_id);
 
 
-CREATE TABLE categories_event (
+CREATE TABLE event_categories (
 
     category_id INTEGER REFERENCES categories(id),
     event_id INTEGER REFERENCES events(id)
     
 );
 
-ALTER TABLE ONLY categories_event
-    ADD CONSTRAINT categories_event_pkey PRIMARY KEY (category_id, event_id);
+ALTER TABLE ONLY event_categories
+    ADD CONSTRAINT event_categories_pkey PRIMARY KEY (category_id, event_id);
