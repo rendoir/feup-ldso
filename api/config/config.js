@@ -2,7 +2,7 @@ module.exports = {
     development: {
         dialect: "postgres",
         user: "postgres",
-        host: "localhost",
+        host: "localhost", //192.168.99.100 for Vitor; localhost for everyone else
         database: "postgres",
         password: "example",
         port: "5432",

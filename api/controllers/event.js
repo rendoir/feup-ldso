@@ -1,9 +1,19 @@
 const Event = require('../models').events;
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-module.exports = {
+module.exports = {    
 
     list(req, res) {
+
+        let today = new Date().toISOString().slice(0, 10);
+        console.log(today);
         return Event.findAll({
+            where: {
+                start_date: {
+                    [Op.gte]: today
+                }
+            },
             limit: req.query.limit,
             offset: req.query.page,
             order: [['start_date', 'ASC']]
