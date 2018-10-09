@@ -1,13 +1,14 @@
 const Event = require('../models').events;
 var Sequelize = require('sequelize');
+//var sequelize = new Sequelize('postgres', 'postgres', 'example');
+
 const Op = Sequelize.Op;
 
 module.exports = {    
 
-    list(req, res) {
+    listForUsers(req, res) {
 
-        let today = new Date().toISOString().slice(0, 10);
-        console.log(today);
+        let today = Math.floor(Date.now());
         return Event.findAll({
             where: {
                 start_date: {
@@ -20,6 +21,16 @@ module.exports = {
         })
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
+    },
+
+    listForWeb(req, res) {
+        //req.user_id -> logged id 
+        return sequelize.query('SELECT * from events JOIN permissions ON permissions.entity_id = events.entity_id  WHERE "permissions".user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
+                       { bind: [req.user_id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+                       
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+
     },
 
     getById(req, res) {

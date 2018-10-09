@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const eventController = require('../controllers').event;
+var middleware = require("../middleware");
 
 // Add event
 router.post("/", function (req, res) {
@@ -15,7 +16,13 @@ router.post("/", function (req, res) {
 
 });
 
-router.get("/", eventController.list)
+router.get("/",/* middleware.isLoggedIn ,*/ function(req, res){
+
+    eventController.listForWeb(req, res);
+
+}); 
+
+router.get("/app", eventController.listForUsers); 
 
 
 module.exports = router;
