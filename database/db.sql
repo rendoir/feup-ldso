@@ -23,7 +23,6 @@ CREATE TABLE entities (
     email TEXT NOT NULL UNIQUE,
     initials TEXT NOT NULL UNIQUE,
     description TEXT,
-    image_path TEXT,
     admin BOOLEAN NOT NULL DEFAULT false,
     color TEXT NOT NULL DEFAULT '#FFFFFF',
     color2 TEXT,
@@ -40,7 +39,6 @@ CREATE TABLE events (
     description TEXT,
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP,
-    image_path TEXT,
     location TEXT,
     price REAL,
 
