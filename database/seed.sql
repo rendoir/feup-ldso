@@ -1,6 +1,9 @@
 
 
 INSERT INTO entities (name, color, initials, description) 
+VALUES ('Universidade do Porto', 'rainbow', 'UP', 'A U.Porto tem por missão a criação de conhecimento científico, cultural e artístico, a formação de nível superior fortemente ancorada na investigação, a valorização social e económica do conhecimento e a participação ativa no progresso das comunidades em que se insere.');
+
+INSERT INTO entities (name, color, initials, description) 
 VALUES ('Faculdade de Arquitetura', '#FFFFFF', 'FAUP', 'Criada em 1976, a partir do legado da Escola de Belas Artes da U.Porto (ESBAP), a FAUP é uma das mais reputadas reputadas escolas de Arquitetura do mundo. Aqui formaram-se e deram aulas nomes importantes da “Escola do Porto” (uma das mais influentes correntes de Arquitetura contemporânea em Portugal), casos de Álvaro Siza Vieira e Eduardo Souto Moura, os dois únicos arquitetos portugueses distinguidos com o Prémio Pritzker, considerado o “Prémio Nobel” da Arquitetura. Localizado no Polo III (Campo Alegre) da U.Porto, o complexo de edifícios que alberga a FAUP, desde 1992, é também uma das criações mais emblemáticas da carreira de Siza Vieira. Um espaço único que pdoe ser conhecido por qualquer pessoa numa das visitas guiadas organizadas regularmente pela faculdade.');
 
 INSERT INTO entities (name, color, initials, description) 

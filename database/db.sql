@@ -14,7 +14,8 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE
+    email TEXT NOT NULL UNIQUE,
+    admin BOOLEAN NOT NULL DEFAULT false
 );
 
 
@@ -24,7 +25,6 @@ CREATE TABLE entities (
     name TEXT NOT NULL UNIQUE,
     initials TEXT NOT NULL UNIQUE,
     description TEXT,
-    admin BOOLEAN NOT NULL DEFAULT false,
     color TEXT NOT NULL DEFAULT '#FFFFFF',
     color2 TEXT,
     location TEXT
