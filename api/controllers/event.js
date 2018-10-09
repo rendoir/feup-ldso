@@ -1,6 +1,9 @@
 const Event = require('../models').events;
 var Sequelize = require('sequelize');
-//var sequelize = new Sequelize('postgres', 'postgres', 'example');
+
+var env = process.env.NODE_ENV || 'development';
+var config = require(__dirname + '/../config/config.js')[env];
+var sequelize = new Sequelize(config.database, config.user, config.password, config);
 
 const Op = Sequelize.Op;
 
@@ -24,9 +27,9 @@ module.exports = {
     },
 
     listForWeb(req, res) {
-        //req.user_id -> logged id 
-        return sequelize.query('SELECT * from events JOIN permissions ON permissions.entity_id = events.entity_id  WHERE "permissions".user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
-                       { bind: [req.user_id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+        //5 -> logged id 
+        return sequelize.query('SELECT * from events INNER JOIN permissions ON permissions.entity_id = events.entity_id  WHERE "permissions".user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
+                    { bind: [5, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
                        
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
