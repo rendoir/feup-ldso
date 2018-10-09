@@ -1,4 +1,5 @@
 
+DROP TABLE IF EXISTS permissions;
 DROP TABLE IF EXISTS event_categories;
 DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS notifications;
@@ -6,6 +7,7 @@ DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS entities;
 DROP TABLE IF EXISTS users;
+
 
 CREATE TABLE users (
 
@@ -15,12 +17,11 @@ CREATE TABLE users (
     email TEXT NOT NULL UNIQUE
 );
 
+
 CREATE TABLE entities (
 
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
     initials TEXT NOT NULL UNIQUE,
     description TEXT,
     admin BOOLEAN NOT NULL DEFAULT false,
@@ -28,8 +29,6 @@ CREATE TABLE entities (
     color2 TEXT,
     location TEXT
 );
-
-
 
 
 CREATE TABLE events (
@@ -70,20 +69,25 @@ CREATE TABLE notifications (
 CREATE TABLE favorites (
 
     user_id INTEGER REFERENCES users(id),
-    event_id INTEGER REFERENCES events(id)
-    
-);
+    event_id INTEGER REFERENCES events(id),
 
-ALTER TABLE ONLY favorites
-    ADD CONSTRAINT favorites_pkey PRIMARY KEY (user_id, event_id);
+    PRIMARY KEY (user_id, event_id)
+);
 
 
 CREATE TABLE event_categories (
 
     category_id INTEGER REFERENCES categories(id),
-    event_id INTEGER REFERENCES events(id)
-    
+    event_id INTEGER REFERENCES events(id),
+
+    PRIMARY KEY (category_id, event_id)
 );
 
-ALTER TABLE ONLY event_categories
-    ADD CONSTRAINT event_categories_pkey PRIMARY KEY (category_id, event_id);
+
+CREATE TABLE permissions (
+
+    user_id INTEGER REFERENCES users(id),
+    entity_id INTEGER REFERENCES entities(id),
+
+    PRIMARY KEY (user_id, entity_id)
+);
