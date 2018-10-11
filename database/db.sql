@@ -1,4 +1,7 @@
 
+DROP TRIGGER IF EXISTS check_permission ON events;
+DROP FUNCTION  IF EXISTS check_permission();
+
 DROP TABLE IF EXISTS permissions;
 DROP TABLE IF EXISTS event_categories;
 DROP TABLE IF EXISTS favorites;
@@ -46,9 +49,8 @@ CREATE TABLE events (
     entity_id INTEGER REFERENCES entities(id) NOT NULL,
 
     UNIQUE (title, start_date, entity_id),
-    CHECK (start_date >= current_timestamp),
-    CHECK (end_date = null OR start_date < end_date)
-    -- TODO: Nao funciona
+    CONSTRAINT check_starts_in_future CHECK (start_date >= current_timestamp),
+    CONSTRAINT check_starts_before_ends CHECK (start_date < end_date)
 );
 
 

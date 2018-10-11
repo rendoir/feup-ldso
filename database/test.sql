@@ -129,3 +129,37 @@ VALUES ('Feup Career Fair 2018', '2018-10-16', '2018-10-19', 'FEUP', 0, 2, 9, 'N
 
 INSERT INTO events (title, start_date, location, price, poster_id, entity_id, description)
 VALUES ('Ciclo de Tertúlias | (H)á Conversa na FMUP', '2018-10-18 17:30', 'CIM-FMUP', 0, 4, 12, 'Falar sobre saúde com quem quer falar sobre ela. É este o ponto de partida do ciclo mensal de tertúlias (H)á Conversa na FMUP, que tem por objetivo criar um espaço informal de debate multidisciplinar sobre temáticas diversas. As sessões - promovidas pela Faculdade de Medicina da Universidade do Porto (FMUP), com o apoio da Junta de Freguesia de Paranhos e da Associação de Estudantes da FMUP - contarão com a participação de especialistas de várias áreas do saber. A moderação ficará a cargo de jornalistas cuja atividade se desenvolve nas áreas abordadas em cada uma das sessões. O ciclo (H)á Conversa na FMUP acontecerá no Centro de Investigação Médica da FMUP, sempre com início às 17h30.');
+
+
+--| FAVORITES |--
+
+INSERT INTO favorites (user_id, event_id) VALUES (53, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (83, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (75, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (51, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (15, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (15, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (32, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (93, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (25, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (75, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (32, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (9, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (23, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (87, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (45, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (88, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (49, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (55, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (47, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (38, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (63, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (46, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (64, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (9, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (19, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (32, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (30, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (26, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (73, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (64, 1);
