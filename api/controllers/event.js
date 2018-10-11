@@ -27,9 +27,9 @@ module.exports = {
     },
 
     listForWeb(req, res) {
-        //5 -> logged id 
+        //1st bind parameter -> logged id 
         return sequelize.query('SELECT * from events INNER JOIN permissions ON permissions.entity_id = events.entity_id  WHERE "permissions".user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
-                    { bind: [5, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+                    { bind: [4, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
                        
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
