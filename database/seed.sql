@@ -1,4 +1,4 @@
-
+--| ENTITIES |--
 
 INSERT INTO entities (name, color, initials, description) 
 VALUES ('Universidade do Porto', 'rainbow', 'UP', 'A U.Porto tem por missão a criação de conhecimento científico, cultural e artístico, a formação de nível superior fortemente ancorada na investigação, a valorização social e económica do conhecimento e a participação ativa no progresso das comunidades em que se insere.');
