@@ -24,7 +24,6 @@ const user = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false
         },
-        
         admin: {
             type: DataTypes.BOOLEAN,
             default: false
@@ -32,10 +31,14 @@ const user = (sequelize, DataTypes) => {
 
     }, {
         timestamps: false,
-        underscored: true
+        underscored: true   
     });
 
-   
+    User.associate = function (models) {
+        models.users.belongsToMany(models.events, { through: 'favorites'});
+        models.users.belongsToMany(models.entities, { through: 'permissions'});
+        models.users.hasMany(models.events, {foreignKey: 'poster_id',targetKey: 'id'});
+    }   
 
     return User;
 };

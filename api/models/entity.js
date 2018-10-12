@@ -38,6 +38,7 @@ const entity = (sequelize, DataTypes) => {
 
     Entity.associate = function(models) {
         models.entities.hasMany(models.events, {foreignKey: 'entity_id',targetKey: 'id'});
+        models.entities.belongsToMany(models.users, { through: 'permissions'});
     }
 
     return Entity;

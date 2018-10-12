@@ -11,14 +11,16 @@ const event = (sequelize, DataTypes) => {
         underscored: true,
         validate: {
             checkDates() {
-                if(this.end_date !== null)
+                if(this.end_date != "") {
                     if(this.start_date > this.end_date)
                         throw new Error("The end date must be after the start date");
+                } else this.end_date = null;
             }
         }
     });
 
     EventModel.associate = function (models) {
+        models.events.belongsToMany(models.users, { through: 'favorites'});
         models.events.belongsTo(models.entities, { foreignKey: 'entity_id', targetKey: 'id' });
         models.events.belongsTo(models.users, { foreignKey: 'poster_id', targetKey: 'id' });
     }
