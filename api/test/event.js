@@ -58,10 +58,12 @@ describe('Events', () => {
 
             }).then(function (user) {
                 user.addEntity(entity);
+                let start_date = new Date();
+                start_date.setDate(start_date.getDate() + 1);
                 EventModel.create({
                     title: "Test ",
                     description: "Hello There",
-                    start_date: "2018-10-13",
+                    start_date: start_date,
                     poster_id: 1,
                     entity_id: 1
 
@@ -79,6 +81,21 @@ describe('Events', () => {
 
             chai.request(app)
                 .get('/app')
+                .query({ page: 0, limit: 10 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    done();
+                })
+        });
+    });
+
+    describe('/GET List Events Web', () => {
+        it('it should list all events on the web', (done) => {
+
+            chai.request(app)
+                .get('/')
                 .query({ page: 0, limit: 10 })
                 .end((err, res) => {
                     res.should.have.status(200);

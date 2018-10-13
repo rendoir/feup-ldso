@@ -4,7 +4,7 @@
   "description": "UP Cultural Agenda",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 10000 --exit",
+    "test": "nyc mocha --timeout 10000 --exit",
     "start": "nodemon app.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-fileupload": "^1.0.0-alpha.1",
+    "nyc": "^13.0.1",
     "pg": "^7.5.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.39.0",
