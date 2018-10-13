@@ -1,7 +1,18 @@
 var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000;
+    bodyParser = require("body-parser"),
+    app = express(),
+    port = process.env.PORT || 3000;
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+//Routes
+var routes = require("./routes/apiRoutes");
+app.use("/",routes);
+
 
 app.listen(port);
 
-console.log('RESTful API server started on: ' + port);
+module.exports = app;
