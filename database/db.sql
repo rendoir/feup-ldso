@@ -1,12 +1,4 @@
-
-DROP TABLE IF EXISTS event_categories;
-DROP TABLE IF EXISTS favorites;
-DROP TABLE IF EXISTS notifications;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS events;
-DROP TABLE IF EXISTS entities;
-DROP TABLE IF EXISTS users;
-
+DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
 
     id SERIAL PRIMARY KEY,
@@ -15,6 +7,7 @@ CREATE TABLE users (
     email TEXT NOT NULL UNIQUE
 );
 
+DROP TABLE IF EXISTS entities CASCADE;
 CREATE TABLE entities (
 
     id SERIAL PRIMARY KEY,
@@ -30,9 +23,7 @@ CREATE TABLE entities (
     location TEXT
 );
 
-
-
-
+DROP TABLE IF EXISTS events CASCADE;
 CREATE TABLE events (
 
     id SERIAL PRIMARY KEY,
@@ -46,10 +37,10 @@ CREATE TABLE events (
     location TEXT,
     price REAL,
 
-    entity_id INTEGER REFERENCES entities(id)
+    entity_id INTEGER REFERENCES entities(id) ON DELETE CASCADE
 );
 
-
+DROP TABLE IF EXISTS categories CASCADE;
 CREATE TABLE categories (
 
     id SERIAL PRIMARY KEY,
@@ -57,8 +48,7 @@ CREATE TABLE categories (
     description TEXT
 );
 
-
-
+DROP TABLE IF EXISTS notifications CASCADE;
 CREATE TABLE notifications (
 
     id SERIAL PRIMARY KEY,
@@ -66,28 +56,28 @@ CREATE TABLE notifications (
     description TEXT NOT NULL,
     seen BOOLEAN NOT NULL,
     
-    event_id INTEGER REFERENCES events(id),
-    user_id INTEGER REFERENCES users(id)
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    event_id INTEGER REFERENCES events(id) ON DELETE CASCADE
 );
 
-
+-- A user can have events that they are interested in; this allows them to group these events in a single place for easier access
+DROP TABLE IF EXISTS favorites;
 CREATE TABLE favorites (
 
-    user_id INTEGER REFERENCES users(id),
-    event_id INTEGER REFERENCES events(id)
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    event_id INTEGER REFERENCES events(id) ON DELETE CASCADE
     
 );
-
 ALTER TABLE ONLY favorites
     ADD CONSTRAINT favorites_pkey PRIMARY KEY (user_id, event_id);
 
-
+-- An event can belong to several categories; these can be used to search for particular types of events
+DROP TABLE IF EXISTS event_categories;
 CREATE TABLE event_categories (
 
-    category_id INTEGER REFERENCES categories(id),
-    event_id INTEGER REFERENCES events(id)
+    event_id INTEGER REFERENCES events(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES categories(id)
     
 );
-
 ALTER TABLE ONLY event_categories
     ADD CONSTRAINT event_categories_pkey PRIMARY KEY (category_id, event_id);
