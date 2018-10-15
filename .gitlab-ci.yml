@@ -1,0 +1,29 @@
+image: node:latest
+
+services:
+  - postgres:latest
+variables:
+  POSTGRES_HOST: postgres
+  POSTGRES_DB: postgres_test
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: example
+
+stages:
+  - test
+
+cache:
+  paths:
+  - api/node_modules/
+
+test_api:
+  stage: test
+  variables:
+    NODE_ENV: test
+  services: 
+    - postgres:latest  
+  script:
+    - cd api
+    - npm install
+    - npm test
+  tags:
+    - docker, postgres

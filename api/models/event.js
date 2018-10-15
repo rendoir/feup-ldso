@@ -16,7 +16,41 @@ const event = (sequelize, DataTypes) => {
                         throw new Error("The end date must be after the start date");
                 } else this.end_date = null;
             }
-        }
+        },
+        hooks: {
+            beforeCreate: function(event) {
+                return sequelize.models.permissions.find({
+                    where: {
+                        user_id: event.poster_id,
+                        entity_id: event.entity_id
+                    }
+                })
+                .then((res) => {
+                    if(!res){
+                        throw new Error('User doesn\'t have permission');
+                    }
+                })
+                .catch((err) => {
+                    throw new Error(err);
+                })
+            },
+            beforeUpdate: function(event) {
+                return sequelize.models.permissions.find({
+                    where: {
+                        user_id: event.poster_id,
+                        entity_id: event.entity_id
+                    }
+                })
+                .then((res) => {
+                    if(!res){
+                        throw new Error('User doesn\'t have permission');
+                    }
+                })
+                .catch((err) => {
+                    throw new Error(err);
+                })
+            }
+        } 
     });
 
     EventModel.associate = function (models) {
