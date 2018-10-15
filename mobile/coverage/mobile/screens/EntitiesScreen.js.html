@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for mobile/screens/EntitiesScreen.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">mobile/screens</a> EntitiesScreen.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.45% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.45% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/29</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { ExpoConfigView } from '@expo/samples';
+import { StyleSheet } from 'react-native';
+import { Font, AppLoading } from "expo";
+import { Root, Container, Header, Title, Content, List, ListItem, H1, H2, H3, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+&nbsp;
+export default class EntitiesScreen extends React.Component {
+  state = {
+    loading: true,
+  };
+  static navigationOptions = {
+    header: null,
+  };
+&nbsp;
+<span class="fstat-no" title="function not covered" >  as</span>ync componentWillMount() {
+<span class="cstat-no" title="statement not covered" >    await Font.loadAsync({</span>
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+<span class="cstat-no" title="statement not covered" >    this.setState({ loading: false });</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  re</span>nder() {
+<span class="cstat-no" title="statement not covered" >    if (this.state.loading) {</span>
+<span class="cstat-no" title="statement not covered" >      return (</span>
+        &lt;Root&gt;
+          &lt;AppLoading /&gt;
+        &lt;/Root&gt;
+      );
+    }
+    const { navigate } = <span class="cstat-no" title="statement not covered" >this.props.navigation;</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;Container&gt;
+        &lt;Header style={styles.header}&gt;
+          &lt;Left&gt;
+            &lt;Text style={styles.headerText}&gt;Organizações&lt;/Text&gt;
+          &lt;/Left&gt;
+        &lt;/Header&gt;
+        &lt;Content&gt;
+          &lt;List&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FMUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FMUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FMUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FEUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FEUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FEUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FCUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FCUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FCUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "ICBAS" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "ICBAS" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;ICBAS&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FPCEUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FPCEUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FPCEUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FFUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FFUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FFUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FAUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FAUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FAUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FBAUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FBAUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FBAUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FEP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FEP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FEP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FCNAUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FCNAUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FCNAUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+            &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FLUP" })}</span>&gt;
+              &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: "FLUP" })}</span>&gt;&lt;Text style={styles.buttonText}&gt;FLUP&lt;/Text&gt;&lt;/Button&gt;
+            &lt;/ListItem&gt;
+          &lt;/List&gt;
+        &lt;/Content&gt;
+      &lt;/Container&gt;
+    )
+  }
+}
+&nbsp;
+const styles = StyleSheet.create({
+  buttonText: {
+    fontSize: 20,
+    color: 'black',
+  },
+  listItem: {
+    justifyContent: "center",
+  },
+  header: {
+    backgroundColor: '#2c8f7f',
+    height: 80,
+    justifyContent: "center",
+  },
+  headerText: {
+    paddingTop: 20,
+    color: 'white',
+    fontSize: 30,
+    width: 400,
+    justifyContent: "center",
+  }
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 14 2018 20:40:03 GMT+0100 (WEST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

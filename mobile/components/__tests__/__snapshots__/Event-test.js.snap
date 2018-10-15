@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "borderBottomWidth": 0.5,
+      "borderColor": "#ccc",
+      "borderLeftWidth": 0.5,
+      "borderRadius": 2,
+      "borderRightWidth": 0.5,
+      "borderTopWidth": 0.5,
+      "elevation": 3,
+      "flexWrap": "nowrap",
+      "marginBottom": 5,
+      "marginLeft": 2,
+      "marginRight": 2,
+      "marginTop": 5,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 2,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 1.5,
+    }
+  }
+>
+  <Image
+    onError={[Function]}
+    source={
+      Object {
+        "uri": "http://192.168.1.82:3000/2",
+      }
+    }
+    style={
+      Object {
+        "flex": 1,
+        "height": 160,
+        "width": null,
+      }
+    }
+  />
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "flexDirection": "row",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignSelf": "flex-start",
+            "backgroundColor": "#ED1727",
+            "borderRadius": 13.5,
+            "height": 27,
+            "justifyContent": "center",
+            "paddingBottom": 3,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 3,
+          },
+          Object {
+            "backgroundColor": "grey",
+            "flex": 1,
+            "height": 54,
+            "margin": "3%",
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#fff",
+              "fontFamily": "System",
+              "fontSize": 15,
+              "lineHeight": 19,
+              "paddingLeft": 3,
+              "paddingRight": 3,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "white",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 18,
+              "lineHeight": 26,
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        15
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#fff",
+              "fontFamily": "System",
+              "fontSize": 15,
+              "lineHeight": 19,
+              "paddingLeft": 3,
+              "paddingRight": 3,
+              "textAlign": "center",
+            },
+            Object {
+              "color": "white",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 18,
+              "lineHeight": 26,
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        OUT
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "flex": 5,
+            "margin": "3%",
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 18,
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        Feup Career Fair 2018
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 14,
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        FEUP
+      </Text>
+    </View>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    />
+  </View>
+</View>
+`;
