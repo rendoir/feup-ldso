@@ -11,7 +11,7 @@ module.exports = {
     test: {
         dialect: "postgres",
         user: "postgres",
-        host: "192.168.99.100", //192.168.99.100 for Vitor; localhost for everyone else
+        host: "postgres",
         database: "postgres_test",
         password: "example",
         port: "5432",
@@ -20,7 +20,7 @@ module.exports = {
     production: {
         dialect: "postgres",
         user: "postgres",
-        host: "localhost",
+        host: "postgres",
         database: "postgres",
         password: "example",
         port: "5432",

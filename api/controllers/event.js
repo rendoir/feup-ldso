@@ -1,13 +1,29 @@
 const Event = require('../models').events;
-var Sequelize = require('sequelize');
+const sharp = require('sharp');
+var sequelize = require('../models').sequelize;
+const Op = sequelize.Op;
 
-var env = process.env.NODE_ENV || 'development';
-var config = require(__dirname + '/../config/config.js')[env];
-var sequelize = new Sequelize(config.database, config.user, config.password, config);
+function modifyImage(path, aspect_ratio) {
+    let image = sharp(path);
 
-const Op = Sequelize.Op;
+    image.metadata()
+    .then((info) => {
+        let wi = info.width;
+        let hi = info.height;
 
-module.exports = {    
+        if(wi > hi)
+            image = image.resize({ width: aspect_ratio * hi, height: hi, fit: sharp.fit.cover });    
+        else image = image.resize({ width: wi, height: aspect_ratio * wi, fit: sharp.fit.cover });
+
+        image.toFile(path + ".crop", function (err) {
+            if (err) 
+                throw new Error("Error saving modified image: " + err);
+        });
+    })
+    .catch((err) => { throw new Error("Error saving modified image: " + err)} );
+}
+
+module.exports = {
 
     listForUsers(req, res) {
 
@@ -36,12 +52,46 @@ module.exports = {
 
     },
 
-    update(req, res) {
 
+    add(req, res) {
+
+        return Event.create({
+            title: req.body.title,
+            description: req.body.description,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            location: req.body.location,
+            price: req.body.price,
+            poster_id: req.body.poster_id,
+            entity_id: req.body.entity_id
+        })
+        .then((event) => {
+            try {
+                this.saveImage(req.files, event)
+                res.status(201).send(event)
+            }
+            catch(err) {
+                res.status(400).send(err);
+            }
+            
+        })
+        .catch((error) => res.status(400).send(error));
     },
 
-    delete(req, res) {
-
+    saveImage(files, event) {
+        //Validate image
+        if(files == null || files.image == null 
+          || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
+            return;
+        
+        //Save original image
+        let path = "./assets/" + event.id;
+        files.image.mv(path)
+        .then(() => {
+            modifyImage(path, 2);
+        })
+        .catch((err) => {
+              throw new Error("Error saving original image: " + err);            
+        });    
     },
-
 }
