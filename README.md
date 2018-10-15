@@ -14,11 +14,27 @@ You will need:
 * Docker - https://www.docker.com/get-started 
 * Node.js and npm - https://nodejs.org/en/download/
 * Expo - https://expo.io/learn
+* Expo App on Android
 * PostgreSQL
+* Android Studio Emulator - If you don't have an Android, you can use the AS emulator to test.
 
-### Installing
+## Running for development
 
-* [npm](https://www.npmjs.com) - JS Package manager
+After having everything installed, follow these instructions to run the project.
+
+1. Inside the _api_ folder, open a terminal and run *npm run start*. This will start the Node server for backend endpoints.
+2. Open Docker and run *docker-compose up* in the root of the project with the _docker-compose.yml_ file.
+* If you're using Docker Toolbox, you can run the command and then use Kinematic, the Docker GUI.
+
+This will start your backend server, as well as the container for PostgreSQL.
+
+Now you're ready to start the app. This is all inside the _mobile_ folder
+
+3. Run *npm install*
+4. Inside the file _AgendaScreen.js_, change the IP to your machine's wifi IP.
+5. Run *npm expo*. Inside the terminal, there should be a QRCode to be read via the Expo App.
+  * If you're using the Emulator, click the button "Open in Android Emulator"
+
 
 ## Running the tests
 
@@ -29,6 +45,9 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
 * /GET List Events App -  It tests the return of all events on the app, listing them by order of the attribute start_date
 * /POST Add Event - It tests the addition of an event to the database
 
+## Built with
+
+* React-Native - The Android Framework
 
 ## Authors
 
