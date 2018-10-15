@@ -18,21 +18,26 @@ You will need:
 * PostgreSQL
 * Android Studio Emulator - If you don't have an Android, you can use the AS emulator to test.
 
+### 1st time Configuration
+
+* To setup the app and the web, run **npm install** inside the _api_ and _web_ folders, respectively
+
+* To set up docker, run **docker-compose up** in the root of the project.
+
 ## Running for development
 
 After having everything installed, follow these instructions to run the project.
 
-1. Inside the _api_ folder, open a terminal and run *npm run start*. This will start the Node server for backend endpoints.
-2. Open Docker and run *docker-compose up* in the root of the project with the _docker-compose.yml_ file.
-* If you're using Docker Toolbox, you can run the command and then use Kinematic, the Docker GUI.
+1. Inside the _api_ folder, open a terminal and run **npm run start**. This will start the Node server for backend endpoints.
+2. Open Docker. If you're using Docker Toolbox, you can use Kinematic, the Docker GUI.
 
 This will start your backend server, as well as the container for PostgreSQL.
 
 Now you're ready to start the app. This is all inside the _mobile_ folder
 
-3. Run *npm install*
+3. Run **npm install**
 4. Inside the file _AgendaScreen.js_, change the IP to your machine's wifi IP.
-5. Run *npm expo*. Inside the terminal, there should be a QRCode to be read via the Expo App.
+5. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
   * If you're using the Emulator, click the button "Open in Android Emulator"
 
 
