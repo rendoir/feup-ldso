@@ -38,7 +38,9 @@ CREATE TABLE events
     entity_id INTEGER REFERENCES entities(id) ON DELETE CASCADE,
 
     UNIQUE (title, start_date, entity_id),
-    CONSTRAINT check_starts_in_future CHECK (start_date >= current_timestamp), -- NOTE: does this check really make sense? I would imagine there are situations where this can happen...
+    CONSTRAINT check_starts_in_future 
+        CHECK ((end_date IS NOT NULL AND end_date >= current_timestamp) 
+            OR (end_date IS NULL AND start_date >= current_timestamp)), 
     CONSTRAINT check_starts_before_ends CHECK (start_date < end_date)
 );
 
@@ -113,7 +115,13 @@ CREATE OR REPLACE FUNCTION check_permission() RETURNS trigger AS $check_permissi
     
 $check_permission$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS check_permission ON events;
+-- DROP TRIGGER IF EXISTS check_permission ON events;
 CREATE TRIGGER check_permission BEFORE INSERT OR UPDATE ON events
     FOR EACH ROW EXECUTE PROCEDURE check_permission();
     
+
+--| DATABASE TEST |--
+
+DROP DATABASE IF EXISTS postgres_test;
+CREATE DATABASE postgres_test;
+GRANT ALL PRIVILEGES ON DATABASE postgres_test TO postgres;

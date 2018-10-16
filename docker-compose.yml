@@ -2,19 +2,14 @@ version: '3.3'
 services:
 
   postgres:
-    image: postgres
+    build: .
     restart: always
     environment:
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
     ports:
      - "5432:5432"
-
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
 
   pgadmin:
     image: thajeztah/pgadmin4
@@ -25,11 +20,27 @@ services:
       - "5050:5050"
     depends_on:
       - postgres
-      
-  postgres_api:
-    image: postgres_api
+
+  api:
+    build: api
+    command: npm start
     ports:
-      - "3000:3000"
+      - "3030:3030"
+    environment:
+      DATABASE_URL: postgres://postgres:example@postgres/postgres
+    volumes:
+      - "./api:/usr/src/app"
+      - '/usr/src/app/node_modules'
     depends_on:
       - postgres
 
+  web:
+    build: web
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./web:/usr/src/app"
+      - '/usr/src/app/node_modules'
+    depends_on:
+      - api

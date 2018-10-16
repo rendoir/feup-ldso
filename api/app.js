@@ -1,7 +1,24 @@
 var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000;
+    bodyParser = require("body-parser"),
+    fileUpload = require('express-fileupload'),
+    app = express(),
+    cors = require('cors'),
+    port = process.env.PORT || 3030;
 
-app.listen(port);
 
-console.log('RESTful API server started on: ' + port);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(fileUpload());
+app.use(cors());
+app.use(express.static(__dirname + '/assets'));
+
+
+//Routes
+var routes = require("./routes/apiRoutes");
+app.use("/", routes);
+
+app.listen(port); 
+
+module.exports = app;
+
+

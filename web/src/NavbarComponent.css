@@ -1,0 +1,36 @@
+img#logo {
+    width: 200px;
+}
+
+nav#navbar-custom {
+    background-color: #32a794;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav.navbar-light a.navbar-brand {
+    text-transform: uppercase;
+    color: white;
+    flex-grow: 3;
+    text-align: left;
+}
+
+nav div.navbar-collapse {
+    width: auto;
+    flex-grow: 4;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+nav.navbar-light span.navbar-text {
+    color: white;
+    font-size: 22px;
+}
+
+nav button.btn.btn-primary {
+    background-color: inherit;
+    border-color: #32a794;
+    font-size: 20px;
+    font-weight: 200;
+}

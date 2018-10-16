@@ -1,17 +1,8 @@
-FROM node:8
-
-# Create app directory
+FROM node:8.12
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package*.json ./
-
-RUN npm install #--only=production # uncomment if building for release
-
-# Bundle app source
-COPY . .
-
-# Map app port to docker port
-EXPOSE 3000
-
-CMD ["npm", "start"]
+COPY package.json /usr/src/app/
+RUN npm install
+COPY . /usr/src/app
+EXPOSE 3030
+CMD [ "npm", "start" ]

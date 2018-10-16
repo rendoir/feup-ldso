@@ -3,58 +3,79 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import FavoritosScreen from '../screens/FavoritosScreen';
+import SearchScreen from '../screens/SearchScreen';
+import AgendaScreen from '../screens/AgendaScreen';
+import EntitiesScreen from '../screens/EntitiesScreen';
+import CategoriesScreen from '../screens/CategoriesScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const AgendaStack = createStackNavigator({
+  Agenda: AgendaScreen,
+  Entities: EntitiesScreen,
+  Categories: CategoriesScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+AgendaStack.navigationOptions = {
+  tabBarLabel: 'Agenda',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-calendar${focused ? '' : '-outline'}`
+          : 'md-calendar'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FavoritosStack = createStackNavigator({
+  Favoritos: FavoritosScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+FavoritosStack.navigationOptions = {
+  tabBarLabel: 'Favoritos',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-heart${focused ? '' : '-outline'}`
+          : 'md-heart-outline'
+      }
+      
     />
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const SearchStack = createStackNavigator({
+  Search: SearchScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
+SearchStack.navigationOptions = {
+  tabBarLabel: 'Pesquisa',
+  tabBarIcon: ({ focused, activeTintColor }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+      name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+  FavoritosStack,
+  AgendaStack,
+  SearchStack
+},
+  {
+    initialRouteName: 'AgendaStack',
+    tabBarOptions: {
+      showLabel: false, // hide labels
+      activeTintColor: '#F8F8F8', // active icon color
+      inactiveTintColor: '#ffffff',  // inactive icon color
+      style: {
+        backgroundColor: '#2c8f7f'// : '#32a794'// TabBar background
+      },
+    }
+  }
+);
