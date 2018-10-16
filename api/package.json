@@ -1,0 +1,36 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "UP Cultural Agenda",
+  "main": "app.js",
+  "scripts": {
+    "test": "nyc --reporter=lcov mocha --timeout 10000 --exit",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ldso18-19/t3g2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ldso18-19/t3g2/issues"
+  },
+  "homepage": "https://gitlab.com/ldso18-19/t3g2#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai-http": "^4.2.0",
+    "config": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-fileupload": "^1.0.0-alpha.1",
+    "nyc": "^13.0.1",
+    "pg": "^7.5.0",
+    "sequelize": "^4.39.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4"
+  }
+}
