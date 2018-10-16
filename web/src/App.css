@@ -1,0 +1,12 @@
+body {
+  background-color: #dadadc;
+}
+
+.App {
+  text-align: center;
+}
+
+#new_event {
+  text-align: center;
+  margin: 0;
+}

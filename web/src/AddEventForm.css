@@ -1,0 +1,120 @@
+#add_event_form_div {
+    background-image: url("/business-computer-desk-1036808.jpg");
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    padding: 1em 1em;
+    height: 100vh;
+}
+
+#add_event_form {
+    background-color: #fff;
+    padding: 2em 2em;
+    box-shadow: 12px 12px 15px 10px #8e9196;
+}
+
+.breadcrumb {
+    justify-content: center; 
+    vertical-align: middle;
+    align-items: center;
+    background-color: inherit;
+}
+
+.icon::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #000;
+    font-family: FontAwesome; 
+    font-weight: 900; 
+    font-size: 36px;
+    content: "\f105";
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+li.breadcrumb-item {
+    vertical-align: middle;
+}
+
+li.breadcrumb-item span {
+    vertical-align: middle;
+}
+
+label.form-label {
+    vertical-align: middle;
+    margin: auto 0;
+    font-weight: 600;
+}
+
+.align_left {
+    text-align: left;
+}
+
+img.preview_image {
+    margin: 1em;
+    max-width: 100%;
+    max-height: 200px;
+}
+
+.buttons_style {
+    display: flex;
+    justify-content: space-between;
+}
+
+button.primary_button {
+    background-color: #32a794;
+    border-color: #32a794;
+}
+
+button.primary_button:hover {
+    background-color: #3ed8bf;
+    border-color: #3ed8bf;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    display: block;
+    color: black;
+    border-color: #6c757d;
+    background-color: inherit;
+    cursor: pointer;
+    max-width: 75%;
+    margin: auto;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #6c757d;
+}
+
+.inputfile:focus + label {
+    
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.alert.danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+.alert.success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
