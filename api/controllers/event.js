@@ -2,26 +2,6 @@ const Event = require('../models').events;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
-function modifyImage(path, aspect_ratio) {
-    let image = sharp(path);
-
-    image.metadata()
-    .then((info) => {
-        let wi = info.width;
-        let hi = info.height;
-
-        if(wi > hi)
-            image = image.resize({ width: aspect_ratio * hi, height: hi, fit: sharp.fit.cover });    
-        else image = image.resize({ width: wi, height: aspect_ratio * wi, fit: sharp.fit.cover });
-
-        image.toFile(path + ".crop", function (err) {
-            if (err) 
-                throw new Error("Error saving modified image: " + err);
-        });
-    })
-    .catch((err) => { throw new Error("Error saving modified image: " + err)} );
-}
-
 module.exports = {
 
     listForUsers(req, res) {

@@ -55,7 +55,7 @@ export default class Event extends React.Component {
         let d = Date(this.props.data.start_date);
         return (
             <Card>
-                <Image source={ this.state.imageLoaded ? { uri: 'http://192.168.1.82:3000/' + this.props.data.id } : require('../assets/images/default.png')}
+                <Image source={ this.state.imageLoaded ? { uri: 'http://192.168.1.82:3030/' + this.props.data.id } : require('../assets/images/default.png')}
                     style={{ height: 160, width: null, flex: 1 }}
                     onError={this.ImageLoadingError.bind(this)} />
                 <View style={{ flexDirection: 'row' }}>
