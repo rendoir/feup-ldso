@@ -28,9 +28,7 @@ You will need:
 2. In the file _mobile/screens/AgendaScreen.js_, change the IP to your machine's wifi IP.
 3. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
 
-
-![](https://i.imgur.com/I8ZyCta.png)
-<img src="(https://i.imgur.com/I8ZyCta.png"  width="40" height="40">
+<img src="https://i.imgur.com/I8ZyCta.png"  width="450" height="450">
 
 __NOTE__ If you're using the Emulator, open your browser, type the indicated IP where the Expo DevTools is running and click the button "Run on Android device/emulator"
 
@@ -58,5 +56,6 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
 * **Ricardo Santos** - *Developer* - [rjsantos](https://gitlab.com/rjsantos)
 * **Vítor Magalhães** - *Surrogate Product Owner* - [LastLombax](https://gitlab.com/LastLombax)
 
+## Screenshots of Sprint 1
 
-
+<img src="https://i.imgur.com/c6PU8Ia.jpg">
