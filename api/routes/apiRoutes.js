@@ -26,5 +26,6 @@ router.get("/",function(req, res){
 
 router.get("/app", eventController.listForUsers); 
 
+router.get("/search/")
 
 module.exports = router;

@@ -24,6 +24,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-fileupload": "^1.0.0-alpha.1",
+    "nodemon": "^1.18.4",
     "nyc": "^13.0.1",
     "pg": "^7.5.0",
     "sequelize": "^4.39.0"
