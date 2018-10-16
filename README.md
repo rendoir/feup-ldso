@@ -24,8 +24,9 @@ You will need:
 
 ## Running for development
 
-1. In the file _mobile/screens/AgendaScreen.js_, change the IP to your machine's wifi IP.
-2. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
+1. Run **docker-compose up** in the root of the project
+2. In the file _mobile/screens/AgendaScreen.js_, change the IP to your machine's wifi IP.
+3. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
 
 
 ![](https://i.imgur.com/I8ZyCta.png)
