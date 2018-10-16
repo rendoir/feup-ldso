@@ -30,8 +30,7 @@ You will need:
 
 <img src="https://i.imgur.com/I8ZyCta.png"  width="450" height="450">
 
-__NOTE__ If you're using the Emulator, open your browser, type the indicated IP where the Expo DevTools is running and click the button "Run on Android device/emulator"
-
+__NOTE__ If you're using the NoxPlayer Emulator, connect the device with adb command, run expo android and then expo start
 
 ## Running the tests
 
