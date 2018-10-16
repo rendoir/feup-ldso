@@ -121,11 +121,45 @@ INSERT INTO permissions (user_id, entity_id) VALUES (11, 1);
 
 --| EVENTS |--
 
-INSERT INTO events (title, start_date, location, price, poster_id, entity_id, description)
-VALUES ('Concerto Jogo de Damas apresenta "TOO CLOSE"', '2018-10-12 21:30', 'Auditório FEUP', 0, 1, 9, 'Jogo de Damas – grupo vocal do Porto - apresenta "Too Close", o seu mais recente trabalho discográfico. O disco inclui dez faixas, com um repertório de standards de jazz, temas pop e um original, com arranjos vocais feitos ou adaptados para o grupo por Fátima Serro e Barbara Francke. Este cd é o segundo trabalho do grupo, depois do cd de estreia "Jogo de Damas" em 2012. Desde então o projeto sofreu algumas alterações no seu elenco, sendo atualmente composto por Barbara Francke, Fátima Serro, Gabriela Braga e Sameiro Sequeira. O cd é uma gravação de autor e estará à venda no site Bandcamp.com a partir da data de lançamento, 12 de outubro.');
+INSERT INTO events (title, start_date, location, price, user_id, entity_id, description)
+VALUES ('Concerto Jogo de Damas apresenta "TOO CLOSE"', '2019-01-12 21:30', 'Auditório FEUP', 0, 1, 9, 'Jogo de Damas – grupo vocal do Porto - apresenta "Too Close", o seu mais recente trabalho discográfico. O disco inclui dez faixas, com um repertório de standards de jazz, temas pop e um original, com arranjos vocais feitos ou adaptados para o grupo por Fátima Serro e Barbara Francke. Este cd é o segundo trabalho do grupo, depois do cd de estreia "Jogo de Damas" em 2012. Desde então o projeto sofreu algumas alterações no seu elenco, sendo atualmente composto por Barbara Francke, Fátima Serro, Gabriela Braga e Sameiro Sequeira. O cd é uma gravação de autor e estará à venda no site Bandcamp.com a partir da data de lançamento, 12 de outubro.');
 
-INSERT INTO events (title, start_date, end_date, location, price, poster_id, entity_id, description)
-VALUES ('Feup Career Fair 2018', '2018-10-16', '2018-10-19', 'FEUP', 0, 2, 9, 'Nos dias 16, 17, 18 e 19 de outubro acontece mais uma edição da FEUP CAREER FAIR e a FEUP convida todos os estudantes e graduados a estarem presentes!');
+INSERT INTO events (title, start_date, end_date, location, price, user_id, entity_id, description)
+VALUES ('Feup Career Fair 2018', '2018-10-16', '2019-01-19', 'FEUP', 0, 2, 9, 'Nos dias 16, 17, 18 e 19 de outubro acontece mais uma edição da FEUP CAREER FAIR e a FEUP convida todos os estudantes e graduados a estarem presentes!');
 
-INSERT INTO events (title, start_date, location, price, poster_id, entity_id, description)
-VALUES ('Ciclo de Tertúlias | (H)á Conversa na FMUP', '2018-10-18 17:30', 'CIM-FMUP', 0, 4, 12, 'Falar sobre saúde com quem quer falar sobre ela. É este o ponto de partida do ciclo mensal de tertúlias (H)á Conversa na FMUP, que tem por objetivo criar um espaço informal de debate multidisciplinar sobre temáticas diversas. As sessões - promovidas pela Faculdade de Medicina da Universidade do Porto (FMUP), com o apoio da Junta de Freguesia de Paranhos e da Associação de Estudantes da FMUP - contarão com a participação de especialistas de várias áreas do saber. A moderação ficará a cargo de jornalistas cuja atividade se desenvolve nas áreas abordadas em cada uma das sessões. O ciclo (H)á Conversa na FMUP acontecerá no Centro de Investigação Médica da FMUP, sempre com início às 17h30.');
+INSERT INTO events (title, start_date, location, price, user_id, entity_id, description)
+VALUES ('Ciclo de Tertúlias | (H)á Conversa na FMUP', '2019-01-18 17:30', 'CIM-FMUP', 0, 4, 12, 'Falar sobre saúde com quem quer falar sobre ela. É este o ponto de partida do ciclo mensal de tertúlias (H)á Conversa na FMUP, que tem por objetivo criar um espaço informal de debate multidisciplinar sobre temáticas diversas. As sessões - promovidas pela Faculdade de Medicina da Universidade do Porto (FMUP), com o apoio da Junta de Freguesia de Paranhos e da Associação de Estudantes da FMUP - contarão com a participação de especialistas de várias áreas do saber. A moderação ficará a cargo de jornalistas cuja atividade se desenvolve nas áreas abordadas em cada uma das sessões. O ciclo (H)á Conversa na FMUP acontecerá no Centro de Investigação Médica da FMUP, sempre com início às 17h30.');
+
+
+--| FAVORITES |--
+
+INSERT INTO favorites (user_id, event_id) VALUES (53, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (83, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (75, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (51, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (15, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (15, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (32, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (93, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (25, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (75, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (32, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (9, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (23, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (87, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (45, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (88, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (49, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (55, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (47, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (38, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (63, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (46, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (64, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (9, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (19, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (32, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (30, 3);
+INSERT INTO favorites (user_id, event_id) VALUES (26, 2);
+INSERT INTO favorites (user_id, event_id) VALUES (73, 1);
+INSERT INTO favorites (user_id, event_id) VALUES (64, 1);
