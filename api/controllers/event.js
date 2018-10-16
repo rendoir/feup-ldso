@@ -1,5 +1,4 @@
 const Event = require('../models').events;
-const sharp = require('sharp');
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
