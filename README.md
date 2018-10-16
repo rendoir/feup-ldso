@@ -24,7 +24,7 @@ You will need:
 
 ## Running for development
 
-1. In the file _mobile/AgendaScreen.js_, change the IP to your machine's wifi IP.
+1. In the file _mobile/screens/AgendaScreen.js_, change the IP to your machine's wifi IP.
 2. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
 
 
