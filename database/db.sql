@@ -127,3 +127,5 @@ $check_permission$ LANGUAGE plpgsql;
 CREATE TRIGGER check_permission BEFORE INSERT OR UPDATE ON events
     FOR EACH ROW EXECUTE PROCEDURE check_permission();
 
+CREATE DATABASE postgres_test;
+GRANT ALL PRIVILEGES ON DATABASE postgres_test TO postgres;
