@@ -12,33 +12,26 @@ These instructions will show you how to install the project
 You will need:
 
 * Docker - https://www.docker.com/get-started 
-* Node.js and npm - https://nodejs.org/en/download/
+* NodeJS and npm - https://nodejs.org/en/
 * Expo - https://expo.io/learn
 * Expo App on Android
-* PostgreSQL
 * Android Studio Emulator - If you don't have an Android, you can use the AS emulator to test.
 
 ### 1st time Configuration
 
-* To setup the app and the web, run **npm install** inside the _api_ and _web_ folders, respectively
-
-* To set up docker, run **docker-compose up** in the root of the project.
+* Run **docker-compose build** in the root of the project, to setup the app and the web modules.
+* Run **npm install** in the _mobile_ folder.
 
 ## Running for development
 
-After having everything installed, follow these instructions to run the project.
+1. In the file _mobile/AgendaScreen.js_, change the IP to your machine's wifi IP.
+2. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
 
-1. Inside the _api_ folder, open a terminal and run **npm run start**. This will start the Node server for backend endpoints.
-2. Open Docker. If you're using Docker Toolbox, you can use Kinematic, the Docker GUI.
 
-This will start your backend server, as well as the container for PostgreSQL.
+![](https://i.imgur.com/I8ZyCta.png)
+<img src="(https://i.imgur.com/I8ZyCta.png"  width="40" height="40">
 
-Now you're ready to start the app. This is all inside the _mobile_ folder
-
-3. Run **npm install**
-4. Inside the file _AgendaScreen.js_, change the IP to your machine's wifi IP.
-5. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
-  * If you're using the Emulator, click the button "Open in Android Emulator"
+__NOTE__ If you're using the Emulator, open your browser, type the indicated IP where the Expo DevTools is running and click the button "Run on Android device/emulator"
 
 
 ## Running the tests
