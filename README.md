@@ -57,4 +57,14 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
 
 ## Screenshots of Sprint 1
 
+
+### Logo
+<img src="https://i.imgur.com/FfCDDEE.png">
+
+### App
 <img src="https://i.imgur.com/c6PU8Ia.jpg">
+
+### Web
+<img src="https://i.imgur.com/lfQG6y0.png">
+
+
