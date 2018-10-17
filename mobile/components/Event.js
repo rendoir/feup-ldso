@@ -21,30 +21,30 @@ export default class Event extends React.Component {
     }
 
     getMonthInString(month) {
-        switch (month) {
-            case '1': return 'JAN';
+        switch (parseInt(month)) {
+            case 1: return 'JAN';
                 break;
-            case '2': return 'FEB';
+            case 2: return 'FEB';
                 break;
-            case '3': return 'MAR';
+            case 3: return 'MAR';
                 break;
-            case '4': return 'ABR';
+            case 4: return 'ABR';
                 break;
-            case '5': return 'MAI';
+            case 5: return 'MAI';
                 break;
-            case '6': return 'JUN';
+            case 6: return 'JUN';
                 break;
-            case '7': return 'JUL';
+            case 7: return 'JUL';
                 break;
-            case '8': return 'AGO';
+            case 8: return 'AGO';
                 break;
-            case '9': return 'SET';
+            case 9: return 'SET';
                 break;
-            case '10': return 'OUT';
+            case 10: return 'OUT';
                 break;
-            case '11': return 'NOV';
+            case 11: return 'NOV';
                 break;
-            case '12': return 'DEZ';
+            case 12: return 'DEZ';
                 break;
             default:
                 break;
@@ -52,16 +52,16 @@ export default class Event extends React.Component {
     }
 
     render() {
-        let d = Date(this.props.data.start_date);
         return (
             <Card>
-                <Image source={ this.state.imageLoaded ? { uri: 'http://192.168.1.82:3030/' + this.props.data.id } : require('../assets/images/default.png')}
+                <Image source={ this.state.imageLoaded ? { uri: 'http://10.227.148.51:3030/' + this.props.data.id } : require('../assets/images/default.png')}
                     style={{ height: 160, width: null, flex: 1 }}
                     onError={this.ImageLoadingError.bind(this)} />
                 <View style={{ flexDirection: 'row' }}>
                     <Badge style={{ flex: 1, backgroundColor: 'grey', margin: '3%', height: 54 }}>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 26 }}>{this.props.data.start_date.split('T')[0].split('-')[2]}</Text>
-                        <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 26 }}>{this.getMonthInString(this.props.data.start_date.split('T')[0].split('-')[1])}</Text>
+                        {/* <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 26 }}>{this.getMonthInString(this.props.data.start_date.split('T')[0].split('-')[1])}</Text> */}
+                        <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 26 }}>{this.getMonthInString('1')}</Text>
                     </Badge>
                     <View style={{ flex: 5, margin: '3%' }}>
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 18 }} numberOfLines={1}>{this.props.data.title}</Text>
