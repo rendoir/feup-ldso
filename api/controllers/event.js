@@ -1,6 +1,19 @@
 const Event = require('../models').events;
+const Entity = require('../models').entities;
+const Category = require('../models').categories;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
+
+function patternToTSVector(text) {
+    
+    let words = text.trim().replace(/ +(?= )/g,'').split(' ');
+    let string = "";
+    for(i in words){
+        string += words[i] + ":* & ";
+    }
+    return string.substring(0, string.length-3);
+
+}
 
 module.exports = {
 
@@ -19,6 +32,25 @@ module.exports = {
         })
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
+    },
+
+    search(req, res) {
+        
+        let pattern = patternToTSVector(req.query.text);
+        
+        // let categories = sequelize.query("SELECT * FROM categories WHERE to_tsvector('simple', categories.name) @@ to_tsquery('simple', $1);",
+        //     { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+            
+        //     .then((events) => res.status(200).send(events))
+        //     .catch((error) => res.status(400).send(error));
+        
+        let entities = sequelize.query("SELECT initials FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1);",
+            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+            
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+        
+        return entities;
     },
 
     listForWeb(req, res) {
