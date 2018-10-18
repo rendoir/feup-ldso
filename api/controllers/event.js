@@ -38,8 +38,8 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
 
-        return sequelize.query("SELECT id, initials, name FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1);",
-            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+        return sequelize.query("SELECT id, initials, name, 'initials' as searched_by FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1) UNION SELECT id, initials, name, 'name' as searched_by FROM entities WHERE to_tsvector('simple', entities.name) @@ to_tsquery('simple', $1) ORDER BY searched_by, name;",
+        { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
@@ -49,16 +49,30 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
 
-        return sequelize.query("SELECT * FROM categories WHERE to_tsvector('simple', categories.name) @@ to_tsquery('simple', $1);",
+        return sequelize.query(
+            "SELECT * FROM categories WHERE to_tsvector('simple', categories.name) @@ to_tsquery('simple', $1);",
             { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
     },
 
+    searchForEvents(req, res) {
+
+        let pattern = patternToTSVector(req.query.text);
+        return sequelize.query(
+            "SELECT * FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1);",
+            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+
+    },
+
     listForWeb(req, res) {
         //1st bind parameter -> logged id 
-        return sequelize.query('SELECT * from events INNER JOIN permissions ON permissions.entity_id = events.entity_id  WHERE "permissions".user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
+        return sequelize.query(
+            'SELECT * from events INNER JOIN permissions ON permissions.entity_id = events.entity_id  WHERE permissions.user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
             { bind: [1, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))

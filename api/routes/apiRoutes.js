@@ -28,5 +28,6 @@ router.get("/app", eventController.listForUsers);
 
 router.get("/search/entities", eventController.searchForEntities);
 router.get("/search/categories", eventController.searchForCategories);
+router.get("/search/events", eventController.searchForEvents);
 
 module.exports = router;
