@@ -124,4 +124,4 @@ CREATE TRIGGER check_permission BEFORE INSERT OR UPDATE ON events
 
 DROP DATABASE IF EXISTS postgres_test;
 CREATE DATABASE postgres_test;
-GRANT ALL PRIVILEGES ON DATABASE postgres_test TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE postgres_test TO postgres; 
