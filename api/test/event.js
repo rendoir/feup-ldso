@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-let models = require('../models')
+let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
@@ -272,9 +272,85 @@ describe('List Events', () => {
                     done();
                 })
         });
+    }); 
+});
+
+
+describe('Delete Events', () => {
+
+    before((done) => {
+        models.sequelize.sync()
+        .then(() => {
+            Permission.destroy({
+                where: {},
+                truncate: true,
+                cascade: true
+            });
+            Entity.destroy({
+                where: {},
+                truncate: true,
+                cascade: true
+            });
+            User.destroy({
+                where: {},
+                truncate: true,
+                cascade: true
+            });
+            EventModel.destroy({
+                where: {},
+                truncate: true,
+                cascade: true
+            });
+            Entity.create({
+                id: 1,
+                name: 'Test Entity',
+                initials: 'TEST',
+                description: 'test description'
+            }).then(function(entity) {
+                User.create({
+                    id: 1,
+                    username: 'TestUser',
+                    name: 'Test User',
+                    password: 'nasdasdasd',
+                    email: 'email@email.com'
+                }).then(function(user) {
+                    user.addEntity(entity)
+                    .then(() =>{                        
+                        let start_date = new Date();
+                        let end_date = new Date();
+                        start_date.setDate(start_date.getDate() + 1);
+                        end_date.setDate(end_date.getDate() + 2);
+                        EventModel.create({
+                            id: 1,
+                            title: "Delete Event Test",
+                            description: "It is a test event, without content",
+                            start_date: start_date.toISOString(),
+                            end_date: end_date.toISOString(),
+                            location: "Random Location",
+                            price: 10,
+                            user_id: 1,
+                            entity_id: 1
+                        }).then(function() { done();})
+                    }).catch((err) => {done()});
+                }).catch((err) => {done()});
+            }).catch((err) => {done()});
+        }).catch((err) => {done()});
     });
 
-
+    describe('/DELETE Delete Event', () => {
+        it('it should delete a events on the web', (done) => {
+                   
+            chai.request(app)
+            .delete('/')
+            .send({id: 1})
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            })
+        })        
+    });
 });
 
 describe('List Events by Entities', () => {

@@ -17,6 +17,18 @@ router.post("/", function (req, res) {
 
 });
 
+router.delete("/", function (req, res) {
+
+    // TODO: Get Id from selected event
+    var user_id = 1;
+    var reqData = req;
+    reqData.body.user_id = user_id;
+
+    eventController.delete(reqData, res);
+
+});
+
+
 // List events
 router.get("/", eventController.listForWeb); 
 router.get("/app", eventController.listForUsers); 

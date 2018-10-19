@@ -35,7 +35,7 @@ export default class AgendaScreen extends React.Component {
 
   getEventsFromApi() {
     let self = this;
-    axios.get('http://10.227.148.51:3030/app?page=0&limit=10') //change IP to match wi-fi ip of api machine
+    axios.get('http://192.168.99.100:3030/app?page=0&limit=10') //change IP to match wi-fi ip of api machine
       .then(function (response) {
         const events = response.data;
         self.setState({ events });
