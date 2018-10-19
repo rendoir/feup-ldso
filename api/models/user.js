@@ -12,7 +12,6 @@ const user = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.TEXT,
-            unique: true,
             allowNull: false
         },
         password: {
@@ -24,9 +23,10 @@ const user = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false
         },
-        admin: {
-            type: DataTypes.BOOLEAN,
-            default: false
+        type: {
+            type: DataTypes.ENUM('mobile', 'moderator', 'admin'),
+            default: 'mobile',
+            allowNull: false
         },
 
     }, {
