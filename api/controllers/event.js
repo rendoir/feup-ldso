@@ -1,4 +1,5 @@
 const Event = require('../models').events;
+const Entity = require('../models').entities;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
@@ -31,7 +32,6 @@ module.exports = {
 
     },
 
-
     add(req, res) {
 
         return Event.create({
@@ -41,7 +41,7 @@ module.exports = {
             end_date: req.body.end_date,
             location: req.body.location,
             price: req.body.price,
-            poster_id: req.body.poster_id,
+            user_id: req.body.user_id,
             entity_id: req.body.entity_id
         })
         .then((event) => {
@@ -73,4 +73,32 @@ module.exports = {
               throw new Error("Error saving original image: " + err);            
         });    
     },
+
+    searchEntities(req, res) {
+        if(Array.isArray(req.query.entities)){
+            return Event.findAll({
+                where: {
+                    entity_id: {
+                        [Op.or]: req.query.entities
+                    }
+                },
+                include: [sequelize.models.entities],
+                order: [['start_date', 'ASC']]
+            })
+            .then((events) => res.status(200).send(events))
+            .catch((err) => res.status(400).send(err));
+        }
+        else {
+            
+            return Event.findAll({
+                where: {
+                    entity_id: req.query.entities
+                },
+                include: [sequelize.models.entities],
+                order: [['start_date', 'ASC']]
+            })
+            .then((events) => res.status(200).send(events))
+            .catch((err) => res.status(400).send(err));
+        }
+    }
 }

@@ -147,7 +147,7 @@ class AddEventForm extends Component {
                             </Form.Group>
 
                             <Form.Group controlId="form.descriptionAndImage">
-                                <Form.Row>
+                                <Form.Row>o
                                     <Col sm={8} className="align_left">
                                         <Form.Label>Descrição do Evento: </Form.Label>
                                         <Form.Control as="textarea" rows="10" value={this.state.description} onChange={this.updateDescription} />

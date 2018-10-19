@@ -21,7 +21,7 @@ const event = (sequelize, DataTypes) => {
             beforeCreate: function(event) {
                 return sequelize.models.permissions.find({
                     where: {
-                        user_id: event.poster_id,
+                        user_id: event.user_id,
                         entity_id: event.entity_id
                     }
                 })
@@ -37,7 +37,7 @@ const event = (sequelize, DataTypes) => {
             beforeUpdate: function(event) {
                 return sequelize.models.permissions.find({
                     where: {
-                        user_id: event.poster_id,
+                        user_id: event.user_id,
                         entity_id: event.entity_id
                     }
                 })
@@ -56,7 +56,7 @@ const event = (sequelize, DataTypes) => {
     EventModel.associate = function (models) {
         models.events.belongsToMany(models.users, { through: 'favorites'});
         models.events.belongsTo(models.entities, { foreignKey: 'entity_id', targetKey: 'id' });
-        models.events.belongsTo(models.users, { foreignKey: 'poster_id', targetKey: 'id' });
+        models.events.belongsTo(models.users, { foreignKey: 'user_id', targetKey: 'id' });
     }
 
     return EventModel;

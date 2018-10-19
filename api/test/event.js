@@ -18,49 +18,49 @@ describe('Add Events', () => {
 
     before((done) => {
         models.sequelize.sync()
-        .then(() => {
-            Permission.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            Entity.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            User.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            EventModel.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            Entity.create({
-                id: 1,
-                name: 'Test Entity',
-                initials: 'TEST',
-                description: 'test description'
-            }).then(function(entity) {
-                User.create({
+            .then(() => {
+                Permission.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                Entity.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                User.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                EventModel.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                Entity.create({
                     id: 1,
-                    username: 'TestUser',
-                    name: 'Test User',
-                    password: 'nasdasdasd',
-                    email: 'email@email.com'
-                }).then(function(user) {
-                    user.addEntity(entity)
-                    .then(() => {
-                        done();
+                    name: 'Test Entity',
+                    initials: 'TEST',
+                    description: 'test description'
+                }).then(function (entity) {
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com'
+                    }).then(function (user) {
+                        user.addEntity(entity)
+                            .then(() => {
+                                done();
+                            })
                     })
+                        .catch((err) => { done() });
                 })
-                .catch((err) => {done()});
+                    .catch((err) => { done() });
             })
-            .catch((err) => {done()});
-        })
     });
 
     afterEach((done) => {
@@ -86,7 +86,7 @@ describe('Add Events', () => {
                 end_date: end_date.toISOString(),
                 location: "Random Location",
                 price: 10,
-                poster_id: 1,
+                user_id: 1,
                 entity_id: 1
             };
 
@@ -103,6 +103,7 @@ describe('Add Events', () => {
                     res.body.should.have.property('location');
                     res.body.should.have.property('price');
                     res.body.should.have.property('entity_id');
+                    res.body.should.have.property('user_id');
                     done();
                 })
         })
@@ -121,7 +122,7 @@ describe('Add Events', () => {
                 end_date: end_date,
                 location: "Random Location",
                 price: 10,
-                poster_id: 1,
+                user_id: 1,
                 entity_id: 1
             };
 
@@ -149,7 +150,7 @@ describe('Add Events', () => {
                 end_date: end_date,
                 location: "Random Location",
                 price: 10,
-                poster_id: 1,
+                user_id: 1,
                 entity_id: 1
             };
 
@@ -161,7 +162,7 @@ describe('Add Events', () => {
                 .field("end_date", event.end_date.toISOString())
                 .field("location", event.location)
                 .field("price", event.price)
-                .field("poster_id", event.poster_id)
+                .field("user_id", event.user_id)
                 .field("entity_id", event.entity_id)
                 .attach('image', './test/assets/test_image.jpg', 'image')
                 .end((err, res) => {
@@ -177,7 +178,7 @@ describe('Add Events', () => {
                     done();
                 })
         })
-    });    
+    });
 });
 
 
@@ -223,21 +224,21 @@ describe('List Events', () => {
                 email: 'email@email.com'
             }).then(function (user) {
                 user.addEntity(entity)
-                .then(() => {
-                    let start_date = new Date();
-                    start_date.setDate(start_date.getDate() + 1);
-                    EventModel.create({
-                        title: "Test ",
-                        description: "Hello There",
-                        start_date: start_date,
-                        poster_id: 1,
-                        entity_id: 1
+                    .then(() => {
+                        let start_date = new Date();
+                        start_date.setDate(start_date.getDate() + 1);
+                        EventModel.create({
+                            title: "Test ",
+                            description: "Hello There",
+                            start_date: start_date,
+                            user_id: 1,
+                            entity_id: 1
 
-                    }).then(function (event) {
-                        event.addUser(user);
-                        done();
-                    })
-                }).catch((err) => done());
+                        }).then(function (event) {
+                            event.addUser(user);
+                            done();
+                        })
+                    }).catch((err) => done());
             }).catch((err) => done());
         }).catch((err) => done());
     });
@@ -275,3 +276,149 @@ describe('List Events', () => {
 
 
 });
+
+describe('List Events by Entities', () => {
+
+    before((done) => {
+        Favorite.destroy({
+            where: {},
+            truncate: true,
+            cascade: true
+        })
+        Permission.destroy({
+            where: {},
+            truncate: true,
+            cascade: true
+        })
+        Entity.destroy({
+            where: {},
+            truncate: true,
+            cascade: true
+        })
+        User.destroy({
+            where: {},
+            truncate: true,
+            cascade: true
+        })
+        EventModel.destroy({
+            where: {},
+            truncate: true,
+            cascade: true
+        });
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity',
+                initials: 'TEST',
+                description: 'test description'
+            },
+            {
+                id: 2,
+                name: 'Test Entity 2',
+                initials: 'TEST2',
+                description: 'test description'
+            },
+            {
+                id: 3,
+                name: 'Test Entity 3',
+                initials: 'TEST3',
+                description: 'test description'
+            }
+        ]).then(() => { return Entity.findAll() })
+            .then((entities) => {
+                User.create({
+                    id: 1,
+                    username: 'TestUser',
+                    name: 'Test User',
+                    password: 'nasdasdasd',
+                    email: 'email@email.com'
+                }).then(function (user) {
+                    user.setEntities(entities).then(() => {
+                        let start_date = new Date();
+                        start_date.setDate(start_date.getDate() + 1);
+                        EventModel.bulkCreate([
+                            {
+                                title: "Test ",
+                                description: "Hello There",
+                                start_date: start_date,
+                                user_id: 1,
+                                entity_id: 1
+                            },
+                            {
+                                title: "Test 2",
+                                description: "Hello There",
+                                start_date: start_date,
+                                user_id: 1,
+                                entity_id: 2
+                            },
+                            {
+                                title: "Test 3",
+                                description: "Hello There",
+                                start_date: start_date,
+                                user_id: 1,
+                                entity_id: 2
+                            },
+                            {
+                                title: "Test 4",
+                                description: "Hello There",
+                                start_date: start_date,
+                                user_id: 1,
+                                entity_id: 3
+                            },
+                            {
+                                title: "Test 5",
+                                description: "Hello There",
+                                start_date: start_date,
+                                user_id: 1,
+                                entity_id: 3
+                            },
+                            {
+                                title: "Test 6",
+                                description: "Hello There",
+                                start_date: start_date,
+                                user_id: 1,
+                                entity_id: 3
+                            },
+                        ]).then(() => {
+                            done();
+                        })
+                    }).catch((err) => done());
+                }).catch((err) => done());
+            }).catch((err) => done());
+
+    });
+
+
+    describe('/GET List Events by Entity', () => {
+        it('it should list all events that were created by the wanted entity', (done) => {
+
+            chai.request(app)
+                .get('/search')
+                .query({ entities: 1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    done();
+                })
+        });
+    });
+
+    describe('/GET List Events by Entities', () => {
+        it('it should list all events created by the wanted entities', (done) => {
+
+            chai.request(app)
+                .get('/search')
+                .query({ entities: [2, 3] })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(5);
+                    done();
+                })
+        });
+    });
+
+
+});
+
