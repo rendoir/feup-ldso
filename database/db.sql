@@ -1,5 +1,8 @@
 --| TABLES |--
 
+DROP TYPE IF EXISTS USER_TYPE CASCADE;
+CREATE TYPE USER_TYPE AS ENUM ('mobile', 'moderator', 'admin');
+
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users
 (
@@ -8,7 +11,7 @@ CREATE TABLE users
     name TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    admin BOOLEAN NOT NULL DEFAULT false
+    type USER_TYPE NOT NULL DEFAULT 'mobile'
 );
 
 DROP TABLE IF EXISTS entities CASCADE;
@@ -96,8 +99,8 @@ CREATE TABLE permissions
 
 --| TRIGGERS & CONSTRAINTS |--
 
-DROP FUNCTION  IF EXISTS check_permission();
-CREATE OR REPLACE FUNCTION check_permission() RETURNS trigger AS $check_permission$
+DROP FUNCTION IF EXISTS check_permission();
+CREATE OR REPLACE FUNCTION check_permission() RETURNS trigger AS $$
     DECLARE
         user_name TEXT;
         entity_initials TEXT;
@@ -106,19 +109,82 @@ CREATE OR REPLACE FUNCTION check_permission() RETURNS trigger AS $check_permissi
         SELECT initials FROM entities WHERE id = NEW.entity_id INTO entity_initials;
 
         IF NOT EXISTS (SELECT * FROM permissions WHERE permissions.user_id = NEW.user_id AND permissions.entity_id = NEW.entity_id)
-        THEN RAISE EXCEPTION '% does not have permission to add events in %', user_name, entity_initials;
+        THEN RAISE EXCEPTION '% does not have permission to add events in %.', user_name, entity_initials;
         END IF;
     
         RETURN NEW;
 
     END;
     
-$check_permission$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
--- DROP TRIGGER IF EXISTS check_permission ON events;
+
+DROP TRIGGER IF EXISTS check_permission ON events;
 CREATE TRIGGER check_permission BEFORE INSERT OR UPDATE ON events
     FOR EACH ROW EXECUTE PROCEDURE check_permission();
     
+DROP FUNCTION IF EXISTS add_all_permissions_to_admin();
+CREATE OR REPLACE FUNCTION add_all_permissions_to_admin() RETURNS trigger AS $$
+    DECLARE
+        r INTEGER;
+    BEGIN
+        IF NEW.type = 'admin'
+        THEN 
+            FOR r IN SELECT id FROM entities
+            LOOP
+                INSERT INTO permissions (user_id, entity_id) VALUES (NEW.id, r);
+            END LOOP;
+        END IF;
+        RETURN NEW;
+    END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS add_all_permissions_to_admin ON users;
+CREATE TRIGGER add_all_permissions_to_admin AFTER INSERT OR UPDATE ON users
+    FOR EACH ROW EXECUTE PROCEDURE add_all_permissions_to_admin();
+
+
+DROP FUNCTION IF EXISTS add_permissions_to_all_admins();
+CREATE OR REPLACE FUNCTION add_permissions_to_all_admins() RETURNS trigger AS $$
+    DECLARE
+        r INTEGER;
+    BEGIN
+        FOR r IN SELECT id FROM users WHERE type = 'admin'
+        LOOP
+            INSERT INTO permissions (user_id, entity_id) VALUES (r, NEW.id);
+        END LOOP;
+        RETURN NEW;
+    END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS add_permissions_to_all_admins ON entities;
+CREATE TRIGGER add_permissions_to_all_admins AFTER INSERT OR UPDATE ON entities
+    FOR EACH ROW EXECUTE PROCEDURE add_permissions_to_all_admins();
+
+
+
+DROP FUNCTION IF EXISTS check_user_is_moderator_or_admin();
+CREATE OR REPLACE FUNCTION check_user_is_moderator_or_admin() RETURNS trigger AS $$
+    DECLARE
+        user_type TEXT;
+        user_name TEXT;
+    BEGIN
+        SELECT name, type FROM users WHERE id = NEW.user_id INTO user_name, user_type;
+
+        IF user_type != 'admin' AND user_type != 'moderator'
+        THEN RAISE EXCEPTION '% is a % user, so cannot have permission to add events.', user_name, user_type;
+        END IF;
+    
+        RETURN NEW;
+
+    END;
+    
+$$ LANGUAGE plpgsql;
+
+
+DROP TRIGGER IF EXISTS check_user_is_moderator_or_admin ON permissions;
+CREATE TRIGGER check_user_is_moderator_or_admin BEFORE INSERT OR UPDATE ON permissions
+    FOR EACH ROW EXECUTE PROCEDURE check_user_is_moderator_or_admin();
 
 --| DATABASE TEST |--
 
