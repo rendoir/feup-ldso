@@ -37,7 +37,7 @@ const user = (sequelize, DataTypes) => {
     User.associate = function (models) {
         models.users.belongsToMany(models.events, { through: 'favorites'});
         models.users.belongsToMany(models.entities, { through: 'permissions'});
-        models.users.hasMany(models.events, {foreignKey: 'poster_id',targetKey: 'id'});
+        models.users.hasMany(models.events, {foreignKey: 'user_id',targetKey: 'id'});
     }   
 
     return User;

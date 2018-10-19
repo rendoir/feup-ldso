@@ -7,24 +7,33 @@ router.post("/", function (req, res) {
 
     // TODO: Get Id from Logged In user
     var entity_id = 1;
-    var poster_id = 1;
+    var user_id = 1;
 
     var reqData = req;
     reqData.body.entity_id = entity_id;
-    reqData.body.poster_id = poster_id;
+    reqData.body.user_id = user_id;
 
     eventController.add(reqData, res);
 
 });
 
+router.delete("/", function (req, res) {
 
-router.get("/",function(req, res){
+    // TODO: Get Id from selected event
+    var user_id = 1;
+    var reqData = req;
+    reqData.body.user_id = user_id;
 
-    eventController.listForWeb(req, res);
+    eventController.delete(reqData, res);
 
-}); 
+});
 
+
+// List events
+router.get("/", eventController.listForWeb); 
 router.get("/app", eventController.listForUsers); 
 
+// Search for events
+router.get("/search", eventController.searchEntities);
 
 module.exports = router;

@@ -9,21 +9,11 @@ const entity = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             unique: true
         },
-        password: DataTypes.TEXT,
-        email: {
-            type: DataTypes.TEXT,
-            unique: true
-        },
         initials: {
             type: DataTypes.TEXT,
             unique: true
         },
         description: DataTypes.TEXT,
-        image_path: DataTypes.TEXT,
-        admin: {
-            type: DataTypes.BOOLEAN,
-            default: false
-        },
         color: {
             type: DataTypes.TEXT,
             default: "#FFFFFF"

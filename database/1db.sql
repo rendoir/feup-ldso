@@ -190,4 +190,4 @@ CREATE TRIGGER check_user_is_moderator_or_admin BEFORE INSERT OR UPDATE ON permi
 
 DROP DATABASE IF EXISTS postgres_test;
 CREATE DATABASE postgres_test;
-GRANT ALL PRIVILEGES ON DATABASE postgres_test TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE postgres_test TO postgres; 
