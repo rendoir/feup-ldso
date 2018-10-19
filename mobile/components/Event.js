@@ -54,7 +54,7 @@ export default class Event extends React.Component {
     render() {
         return (
             <Card>
-                <Image source={ this.state.imageLoaded ? { uri: 'http://10.227.148.51:3030/' + this.props.data.id } : require('../assets/images/default.png')}
+                <Image source={ this.state.imageLoaded ? { uri: '192.168.99.100:3030/' + this.props.data.id } : require('../assets/images/default.png')}
                     style={{ height: 160, width: null, flex: 1 }}
                     onError={this.ImageLoadingError.bind(this)} />
                 <View style={{ flexDirection: 'row' }}>

@@ -76,7 +76,7 @@ class AddEventForm extends Component {
 
         axios({
             method: 'POST',
-            url: 'http://localhost:3030/',
+            url: 'http://192.168.99.100:3030/',
             config: { headers: { 'Content-Type': 'multipart/form-data' } },
             data: data
         })

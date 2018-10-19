@@ -34,6 +34,7 @@ module.exports = {
 
     add(req, res) {
 
+
         return Event.create({
             title: req.body.title,
             description: req.body.description,
@@ -53,6 +54,17 @@ module.exports = {
                 res.status(400).send(err);
             }
             
+        })
+        .catch((error) => res.status(400).send(error));
+    },
+
+    delete(req, res){
+       return Event.destroy({
+            where: {id : req.body.id}
+        })
+        .then(() => {
+            console.log("Event " + req.body.id + " deleted!");
+            res.status(200).send({message: "The event was successfully deleted!"});
         })
         .catch((error) => res.status(400).send(error));
     },

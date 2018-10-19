@@ -49,6 +49,22 @@ const event = (sequelize, DataTypes) => {
                 .catch((err) => {
                     throw new Error(err);
                 })
+            },
+            beforeDelete: function(event) {
+                return sequelize.models.permissions.find({
+                    where: {
+                        user_id: event.user_id,
+                        entity_id: event.entity_id
+                    }
+                })
+                .then((res) => {
+                    if(!res){
+                        throw new Error('User doesn\'t have permission');
+                    }
+                })
+                .catch((err) => {
+                    throw new Error(err);
+                })
             }
         } 
     });
