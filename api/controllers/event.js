@@ -75,12 +75,9 @@ module.exports = {
           || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
             return;
         
-        //Save original image
+        //Save image
         let path = "./assets/" + event.id;
         files.image.mv(path)
-        .then(() => {
-            modifyImage(path, 2);
-        })
         .catch((err) => {
               throw new Error("Error saving original image: " + err);            
         });    

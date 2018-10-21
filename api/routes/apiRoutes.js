@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const eventController = require('../controllers').event;
+const entityController = require('../controllers').entity;
+const categoryController = require('../controllers').category;
 var middleware = require("../middleware");
 
 router.post("/", function (req, res) {
@@ -35,5 +37,10 @@ router.get("/app", eventController.listForUsers);
 
 // Search for events
 router.get("/search", eventController.searchEntities);
+
+// Getters
+router.get("/entities", entityController.getEntitiesWithPermission);
+router.get("/app/entities", entityController.getEntities);
+router.get("/categories", categoryController.getCategories);
 
 module.exports = router;
