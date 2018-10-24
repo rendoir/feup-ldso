@@ -103,12 +103,16 @@ DROP FUNCTION IF EXISTS check_permission();
 CREATE OR REPLACE FUNCTION check_permission() RETURNS trigger AS $$
     DECLARE
         user_name TEXT;
+        user_type USER_TYPE;
         entity_initials TEXT;
     BEGIN
-        SELECT name FROM users WHERE id = NEW.user_id INTO user_name;
+        SELECT name, type FROM users WHERE id = NEW.user_id INTO user_name, user_type;
         SELECT initials FROM entities WHERE id = NEW.entity_id INTO entity_initials;
 
-        IF NOT EXISTS (SELECT * FROM permissions WHERE permissions.user_id = NEW.user_id AND permissions.entity_id = NEW.entity_id)
+        IF 
+            NOT EXISTS (SELECT * FROM permissions 
+                        WHERE permissions.user_id = NEW.user_id AND permissions.entity_id = NEW.entity_id)
+            AND user_type != 'admin'
         THEN RAISE EXCEPTION '% does not have permission to add events in %.', user_name, entity_initials;
         END IF;
     
@@ -123,45 +127,6 @@ DROP TRIGGER IF EXISTS check_permission ON events;
 CREATE TRIGGER check_permission BEFORE INSERT OR UPDATE ON events
     FOR EACH ROW EXECUTE PROCEDURE check_permission();
     
-DROP FUNCTION IF EXISTS add_all_permissions_to_admin();
-CREATE OR REPLACE FUNCTION add_all_permissions_to_admin() RETURNS trigger AS $$
-    DECLARE
-        r INTEGER;
-    BEGIN
-        IF NEW.type = 'admin'
-        THEN 
-            FOR r IN SELECT id FROM entities
-            LOOP
-                INSERT INTO permissions (user_id, entity_id) VALUES (NEW.id, r);
-            END LOOP;
-        END IF;
-        RETURN NEW;
-    END;
-$$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS add_all_permissions_to_admin ON users;
-CREATE TRIGGER add_all_permissions_to_admin AFTER INSERT OR UPDATE ON users
-    FOR EACH ROW EXECUTE PROCEDURE add_all_permissions_to_admin();
-
-
-DROP FUNCTION IF EXISTS add_permissions_to_all_admins();
-CREATE OR REPLACE FUNCTION add_permissions_to_all_admins() RETURNS trigger AS $$
-    DECLARE
-        r INTEGER;
-    BEGIN
-        FOR r IN SELECT id FROM users WHERE type = 'admin'
-        LOOP
-            INSERT INTO permissions (user_id, entity_id) VALUES (r, NEW.id);
-        END LOOP;
-        RETURN NEW;
-    END;
-$$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS add_permissions_to_all_admins ON entities;
-CREATE TRIGGER add_permissions_to_all_admins AFTER INSERT OR UPDATE ON entities
-    FOR EACH ROW EXECUTE PROCEDURE add_permissions_to_all_admins();
-
-
 
 DROP FUNCTION IF EXISTS check_user_is_moderator_or_admin();
 CREATE OR REPLACE FUNCTION check_user_is_moderator_or_admin() RETURNS trigger AS $$
