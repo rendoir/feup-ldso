@@ -42,5 +42,6 @@ router.get("/search", eventController.searchEntities);
 router.get("/entities", entityController.getEntitiesWithPermission);
 router.get("/app/entities", entityController.getEntities);
 router.get("/categories", categoryController.getCategories);
+router.get("/events/categories", eventController.getEventsByCategories);
 
 module.exports = router;

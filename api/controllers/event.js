@@ -1,5 +1,6 @@
 const Event = require('../models').events;
 const Entity = require('../models').entities;
+const Category = require('../models').categories;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
@@ -109,5 +110,33 @@ module.exports = {
             .then((events) => res.status(200).send(events))
             .catch((err) => res.status(400).send(err));
         }
+    },
+
+    getEventsByCategories(req, res) {
+        // Request must define "categories". It can define "limit" and "page".
+        let today = Math.floor(Date.now());
+
+        let query_options = {};
+        query_options.where = {
+            start_date: { [Op.gte]: today }
+        };
+         
+        if(req.query.limit  !== undefined) query_options.limit  = req.query.limit;
+        if(req.query.offset !== undefined) query_options.offset = req.query.page;
+
+        query_options.order = [['start_date', 'ASC']];
+        query_options.include = [ { 
+            model: sequelize.models.categories,
+            required: true,
+            where: {
+                id: Array.isArray(req.query.categories) ? 
+                    { [Op.or]: req.query.categories } : 
+                    req.query.categories
+            }
+        } ];
+    
+        return Event.findAll(query_options)
+        .then((events) => res.status(200).send(events))
+        .catch((error) => res.status(400).send(error));
     }
 }
