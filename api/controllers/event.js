@@ -84,59 +84,49 @@ module.exports = {
         });    
     },
 
-    searchEntities(req, res) {
-        if(Array.isArray(req.query.entities)){
-            return Event.findAll({
-                where: {
-                    entity_id: {
-                        [Op.or]: req.query.entities
-                    }
-                },
-                include: [sequelize.models.entities],
-                order: [['start_date', 'ASC']]
-            })
-            .then((events) => res.status(200).send(events))
-            .catch((err) => res.status(400).send(err));
-        }
-        else {
-            
-            return Event.findAll({
-                where: {
-                    entity_id: req.query.entities
-                },
-                include: [sequelize.models.entities],
-                order: [['start_date', 'ASC']]
-            })
-            .then((events) => res.status(200).send(events))
-            .catch((err) => res.status(400).send(err));
-        }
-    },
-
-    getEventsByCategories(req, res) {
-        // Request must define "categories". It can define "limit" and "page".
-        let today = Math.floor(Date.now());
-
+    /**
+     * Returns events based on optional filters and options
+     * @param {array, integer} entities 
+     * @param {array, integer} categories
+     * @param {boolean} past
+     * @param {integer} limit
+     * @param {integer} page
+     */
+    getEvents(req, res) {
         let query_options = {};
-        query_options.where = {
-            start_date: { [Op.gte]: today }
-        };
-         
-        if(req.query.limit  !== undefined) query_options.limit  = req.query.limit;
-        if(req.query.offset !== undefined) query_options.offset = req.query.page;
+        query_options.where = {};
+        query_options.include = [];
 
+        // Shouldn't include past events
+        if(!req.query.past) {
+            let today = Math.floor(Date.now());
+            query_options.where.start_date = { [Op.gte]: today };
+        }
+        
+        // Set pagination settings
+        if(req.query.limit)  query_options.limit  = req.query.limit;
+        if(req.query.offset) query_options.offset = req.query.page;
         query_options.order = [['start_date', 'ASC']];
-        query_options.include = [ { 
-            model: sequelize.models.categories,
-            required: true,
-            where: {
-                id: Array.isArray(req.query.categories) ? 
-                    { [Op.or]: req.query.categories } : 
-                    req.query.categories
-            }
-        } ];
+
+        // Filter entities
+        if (req.query.entities) {
+            query_options.where.entity_id = Array.isArray(req.query.entities) ? { [Op.or]: req.query.entities } : req.query.entities;
+            query_options.include.push(sequelize.models.entities);
+        }
+
+        // Filter categories
+        if (req.query.categories) {
+            query_options.include.push( { 
+                model: sequelize.models.categories,
+                required: true,
+                where: {
+                    id: Array.isArray(req.query.categories) ? { [Op.or]: req.query.categories } : req.query.categories
+                }
+            } );
+        }
     
         return Event.findAll(query_options)
-        .then((events) => res.status(200).send(events))
-        .catch((error) => res.status(400).send(error));
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
     }
 }
