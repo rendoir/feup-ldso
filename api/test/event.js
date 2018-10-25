@@ -353,139 +353,169 @@ describe('Delete Events', () => {
     });
 });
 
-describe('List Events by Entities', () => {
+function destroyDatabase() {
+    Category.destroy({
+        where: {},
+        truncate: true,
+        cascade: true
+    })
+    Permission.destroy({
+        where: {},
+        truncate: true,
+        cascade: true
+    })
+    Entity.destroy({
+        where: {},
+        truncate: true,
+        cascade: true
+    })
+    User.destroy({
+        where: {},
+        truncate: true,
+        cascade: true
+    })
+    EventModel.destroy({
+        where: {},
+        truncate: true,
+        cascade: true
+    });
+}
+
+describe('Filter events', () => {
 
     before((done) => {
-        Favorite.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Permission.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Entity.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        User.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        EventModel.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
+        destroyDatabase();
+        // Create entities
         Entity.bulkCreate([
             {
                 id: 1,
-                name: 'Test Entity',
-                initials: 'TEST',
-                description: 'test description'
+                name: 'Test Entity 1',
+                initials: 'TEST1'
             },
             {
                 id: 2,
                 name: 'Test Entity 2',
-                initials: 'TEST2',
-                description: 'test description'
+                initials: 'TEST2'
             },
             {
                 id: 3,
                 name: 'Test Entity 3',
-                initials: 'TEST3',
-                description: 'test description'
+                initials: 'TEST3'
             }
-        ]).then(() => { return Entity.findAll() })
-            .then((entities) => {
-                User.create({
+        ]).then(() => 
+            // Create categories
+            Category.bulkCreate([
+                {
                     id: 1,
-                    username: 'TestUser',
-                    name: 'Test User',
-                    password: 'nasdasdasd',
-                    email: 'email@email.com'
-                }).then(function (user) {
-                    user.setEntities(entities).then(() => {
-                        let start_date = new Date();
-                        start_date.setDate(start_date.getDate() + 1);
-                        EventModel.bulkCreate([
-                            {
-                                title: "Test ",
-                                description: "Hello There",
-                                start_date: start_date,
-                                user_id: 1,
-                                entity_id: 1
-                            },
-                            {
-                                title: "Test 2",
-                                description: "Hello There",
-                                start_date: start_date,
-                                user_id: 1,
-                                entity_id: 2
-                            },
-                            {
-                                title: "Test 3",
-                                description: "Hello There",
-                                start_date: start_date,
-                                user_id: 1,
-                                entity_id: 2
-                            },
-                            {
-                                title: "Test 4",
-                                description: "Hello There",
-                                start_date: start_date,
-                                user_id: 1,
-                                entity_id: 3
-                            },
-                            {
-                                title: "Test 5",
-                                description: "Hello There",
-                                start_date: start_date,
-                                user_id: 1,
-                                entity_id: 3
-                            },
-                            {
-                                title: "Test 6",
-                                description: "Hello There",
-                                start_date: start_date,
-                                user_id: 1,
-                                entity_id: 3
-                            },
-                        ]).then(() => {
-                            done();
+                    name: 'Test Category 1'
+                },
+                {
+                    id: 2,
+                    name: 'Test Category 2'
+                },
+                {
+                    id: 3,
+                    name: 'Test Category 3'
+                }
+            ]).then(() => { return Entity.findAll() })
+                .then((entities) => 
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com'
+                    }).then((user) => user.setEntities(entities) // Give full permissions to user
+                        .then(() => {
+                            let start_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            // Create events
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Test 1",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test 2",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 2
+                                },
+                                {
+                                    id: 3,
+                                    title: "Test 3",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 2
+                                },
+                                {
+                                    id: 4,
+                                    title: "Test 4",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 3
+                                },
+                                {
+                                    id: 5,
+                                    title: "Test 5",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 3
+                                },
+                                {
+                                    id: 6,
+                                    title: "Test 6",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 3
+                                }
+                            ])
+                              // Add category 1 to event 1
+                              .then(() => Category.findByPrimary(1)
+                              .then((category) => EventModel.findByPrimary(1)
+                              .then((event) => event.addCategory(category) 
+                            )))
+                              // Add category 1 and 3 to event 2
+                              .then(() => Category.findAll( { where: { id: { [models.sequelize.Op.or]: [1,3] } } })
+                              .then((categories) => EventModel.findByPrimary(2)
+                              .then((event) => event.setCategories(categories) 
+                            )))
+                              // Add category 2 to event 4
+                              .then(() => Category.findByPrimary(2)
+                              .then((category) => EventModel.findByPrimary(4)
+                              .then((event) => event.addCategory(category) 
+                            )))
+                            .then(() => done())
                         })
-                    }).catch((err) => done());
-                }).catch((err) => done());
-            }).catch((err) => done());
-
+                    )
+                )
+            )
     });
 
-
-    describe('/GET List Events by Entity', () => {
-        it('it should list all events that were created by the wanted entity', (done) => {
-
+    describe('/GET Filter events by categories', () => {
+        it('It should filter events by categories', (done) => {
             chai.request(app)
-                .get('/search')
-                .query({ entities: 1 })
+                .get('/events')
+                .query({ categories: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(1);
+                    res.body.length.should.be.eql(2);
                     done();
                 })
         });
     });
 
-    describe('/GET List Events by Entities', () => {
-        it('it should list all events created by the wanted entities', (done) => {
-
+    describe('/GET Filter events by entities', () => {
+        it('It should filter events by entities', (done) => {
             chai.request(app)
-                .get('/search')
-                .query({ entities: [2, 3] })
+                .get('/events')
+                .query({ entities: [2,3] })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -495,112 +525,11 @@ describe('List Events by Entities', () => {
         });
     });
 
-
-});
-
-
-describe('List Events by Categories', () => {
-
-    before((done) => {
-        User.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
-        Entity.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
-        EventModel.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
-        Category.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
-        Permission.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
-        Entity.create({
-                id: 1,
-                name: 'Test Entity',
-                initials: 'TEST',
-                description: 'test description'
-        }).then((entity) => {
-            User.create({
-                id: 1,
-                username: 'TestUser',
-                name: 'Test User',
-                password: 'nasdasdasd',
-                email: 'email@email.com'
-            }).then((user) => {
-                user.addEntity(entity).then(() => {
-                    let start_date = new Date();
-                    start_date.setDate(start_date.getDate() + 1);
-                    Category.create({
-                        id: 1,
-                        name: 'Test Category',
-                        description: 'test description'
-                    }).then((category) => {
-                        EventModel.create({
-                            id: 1,
-                            title: "Test ",
-                            description: "Hello There",
-                            start_date: start_date,
-                            user_id: 1,
-                            entity_id: 1
-                        }).then((event) => {
-                            event.addCategory(category);
-                            Category.bulkCreate([
-                                {
-                                    id: 2,
-                                    name: 'Test Category 2',
-                                    description: 'test description'
-                                },
-                                {
-                                    id: 3,
-                                    name: 'Test Category 3',
-                                    description: 'test description'
-                                }
-                            ]).then(() => { return Category.findAll({
-                                where: {
-                                    id: {
-                                        [models.sequelize.Op.or]: [2,3]
-                                    }
-                                }
-                            })}).then((categories) => {
-                                EventModel.create({
-                                    id: 2,
-                                    title: "Test 2",
-                                    description: "Hello There",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 1
-                                }).then((event) => {
-                                    event.setCategories(categories).then(()=>done());
-                                })
-                            })
-                        }).catch((err) => done());
-                    })
-                })
-            }).catch((err) => done());
-        }).catch((err) => done());
-
-    });
-
-
-    describe('/GET List Events by Category', () => {
-        it('it should list all events that are related to the wanted category', (done) => {
-
+    describe('/GET Filter events by categories and entities', () => {
+        it('It should filter events by categories and entities', (done) => {
             chai.request(app)
-                .get('/events/categories')
-                .query({ categories: 1 })
+                .get('/events')
+                .query({ categories: 1, entities: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -609,22 +538,4 @@ describe('List Events by Categories', () => {
                 })
         });
     });
-
-    describe('/GET List Events by Categories', () => {
-        it('it should list all events that are related to the wanted categories', (done) => {
-
-            chai.request(app)
-                .get('/events/categories')
-                .query({ categories: [2, 3] })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(1);
-                    done();
-                })
-        });
-    });
-
-
 });
-

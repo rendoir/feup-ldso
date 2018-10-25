@@ -35,13 +35,12 @@ router.delete("/", function (req, res) {
 router.get("/", eventController.listForWeb); 
 router.get("/app", eventController.listForUsers); 
 
-// Search for events
-router.get("/search", eventController.searchEntities);
-
 // Getters
 router.get("/entities", entityController.getEntitiesWithPermission);
 router.get("/app/entities", entityController.getEntities);
 router.get("/categories", categoryController.getCategories);
-router.get("/events/categories", eventController.getEventsByCategories);
+
+// Filter events
+router.get("/events", eventController.getEvents);
 
 module.exports = router;
