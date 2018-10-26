@@ -1,5 +1,6 @@
 const Event = require('../models').events;
 const Entity = require('../models').entities;
+const Category = require('../models').categories;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
@@ -83,31 +84,49 @@ module.exports = {
         });    
     },
 
-    searchEntities(req, res) {
-        if(Array.isArray(req.query.entities)){
-            return Event.findAll({
-                where: {
-                    entity_id: {
-                        [Op.or]: req.query.entities
-                    }
-                },
-                include: [sequelize.models.entities],
-                order: [['start_date', 'ASC']]
-            })
-            .then((events) => res.status(200).send(events))
-            .catch((err) => res.status(400).send(err));
+    /**
+     * Returns events based on optional filters and options
+     * @param {array, integer} entities 
+     * @param {array, integer} categories
+     * @param {boolean} past
+     * @param {integer} limit
+     * @param {integer} page
+     */
+    getEvents(req, res) {
+        let query_options = {};
+        query_options.where = {};
+        query_options.include = [];
+
+        // Shouldn't include past events
+        if(!req.query.past) {
+            let today = Math.floor(Date.now());
+            query_options.where.start_date = { [Op.gte]: today };
         }
-        else {
-            
-            return Event.findAll({
-                where: {
-                    entity_id: req.query.entities
-                },
-                include: [sequelize.models.entities],
-                order: [['start_date', 'ASC']]
-            })
-            .then((events) => res.status(200).send(events))
-            .catch((err) => res.status(400).send(err));
+        
+        // Set pagination settings
+        if(req.query.limit)  query_options.limit  = req.query.limit;
+        if(req.query.offset) query_options.offset = req.query.page;
+        query_options.order = [['start_date', 'ASC']];
+
+        // Filter entities
+        if (req.query.entities) {
+            query_options.where.entity_id = Array.isArray(req.query.entities) ? { [Op.or]: req.query.entities } : req.query.entities;
+            query_options.include.push(sequelize.models.entities);
         }
+
+        // Filter categories
+        if (req.query.categories) {
+            query_options.include.push( { 
+                model: sequelize.models.categories,
+                required: true,
+                where: {
+                    id: Array.isArray(req.query.categories) ? { [Op.or]: req.query.categories } : req.query.categories
+                }
+            } );
+        }
+    
+        return Event.findAll(query_options)
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
     }
 }
