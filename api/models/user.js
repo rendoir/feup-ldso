@@ -27,8 +27,7 @@ const user = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('mobile', 'moderator', 'admin'),
             default: 'mobile',
             allowNull: false
-        },
-
+        }
     }, {
         timestamps: false,
         underscored: true   
