@@ -80,8 +80,8 @@ module.exports = {
 
     },
 
-
     add(req, res) {
+
 
         return Event.create({
             title: req.body.title,
@@ -90,7 +90,7 @@ module.exports = {
             end_date: req.body.end_date,
             location: req.body.location,
             price: req.body.price,
-            poster_id: req.body.poster_id,
+            user_id: req.body.user_id,
             entity_id: req.body.entity_id
         })
             .then((event) => {
@@ -106,20 +106,84 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
 
+    delete(req, res){
+       return Event.destroy({
+            where: {id : req.body.id}
+        })
+        .then(() => {
+            console.log("Event " + req.body.id + " deleted!");
+            res.status(200).send({message: "The event was successfully deleted!"});
+        })
+        .catch((error) => res.status(400).send(error));
+    },
+
     saveImage(files, event) {
         //Validate image
         if (files == null || files.image == null
             || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
             return;
-
-        //Save original image
+        
+        //Save image
         let path = "./assets/" + event.id;
         files.image.mv(path)
-            .then(() => {
-                modifyImage(path, 2);
-            })
-            .catch((err) => {
-                throw new Error("Error saving original image: " + err);
-            });
+        .catch((err) => {
+              throw new Error("Error saving original image: " + err);            
+        });    
     },
+
+    searchEntities(req, res) {
+        if(Array.isArray(req.query.entities)){
+            return Event.findAll({
+                where: {
+                    entity_id: {
+                        [Op.or]: req.query.entities
+                    }
+                },
+                include: [sequelize.models.entities],
+                order: [['start_date', 'ASC']]
+            })
+            .then((events) => res.status(200).send(events))
+            .catch((err) => res.status(400).send(err));
+        }
+        else {
+            
+            return Event.findAll({
+                where: {
+                    entity_id: req.query.entities
+                },
+                include: [sequelize.models.entities],
+                order: [['start_date', 'ASC']]
+            })
+            .then((events) => res.status(200).send(events))
+            .catch((err) => res.status(400).send(err));
+        }
+    },
+
+    getEventsByCategories(req, res) {
+        // Request must define "categories". It can define "limit" and "page".
+        let today = Math.floor(Date.now());
+
+        let query_options = {};
+        query_options.where = {
+            start_date: { [Op.gte]: today }
+        };
+         
+        if(req.query.limit  !== undefined) query_options.limit  = req.query.limit;
+        if(req.query.offset !== undefined) query_options.offset = req.query.page;
+
+        query_options.order = [['start_date', 'ASC']];
+        query_options.include = [ { 
+            model: sequelize.models.categories,
+            required: true,
+            where: {
+                id: Array.isArray(req.query.categories) ? 
+                    { [Op.or]: req.query.categories } : 
+                    req.query.categories
+            }
+        } ];
+    
+        return Event.findAll(query_options)
+        .then((events) => res.status(200).send(events))
+        .catch((error) => res.status(400).send(error));
+    }
 }

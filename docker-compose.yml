@@ -2,7 +2,7 @@ version: '3.3'
 services:
 
   postgres:
-    build: .
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_DB: postgres
@@ -10,6 +10,10 @@ services:
       POSTGRES_PASSWORD: example
     ports:
      - "5432:5432"
+    volumes:
+      - ./database/1db.sql:/docker-entrypoint-initdb.d/1db.sql
+      - ./database/2seed.sql:/docker-entrypoint-initdb.d/2seed.sql
+      - ./database/3test.sql:/docker-entrypoint-initdb.d/3test.sql
 
   pgadmin:
     image: thajeztah/pgadmin4
