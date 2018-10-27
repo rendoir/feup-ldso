@@ -1,23 +1,42 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import { StyleSheet } from 'react-native';
 import { Font, AppLoading } from "expo";
-import { Root, Container, Header, Title, Content, List, ListItem, H1, H2, H3, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { Root, Container, Header, Content, List, Text, Button, ListItem } from 'native-base';
+import axios from 'axios';
+import Category from '../components/Category';
 
 export default class CategoriesScreen extends React.Component {
     state = {
         loading: true,
+        categories: [],
     };
     static navigationOptions = {
         header: null,
     };
+
+    componentWillUnmount() {
+        this.isCancelled = true;
+    }
 
     async componentWillMount() {
         await Font.loadAsync({
             Roboto: require("native-base/Fonts/Roboto.ttf"),
             Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
         });
-        this.setState({ loading: false });
+        this.getCategoriesFromApi();
+        !this.isCancelled && this.setState({ loading: false });
+    }
+
+    getCategoriesFromApi() {
+        let self = this;
+        axios.get('http://' + global.api + ':3030/categories')
+            .then(function (response) {
+                const categories = response.data;
+                self.setState({ categories });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {
@@ -29,51 +48,22 @@ export default class CategoriesScreen extends React.Component {
             );
         }
         const { navigate } = this.props.navigation;
+
+        const categories = this.state.categories.map((category, i) => (
+            <Category data={category} key={i} onPress={() => navigate('Agenda', { selectedCategory: category.name, selectedCategoryId: category.id })} />
+        ));
+
         return (
             <Container>
                 <Header style={styles.header}>
-                    <Left>
-                        <Text style={styles.headerText}>Categorias</Text>
-                    </Left>
+                    <Text style={styles.headerText}>Categorias</Text>
                 </Header>
                 <Content>
                     <List>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Literatura" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Literatura" })}><Text style={styles.buttonText} uppercase={false}>Literatura</Text></Button>
+                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' })}>
+                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' })}><Text style={styles.buttonText}>Todos</Text></Button>
                         </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Clubbing" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Clubbing" })}><Text style={styles.buttonText} uppercase={false}>Clubbing</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Exposições" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Exposições" })}><Text style={styles.buttonText} uppercase={false}>Exposições</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Formação" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Formação" })}><Text style={styles.buttonText} uppercase={false}>Formação</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Moda" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Moda" })}><Text style={styles.buttonText} uppercase={false}>Moda</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Passeios e Visitas" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Passeios e Visitas" })}><Text style={styles.buttonText} uppercase={false}>Passeios e Visitas</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Bem estar" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Bem estar" })}><Text style={styles.buttonText} uppercase={false}>Bem estar</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Tradição" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Tradição" })}><Text style={styles.buttonText} uppercase={false}>Tradição</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Música" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Música" })}><Text style={styles.buttonText} uppercase={false}>Música</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Cinema" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Cinema" })}><Text style={styles.buttonText} uppercase={false}>Cinema</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Festival" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Festival" })}><Text style={styles.buttonText} uppercase={false}>Festival</Text></Button>
-                        </ListItem>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: "Outras" })} >
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: "Outras" })}><Text style={styles.buttonText} uppercase={false}>Outras</Text></Button>
-                        </ListItem>
+                        {categories}
                     </List>
                 </Content>
             </Container>
@@ -82,10 +72,6 @@ export default class CategoriesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    buttonText: {
-        fontSize: 20,
-        color: 'black',
-    },
     listItem: {
         justifyContent: "center",
     },
@@ -94,8 +80,16 @@ const styles = StyleSheet.create({
         height: 80
     },
     headerText: {
-        paddingTop: 20,
-        color: 'white', 
-        fontSize: 30
-    }
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+        width: '100%',
+        alignSelf: 'center',
+    },
+    buttonText: {
+        color: 'black',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        paddingLeft: 5,
+    },
 });
