@@ -50,7 +50,8 @@ describe('Add Events', () => {
                         username: 'TestUser',
                         name: 'Test User',
                         password: 'nasdasdasd',
-                        email: 'email@email.com'
+                        email: 'email@email.com',
+                        type: 'moderator'
                     }).then(function (user) {
                         user.addEntity(entity)
                             .then(() => {
@@ -221,7 +222,8 @@ describe('List Events', () => {
                 username: 'TestUser',
                 name: 'Test User',
                 password: 'nasdasdasd',
-                email: 'email@email.com'
+                email: 'email@email.com',
+                type: 'moderator'
             }).then(function (user) {
                 user.addEntity(entity)
                     .then(() => {
@@ -233,7 +235,6 @@ describe('List Events', () => {
                             start_date: start_date,
                             user_id: 1,
                             entity_id: 1
-
                         }).then(function (event) {
                             event.addUser(user);
                             done();
@@ -312,7 +313,8 @@ describe('Delete Events', () => {
                     username: 'TestUser',
                     name: 'Test User',
                     password: 'nasdasdasd',
-                    email: 'email@email.com'
+                    email: 'email@email.com',
+                    type: 'moderator'
                 }).then(function(user) {
                     user.addEntity(entity)
                     .then(() =>{                        
@@ -425,7 +427,8 @@ describe('Filter events', () => {
                         username: 'TestUser',
                         name: 'Test User',
                         password: 'nasdasdasd',
-                        email: 'email@email.com'
+                        email: 'email@email.com',
+                        type: 'moderator'
                     }).then((user) => user.setEntities(entities) // Give full permissions to user
                         .then(() => {
                             let start_date = new Date();
