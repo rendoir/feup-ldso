@@ -3,11 +3,12 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import FavoritosScreen from '../screens/FavoritosScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import AgendaScreen from '../screens/AgendaScreen';
 import EntitiesScreen from '../screens/EntitiesScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
+import { Icon } from 'native-base';
 
 const AgendaStack = createStackNavigator({
   Agenda: AgendaScreen,
@@ -29,11 +30,11 @@ AgendaStack.navigationOptions = {
   ),
 };
 
-const FavoritosStack = createStackNavigator({
-  Favoritos: FavoritosScreen,
+const FavoritesStack = createStackNavigator({
+  Favorites: FavoritesScreen,
 });
 
-FavoritosStack.navigationOptions = {
+FavoritesStack.navigationOptions = {
   tabBarLabel: 'Favoritos',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -43,7 +44,7 @@ FavoritosStack.navigationOptions = {
           ? `ios-heart${focused ? '' : '-outline'}`
           : 'md-heart-outline'
       }
-      
+
     />
   ),
 };
@@ -63,18 +64,18 @@ SearchStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  FavoritosStack,
+  FavoritesStack,
   AgendaStack,
   SearchStack
 },
   {
     initialRouteName: 'AgendaStack',
     tabBarOptions: {
-      showLabel: false, // hide labels
-      activeTintColor: '#F8F8F8', // active icon color
-      inactiveTintColor: '#ffffff',  // inactive icon color
+      showLabel: false,
+      activeTintColor: '#F8F8F8',
+      inactiveTintColor: '#ffffff',
       style: {
-        backgroundColor: '#2c8f7f'// : '#32a794'// TabBar background
+        backgroundColor: '#2c8f7f',
       },
     }
   }
