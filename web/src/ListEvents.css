@@ -1,0 +1,31 @@
+#list_events {
+    margin: 2em 0;
+}
+
+div#list_events div.row:first-of-type {
+    margin-top: 2em;
+}
+
+div.form-group {
+    text-align: left;
+    margin: 0 0 0 3em;
+    display: flex;
+}
+
+input[type="text"].form-control#search-text-input{
+    width: 100%;
+    display: inline;
+    vertical-align: middle;
+}
+
+button.btn-search {
+    display: inline;
+    background-color: inherit;
+    color: black;
+    border-color: #6c757d;
+    margin-right: 2em;
+}
+
+div.row {
+    width: 100%;
+}

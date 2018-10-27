@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import { Nav, Button, Image } from 'react-bootstrap'; 
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './NavbarComponent.css';
 bootstrapUtils.addStyle(Navbar, 'custom');
 
@@ -18,7 +19,7 @@ class NavbarComponent extends Component {
           </Nav>
 
           <Nav>
-            <Button>Logout</Button>
+            <Button><FontAwesomeIcon icon="sign-out-alt" /></Button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
