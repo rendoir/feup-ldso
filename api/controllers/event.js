@@ -24,18 +24,27 @@ module.exports = {
     },
 
     listForWeb(req, res) {
-        //1st bind parameter -> logged id 
-        return sequelize.query('SELECT * from events INNER JOIN permissions ON permissions.entity_id = events.entity_id  WHERE "permissions".user_id = $1 AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
-                    { bind: [1, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
-                       
-            .then((events) => res.status(200).send(events))
+        let result = {};
+        return sequelize.query('SELECT COUNT(*) FROM events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
+            ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp',
+            { bind: [req.params.user_id], type: sequelize.QueryTypes.SELECT })
+            .then((num) => {
+                result.count = parseInt(num[0].count);
+
+                return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
+                    ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
+                    { bind: [req.params.user_id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+                    .then((events) => {
+                        result.events = events;
+                        return res.status(200).send(result);
+                    })
+                    .catch((error) => res.status(400).send(error));
+            })
             .catch((error) => res.status(400).send(error));
 
     },
 
     add(req, res) {
-
-
         return Event.create({
             title: req.body.title,
             description: req.body.description,
@@ -46,44 +55,48 @@ module.exports = {
             user_id: req.body.user_id,
             entity_id: req.body.entity_id
         })
-        .then((event) => {
-            try {
-                this.saveImage(req.files, event)
-                res.status(201).send(event)
-            }
-            catch(err) {
-                res.status(400).send(err);
-            }
-            
-        })
-        .catch((error) => res.status(400).send(error));
+            .then((event) => {
+                event.setCategories(req.body.categories.split(','))
+                .then(() => {
+                    try {
+                        this.saveImage(req.files, event)
+                        res.status(201).send(event)
+                    }
+                    catch (err) {
+                        res.status(400).send(err);
+                    }
+                })
+                .catch((error) => res.status(400).send(error));
+
+            })
+            .catch((error) => res.status(400).send(error));
     },
 
-    delete(req, res){
-       return Event.destroy({
-            where: {id : req.body.id}
+    delete(req, res) {
+        return Event.destroy({
+            where: { id: req.body.id }
         })
-        .then(() => {
-            console.log("Event " + req.body.id + " deleted!");
-            res.status(200).send({message: "The event was successfully deleted!"});
-        })
-        .catch((error) => res.status(400).send(error));
+            .then(() => {
+                console.log("Event " + req.body.id + " deleted!");
+                res.status(200).send({ message: "The event was successfully deleted!" });
+            })
+            .catch((error) => res.status(400).send(error));
     },
 
     saveImage(files, event) {
         //Validate image
-        if(files == null || files.image == null 
-          || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
+        if (files == null || files.image == null
+            || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
             return;
-        
+
         //Save image
         let path = "./assets/" + event.id;
         files.image.mv(path)
-        .catch((err) => {
-              throw new Error("Error saving original image: " + err);            
-        });    
+            .catch((err) => {
+                throw new Error("Error saving original image: " + err);
+            });
     },
-
+    
     /**
      * Returns events based on optional filters and options
      * @param {array, integer} entities 
@@ -129,4 +142,5 @@ module.exports = {
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
     }
+
 }

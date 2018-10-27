@@ -9,11 +9,34 @@ variables:
   POSTGRES_PASSWORD: example
 
 stages:
+  - build
   - test
 
 cache:
   paths:
   - api/node_modules/
+
+build_api:
+  stage: build
+  script:
+    - cd api
+    - npm install
+  tags:
+    - docker, postgres
+
+build_web:
+  stage: build
+  script:
+    - cd web
+    - npm install
+  tags:
+    - docker, postgres
+
+build_mobile:
+  stage: build
+  script:
+    - cd mobile
+    - npm install
 
 test_api:
   stage: test
@@ -23,7 +46,28 @@ test_api:
     - postgres:latest  
   script:
     - cd api
-    - npm install
     - npm test
+  tags:
+    - docker, postgres
+
+test_web:
+  stage: test
+  variables:
+    NODE_ENV: test
+  script:
+    - cd web
+    - npm install --save-dev jest
+    - npm test -- -u
+  tags:
+    - docker, postgres
+
+test_mobile:
+  stage: test
+  variables:
+    NODE_ENV: test
+  script:
+    - cd mobile
+    - npm install --save-dev jest
+    - npm test -- -u
   tags:
     - docker, postgres

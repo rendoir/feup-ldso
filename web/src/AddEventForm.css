@@ -26,7 +26,7 @@
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-  }
+}
 
 .breadcrumb-item+.breadcrumb-item::before {
     color: #000;
@@ -50,10 +50,13 @@ label.form-label {
     vertical-align: middle;
     margin: auto 0;
     font-weight: 600;
+    text-align: center;
 }
 
 .align_left {
     text-align: left;
+    vertical-align: middle;
+    margin: auto 0;
 }
 
 img.preview_image {
@@ -65,16 +68,6 @@ img.preview_image {
 .buttons_style {
     display: flex;
     justify-content: space-between;
-}
-
-button.primary_button {
-    background-color: #32a794;
-    border-color: #32a794;
-}
-
-button.primary_button:hover {
-    background-color: #3ed8bf;
-    border-color: #3ed8bf;
 }
 
 .inputfile {
@@ -117,4 +110,59 @@ button.primary_button:hover {
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #3c763d;
+}
+
+div.text-align-center {
+   text-align: center;
+}
+
+div.text-align-center > * {
+    text-align: center;
+}
+
+#add_event_form div.form-group {
+    margin: 1em 0;
+}
+
+#add_event_form div#form-image-div.form-group {
+    display: block;
+    text-align: center;
+}
+
+div#form-dates-div .form-group {
+    margin: 0;
+}
+
+div.dropdowns-search#dropdowns-add-event {
+    text-align: right;
+}
+
+div.ui.dropdown{
+    vertical-align: middle;
+}
+
+div.ui.dropdown>.text {
+    padding: 0;
+    width: 8em;
+}
+  
+div.ui.dropdown>input.search {
+    min-width: 10em;
+}
+  
+div.ui.dropdown>.label {
+    vertical-align: middle;
+}
+
+div#add-event-form-categories-div > .dropdown{
+    margin-left: 1em;
+    vertical-align: middle;
+}
+
+div#add-event-form-categories-div > .dropdown > *{
+    vertical-align: middle;
+}
+
+div#add-event-form-categories-div > .dropdown > i{
+    padding: 0.5em;
 }

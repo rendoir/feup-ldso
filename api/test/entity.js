@@ -80,8 +80,7 @@ describe('List Entities', () => {
         it('it should list all entities for which the User has permissions to', (done) => {
 
             chai.request(app)
-                .get('/entities')
-                .query({ user_id: 1 })
+                .get('/entities/1')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -95,8 +94,7 @@ describe('List Entities', () => {
         it('it should list no entities', (done) => {
 
             chai.request(app)
-                .get('/entities')
-                .query({ user_id: 2 })
+                .get('/entities/2')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');

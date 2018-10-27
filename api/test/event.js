@@ -39,6 +39,11 @@ describe('Add Events', () => {
                     truncate: true,
                     cascade: true
                 });
+                Category.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                })
                 Entity.create({
                     id: 1,
                     name: 'Test Entity',
@@ -55,7 +60,12 @@ describe('Add Events', () => {
                     }).then(function (user) {
                         user.addEntity(entity)
                             .then(() => {
-                                done();
+                                Category.create({
+                                    id: 1,
+                                    name: 'TestCat',
+                                    description: 'description'
+                                }).then(() => done())
+                                    .catch((err) => done())
                             })
                     })
                         .catch((err) => { done() });
@@ -88,7 +98,8 @@ describe('Add Events', () => {
                 location: "Random Location",
                 price: 10,
                 user_id: 1,
-                entity_id: 1
+                entity_id: 1,
+                categories: '1'
             };
 
             chai.request(app)
@@ -124,7 +135,8 @@ describe('Add Events', () => {
                 location: "Random Location",
                 price: 10,
                 user_id: 1,
-                entity_id: 1
+                entity_id: 1,
+                categories: '1'
             };
 
             chai.request(app)
@@ -145,26 +157,28 @@ describe('Add Events', () => {
             start_date.setDate(start_date.getDate() + 1);
             end_date.setDate(end_date.getDate() + 2);
             let event = {
-                title: "Test Event",
+                title: "Test Event22",
                 description: "It is a test event, without content",
-                start_date: start_date,
-                end_date: end_date,
+                start_date: start_date.toISOString(),
+                end_date: end_date.toISOString(),
                 location: "Random Location",
                 price: 10,
                 user_id: 1,
-                entity_id: 1
+                entity_id: 1,
+                categories: '1'
             };
 
             chai.request(app)
                 .post('/')
                 .field("title", event.title)
                 .field("description", event.description)
-                .field("start_date", event.start_date.toISOString())
-                .field("end_date", event.end_date.toISOString())
+                .field("start_date", event.start_date)
+                .field("end_date", event.end_date)
                 .field("location", event.location)
                 .field("price", event.price)
                 .field("user_id", event.user_id)
                 .field("entity_id", event.entity_id)
+                .field("categories", event.categories)
                 .attach('image', './test/assets/test_image.jpg', 'image')
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -216,7 +230,7 @@ describe('List Events', () => {
             name: 'Test Entity',
             initials: 'TEST',
             description: 'test description'
-        }).then(function (entity) {
+        }).then((entity) => {
             User.create({
                 id: 1,
                 username: 'TestUser',
@@ -234,10 +248,10 @@ describe('List Events', () => {
                             description: "Hello There",
                             start_date: start_date,
                             user_id: 1,
-                            entity_id: 1
-                        }).then(function (event) {
-                            event.addUser(user);
-                            done();
+                            entity_id: 1,
+
+                        }).then((event) => {
+                            event.setUser(user).then(() => done());
                         })
                     }).catch((err) => done());
             }).catch((err) => done());
@@ -264,16 +278,15 @@ describe('List Events', () => {
         it('it should list all events on the web', (done) => {
 
             chai.request(app)
-                .get('/')
-                .query({ page: 0, limit: 10 })
+                .get('/1')
+                .query({ page: 0, limit: 5 })
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(1);
+                    res.body.should.be.a('object');
                     done();
                 })
         });
-    }); 
+    });
 });
 
 
@@ -281,77 +294,70 @@ describe('Delete Events', () => {
 
     before((done) => {
         models.sequelize.sync()
-        .then(() => {
-            Permission.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            Entity.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            User.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            EventModel.destroy({
-                where: {},
-                truncate: true,
-                cascade: true
-            });
-            Entity.create({
-                id: 1,
-                name: 'Test Entity',
-                initials: 'TEST',
-                description: 'test description'
-            }).then(function(entity) {
-                User.create({
+            .then(() => {
+                Permission.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                Entity.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                User.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                EventModel.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                Entity.create({
                     id: 1,
                     username: 'TestUser',
                     name: 'Test User',
                     password: 'nasdasdasd',
                     email: 'email@email.com',
                     type: 'moderator'
-                }).then(function(user) {
+                }).then((user) => {
                     user.addEntity(entity)
-                    .then(() =>{                        
-                        let start_date = new Date();
-                        let end_date = new Date();
-                        start_date.setDate(start_date.getDate() + 1);
-                        end_date.setDate(end_date.getDate() + 2);
-                        EventModel.create({
-                            id: 1,
-                            title: "Delete Event Test",
-                            description: "It is a test event, without content",
-                            start_date: start_date.toISOString(),
-                            end_date: end_date.toISOString(),
-                            location: "Random Location",
-                            price: 10,
-                            user_id: 1,
-                            entity_id: 1
-                        }).then(function() { done();})
-                    }).catch((err) => {done()});
-                }).catch((err) => {done()});
-            }).catch((err) => {done()});
-        }).catch((err) => {done()});
-    });
+                        .then(() => {
+                            let start_date = new Date();
+                            let end_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            end_date.setDate(end_date.getDate() + 2);
+                            EventModel.create({
+                                id: 1,
+                                title: "Delete Event Test",
+                                description: "It is a test event, without content",
+                                start_date: start_date.toISOString(),
+                                end_date: end_date.toISOString(),
+                                location: "Random Location",
+                                price: 10,
+                                user_id: 1,
+                                entity_id: 1
+                            }).then(() => done());
+                        }).catch((err) => done());
+                }).catch((err) => { done() });
+            }).catch((err) => { done() });
+    })
 
     describe('/DELETE Delete Event', () => {
         it('it should delete a events on the web', (done) => {
-                   
+
             chai.request(app)
-            .delete('/')
-            .send({id: 1})
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message');
-                done();
-            })
-        })        
+                .delete('/')
+                .send({ id: 1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message');
+                    done();
+                })
+        })
     });
 });
 
@@ -404,7 +410,7 @@ describe('Filter events', () => {
                 name: 'Test Entity 3',
                 initials: 'TEST3'
             }
-        ]).then(() => 
+        ]).then(() =>
             // Create categories
             Category.bulkCreate([
                 {
@@ -420,7 +426,7 @@ describe('Filter events', () => {
                     name: 'Test Category 3'
                 }
             ]).then(() => { return Entity.findAll() })
-                .then((entities) => 
+                .then((entities) =>
                     // Create user
                     User.create({
                         id: 1,
@@ -429,7 +435,7 @@ describe('Filter events', () => {
                         password: 'nasdasdasd',
                         email: 'email@email.com',
                         type: 'moderator'
-                    }).then((user) => user.setEntities(entities) // Give full permissions to user
+                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
                         .then(() => {
                             let start_date = new Date();
                             start_date.setDate(start_date.getDate() + 1);
@@ -478,26 +484,25 @@ describe('Filter events', () => {
                                     entity_id: 3
                                 }
                             ])
-                              // Add category 1 to event 1
-                              .then(() => Category.findByPrimary(1)
-                              .then((category) => EventModel.findByPrimary(1)
-                              .then((event) => event.addCategory(category) 
-                            )))
-                              // Add category 1 and 3 to event 2
-                              .then(() => Category.findAll( { where: { id: { [models.sequelize.Op.or]: [1,3] } } })
-                              .then((categories) => EventModel.findByPrimary(2)
-                              .then((event) => event.setCategories(categories) 
-                            )))
-                              // Add category 2 to event 4
-                              .then(() => Category.findByPrimary(2)
-                              .then((category) => EventModel.findByPrimary(4)
-                              .then((event) => event.addCategory(category) 
-                            )))
-                            .then(() => done())
+                                // Add category 1 to event 1
+                                .then(() => Category.findByPrimary(1)
+                                    .then((category) => EventModel.findByPrimary(1)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                // Add category 1 and 3 to event 2
+                                .then(() => Category.findAll({ where: { id: { [models.sequelize.Op.or]: [1, 3] } } })
+                                    .then((categories) => EventModel.findByPrimary(2)
+                                        .then((event) => event.setCategories(categories)
+                                        )))
+                                // Add category 2 to event 4
+                                .then(() => Category.findByPrimary(2)
+                                    .then((category) => EventModel.findByPrimary(4)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                .then(() => done())
                         })
-                    )
                 )
-            )
+        )
     });
 
     describe('/GET Filter events by categories', () => {
@@ -518,7 +523,7 @@ describe('Filter events', () => {
         it('It should filter events by entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .query({ entities: [2,3] })
+                .query({ entities: [2, 3] })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');

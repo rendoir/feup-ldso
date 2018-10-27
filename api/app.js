@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/assets'));
 var routes = require("./routes/apiRoutes");
 app.use("/", routes);
 
-app.listen(port); 
+app.listen(port);
 
 module.exports = app;
 
