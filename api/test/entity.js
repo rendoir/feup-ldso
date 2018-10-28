@@ -59,8 +59,9 @@ describe('List Entities', () => {
                             username: 'TestUser',
                             name: 'Test User',
                             password: 'nasdasdasd',
-                            email: 'email@email.com'
-                        }).then(function (user) {
+                            email: 'email@email.com',
+                            type: 'moderator'
+                        }).then((user) => {
                             user.setEntities(entities).then(() => {
                                 Entity.create({
                                     id: 4,

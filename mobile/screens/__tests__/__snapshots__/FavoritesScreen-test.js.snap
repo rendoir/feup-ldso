@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App snapshot renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "backgroundColor": "white",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "height": "6%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "backgroundColor": "#2c8f7f",
+            "height": "100%",
+            "justifyContent": "center",
+          },
+        ]
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": "100%",
+            "margin": "1%",
+            "resizeMode": "contain",
+            "width": "30%",
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;

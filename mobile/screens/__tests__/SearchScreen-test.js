@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import AgendaScreen from '../AgendaScreen';
+import SearchScreen from '../SearchScreen';
 import renderer from 'react-test-renderer';
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
 
@@ -11,7 +11,7 @@ describe('App snapshot', () => {
   });
 
   it('renders correctly', async () => {
-    const tree = renderer.create(<AgendaScreen />).toJSON();
+    const tree = renderer.create(<SearchScreen />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

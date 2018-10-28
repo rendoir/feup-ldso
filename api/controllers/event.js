@@ -38,7 +38,7 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
 
-        return sequelize.query("SELECT id, initials, name, 'initials' as searched_by FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1) UNION SELECT id, initials, name, 'name' as searched_by FROM entities WHERE to_tsvector('simple', entities.name) @@ to_tsquery('simple', $1) ORDER BY searched_by, name;",
+        return sequelize.query("WITH search_initials AS ( SELECT id, initials, name, 'initials' as searched_by FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1)) SELECT * from search_initials UNION SELECT id, initials, name, 'name' as searched_by FROM entities WHERE to_tsvector('simple', entities.name) @@ to_tsquery('simple', $1) AND (id, initials, name, 'initials') NOT IN (select * from search_initials) ORDER BY searched_by, name;",
         { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
@@ -61,7 +61,7 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
         return sequelize.query(
-            "SELECT * FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1);",
+            "WITH search_title AS (SELECT id, title, location, price, start_date, entity_id, 'title' as search_by FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1)) SELECT * FROM search_title UNION SELECT id, title, location, price, start_date, entity_id, 'location' as search_by FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery('simple', $1) AND (id, title, location, price, start_date, entity_id, 'title') NOT IN (SELECT * FROM search_title) ORDER BY search_by DESC, title ASC;",
             { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
@@ -131,59 +131,49 @@ module.exports = {
         });    
     },
 
-    searchEntities(req, res) {
-        if(Array.isArray(req.query.entities)){
-            return Event.findAll({
-                where: {
-                    entity_id: {
-                        [Op.or]: req.query.entities
-                    }
-                },
-                include: [sequelize.models.entities],
-                order: [['start_date', 'ASC']]
-            })
-            .then((events) => res.status(200).send(events))
-            .catch((err) => res.status(400).send(err));
-        }
-        else {
-            
-            return Event.findAll({
-                where: {
-                    entity_id: req.query.entities
-                },
-                include: [sequelize.models.entities],
-                order: [['start_date', 'ASC']]
-            })
-            .then((events) => res.status(200).send(events))
-            .catch((err) => res.status(400).send(err));
-        }
-    },
-
-    getEventsByCategories(req, res) {
-        // Request must define "categories". It can define "limit" and "page".
-        let today = Math.floor(Date.now());
-
+    /**
+     * Returns events based on optional filters and options
+     * @param {array, integer} entities 
+     * @param {array, integer} categories
+     * @param {boolean} past
+     * @param {integer} limit
+     * @param {integer} page
+     */
+    getEvents(req, res) {
         let query_options = {};
-        query_options.where = {
-            start_date: { [Op.gte]: today }
-        };
-         
-        if(req.query.limit  !== undefined) query_options.limit  = req.query.limit;
-        if(req.query.offset !== undefined) query_options.offset = req.query.page;
+        query_options.where = {};
+        query_options.include = [];
 
+        // Shouldn't include past events
+        if(!req.query.past) {
+            let today = Math.floor(Date.now());
+            query_options.where.start_date = { [Op.gte]: today };
+        }
+        
+        // Set pagination settings
+        if(req.query.limit)  query_options.limit  = req.query.limit;
+        if(req.query.offset) query_options.offset = req.query.page;
         query_options.order = [['start_date', 'ASC']];
-        query_options.include = [ { 
-            model: sequelize.models.categories,
-            required: true,
-            where: {
-                id: Array.isArray(req.query.categories) ? 
-                    { [Op.or]: req.query.categories } : 
-                    req.query.categories
-            }
-        } ];
+
+        // Filter entities
+        if (req.query.entities) {
+            query_options.where.entity_id = Array.isArray(req.query.entities) ? { [Op.or]: req.query.entities } : req.query.entities;
+            query_options.include.push(sequelize.models.entities);
+        }
+
+        // Filter categories
+        if (req.query.categories) {
+            query_options.include.push( { 
+                model: sequelize.models.categories,
+                required: true,
+                where: {
+                    id: Array.isArray(req.query.categories) ? { [Op.or]: req.query.categories } : req.query.categories
+                }
+            } );
+        }
     
         return Event.findAll(query_options)
-        .then((events) => res.status(200).send(events))
-        .catch((error) => res.status(400).send(error));
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
     }
 }

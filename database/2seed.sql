@@ -69,3 +69,4 @@ INSERT INTO categories (name) VALUES ('Gastronomia');
 INSERT INTO categories (name) VALUES ('Moda');
 INSERT INTO categories (name) VALUES ('Lazer');
 INSERT INTO categories (name) VALUES ('Comédia');
+INSERT INTO categories (name) VALUES ('Informática');

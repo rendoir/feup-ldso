@@ -1,8 +1,5 @@
 import React from 'react';
-import { createSwitchNavigator, createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import AgendaScreen from '../screens/AgendaScreen';
-import EntitiesScreen from '../screens/EntitiesScreen';
-import CategoriesScreen from '../screens/CategoriesScreen';
+import { createSwitchNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 

@@ -1,11 +1,12 @@
 
 --| USERS |--
 
-INSERT INTO users (admin, name, username, email, password) VALUES (true, 'Product Owner', 'po', 'po@test.com', 'pw');
+INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Product Owner', 'po', 'po@test.com', 'pw');
+INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Aarão Higuera', 'aarão_higuera', 'aarão_higuera@test.com', 'pw');
 
-INSERT INTO users (name, username, email, password) VALUES ('Aarão Higuera', 'aarão_higuera', 'aarão_higuera@test.com', 'pw');
-INSERT INTO users (name, username, email, password) VALUES ('Aarão Villanueva', 'aarão_villanueva', 'aarão_villanueva@test.com', 'pw');
-INSERT INTO users (name, username, email, password) VALUES ('Abílio Custódio', 'abílio_custódio', 'abílio_custódio@test.com', 'pw');
+INSERT INTO users (type, name, username, email, password) VALUES ('moderator', 'Aarão Villanueva', 'aarão_villanueva', 'aarão_villanueva@test.com', 'pw');
+INSERT INTO users (type, name, username, email, password) VALUES ('moderator', 'Abílio Custódio', 'abílio_custódio', 'abílio_custódio@test.com', 'pw');
+
 INSERT INTO users (name, username, email, password) VALUES ('Adelina Travassos', 'adelina_travassos', 'adelina_travassos@test.com', 'pw');
 INSERT INTO users (name, username, email, password) VALUES ('Adriana Peroba', 'adriana_peroba', 'adriana_peroba@test.com', 'pw');
 INSERT INTO users (name, username, email, password) VALUES ('Adélia Caminha', 'adélia_caminha', 'adélia_caminha@test.com', 'pw');
@@ -107,16 +108,14 @@ INSERT INTO users (name, username, email, password) VALUES ('Ítala Jesus', 'ít
 
 --| PERMISSIONS |--
 
-INSERT INTO permissions (user_id, entity_id) VALUES (1, 1);
-INSERT INTO permissions (user_id, entity_id) VALUES (1, 9);
-INSERT INTO permissions (user_id, entity_id) VALUES (2, 1);
-INSERT INTO permissions (user_id, entity_id) VALUES (2, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (2, 9);
+INSERT INTO permissions (user_id, entity_id) VALUES (3, 1);
+INSERT INTO permissions (user_id, entity_id) VALUES (3, 2);
+INSERT INTO permissions (user_id, entity_id) VALUES (3, 9);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 3);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 12);
-INSERT INTO permissions (user_id, entity_id) VALUES (5, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (10, 5);
-INSERT INTO permissions (user_id, entity_id) VALUES (11, 1);
+INSERT INTO permissions (user_id, entity_id) VALUES (4, 2);
+INSERT INTO permissions (user_id, entity_id) VALUES (3, 5);
+INSERT INTO permissions (user_id, entity_id) VALUES (4, 1);
 
 
 --| EVENTS |--
@@ -163,10 +162,6 @@ INSERT INTO favorites (user_id, event_id) VALUES (30, 3);
 INSERT INTO favorites (user_id, event_id) VALUES (26, 2);
 INSERT INTO favorites (user_id, event_id) VALUES (73, 1);
 INSERT INTO favorites (user_id, event_id) VALUES (64, 1);
-
-INSERT INTO categories (name) VALUES ('Música');
-INSERT INTO categories (name) VALUES ('Desporto');
-INSERT INTO categories (name) VALUES ('Informática');
 
 INSERT INTO event_categories (event_id, category_id) VALUES (1, 3);
 INSERT INTO event_categories (event_id, category_id) VALUES (2, 1);
