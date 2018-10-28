@@ -11,13 +11,13 @@ nav#navbar-custom {
 nav.navbar-light a.navbar-brand {
     text-transform: uppercase;
     color: white;
-    flex-grow: 3;
+    flex-grow: 5;
     text-align: left;
 }
 
 nav div.navbar-collapse {
     width: auto;
-    flex-grow: 4;
+    flex-grow: 6;
     display: flex;
     justify-content: space-between;
 }
@@ -33,4 +33,8 @@ nav button.btn.btn-primary {
     border-color: #32a794;
     font-size: 20px;
     font-weight: 200;
+}
+
+nav.navbar {
+    margin-bottom: 0;
 }
