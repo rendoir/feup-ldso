@@ -163,10 +163,6 @@ INSERT INTO favorites (user_id, event_id) VALUES (26, 2);
 INSERT INTO favorites (user_id, event_id) VALUES (73, 1);
 INSERT INTO favorites (user_id, event_id) VALUES (64, 1);
 
-INSERT INTO categories (name) VALUES ('Música');
-INSERT INTO categories (name) VALUES ('Desporto');
-INSERT INTO categories (name) VALUES ('Informática');
-
 INSERT INTO event_categories (event_id, category_id) VALUES (1, 3);
 INSERT INTO event_categories (event_id, category_id) VALUES (2, 1);
 INSERT INTO event_categories (event_id, category_id) VALUES (3, 1);

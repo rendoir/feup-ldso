@@ -127,6 +127,16 @@ DROP TRIGGER IF EXISTS check_permission ON events;
 CREATE TRIGGER check_permission BEFORE INSERT OR UPDATE ON events
     FOR EACH ROW EXECUTE PROCEDURE check_permission();
     
+CREATE INDEX search_entity ON entities USING GIST ((
+	setweight(to_tsvector('english', initials), 'A') ||
+	setweight(to_tsvector('english', name), 'B') ||
+	setweight(to_tsvector('english', description), 'C')
+));
+
+CREATE INDEX search_category ON categories USING GIST ((
+	setweight(to_tsvector('english', name), 'A') ||
+	setweight(to_tsvector('english', description), 'B')
+));
 
 DROP FUNCTION IF EXISTS check_user_is_moderator_or_admin();
 CREATE OR REPLACE FUNCTION check_user_is_moderator_or_admin() RETURNS trigger AS $$

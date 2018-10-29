@@ -29,6 +29,12 @@ router.delete("/", function (req, res) {
 });
 
 
+
+// Search
+router.get("/search/entities", eventController.searchForEntities);
+router.get("/search/categories", eventController.searchForCategories);
+router.get("/search/events", eventController.searchForEvents);
+
 // Getters
 router.get("/entities/:user_id", entityController.getEntitiesWithPermission);
 router.get("/app/entities", entityController.getEntities);

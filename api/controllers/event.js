@@ -4,6 +4,17 @@ const Category = require('../models').categories;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
+function patternToTSVector(text) {
+
+    let words = text.trim().replace(/ +(?= )/g, '').split(' ');
+    let string = "";
+    for (i in words) {
+        string += words[i] + ":* & ";
+    }
+    return string.substring(0, string.length - 3);
+
+}
+
 module.exports = {
 
     listForUsers(req, res) {
@@ -21,6 +32,46 @@ module.exports = {
         })
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
+    },
+
+    searchForEntities(req, res) {
+
+        let pattern = patternToTSVector(req.query.text);
+
+        return sequelize.query(
+            "WITH search_initials AS ( SELECT id, initials, name, 'initials' as searched_by FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1)) SELECT * from search_initials " + 
+            "UNION SELECT id, initials, name, 'name' as searched_by FROM entities WHERE to_tsvector('simple', entities.name) @@ to_tsquery('simple', $1) AND (id, initials, name, 'initials') NOT IN (select * from search_initials) " + 
+            "ORDER BY searched_by, name;",
+        { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    searchForCategories(req, res) {
+
+        let pattern = patternToTSVector(req.query.text);
+
+        return sequelize.query(
+            "SELECT * FROM categories WHERE to_tsvector('simple', categories.name) @@ to_tsquery('simple', $1);",
+            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    searchForEvents(req, res) {
+
+        let pattern = patternToTSVector(req.query.text);
+        return sequelize.query(
+            "WITH search_title AS (SELECT id, title, location, price, start_date, entity_id, 'title' as search_by FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp) SELECT * FROM search_title " + 
+            "UNION SELECT id, title, location, price, start_date, entity_id, 'location' as search_by FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery('simple', $1) AND start_date > current_timestamp AND (id, title, location, price, start_date, entity_id, 'title') NOT IN (SELECT * FROM search_title) " + 
+            "ORDER BY search_by DESC, start_date ASC;",
+            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+
     },
 
     listForWeb(req, res) {

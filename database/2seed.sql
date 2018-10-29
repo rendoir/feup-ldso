@@ -1,3 +1,4 @@
+
 --| ENTITIES |--
 
 INSERT INTO entities (name, color, initials, description) 
@@ -47,3 +48,25 @@ VALUES ('Instituto de Ciências Biomédicas Abel Salazar', '#FFFF00', '#6FA8DC',
 
 INSERT INTO entities (name, color, color2, initials, description) 
 VALUES ('Porto Business School', '#192AEA', '#FFFFFF', 'PBS', 'Com origens em 1988, a escola de negócios da Universidade do Porto é uma business school em plena afirmação a nível internacional. Beneficiando de uma relação muito próxima com o tecido empresarial nacional, a escola propõe uma vasta oferta de cursos de pós-graduação na área da gestão. Nesse leque está, por exemplo, o “The Magellan MBA”, um MBA internacional totalmente lecionado em inglês e que atrai, anualmente, candidatos de todo o mundo. A escola oferece ainda um conjunto de pós-graduações de duração anual, programas de executivos, de curta e média duração, seminários de alta direção, programas de in-company training e serviços às empresas. Em 2014, um ano após celebrar 25 anos de vida, a Porto Business School inaugurou o seu novo campus, em Matosinhos. Alinhado com a estratégia de crescimento nacional e internacional da instituição, que passa por se posicionar no top 30 das Escolas de Negócios europeias , o novo complexo vai permitir aumentar o volume de atividade da escola, quer em número de programas oferecidos, quer em número de estudantes.');
+
+
+--| CATEGORIES |--
+
+-- Rever com a PO:
+
+INSERT INTO categories (name) VALUES ('Desporto');
+INSERT INTO categories (name) VALUES ('Música');
+INSERT INTO categories (name) VALUES ('Tecnologia');
+INSERT INTO categories (name) VALUES ('Biologia');
+INSERT INTO categories (name) VALUES ('Química');
+INSERT INTO categories (name) VALUES ('Física');
+INSERT INTO categories (name) VALUES ('Cultura');
+INSERT INTO categories (name) VALUES ('Arte');
+INSERT INTO categories (name) VALUES ('Teatro');
+INSERT INTO categories (name) VALUES ('Literatura');
+INSERT INTO categories (name) VALUES ('Natureza');
+INSERT INTO categories (name) VALUES ('Gastronomia');
+INSERT INTO categories (name) VALUES ('Moda');
+INSERT INTO categories (name) VALUES ('Lazer');
+INSERT INTO categories (name) VALUES ('Comédia');
+INSERT INTO categories (name) VALUES ('Informática');

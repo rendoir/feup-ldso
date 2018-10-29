@@ -317,33 +317,40 @@ describe('Delete Events', () => {
                 });
                 Entity.create({
                     id: 1,
-                    username: 'TestUser',
-                    name: 'Test User',
-                    password: 'nasdasdasd',
-                    email: 'email@email.com',
-                    type: 'moderator'
-                }).then((user) => {
-                    user.addEntity(entity)
-                        .then(() => {
-                            let start_date = new Date();
-                            let end_date = new Date();
-                            start_date.setDate(start_date.getDate() + 1);
-                            end_date.setDate(end_date.getDate() + 2);
-                            EventModel.create({
-                                id: 1,
-                                title: "Delete Event Test",
-                                description: "It is a test event, without content",
-                                start_date: start_date.toISOString(),
-                                end_date: end_date.toISOString(),
-                                location: "Random Location",
-                                price: 10,
-                                user_id: 1,
-                                entity_id: 1
-                            }).then(() => done());
-                        }).catch((err) => done());
+                    name: 'Test Entity',
+                    initials: 'TEST',
+                    description: 'test description'
+                }).then(function (entity) {
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator'
+                    }).then(function (user) {
+                        user.addEntity(entity)
+                            .then(() => {
+                                let start_date = new Date();
+                                let end_date = new Date();
+                                start_date.setDate(start_date.getDate() + 1);
+                                end_date.setDate(end_date.getDate() + 2);
+                                EventModel.create({
+                                    id: 1,
+                                    title: "Delete Event Test",
+                                    description: "It is a test event, without content",
+                                    start_date: start_date.toISOString(),
+                                    end_date: end_date.toISOString(),
+                                    location: "Random Location",
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }).then(function () { done(); })
+                            }).catch((err) => { done() });
+                    }).catch((err) => { done() });
                 }).catch((err) => { done() });
             }).catch((err) => { done() });
-    })
+    });
 
     describe('/DELETE Delete Event', () => {
         it('it should delete a events on the web', (done) => {
@@ -542,6 +549,178 @@ describe('Filter events', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(1);
+                    done();
+                })
+        });
+    });
+});
+
+describe('Search', () => {
+
+    before((done) => {
+        // this.enableTimeouts(false);
+        destroyDatabase();
+        // Create entities
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity 1',
+                initials: 'TEST1'
+            },
+            {
+                id: 2,
+                name: 'Another Entity 2',
+                initials: 'ANOT2'
+            },
+            {
+                id: 3,
+                name: 'One More Test Entity 3',
+                initials: 'ONET3'
+            }
+        ]).then(() =>
+
+            Category.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Category 1'
+                },
+                {
+                    id: 2,
+                    name: 'Another Category 2'
+                },
+                {
+                    id: 3,
+                    name: 'One More Test Category 3'
+                }
+            ]).then(() => { return Entity.findAll() })
+                .then((entities) =>
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator'
+                    }).then((user) => user.setEntities(entities) // Give full permissions to user
+                        .then(() => {
+                            let start_date1 = new Date();
+                            let start_date2 = new Date();
+                            let start_date3 = new Date();
+                            let start_date4 = new Date();
+                            let start_date5 = new Date();
+                            let start_date6 = new Date();
+
+                            start_date1.setDate(start_date1.getDate() + 1);
+                            start_date2.setDate(start_date2.getDate() + 2);
+                            start_date3.setDate(start_date3.getDate() + 3);
+                            start_date4.setDate(start_date4.getDate() + 4);
+                            start_date5.setDate(start_date5.getDate() + 5);
+                            start_date6.setDate(start_date6.getDate() - 6);
+                            // Create events
+
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Event 1",
+                                    start_date: start_date1,
+                                    user_id: 1,
+                                    entity_id: 1,
+                                    location: 'Class'
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test Conference 2",
+                                    start_date: start_date2,
+                                    user_id: 1,
+                                    entity_id: 2,
+                                    location: 'Other'
+                                },
+                                {
+                                    id: 3,
+                                    title: "Another Conference 3",
+                                    start_date: start_date3,
+                                    user_id: 1,
+                                    entity_id: 2,
+                                    location: 'Somewhere'
+                                },
+                                {
+                                    id: 4,
+                                    title: "Test Class 4",
+                                    start_date: start_date4,
+                                    user_id: 1,
+                                    entity_id: 3,
+                                    location: 'Conference'
+                                },
+                                {
+                                    id: 5,
+                                    title: "One More Class 5",
+                                    start_date: start_date5,
+                                    user_id: 1,
+                                    entity_id: 3,
+                                    location: 'Class'
+                                },
+                                {
+                                    id: 6,
+                                    title: "Global Conference 6",
+                                    start_date: start_date6,
+                                    user_id: 1,
+                                    entity_id: 3,
+                                    location: 'Anywhere'
+                                }
+                            ]).then(() => done());
+                        }))
+                    )
+                )
+    });
+
+    describe('/GET Search for entities', () => {
+        it('It should show entities by search pattern', (done) => {
+            chai.request(app)
+                .get('/search/entities/')
+                .query({ text: "tes" })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    res.body[0].initials.should.be.eql('TEST1');
+                    res.body[1].initials.should.be.eql('ONET3');
+                    done();
+                })
+        });
+    });
+
+    describe('/GET Search for categories', () => {
+        it('It should show categories by search pattern', (done) => {
+            chai.request(app)
+                .get('/search/categories/')
+                .query({ text: "tes" })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    res.body[0].name.should.be.eql('Test Category 1');
+                    res.body[1].name.should.be.eql('One More Test Category 3');
+                    done();
+                })
+        });
+    });
+
+    describe('/GET Search for events', () => {
+        it('It should show events by search pattern', (done) => {
+            chai.request(app)
+                .get('/search/events/')
+                .query({ text: "conf" })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(3);
+                    res.body[0].title.should.be.eql('Test Conference 2');
+                    res.body[0].search_by.should.be.eql('title');
+                    res.body[1].title.should.be.eql('Another Conference 3');
+                    res.body[1].search_by.should.be.eql('title');
+                    res.body[2].title.should.be.eql('Test Class 4');
+                    res.body[2].search_by.should.be.eql('location');
                     done();
                 })
         });
