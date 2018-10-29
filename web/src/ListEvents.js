@@ -26,6 +26,8 @@ class ListEvents extends Component {
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
         this.handleChangeEntity = this.handleChangeEntity.bind(this);
         this.searchEventText = this.searchEventText.bind(this);
+        this.deleteEventFromArray = this.deleteEventFromArray.bind(this);
+        this.updateAlertMessage = this.updateAlertMessage.bind(this);
         this.handlePagination = this.handlePagination.bind(this);
     }
 
@@ -54,6 +56,7 @@ class ListEvents extends Component {
 
             this.props.updateRefreshEvents(false);
         }
+
     }
 
     handleChangeSearch(event) {
@@ -66,6 +69,10 @@ class ListEvents extends Component {
 
     handleChangeEntity(event) {
 
+    }
+
+    updateAlertMessage(newAlertType, newAlertMessage) {
+        this.setState({alertType: newAlertType, alertMessage: newAlertMessage});
     }
 
     handlePagination(event) {
@@ -83,6 +90,34 @@ class ListEvents extends Component {
 
     searchEventText() {
         //access API to get events with said text
+    }
+
+    deleteEventFromArray(event_id) {
+        let index = -1;
+        for (var i = 0; i < this.state.events.length; i++) {
+            if (parseInt(this.state.events[i].id) === parseInt(event_id)) {
+                index = i;
+            }
+
+        }
+        console.log(index);
+
+        if (index !== -1) {
+            let eventsSliced;
+            if(index === 0 && this.state.events.length === 1){
+                eventsSliced = [];
+            }
+            else  {
+                eventsSliced = this.state.events.splice(index, 1);
+            }
+            this.setState({
+                events: eventsSliced,
+                alertType: 'success', alertMessage: 'O evento foi apagado com sucesso.'
+            });
+        }
+        else {
+            this.setState({alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.'})
+        }
         
     }
 
@@ -95,25 +130,28 @@ class ListEvents extends Component {
         }
 
         let events = this.state.events.map((info, i) => (
-            <Event key={i} info={info} />
+            <Event key={i} info={info}
+                deleteEventFromArray={this.deleteEventFromArray}
+                updateAlertMessage={this.updateAlertMessage}
+            />
         ));
 
         let alertElement;
-        if (this.state.alertMessage !== null) {
+        if(this.state.alertMessage !== null) {
             alertElement = (
-                <Row>
-                    <Col sm={4} md={2}>
+            <Row>
+                <Col sm={4} md={2}>
 
-                    </Col>
-                    <Col sm={5} md={8}>
-                        <Alert className={this.state.alertType}>
-                            {this.state.alertMessage}
-                        </Alert>
-                    </Col>
-                    <Col sm={4} md={2}>
+                </Col>
+                <Col sm={5} md={8}>
+                    <Alert className={this.state.alertType}>
+                        {this.state.alertMessage}
+                    </Alert>
+                </Col>
+                <Col sm={4} md={2}>
 
-                    </Col>
-                </Row>);
+                </Col>
+            </Row>);
         }
 
         return (
