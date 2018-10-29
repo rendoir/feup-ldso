@@ -7,6 +7,8 @@ import {
 import { Font, AppLoading } from "expo";
 import { Root, View, Card, Button, Left, Header, Right, Title, Body, Icon, Text, CardItem, Badge, Item, Input } from 'native-base';
 import CustomHeader from '../components/CustomHeader';
+import axios from 'axios';
+import Event from '../components/Event';
 
 export default class SearchScreen extends React.Component {
   static navigationOptions = {
@@ -14,6 +16,8 @@ export default class SearchScreen extends React.Component {
   };
   state = {
     loading: true,
+    searchText: "",
+    events: [],
   };
 
   async componentWillMount() {
@@ -25,7 +29,23 @@ export default class SearchScreen extends React.Component {
       'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
       'DJB-Coffee-Shoppe-Espresso': require('../assets/fonts/DJB-Coffee-Shoppe-Espresso.ttf'),
     });
+    this.doSearch();
     this.setState({ loading: false });
+  }
+
+  doSearch() {
+    let self = this;
+    if(self.state.searchText == "" || self.state.searchText == null)
+      return;
+    let apiLink = 'http://' + global.api + ':3030/search/events?text=' + self.state.searchText;
+    axios.get(apiLink)
+      .then(function (response) {
+        const events = response.data;
+        self.setState({ events });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
@@ -36,6 +56,26 @@ export default class SearchScreen extends React.Component {
         </Root>
       );
     }
+    this.doSearch();
+    
+    const events = this.state.events.map((event, i) => (
+      <Event data={event} key={i} />
+    ));
+
+    let noEventsElement;
+    if (this.state.events.length == 0 || this.state.searchText == '' || this.state.searchText == null) {
+      this.state.events.length = 0;
+      events.length = 0;
+      noEventsElement = (
+        <Card>
+          <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: '5%' }}>
+            <Icon type="Feather" name="info" />
+            <Text>Não há eventos para a pesquisa feita.</Text>
+          </View>
+        </Card>
+      );
+    }
+
     return (
       <View style={{ backgroundColor: 'white' }}>
         <CustomHeader />
@@ -51,7 +91,7 @@ export default class SearchScreen extends React.Component {
               </View>
               <View style={{ flex: 5 }}>
                 <Item regular style={{ height: 30 }}>
-                  <Input />
+                  <Input onChangeText={(searchText) => this.setState({searchText}, () => this.doSearch())} />
                   <Icon type="FontAwesome" name="search" />
                 </Item>
               </View>
@@ -62,37 +102,11 @@ export default class SearchScreen extends React.Component {
           </View>
 
           <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-            <Card>
-              <CardItem bordered>
-                <Icon type="FontAwesome" name="map-marker" />
-                <Text>Faculdade de Engenharia</Text>
-              </CardItem>
-              <CardItem bordered>
-                <Icon type="FontAwesome" name="map-marker" />
-                <Text>Faculdade de Desporto</Text>
-              </CardItem>
-              <CardItem bordered>
-                <Icon type="FontAwesome" name="map-marker" />
-                <Text>Faculdade de Letras</Text>
-              </CardItem>
-              <CardItem bordered>
-                <Icon type="FontAwesome" name="map-marker" />
-                <Text>Faculdade de Medicina</Text>
-              </CardItem>
-              <CardItem bordered>
-                <Icon type="Feather" name="hash" />
-                <Text>Informática</Text>
-              </CardItem>
-              <CardItem bordered>
-                <Icon type="Feather" name="hash" />
-                <Text>Desporto</Text>
-              </CardItem>
-              <CardItem bordered>
-                <Icon type="Feather" name="hash" />
-                <Text>Cultura</Text>
-              </CardItem>
-            </Card>
+            {events}
+            {noEventsElement}
           </View>
+
+          
         </ScrollView>
       </View >
     );
