@@ -13,7 +13,7 @@ export default class CategoriesScreen extends React.Component {
     static navigationOptions = {
         header: null,
     };
-
+    
     componentWillUnmount() {
         this.isCancelled = true;
     }
@@ -32,7 +32,8 @@ export default class CategoriesScreen extends React.Component {
         axios.get('http://' + global.api + ':3030/categories')
             .then(function (response) {
                 const categories = response.data;
-                self.setState({ categories });
+                if(!this.isCancelled)
+                    self.setState({ categories });
             })
             .catch(function (error) {
                 console.log(error);

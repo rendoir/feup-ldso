@@ -38,7 +38,8 @@ export default class AgendaScreen extends React.Component {
       'DJB-Coffee-Shoppe-Espresso': require('../assets/fonts/DJB-Coffee-Shoppe-Espresso.ttf'),
     });
     this.getEventsFromApi();
-    !this.isCancelled && this.setState({ loading: false });
+    // !this.isCancelled && this.setState({ loading: false });
+    this.setState({ loading: false });
   }
 
   getEventsFromApi() {

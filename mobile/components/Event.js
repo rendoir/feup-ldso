@@ -23,31 +23,18 @@ export default class Event extends React.Component {
     getMonthInString(month) {
         switch (parseInt(month)) {
             case 1: return 'JAN';
-                break;
-            case 2: return 'FEB';
-                break;
+            case 2: return 'FEV';
             case 3: return 'MAR';
-                break;
             case 4: return 'ABR';
-                break;
             case 5: return 'MAI';
-                break;
             case 6: return 'JUN';
-                break;
             case 7: return 'JUL';
-                break;
             case 8: return 'AGO';
-                break;
             case 9: return 'SET';
-                break;
             case 10: return 'OUT';
-                break;
             case 11: return 'NOV';
-                break;
             case 12: return 'DEZ';
-                break;
-            default:
-                break;
+            default: return 'Error';
         }
     }
 
@@ -55,7 +42,7 @@ export default class Event extends React.Component {
         return (
             <Card>
                 <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.props.data.id } : require('../assets/images/default.png')}
-                    style={{ height: 160, width: null, flex: 1 }}
+                    style={styles.image}
                     onError={this.ImageLoadingError.bind(this)} />
                 <View style={{ flexDirection: 'row' }}>
                     <Badge style={{ flex: 1, backgroundColor: 'grey', margin: '3%', height: 68, alignItems:'center' }}>
@@ -75,27 +62,9 @@ export default class Event extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    textBlack: {
-        color: 'black',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: 13,
-        paddingLeft: 0,
-    },
-    buttonText: {
-        color: 'black',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: 18,
-        paddingLeft: 5,
-    },
-    simpleText: {
-        color: 'black',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: 18,
-        padding: 0,
-    },
-    eventTitle: {
-        color: 'black',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: 16,
+    image: {
+        height: 160,
+        width: null,
+        flex: 1
     },
 });
