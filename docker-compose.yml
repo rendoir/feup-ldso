@@ -15,6 +15,7 @@ services:
       - ./database/2seed.sql:/docker-entrypoint-initdb.d/2seed.sql
       - ./database/3test.sql:/docker-entrypoint-initdb.d/3test.sql
 
+
   pgadmin:
     image: thajeztah/pgadmin4
     environment:

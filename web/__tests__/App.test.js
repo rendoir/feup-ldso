@@ -1,8 +1,8 @@
 import React from 'react';
 import rendered from 'react-test-renderer';
-import Navbar from './NavbarComponent';
-import ListEvents from './ListEvents';
-import AddEventForm from './AddEventForm';
+import Navbar from '../src/NavbarComponent';
+import ListEvents from '../src/ListEvents';
+import AddEventForm from '../src/AddEventForm';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 

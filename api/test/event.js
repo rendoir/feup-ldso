@@ -278,7 +278,7 @@ describe('List Events', () => {
         it('it should list all events on the web', (done) => {
 
             chai.request(app)
-                .get('/1')
+                .get('/web/1')
                 .query({ page: 0, limit: 5 })
                 .end((err, res) => {
                     res.should.have.status(200);

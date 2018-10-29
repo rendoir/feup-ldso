@@ -1,6 +1,6 @@
 import React from 'react';
 import rendered from 'react-test-renderer';
-import AddEventForm from './AddEventForm';
+import AddEventForm from '../src/AddEventForm';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 import axios from 'axios';

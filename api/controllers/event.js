@@ -82,7 +82,7 @@ module.exports = {
             .then((num) => {
                 result.count = parseInt(num[0].count);
 
-                return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
+                return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id AS entity_id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
                     ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
                     { bind: [req.params.user_id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
                     .then((events) => {
