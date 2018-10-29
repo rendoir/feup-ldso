@@ -604,15 +604,26 @@ describe('Search', () => {
                         type: 'moderator'
                     }).then((user) => user.setEntities(entities) // Give full permissions to user
                         .then(() => {
-                            let start_date = new Date();
-                            start_date.setDate(start_date.getDate() + 1);
+                            let start_date1 = new Date();
+                            let start_date2 = new Date();
+                            let start_date3 = new Date();
+                            let start_date4 = new Date();
+                            let start_date5 = new Date();
+                            let start_date6 = new Date();
+
+                            start_date1.setDate(start_date1.getDate() + 1);
+                            start_date2.setDate(start_date2.getDate() + 2);
+                            start_date3.setDate(start_date3.getDate() + 3);
+                            start_date4.setDate(start_date4.getDate() + 4);
+                            start_date5.setDate(start_date5.getDate() + 5);
+                            start_date6.setDate(start_date6.getDate() - 6);
                             // Create events
 
                             EventModel.bulkCreate([
                                 {
                                     id: 1,
                                     title: "Event 1",
-                                    start_date: start_date,
+                                    start_date: start_date1,
                                     user_id: 1,
                                     entity_id: 1,
                                     location: 'Class'
@@ -620,7 +631,7 @@ describe('Search', () => {
                                 {
                                     id: 2,
                                     title: "Test Conference 2",
-                                    start_date: start_date,
+                                    start_date: start_date2,
                                     user_id: 1,
                                     entity_id: 2,
                                     location: 'Other'
@@ -628,7 +639,7 @@ describe('Search', () => {
                                 {
                                     id: 3,
                                     title: "Another Conference 3",
-                                    start_date: start_date,
+                                    start_date: start_date3,
                                     user_id: 1,
                                     entity_id: 2,
                                     location: 'Somewhere'
@@ -636,7 +647,7 @@ describe('Search', () => {
                                 {
                                     id: 4,
                                     title: "Test Class 4",
-                                    start_date: start_date,
+                                    start_date: start_date4,
                                     user_id: 1,
                                     entity_id: 3,
                                     location: 'Conference'
@@ -644,7 +655,7 @@ describe('Search', () => {
                                 {
                                     id: 5,
                                     title: "One More Class 5",
-                                    start_date: start_date,
+                                    start_date: start_date5,
                                     user_id: 1,
                                     entity_id: 3,
                                     location: 'Class'
@@ -652,7 +663,7 @@ describe('Search', () => {
                                 {
                                     id: 6,
                                     title: "Global Conference 6",
-                                    start_date: start_date,
+                                    start_date: start_date6,
                                     user_id: 1,
                                     entity_id: 3,
                                     location: 'Anywhere'
@@ -703,15 +714,13 @@ describe('Search', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(4);
-                    res.body[0].title.should.be.eql('Another Conference 3');
+                    res.body.length.should.be.eql(3);
+                    res.body[0].title.should.be.eql('Test Conference 2');
                     res.body[0].search_by.should.be.eql('title');
-                    res.body[1].title.should.be.eql('Global Conference 6');
+                    res.body[1].title.should.be.eql('Another Conference 3');
                     res.body[1].search_by.should.be.eql('title');
-                    res.body[2].title.should.be.eql('Test Conference 2');
-                    res.body[2].search_by.should.be.eql('title');
-                    res.body[3].title.should.be.eql('Test Class 4');
-                    res.body[3].search_by.should.be.eql('location');
+                    res.body[2].title.should.be.eql('Test Class 4');
+                    res.body[2].search_by.should.be.eql('location');
                     done();
                 })
         });
