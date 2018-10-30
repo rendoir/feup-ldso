@@ -61,7 +61,6 @@ export default class AgendaScreen extends React.Component {
       });
   }
 
-
   render() {
     if (this.state.loading) {
       return (

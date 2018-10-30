@@ -27,6 +27,7 @@ export default class EntitiesScreen extends React.Component {
     !this.isCancelled && this.setState({ loading: false });
   }
 
+
   getEntitiesFromApi() {
     let self = this;
     axios.get('http://' + global.api + ':3030/app/entities')

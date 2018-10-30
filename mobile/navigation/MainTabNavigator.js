@@ -44,7 +44,6 @@ FavoritesStack.navigationOptions = {
           ? `ios-heart${focused ? '' : '-outline'}`
           : 'md-heart-outline'
       }
-
     />
   ),
 };
