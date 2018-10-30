@@ -555,6 +555,7 @@ describe('Filter events', () => {
     });
 });
 
+
 describe('Search', () => {
 
     before((done) => {
@@ -721,6 +722,66 @@ describe('Search', () => {
                     res.body[1].search_by.should.be.eql('title');
                     res.body[2].title.should.be.eql('Test Class 4');
                     res.body[2].search_by.should.be.eql('location');
+                    done();
+                })
+        });
+    });
+});
+
+
+
+
+describe('List Events', () => {
+
+    before((done) => {
+        destroyDatabase();
+        Entity.create({
+            id: 1,
+            name: 'Test Entity',
+            initials: 'TEST',
+            description: 'test description'
+        }).then((entity) => {
+            User.create({
+                id: 1,
+                username: 'TestUser',
+                name: 'Test User',
+                password: 'nasdasdasd',
+                email: 'email@email.com',
+                type: 'moderator'
+            }).then(function (user) {
+                user.addEntity(entity)
+                    .then(() => {
+                        let start_date = new Date();
+                        start_date.setDate(start_date.getDate() + 1);
+                        EventModel.create({
+                           id: 1,
+                            title: "Information of Event Test",
+                            description: "Description of Event",
+                            start_date: start_date.toISOString(),
+                            end_date: end_date.toISOString(),
+                            location: "Random Location",
+                            price: 10,
+                            user_id: 1,
+                            entity_id: 1
+                        }).then((event) => {
+                            event.setUser(user).then(() => done());
+                        })
+                    }).catch((err) => done());
+            }).catch((err) => done());
+        }).catch((err) => done());
+    });
+
+
+    describe('/GET List Events App', () => {
+        it('it should list all events on the App', (done) => {
+
+            chai.request(app)
+                .get('/app')
+                .query({ page: 0, limit: 10 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
                     done();
                 })
         });
