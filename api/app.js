@@ -12,12 +12,11 @@ app.use(fileUpload());
 app.use(cors());
 app.use(express.static(__dirname + '/assets'));
 
-
 //Routes
 var routes = require("./routes/apiRoutes");
 app.use("/", routes);
 
-app.listen(port); 
+app.listen(port);
 
 module.exports = app;
 

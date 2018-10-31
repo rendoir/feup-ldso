@@ -12,7 +12,6 @@ const user = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.TEXT,
-            unique: true,
             allowNull: false
         },
         password: {
@@ -24,11 +23,11 @@ const user = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false
         },
-        admin: {
-            type: DataTypes.BOOLEAN,
-            default: false
-        },
-
+        type: {
+            type: DataTypes.ENUM('mobile', 'moderator', 'admin'),
+            default: 'mobile',
+            allowNull: false
+        }
     }, {
         timestamps: false,
         underscored: true   
@@ -37,7 +36,7 @@ const user = (sequelize, DataTypes) => {
     User.associate = function (models) {
         models.users.belongsToMany(models.events, { through: 'favorites'});
         models.users.belongsToMany(models.entities, { through: 'permissions'});
-        models.users.hasMany(models.events, {foreignKey: 'poster_id',targetKey: 'id'});
+        models.users.hasMany(models.events, {foreignKey: 'user_id',targetKey: 'id'});
     }   
 
     return User;
