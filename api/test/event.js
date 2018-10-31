@@ -617,7 +617,7 @@ describe('Search', () => {
                             start_date3.setDate(start_date3.getDate() + 3);
                             start_date4.setDate(start_date4.getDate() + 4);
                             start_date5.setDate(start_date5.getDate() + 5);
-                            start_date6.setDate(start_date6.getDate() - 6);
+                            start_date6.setDate(start_date6.getDate() + 6);
                             // Create events
 
                             EventModel.bulkCreate([
@@ -715,13 +715,13 @@ describe('Search', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(3);
+                    res.body.length.should.be.eql(4);
                     res.body[0].title.should.be.eql('Test Conference 2');
                     res.body[0].search_by.should.be.eql('title');
                     res.body[1].title.should.be.eql('Another Conference 3');
                     res.body[1].search_by.should.be.eql('title');
-                    res.body[2].title.should.be.eql('Test Class 4');
-                    res.body[2].search_by.should.be.eql('location');
+                    res.body[2].title.should.be.eql('Global Conference 6');
+                    res.body[2].search_by.should.be.eql('title');
                     done();
                 })
         });
