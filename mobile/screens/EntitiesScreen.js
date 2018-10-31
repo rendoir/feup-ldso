@@ -1,23 +1,43 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
 import { StyleSheet } from 'react-native';
 import { Font, AppLoading } from "expo";
-import { Root, Container, Header, Title, Content, List, ListItem, H1, H2, H3, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { Root, Container, Header, List, Text, View, Content, ListItem, Button } from 'native-base';
+import axios from 'axios';
+import Entity from '../components/Entity';
 
 export default class EntitiesScreen extends React.Component {
   state = {
     loading: true,
+    entities: []
   };
   static navigationOptions = {
     header: null,
   };
+
+  componentWillUnmount() {
+    this.isCancelled = true;
+  }
 
   async componentWillMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
-    this.setState({ loading: false });
+    this.getEntitiesFromApi();
+    !this.isCancelled && this.setState({ loading: false });
+  }
+
+
+  getEntitiesFromApi() {
+    let self = this;
+    axios.get('http://' + global.api + ':3030/app/entities')
+      .then(function (response) {
+        const entities = response.data;
+        self.setState({ entities });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
@@ -29,48 +49,22 @@ export default class EntitiesScreen extends React.Component {
       );
     }
     const { navigate } = this.props.navigation;
+
+    const entities = this.state.entities.map((entity, i) => (
+      <Entity data={entity} key={i} onPress={() => navigate('Agenda', { selectedEntity: entity.initials, selectedEntityId: entity.id })} />
+    ));
+
     return (
       <Container>
         <Header style={styles.header}>
-          <Left>
-            <Text style={styles.headerText}>Organizações</Text>
-          </Left>
+          <Text style={styles.headerText}>Organizações</Text>
         </Header>
         <Content>
           <List>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FMUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FMUP" })}><Text style={styles.buttonText}>FMUP</Text></Button>
+            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: 'Orgão', selectedEntityId: 'null' })}>
+              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: 'Orgão', selectedEntityId: 'null' })}><Text style={styles.buttonText}>Todos</Text></Button>
             </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FEUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FEUP" })}><Text style={styles.buttonText}>FEUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FCUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FCUP" })}><Text style={styles.buttonText}>FCUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "ICBAS" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "ICBAS" })}><Text style={styles.buttonText}>ICBAS</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FPCEUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FPCEUP" })}><Text style={styles.buttonText}>FPCEUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FFUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FFUP" })}><Text style={styles.buttonText}>FFUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FAUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FAUP" })}><Text style={styles.buttonText}>FAUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FBAUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FBAUP" })}><Text style={styles.buttonText}>FBAUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FEP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FEP" })}><Text style={styles.buttonText}>FEP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FCNAUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FCNAUP" })}><Text style={styles.buttonText}>FCNAUP</Text></Button>
-            </ListItem>
-            <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedEntity: "FLUP" })}>
-              <Button transparent onPress={() => navigate('Agenda', { selectedEntity: "FLUP" })}><Text style={styles.buttonText}>FLUP</Text></Button>
-            </ListItem>
+            {entities}
           </List>
         </Content>
       </Container>
@@ -79,23 +73,24 @@ export default class EntitiesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  buttonText: {
-    fontSize: 20,
-    color: 'black',
-  },
   listItem: {
     justifyContent: "center",
   },
   header: {
     backgroundColor: '#2c8f7f',
     height: 80,
-    justifyContent: "center",
   },
   headerText: {
-    paddingTop: 20,
     color: 'white',
     fontSize: 30,
-    width: 400,
-    justifyContent: "center",
-  }
+    textAlign: 'center',
+    width: '100%',
+    alignSelf: 'center',
+  },
+  buttonText: {
+    color: 'black',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 18,
+    paddingLeft: 5,
+  },
 });

@@ -2,7 +2,7 @@ version: '3.3'
 services:
 
   postgres:
-    build: .
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_DB: postgres
@@ -10,13 +10,17 @@ services:
       POSTGRES_PASSWORD: example
     ports:
      - "5432:5432"
+    volumes:
+      - ./database/1db.sql:/docker-entrypoint-initdb.d/1db.sql
+      - ./database/2seed.sql:/docker-entrypoint-initdb.d/2seed.sql
+      - ./database/3test.sql:/docker-entrypoint-initdb.d/3test.sql
+
 
   pgadmin:
     image: thajeztah/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: postgres
-      PGADMIN_DEFAULT_PASSWORD: pg!fcp
-      PGADMIN_ENABLE_TLS: "False"
+      PGADMIN_SETUP_EMAIL: postgres
+      PGADMIN_SETUP_PASSWORD: example
     ports:
       - "5050:5050"
     depends_on:

@@ -10,3 +10,41 @@ body {
   text-align: center;
   margin: 0;
 }
+
+.no-display {
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+button.primary_button {
+  background-color: #32a794;
+  border-color: #32a794;
+}
+
+button.primary_button:hover {
+  background-color: #3ed8bf;
+  border-color: #3ed8bf;
+}
+div.dropdowns-search {
+  text-align: left;
+}
+
+div.ui.fluid.dropdown {
+  display: inline;
+  min-width: 20em;
+  vertical-align: middle;
+  padding: 0.5em;
+}
+
+div.ui.multiple.search.dropdown>.text {
+  padding: 0;
+}
+
+div.ui.multiple.search.dropdown>input.search {
+  min-width: 10em;
+}
+
+div.ui.multiple.dropdown>.label {
+  vertical-align: middle;
+}

@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import { Form, Image, Col, Button, Row, Breadcrumb, Alert } from 'react-bootstrap';
+import { Form, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
+import { Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './AddEventForm.css';
+
+const initialState = {
+    title: "",
+    description: "",
+    image: "",
+    startDate: "",
+    endDate: "",
+    location: "",
+    price: 0,
+    displayImage: "",
+    chosenEntity: null,
+    alertType: null,
+    alertMessage: null,
+    eventAdded: false
+}
 
 class AddEventForm extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            title: "",
-            description: "",
-            image: "",
-            start_date: "",
-            end_date: "",
-            location: "",
-            price: 0,
-            displayImage: "",
-            alertType: null,
-            alertMessage: null
-        }
+        this.state = initialState;
 
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDescription = this.updateDescription.bind(this);
@@ -29,7 +34,10 @@ class AddEventForm extends Component {
         this.updateEndDate = this.updateEndDate.bind(this);
         this.updateLocation = this.updateLocation.bind(this);
         this.updatePrice = this.updatePrice.bind(this);
+        this.handleChangeEntity = this.handleChangeEntity.bind(this);
         this.addEventAction = this.addEventAction.bind(this);
+        this.callToggleAddEventFormShowFlag = this.callToggleAddEventFormShowFlag.bind(this);
+        this.findIDEntity = this.findIDEntity.bind(this);
 
     }
 
@@ -47,11 +55,11 @@ class AddEventForm extends Component {
     }
 
     updateStartDate(event) {
-        this.setState({ start_date: event.target.value });
+        this.setState({ startDate: event.target.value });
     }
 
     updateEndDate(event) {
-        this.setState({ end_date: event.target.value });
+        this.setState({ endDate: event.target.value });
     }
 
     updateLocation(event) {
@@ -62,17 +70,53 @@ class AddEventForm extends Component {
         this.setState({ price: event.target.value });
     }
 
+    handleChangeEntity(event) {
+        let element = document.querySelector("#add-event-entity div.text");
+        if (element !== null) {
+            let value = this.findIDEntity(element.innerHTML);
+            if (value !== -1) {
+                this.setState({ chosenEntity: value })
+            }
+        }
+    }
+
+    findIDEntity(entity) {
+        for (let i = 0; i < this.props.entities.length; i++) {
+            if (this.props.entities[i].text === entity) {
+                return this.props.entities[i].value;
+            }
+        }
+        return -1;
+    }
+
     addEventAction(event) {
         event.preventDefault();
+
+        let categoryDropdown = document.querySelectorAll("#add-event-category > a");
+        let categories = [];
+        for (let i = 0; i < categoryDropdown.length; i++) {
+            categories[i] = parseInt(categoryDropdown[i].getAttribute('value'));
+        }
+
+        if (this.state.chosenEntity === null) {
+            this.setState({ alertType: "danger", alertMessage: 'Escolha uma entidade, por favor.' });
+            return;
+        }
+        if (categories.length === 0) {
+            this.setState({ alertType: "danger", alertMessage: 'Não é possível criar um evento sem categorias.' });
+            return;
+        }
 
         var data = new FormData();
         data.append('title', this.state.title);
         data.append('description', this.state.description);
-        data.append('start_date', this.state.start_date);
-        data.append('end_date', this.state.end_date);
+        data.append('start_date', this.state.startDate);
+        data.append('end_date', this.state.endDate);
         data.append('location', this.state.location);
         data.append('image', this.state.image);
         data.append('price', this.state.price);
+        data.append('categories', categories);
+        data.append('entity_id', this.state.chosenEntity)
 
         axios({
             method: 'POST',
@@ -80,42 +124,69 @@ class AddEventForm extends Component {
             config: { headers: { 'Content-Type': 'multipart/form-data' } },
             data: data
         })
-            .then((res) => this.setState({alertType: "success", alertMessage:'O evento foi adicionado!'}))
-            .catch((error) => this.setState({alertType: "danger", alertMessage: 'Ocorreu um erro. O evento não foi adicionado.'}));
+            .then((res) => {
+                let entityElement = document.querySelector("#add-event-entity div.text");
+                if(entityElement !== null){
+                    entityElement.setAttribute("class", "text default");
+                    entityElement.innerHTML = "Entidade"
+                }
+                this.setState({...initialState, eventAdded: true, alertType: "success", alertMessage:'O evento foi adicionado!'});
+            })
+            .catch((error) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. O evento não foi adicionado.' }));
 
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevState.alertMessage === null && this.state.alertMessage !== null) {
+        if (prevState.alertMessage === null && this.state.alertMessage !== null) {
             setTimeout(() => {
-                this.setState({alertMessage: null, alertType: null});
+                this.setState({ alertMessage: null, alertType: null });
             }, 3000);
+        }
+
+        if (prevProps.entities.length !== this.props.entities.length && this.props.entities.length === 1) {
+            this.setState({ chosenEntity: this.props.entities[0].value });
         }
     }
 
+    callToggleAddEventFormShowFlag() {
+        this.props.toggleAddEventFormShowFlag(this.state.eventAdded);
+    }
 
     render() {
+        let displayForm = "";
+        if (!this.props.displayForm) {
+            displayForm = "no-display";
+        }
 
         let alertElement;
-        if(this.state.alertMessage !== null) {
+        if (this.state.alertMessage !== null) {
             alertElement = (
-            <Row>
-                <Col sm={4} md={2}>
+                <Row>
+                    <Col sm={4} md={2}>
 
-                </Col>
-                <Col sm={5} md={8}>
-                    <Alert className={this.state.alertType}>
-                        {this.state.alertMessage}
-                    </Alert>
-                </Col>
-                <Col sm={4} md={2}>
+                    </Col>
+                    <Col sm={5} md={8}>
+                        <Alert className={this.state.alertType}>
+                            {this.state.alertMessage}
+                        </Alert>
+                    </Col>
+                    <Col sm={4} md={2}>
 
-                </Col>
-            </Row>);
+                    </Col>
+                </Row>);
+        }
+
+        let entityElement;
+        if (this.props.entities.length > 1) {
+            entityElement = (<Dropdown placeholder='Entidade' id="add-event-entity" search fluid
+                selection options={this.props.entities} onChange={this.handleChangeEntity} />)
+        }
+        else if (this.props.entities.length > 0) {
+            entityElement = (<span>{this.props.entities[0].text}</span>)
         }
 
         return (
-            <div id="add_event_form_div">
+            <div id="add_event_form_div" className={displayForm}>
                 {alertElement}
                 <Row>
                     <Col sm={4} md={2}>
@@ -123,7 +194,7 @@ class AddEventForm extends Component {
                     </Col>
                     <Col sm={5} md={8}>
                         <Breadcrumb>
-                            <Breadcrumb.Item href="#">Eventos</Breadcrumb.Item>
+                            <Breadcrumb.Item onClick={this.callToggleAddEventFormShowFlag}>Eventos</Breadcrumb.Item>
                             <Breadcrumb.Item active>Criar Evento</Breadcrumb.Item>
                         </Breadcrumb>
                     </Col>
@@ -137,80 +208,101 @@ class AddEventForm extends Component {
                     </Col>
                     <Col sm={10} md={10}>
                         <Form onSubmit={this.addEventAction} id="add_event_form">
-                            <Form.Group controlId="form.Title">
+                            <Form.Group controlId="form-title">
                                 <Row>
                                     <Col sm={2} className="align_left"><Form.Label>Título do Evento: </Form.Label></Col>
                                     <Col sm={5}>
-                                        <Form.Control type="text" value={this.state.title} onChange={this.updateTitle} />
+                                        <FormControl type="text" required value={this.state.title} onChange={this.updateTitle} />
+                                    </Col>
+                                    <Col sm={5} className="dropdowns-search" id="dropdowns-add-event">
+                                        {entityElement}
                                     </Col>
                                 </Row>
                             </Form.Group>
 
-                            <Form.Group controlId="form.descriptionAndImage">
-                                <Form.Row>
+                            <Form.Group controlId="form-descriptionAndImage">
+                                <Row>
                                     <Col sm={8} className="align_left">
                                         <Form.Label>Descrição do Evento: </Form.Label>
-                                        <Form.Control as="textarea" rows="10" value={this.state.description} onChange={this.updateDescription} />
+                                        <FormControl as="textarea" required rows="10" value={this.state.description} onChange={this.updateDescription} />
                                     </Col>
                                     <Col sm={4}>
-                                        <Form.Label>Inserir Imagem: </Form.Label>
-                                        <Form.Control type="file" name="file" onChange={this.updateImage} id="file" className="inputfile" />
-                                        <label htmlFor="file" className="btn">Escolha um ficheiro</label>
-                                        <Image src={this.state.displayImage} className="preview_image" />
+                                        <Form.Group controlId="form-image" id="form-image-div">
+                                            <Form.Label className="text-align-center">Inserir Imagem: </Form.Label>
+                                            <FormControl type="file" name="file" onChange={this.updateImage} className="inputfile" />
+                                            <label htmlFor="form-image" className="btn">Escolha um ficheiro</label>
+                                            <Image src={this.state.displayImage} className="preview_image" />
+
+                                        </Form.Group>
                                     </Col>
-                                </Form.Row>
+                                </Row>
 
                             </Form.Group>
 
-                            <Form.Group controlId="form.Dates">
-                                <Form.Row>
-                                    <Col sm={1}></Col>
+                            <Form.Group controlId="form-datesLabel" className="text-align-center">
+                                <Row>
+                                    <Col sm={2}></Col>
                                     <Col sm={3}>
                                         <Form.Label>Início</Form.Label>
                                     </Col>
-                                    <Col sm={1}> </Col>
+                                    <Col sm={2}> </Col>
                                     <Col sm={3}>
                                         <Form.Label>Fim</Form.Label>
                                     </Col>
-                                </Form.Row>
-                                <Form.Row>
-                                    <Col sm={1} className="align_left">
+                                    <Col sm={2}></Col>
+                                </Row>
+                            </Form.Group>
+                            <Form.Group controlId="form-dates" id="form-dates-div">
+                                <Row>
+                                    <Col sm={2} className="align_left">
                                         <Form.Label>Data/Hora:</Form.Label>
                                     </Col>
                                     <Col sm={3}>
-                                        <Form.Control type="datetime-local" value={this.state.start_date} onChange={this.updateStartDate} />
+                                        <Form.Group controlId="form-date-start">
+                                            <FormControl required type="datetime-local" value={this.state.startDate} onChange={this.updateStartDate} />
+                                        </Form.Group>
                                     </Col>
-                                    <Col sm={1}>
+                                    <Col sm={2} className="text-align-center">
                                         <Form.Label> a </Form.Label>
                                     </Col>
                                     <Col sm={3}>
-                                        <Form.Control type="datetime-local" value={this.state.end_date} onChange={this.updateEndDate} />
+                                        <Form.Group controlId="form-date-end">
+                                            <FormControl required type="datetime-local" value={this.state.endDate} onChange={this.updateEndDate} />
+                                        </Form.Group>
                                     </Col>
-                                </Form.Row>
+                                    <Col sm={2}></Col>
+                                </Row>
                             </Form.Group>
-                            <Form.Group controlId="form.Location">
+                            <Form.Group controlId="form-location">
                                 <Row>
                                     <Col sm={1} className="align_left">
                                         <Form.Label>Localização: </Form.Label>
                                     </Col>
                                     <Col sm={5}>
-                                        <Form.Control type="text" value={this.state.location} onChange={this.updateLocation} />
+                                        <FormControl type="text" required value={this.state.location} onChange={this.updateLocation} />
+                                    </Col>
+                                    <Col sm={1} className="align_left">
+                                        <Form.Label>Categorias: </Form.Label>
+                                    </Col>
+                                    <Col sm={5} id="add-event-form-categories-div" >
+                                        <Dropdown placeholder='Categorias' id="add-event-category" fluid multiple search selection options={this.props.categories} />
                                     </Col>
                                 </Row>
                             </Form.Group>
-                            <Form.Group controlId="form.Price">
+                            <Form.Group controlId="form-price">
                                 <Row>
                                     <Col sm={1} className="align_left">
                                         <Form.Label>Preço: </Form.Label>
                                     </Col>
                                     <Col sm={5}>
-                                        <Form.Control type="number" min="0" value={this.state.price} onChange={this.updatePrice} />
+                                        <input className="form-control"
+                                            type="number" min="0" value={this.state.price} onChange={this.updatePrice} />
                                     </Col>
                                 </Row>
                             </Form.Group>
 
-                            <Form.Group controlId="form.Buttons" className="buttons_style">
-                                <Button variant="secondary">Cancelar</Button>
+                            <Form.Group controlId="form-buttons" className="buttons_style">
+                                <Button variant="secondary" onClick={this.callToggleAddEventFormShowFlag}>Cancelar</Button>
                                 <Button variant="primary" type="submit" className="primary_button">Confirmar</Button>
                             </Form.Group>
 

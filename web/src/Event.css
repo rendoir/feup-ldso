@@ -1,0 +1,39 @@
+div.event {
+    margin: 1em 0;
+}
+
+div.event-date {
+    background-color: #4a4a4a;
+    color: white;
+    font-weight: bold;
+    padding: 1em;
+}
+
+div.event-info {
+    background-color: white;
+    padding: 1em;
+    text-align: left;
+    position: relative;
+    font-size: 18px;
+}
+
+div.event-info p.event-title {
+    cursor: pointer;
+    display: inline-block;
+}
+
+div.event-info p.event-title:hover {
+    color: #4a4a4a;
+}
+
+div.event-info div.event-buttons{
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+div.event-info div.event-buttons button.btn{
+    background-color: inherit;
+    border-color: white;
+    color: #4a4a4a;
+}
