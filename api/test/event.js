@@ -555,6 +555,7 @@ describe('Filter events', () => {
     });
 });
 
+
 describe('Search', () => {
 
     before((done) => {
@@ -616,7 +617,7 @@ describe('Search', () => {
                             start_date3.setDate(start_date3.getDate() + 3);
                             start_date4.setDate(start_date4.getDate() + 4);
                             start_date5.setDate(start_date5.getDate() + 5);
-                            start_date6.setDate(start_date6.getDate() - 6);
+                            start_date6.setDate(start_date6.getDate() + 6);
                             // Create events
 
                             EventModel.bulkCreate([
@@ -714,13 +715,91 @@ describe('Search', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(3);
+                    res.body.length.should.be.eql(4);
                     res.body[0].title.should.be.eql('Test Conference 2');
                     res.body[0].search_by.should.be.eql('title');
                     res.body[1].title.should.be.eql('Another Conference 3');
                     res.body[1].search_by.should.be.eql('title');
-                    res.body[2].title.should.be.eql('Test Class 4');
-                    res.body[2].search_by.should.be.eql('location');
+                    res.body[2].title.should.be.eql('Global Conference 6');
+                    res.body[2].search_by.should.be.eql('title');
+                    done();
+                })
+        });
+    });
+});
+
+
+describe('Information of an event', () => {
+
+    before((done) => {
+        models.sequelize.sync()
+            .then(() => {
+                Permission.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                Entity.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                User.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                EventModel.destroy({
+                    where: {},
+                    truncate: true,
+                    cascade: true
+                });
+                Entity.create({
+                    id: 1,
+                    name: 'Test Entity',
+                    initials: 'TEST',
+                    description: 'test description'
+                }).then(function (entity) {
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator'
+                    }).then(function (user) {
+                        user.addEntity(entity)
+                            .then(() => {
+                                let start_date = new Date();
+                                let end_date = new Date();
+                                start_date.setDate(start_date.getDate() + 1);
+                                end_date.setDate(end_date.getDate() + 2);
+                                EventModel.create({
+                                    id: 1,
+                                    title: "Information of Event Test",
+                                    description: "It is a test event, without content",
+                                    start_date: start_date.toISOString(),
+                                    end_date: end_date.toISOString(),
+                                    location: "Random Location",
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }).then(function () { done(); })
+                            }).catch((err) => { done() });
+                    }).catch((err) => { done() });
+                }).catch((err) => { done() });
+            }).catch((err) => { done() });
+    });
+
+
+    describe('/GET Information of an Event', () => {
+        it('it should show all the information of an event', (done) => {
+
+            chai.request(app)
+                .get('/events/1')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.title.should.be.eql('Information of Event Test');
                     done();
                 })
         });

@@ -34,6 +34,12 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
 
+    getEventInfo(req, res) {
+        return Event.findById(req.params.event_id)
+            .then((event) => res.status(200).send(event))
+            .catch((error) => res.status(400).send(error));
+    },
+
     searchForEntities(req, res) {
 
         let pattern = patternToTSVector(req.query.text);

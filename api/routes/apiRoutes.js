@@ -42,6 +42,7 @@ router.get("/categories", categoryController.getCategories);
 
 // Filter events
 router.get("/events", eventController.getEvents);
+router.get("/events/:event_id", eventController.getEventInfo);
 
 // List events
 router.get("/app", eventController.listForUsers); 
