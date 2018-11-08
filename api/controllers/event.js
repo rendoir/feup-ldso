@@ -1,6 +1,5 @@
 const Event = require('../models').events;
-const Entity = require('../models').entities;
-const Category = require('../models').categories;
+const Favorite = require('../models').favorites;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
 
@@ -197,6 +196,50 @@ module.exports = {
     
         return Event.findAll(query_options)
             .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    isEventFavorited(event_id) {
+        let query_options = {};
+        query_options.where = {
+            user_id: 1, // TODO: Change this to logged in user
+            event_id: event_id
+        };
+
+        return Favorite.count(query_options);
+    },
+
+    isFavorited(req, res) {
+        return module.exports.isEventFavorited(req.query.event_id)
+            .then((num) => res.status(200).send( { has_favorite: num > 0 }))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    toggleFavorite(req, res) {
+        let event_id = req.body.event_id;
+        module.exports.isEventFavorited(event_id)
+            .then((count) => {
+                let has_favorite = count > 0;
+                
+                // Remove favorite
+                if (has_favorite) {
+                    let query_options = {};
+                    query_options.where = {
+                        user_id: 1, // TODO: Change this to logged in user
+                        event_id: event_id
+                    };
+                    return Favorite.destroy(query_options)  
+                    .then(() => res.status(200).send({ message: "The event was removed from your favorites!" }))
+                    .catch((error) => res.status(400).send(error));                                     
+                } else { // Add favorite
+                    return Favorite.create({
+                        user_id: 1, // TODO: Change this to logged in user
+                        event_id: event_id
+                    })
+                    .then(() => res.status(200).send({ message: "The event was added to your favorites!" }))
+                    .catch((error) => res.status(400).send(error));                    
+                }
+            })
             .catch((error) => res.status(400).send(error));
     }
 
