@@ -1,0 +1,30 @@
+div.page-event {
+    margin-top: 4em;
+}
+
+h2.event-title {
+    text-align: center;
+}
+
+img.event-image {
+    margin: 1em auto;
+    text-align: center;
+    max-width: 100%;
+    max-height: 200px;
+}
+
+p.event-description {
+    margin: 1em auto;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+
+h4.display-inline {
+    display: inline;
+}
+
+button.btn {
+    background-color: inherit;
+    border-color: inherit;
+    color: #4a4a4a;
+}

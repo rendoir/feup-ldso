@@ -2,7 +2,6 @@
 
 exports[`Check Render ListEvents don't display list events 1`] = `
 <div
-  className="no-display"
   id="list_events"
 >
   <div
@@ -37,14 +36,18 @@ exports[`Check Render ListEvents don't display list events 1`] = `
     <div
       className="col-sm-1"
     >
-      <button
-        className="primary_button btn btn-primary"
-        disabled={false}
-        onClick={null}
-        type="button"
+      <a
+        href="/create"
+        onClick={[Function]}
       >
-        Criar Evento
-      </button>
+        <button
+          className="primary_button btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
     </div>
     <div
       className="col-sm-5"
@@ -215,7 +218,6 @@ exports[`Check Render ListEvents don't display list events 1`] = `
 
 exports[`Check Render ListEvents renders list events 1`] = `
 <div
-  className=""
   id="list_events"
 >
   <div
@@ -250,14 +252,18 @@ exports[`Check Render ListEvents renders list events 1`] = `
     <div
       className="col-sm-1"
     >
-      <button
-        className="primary_button btn btn-primary"
-        disabled={false}
-        onClick={null}
-        type="button"
+      <a
+        href="/create"
+        onClick={[Function]}
       >
-        Criar Evento
-      </button>
+        <button
+          className="primary_button btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
     </div>
     <div
       className="col-sm-5"
@@ -449,13 +455,7 @@ exports[`renders elements 1`] = `
     <ul
       className="navbar-nav"
       onKeyDown={[Function]}
-    >
-      <span
-        className="navbar-text"
-      >
-        FEUP
-      </span>
-    </ul>
+    />
     <ul
       className="navbar-nav"
       onKeyDown={[Function]}
@@ -472,7 +472,6 @@ exports[`renders elements 1`] = `
 
 exports[`renders elements 2`] = `
 <div
-  className=""
   id="list_events"
 >
   <div
@@ -507,14 +506,18 @@ exports[`renders elements 2`] = `
     <div
       className="col-sm-1"
     >
-      <button
-        className="primary_button btn btn-primary"
-        disabled={false}
-        onClick={null}
-        type="button"
+      <a
+        href="/create"
+        onClick={[Function]}
       >
-        Criar Evento
-      </button>
+        <button
+          className="primary_button btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
     </div>
     <div
       className="col-sm-5"
@@ -685,7 +688,6 @@ exports[`renders elements 2`] = `
 
 exports[`renders elements 3`] = `
 <div
-  className=""
   id="add_event_form_div"
 >
   <div
@@ -713,7 +715,12 @@ exports[`renders elements 3`] = `
               onKeyDown={[Function]}
               role="button"
             >
-              Eventos
+              <a
+                href="/events"
+                onClick={[Function]}
+              >
+                Eventos
+              </a>
             </a>
           </li>
           <li
@@ -1078,10 +1085,20 @@ exports[`renders elements 3`] = `
           <button
             className="btn btn-secondary"
             disabled={false}
-            onClick={[Function]}
             type="button"
           >
-            Cancelar
+            <a
+              href="/events"
+              onClick={[Function]}
+            >
+              <button
+                className="btn btn-secondary"
+                disabled={false}
+                type="button"
+              >
+                Cancelar
+              </button>
+            </a>
           </button>
           <button
             className="primary_button btn btn-primary"

@@ -1,5 +1,6 @@
 import React from 'react';
 import rendered from 'react-test-renderer';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import { mount } from 'enzyme';
 import MockAdapter from 'axios-mock-adapter';
@@ -9,7 +10,7 @@ var mockAxios = new MockAdapter(axios);
 
 describe("Check Render ListEvents", () => {
   it('renders list events', () => {
-    mockAxios.onGet('http://localhost:3030/web/1').reply(200, {
+    mockAxios.onGet('http://localhost:3030/web').reply(200, {
       count: 3,
       events: [{
         title: 'Title',
@@ -35,22 +36,21 @@ describe("Check Render ListEvents", () => {
     })
 
     const listEvents = rendered.create(
-      <ListEvents
-        toggleAddEventFormShowFlag={null}
-        displayListEvents={true}
-        showEventPage={false}
-        refreshListEvents={false}
-        updateRefreshEvents={false}
-        categories={[]}
-        entities={[]}
-      />
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={false}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
     let treeList = listEvents.toJSON();
     expect(treeList).toMatchSnapshot();
   });
 
   it('don\'t display list events', () => {
-    mockAxios.onGet('http://localhost:3030/web/1').reply(200, {
+    mockAxios.onGet('http://localhost:3030/web').reply(200, {
       count: 3,
       events: [{
         title: 'Title',
@@ -62,15 +62,14 @@ describe("Check Render ListEvents", () => {
     })
 
     const listEvents = rendered.create(
-      <ListEvents
-        toggleAddEventFormShowFlag={null}
-        displayListEvents={false}
-        showEventPage={false}
-        refreshListEvents={false}
-        updateRefreshEvents={false}
-        categories={[]}
-        entities={[]}
-      />
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={false}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
     let treeList = listEvents.toJSON();
     expect(treeList).toMatchSnapshot();
@@ -81,17 +80,18 @@ describe("Handle Search Changes", () => {
 
   it('Check state on search text input change', () => {
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={false}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={false}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
+    let wrapperList = wrapper.find(ListEvents).first();
     const input = wrapper.find('input#search-text-input.form-control').first();
 
     input.simulate('change', {
@@ -99,7 +99,7 @@ describe("Handle Search Changes", () => {
     })
 
     expect(
-      wrapper.state().searchInput
+      wrapperList.state().searchInput
     ).toEqual('Search')
 
   });
@@ -109,7 +109,7 @@ describe("Handle Search Changes", () => {
 
 describe("Check Pagination", () => {
 
-  it("Check if pagination fills events", () => {
+  it("Check if pagination fills events", (done) => {
 
     const events = [{
       title: 'Title',
@@ -131,58 +131,64 @@ describe("Check Pagination", () => {
       events: events
     })
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={false}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={false}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    const input = wrapper.find('div.pagination a.item[type="nextItem"]').first();
+    let wrapperList = wrapper.find(ListEvents).first();
+
+    const input = wrapperList.find('div.pagination a.item[type="nextItem"]').first();
     input.simulate('click');
 
+
     setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.state().events).toEqual(events);
-    })
+      wrapperList.update();
+      expect(wrapperList.state().events).toEqual(events);
+      done();
+    });
   });
 
-  it("Check if pagination doens't fill events", () => {
+  it("Check if pagination doens't fill events", (done) => {
 
     mockAxios.onGet('http://localhost:3030/web/1').reply(400, {});
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={false}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={false}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    const input = wrapper.find('div.pagination a.item[type="nextItem"]').first();
+    let wrapperList = wrapper.find(ListEvents).first();
+
+    const input = wrapperList.find('div.pagination a.item[type="nextItem"]').first();
     input.simulate('click');
 
     setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.state().alertType).toEqual("danger");
-      expect(wrapper.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
-    })
+      wrapperList.update();
+      expect(wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
+      expect(wrapperList.state().alertType).toEqual("danger");
+      done();
+    });
 
   })
 
 });
 
-
 describe("Check componentDidMount actions", () => {
 
-  it("Change refesh events flag", () => {
+  it("Change refesh events flag", async () => {
     const events = [{
       title: 'Title',
       description: 'description',
@@ -203,93 +209,99 @@ describe("Check componentDidMount actions", () => {
       events: events
     })
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={jest.fn()}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = await mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={jest.fn()}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    wrapper.setProps({
-      refreshListEvents: true
-    })
+    let wrapperList = await wrapper.find(ListEvents).first();
 
-    setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.state().events).toEqual(events);
-    })
+    await wrapper.setProps({
+      children: React.cloneElement(wrapper.props().children, { refreshListEvents: true }),
+    });
+
+
+    await wrapperList.update();
+    expect(wrapperList.state().events).toEqual(events);
+
   });
 
-  it("Change refesh events flag - ERROR", () => {
-    mockAxios.onGet('http://localhost:3030/web/1').reply(400, {});
+  it("Change refesh events flag - ERROR", async () => {
+    await mockAxios.onGet('http://localhost:3030/web/1').reply(400, {});
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={jest.fn()}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = await mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={jest.fn()}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    wrapper.setProps({
-      refreshListEvents: true
-    })
+    let wrapperList = await wrapper.find(ListEvents).first();
 
-    setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.state().alertType).toEqual("danger");
-      expect(wrapper.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
-    })
+    await wrapper.setProps({
+      children: React.cloneElement(wrapper.props().children, { refreshListEvents: true }),
+    });
+
+    await wrapperList.props();
+
+    await wrapperList.update()
+    expect(await wrapperList.state().alertType).toEqual("danger");
+    expect(await wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
   });
-
-})
+});
 
 describe("Check deletion methods", () => {
 
-  it("Check updateAlertMessage", () => {
+  it("Check updateAlertMessage", async () => {
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={jest.fn()}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = await mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={jest.fn()}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    wrapper.instance().updateAlertMessage('danger', 'Test Alert Message');
+    let wrapperList = await wrapper.find(ListEvents).first();
 
-    setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.state().alertType).toEqual('danger');
-    })
-    expect(wrapper.state().alertMessage).toEqual('Test Alert Message');
+    wrapperList.instance().updateAlertMessage('danger', 'Test Alert Message');
+
+    await wrapperList.update();
+    expect(wrapperList.state().alertType).toEqual('danger');
+    expect(wrapperList.state().alertMessage).toEqual('Test Alert Message');
+
 
   });
-
+  
   it("Check deleteEventFromArray - Success", async () => {
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={jest.fn()}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={jest.fn()}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    wrapper.setState({
+    let wrapperList = wrapper.find(ListEvents).first();
+
+    wrapperList.setState({
       events: [{
         id: 1,
         title: 'Title',
@@ -308,31 +320,33 @@ describe("Check deletion methods", () => {
       }]
     });
 
-    await wrapper.update();
-    expect(wrapper.state().events.length).toEqual(2);
-    wrapper.instance().deleteEventFromArray(1);
+    await wrapperList.update();
+    expect(wrapperList.state().events.length).toEqual(2);
+    wrapperList.instance().deleteEventFromArray(1);
 
-    await wrapper.update();
-    expect(wrapper.state().events.length).toBe(1);
-    expect(wrapper.state().alertType).toEqual('success');
-    expect(wrapper.state().alertMessage).toEqual('O evento foi apagado com sucesso.');
+    await wrapperList.update();
+    expect(wrapperList.state().events.length).toBe(1);
+    expect(wrapperList.state().alertType).toEqual('success');
+    expect(wrapperList.state().alertMessage).toEqual('O evento foi apagado com sucesso.');
 
   });
-
+  
   it("Check deleteEventFromArray - Error", async () => {
 
-    const wrapper = mount(<ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={false}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={jest.fn()}
-      categories={[]}
-      entities={[]}
-    />
+    const wrapper = mount(
+      <BrowserRouter>
+        <ListEvents
+          refreshListEvents={false}
+          updateRefreshEvents={jest.fn()}
+          categories={[]}
+          entities={[]}
+        />
+      </BrowserRouter>
     );
 
-    wrapper.setState({
+    let wrapperList = wrapper.find(ListEvents).first();
+
+    wrapperList.setState({
       events: [{
         id: 1,
         title: 'Title',
@@ -351,14 +365,14 @@ describe("Check deletion methods", () => {
       }]
     });
 
-    await wrapper.update();
-    expect(wrapper.state().events.length).toEqual(2);
-    wrapper.instance().deleteEventFromArray(-1);
-    
-    await wrapper.update();
-    expect(wrapper.state().events.length).toBe(2);
-    expect(wrapper.state().alertType).toEqual('danger');
-    expect(wrapper.state().alertMessage).toEqual('Ocorreu um erro. Por favor tente atualizar a página.');
+    await wrapperList.update();
+    expect(wrapperList.state().events.length).toEqual(2);
+    wrapperList.instance().deleteEventFromArray(-1);
+
+    await wrapperList.update();
+    expect(wrapperList.state().events.length).toBe(2);
+    expect(wrapperList.state().alertType).toEqual('danger');
+    expect(wrapperList.state().alertMessage).toEqual('Ocorreu um erro. Por favor tente atualizar a página.');
 
   })
 })

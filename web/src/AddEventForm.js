@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
 import { Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
@@ -25,7 +26,21 @@ class AddEventForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = initialState;
+        this.state = {
+            title: "",
+            description: "",
+            image: "",
+            startDate: "",
+            endDate: "",
+            location: "",
+            price: 0,
+            displayImage: "",
+            chosenEntity: null,
+            alertType: null,
+            alertMessage: null,
+            eventAdded: false
+        }
+
 
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDescription = this.updateDescription.bind(this);
@@ -36,7 +51,6 @@ class AddEventForm extends Component {
         this.updatePrice = this.updatePrice.bind(this);
         this.handleChangeEntity = this.handleChangeEntity.bind(this);
         this.addEventAction = this.addEventAction.bind(this);
-        this.callToggleAddEventFormShowFlag = this.callToggleAddEventFormShowFlag.bind(this);
         this.findIDEntity = this.findIDEntity.bind(this);
 
     }
@@ -126,11 +140,11 @@ class AddEventForm extends Component {
         })
             .then((res) => {
                 let entityElement = document.querySelector("#add-event-entity div.text");
-                if(entityElement !== null){
+                if (entityElement !== null) {
                     entityElement.setAttribute("class", "text default");
                     entityElement.innerHTML = "Entidade"
                 }
-                this.setState({...initialState, eventAdded: true, alertType: "success", alertMessage:'O evento foi adicionado!'});
+                this.setState({ ...initialState, eventAdded: true, alertType: "success", alertMessage: 'O evento foi adicionado!' });
             })
             .catch((error) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. O evento não foi adicionado.' }));
 
@@ -148,15 +162,7 @@ class AddEventForm extends Component {
         }
     }
 
-    callToggleAddEventFormShowFlag() {
-        this.props.toggleAddEventFormShowFlag(this.state.eventAdded);
-    }
-
     render() {
-        let displayForm = "";
-        if (!this.props.displayForm) {
-            displayForm = "no-display";
-        }
 
         let alertElement;
         if (this.state.alertMessage !== null) {
@@ -186,7 +192,7 @@ class AddEventForm extends Component {
         }
 
         return (
-            <div id="add_event_form_div" className={displayForm}>
+            <div id="add_event_form_div">
                 {alertElement}
                 <Row>
                     <Col sm={4} md={2}>
@@ -194,7 +200,11 @@ class AddEventForm extends Component {
                     </Col>
                     <Col sm={5} md={8}>
                         <Breadcrumb>
-                            <Breadcrumb.Item onClick={this.callToggleAddEventFormShowFlag}>Eventos</Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                <Link to={`/events`}>
+                                    Eventos
+                                </Link>
+                            </Breadcrumb.Item>
                             <Breadcrumb.Item active>Criar Evento</Breadcrumb.Item>
                         </Breadcrumb>
                     </Col>
@@ -302,7 +312,11 @@ class AddEventForm extends Component {
                             </Form.Group>
 
                             <Form.Group controlId="form-buttons" className="buttons_style">
-                                <Button variant="secondary" onClick={this.callToggleAddEventFormShowFlag}>Cancelar</Button>
+                                <Button variant="secondary">
+                                <Link to={`/events`}>
+                                    <Button variant="secondary">Cancelar</Button>
+                                </Link>
+                                </Button>
                                 <Button variant="primary" type="submit" className="primary_button">Confirmar</Button>
                             </Form.Group>
 

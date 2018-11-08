@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Navbar from './NavbarComponent';
+import { Route, Switch } from 'react-router-dom';
 import AddEventForm from './AddEventForm';
 import ListEvents from './ListEvents';
+import EventPage from './EventPage';
 import './App.css';
 
 import axios from 'axios';
@@ -15,9 +17,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      addEventFormShow: false,
-      showListEvents: true,
-      showEventPage: false,
       refreshListEvents: false,
       categories: [],
       entities: []
@@ -67,23 +66,24 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
-        <ListEvents
-          toggleAddEventFormShowFlag={this.toggleAddEventFormShowFlag}
-          displayListEvents={this.state.showListEvents}
-          showEventPage={this.showEventPage}
-          refreshListEvents={this.state.refreshListEvents}
-          updateRefreshEvents={this.updateRefreshEvents}
-          categories={this.state.categories}
-          entities={this.state.entities}
-        />
-
-        <AddEventForm
-          toggleAddEventFormShowFlag={this.toggleAddEventFormShowFlag}
-          displayForm={this.state.addEventFormShow}
-          categories={this.state.categories}
-          entities={this.state.entities}
-        />
+        <Route component={Navbar} />
+        <Switch>
+          <Route path="/events" render={() =>
+            <ListEvents
+              refreshListEvents={this.state.refreshListEvents}
+              updateRefreshEvents={this.updateRefreshEvents}
+              categories={this.state.categories}
+              entities={this.state.entities}
+            />
+          } />
+          <Route path="/create" render={() =>
+            <AddEventForm
+              categories={this.state.categories}
+              entities={this.state.entities}
+            />
+          } />
+          <Route path="/event/:id" component={EventPage}/>
+        </Switch>
       </div>
     );
   }

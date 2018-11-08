@@ -1,5 +1,6 @@
 import React from 'react';
 import rendered from 'react-test-renderer';
+import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../src/NavbarComponent';
 import ListEvents from '../src/ListEvents';
 import AddEventForm from '../src/AddEventForm';
@@ -41,31 +42,34 @@ it('renders elements', () => {
   })
 
 
-  const navbarComponent = rendered.create(<Navbar />);
+  const navbarComponent = rendered.create(
+    <BrowserRouter>
+      <Navbar />
+    </BrowserRouter>);
   let tree = navbarComponent.toJSON();
   expect(tree).toMatchSnapshot();
 
   const listEvents = rendered.create(
-    <ListEvents
-      toggleAddEventFormShowFlag={null}
-      displayListEvents={true}
-      showEventPage={false}
-      refreshListEvents={false}
-      updateRefreshEvents={false}
-      categories={[]}
-      entities={[]}
-    />
+    <BrowserRouter>
+      <ListEvents
+        refreshListEvents={false}
+        updateRefreshEvents={false}
+        categories={[]}
+        entities={[]}
+      />
+    </BrowserRouter>
   );
   let treeList = listEvents.toJSON();
   expect(treeList).toMatchSnapshot();
 
   const AddForm = rendered.create(
-    <AddEventForm
-      toggleAddEventFormShowFlag={null}
-      displayForm={true}
-      categories={[]}
-      entities={[{ key: 0, value: 1, text: 'Test' }]}
-    />
+    <BrowserRouter>
+      <AddEventForm
+        displayForm={true}
+        categories={[]}
+        entities={[{ key: 0, value: 1, text: 'Test' }]}
+      />
+    </BrowserRouter>
   );
   let treeForm = AddForm.toJSON();
   expect(treeForm).toMatchSnapshot();
