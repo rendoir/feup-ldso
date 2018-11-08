@@ -35,7 +35,16 @@ module.exports = {
     },
 
     getEventInfo(req, res) {
-        return Event.findById(req.params.event_id)
+        return Event.findById(req.params.event_id, {
+            include: [
+                {
+                    model: sequelize.models.entities,
+                },
+                {
+                    model: sequelize.models.categories,
+                }
+            ]
+        })
             .then((event) => res.status(200).send(event))
             .catch((error) => res.status(400).send(error));
     },
@@ -45,10 +54,10 @@ module.exports = {
         let pattern = patternToTSVector(req.query.text);
 
         return sequelize.query(
-            "WITH search_initials AS ( SELECT id, initials, name, 'initials' as searched_by FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1)) SELECT * from search_initials " + 
-            "UNION SELECT id, initials, name, 'name' as searched_by FROM entities WHERE to_tsvector('simple', entities.name) @@ to_tsquery('simple', $1) AND (id, initials, name, 'initials') NOT IN (select * from search_initials) " + 
+            "WITH search_initials AS ( SELECT id, initials, name, 'initials' as searched_by FROM entities WHERE to_tsvector('simple', entities.initials) @@ to_tsquery('simple', $1)) SELECT * from search_initials " +
+            "UNION SELECT id, initials, name, 'name' as searched_by FROM entities WHERE to_tsvector('simple', entities.name) @@ to_tsquery('simple', $1) AND (id, initials, name, 'initials') NOT IN (select * from search_initials) " +
             "ORDER BY searched_by, name;",
-        { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
@@ -70,8 +79,8 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
         return sequelize.query(
-            "WITH search_title AS (SELECT id, title, location, price, start_date, entity_id, 'title' as search_by FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp) SELECT * FROM search_title " + 
-            "UNION SELECT id, title, location, price, start_date, entity_id, 'location' as search_by FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery('simple', $1) AND start_date > current_timestamp AND (id, title, location, price, start_date, entity_id, 'title') NOT IN (SELECT * FROM search_title) " + 
+            "WITH search_title AS (SELECT id, title, location, price, start_date, entity_id, 'title' as search_by FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp) SELECT * FROM search_title " +
+            "UNION SELECT id, title, location, price, start_date, entity_id, 'location' as search_by FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery('simple', $1) AND start_date > current_timestamp AND (id, title, location, price, start_date, entity_id, 'title') NOT IN (SELECT * FROM search_title) " +
             "ORDER BY search_by DESC, start_date ASC;",
             { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
@@ -114,16 +123,16 @@ module.exports = {
         })
             .then((event) => {
                 event.setCategories(req.body.categories.split(','))
-                .then(() => {
-                    try {
-                        this.saveImage(req.files, event)
-                        res.status(201).send(event)
-                    }
-                    catch (err) {
-                        res.status(400).send(err);
-                    }
-                })
-                .catch((error) => res.status(400).send(error));
+                    .then(() => {
+                        try {
+                            this.saveImage(req.files, event)
+                            res.status(201).send(event)
+                        }
+                        catch (err) {
+                            res.status(400).send(err);
+                        }
+                    })
+                    .catch((error) => res.status(400).send(error));
 
             })
             .catch((error) => res.status(400).send(error));
@@ -153,7 +162,7 @@ module.exports = {
                 throw new Error("Error saving original image: " + err);
             });
     },
-    
+
     /**
      * Returns events based on optional filters and options
      * @param {array, integer} entities 
@@ -168,14 +177,14 @@ module.exports = {
         query_options.include = [];
 
         // Shouldn't include past events
-        if(!req.query.past) {
+        if (!req.query.past) {
             let today = Math.floor(Date.now());
             query_options.where.start_date = { [Op.gte]: today };
         }
-        
+
         // Set pagination settings
-        if(req.query.limit)  query_options.limit  = req.query.limit;
-        if(req.query.offset) query_options.offset = req.query.page;
+        if (req.query.limit) query_options.limit = req.query.limit;
+        if (req.query.offset) query_options.offset = req.query.page;
         query_options.order = [['start_date', 'ASC']];
 
         // Filter entities
@@ -186,15 +195,15 @@ module.exports = {
 
         // Filter categories
         if (req.query.categories) {
-            query_options.include.push( { 
+            query_options.include.push({
                 model: sequelize.models.categories,
                 required: true,
                 where: {
                     id: Array.isArray(req.query.categories) ? { [Op.or]: req.query.categories } : req.query.categories
                 }
-            } );
+            });
         }
-    
+
         return Event.findAll(query_options)
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
