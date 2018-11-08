@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>9/12</span>
+        <span class='fraction'>0/12</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/3</span>
+        <span class='fraction'>0/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>6/9</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -124,28 +124,11 @@
 79
 80
 81
-82</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+82
+83
+84</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,10 +143,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,7 +167,25 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,23 +219,25 @@ import SearchScreen from '../screens/SearchScreen';
 import AgendaScreen from '../screens/AgendaScreen';
 import EntitiesScreen from '../screens/EntitiesScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
-import { Icon } from 'native-base';
+import EventScreen from '../screens/EventScreen';
+import LogInScreen from '../screens/LogInScreen';
 &nbsp;
 const AgendaStack = createStackNavigator({
   Agenda: AgendaScreen,
   Entities: EntitiesScreen,
   Categories: CategoriesScreen,
+  Event: EventScreen,
 });
 &nbsp;
 AgendaStack.navigationOptions = {
   tabBarLabel: 'Agenda',
-  tabBarIcon: ({ focused }) =&gt; (
-    &lt;TabBarIcon
+  tabBarIcon: <span class="fstat-no" title="function not covered" >({</span> focused }) =&gt; (
+<span class="cstat-no" title="statement not covered" >    &lt;TabBarIcon</span>
       focused={focused}
       name={
         Platform.OS === 'ios'
           ? `ios-calendar${focused ? '' : '-outline'}`
-          : <span class="branch-1 cbranch-no" title="branch not covered" >'md-calendar'</span>
+          : 'md-calendar'
       }
     /&gt;
   ),
@@ -243,13 +249,13 @@ const FavoritesStack = createStackNavigator({
 &nbsp;
 FavoritesStack.navigationOptions = {
   tabBarLabel: 'Favoritos',
-  tabBarIcon: ({ focused }) =&gt; (
-    &lt;TabBarIcon
+  tabBarIcon: <span class="fstat-no" title="function not covered" >({</span> focused }) =&gt; (
+<span class="cstat-no" title="statement not covered" >    &lt;TabBarIcon</span>
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-heart${focused ? '' : '-outline'}`
-          : <span class="branch-1 cbranch-no" title="branch not covered" >'md-heart-outline'</span>
+          ? `ios-star${focused ? '' : '-outline'}`
+          : 'md-star-outline'
       }
     /&gt;
   ),
@@ -261,10 +267,10 @@ const SearchStack = createStackNavigator({
 &nbsp;
 SearchStack.navigationOptions = {
   tabBarLabel: 'Pesquisa',
-  tabBarIcon: ({ focused, activeTintColor }) =&gt; (
-    &lt;TabBarIcon
+  tabBarIcon: <span class="fstat-no" title="function not covered" >({</span> focused, activeTintColor }) =&gt; (
+<span class="cstat-no" title="statement not covered" >    &lt;TabBarIcon</span>
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : <span class="branch-1 cbranch-no" title="branch not covered" >'md-search'}</span>
+      name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
     /&gt;
   ),
 };
@@ -272,12 +278,12 @@ SearchStack.navigationOptions = {
 export default createBottomTabNavigator({
   FavoritesStack,
   AgendaStack,
-  SearchStack
+  SearchStack,
 },
   {
     initialRouteName: 'AgendaStack',
     tabBarOptions: {
-      showLabel: false,
+      showLabel: true,
       activeTintColor: '#F8F8F8',
       inactiveTintColor: '#ffffff',
       style: {
@@ -292,7 +298,7 @@ export default createBottomTabNavigator({
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 30 2018 12:09:44 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 17:30:58 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>

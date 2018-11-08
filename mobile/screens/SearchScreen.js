@@ -78,12 +78,11 @@ export default class SearchScreen extends React.Component {
 
     return (
       <View style={{ backgroundColor: 'white' }}>
-        <CustomHeader />
         <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: 'white', height: '100%' }}>
 
-          <View style={{ margin: '5%', backgroundColor: 'white' }}>
+          <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: 'white' }}>
 
-            <Text style={{ fontSize: 30, color: '#2c8f7f', textAlign: 'center', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>Pesquisa</Text>
+            <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>Pesquisa</Text>
 
             <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: 'white' }}>
               <View style={{ flex: 1 }}>

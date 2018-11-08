@@ -1,17 +1,23 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Button, Image } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root } from 'native-base';
 import './global.js';
+import CustomHeader from './components/CustomHeader';
+import LogInScreen from './screens/LogInScreen';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     loading: true,
+    signedIn: false,
+    userName: "",
+    userToken: "",
+    photoUrl: ""
   };
-  
-  async componentWillMount() {
+
+  async componentDidMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
@@ -19,7 +25,32 @@ export default class App extends React.Component {
     this.setState({ loading: false });
   }
 
+  signIn = async () => {
+    try {
+      const result = await Expo.Google.logInAsync({
+        androidClientId:
+          "813704659594-aanm6hu12jn47cmek4b47d6uar3nd2kt.apps.googleusercontent.com",
+        scopes: ["profile", "email"]
+      })
+
+      if (result.type === "success") {
+        this.setState({
+          signedIn: true,
+          userName: result.user.name,
+          userToken: result.accessToken,
+          photoUrl: result.user.photoUrl
+        })
+        console.log(this.state.userToken);
+      } else {
+        console.log("cancelled")
+      }
+    } catch (e) {
+      console.log("error", e)
+    }
+  }
+
   render() {
+
     if (this.state.loading) {
       return (
         <Root>
@@ -36,12 +67,19 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
-      );
+      if (this.state.signedIn) {
+        return (
+          <View style={styles.container}>
+            <CustomHeader name={this.state.userName} photoUrl={this.state.photoUrl} />
+
+            <AppNavigator />
+          </View>
+        );
+      } else {
+        return (
+          <LogInScreen signIn={this.signIn} />
+        );
+      }
     }
   }
 

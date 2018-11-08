@@ -2,14 +2,11 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Image,
-  StatusBar,
 } from 'react-native';
 import { Font, AppLoading } from "expo";
-import { Container, Root, View, Card, Button, Left, Header, Right, Title, Body, Icon, Text, CardItem, Badge } from 'native-base';
+import { Root, View, Card, Button, Icon, Text } from 'native-base';
 import axios from 'axios';
 import Event from '../components/Event';
-import CustomHeader from '../components/CustomHeader';
 
 export default class AgendaScreen extends React.Component {
 
@@ -28,7 +25,7 @@ export default class AgendaScreen extends React.Component {
     this.isCancelled = true;
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
@@ -38,7 +35,6 @@ export default class AgendaScreen extends React.Component {
       'DJB-Coffee-Shoppe-Espresso': require('../assets/fonts/DJB-Coffee-Shoppe-Espresso.ttf'),
     });
     this.getEventsFromApi();
-    // !this.isCancelled && this.setState({ loading: false });
     this.setState({ loading: false });
   }
 
@@ -72,7 +68,7 @@ export default class AgendaScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     const events = this.state.events.map((event, i) => (
-      <Event data={event} key={i} />
+      <Event data={event} key={i} onPress={() => navigate('Event', { eventData: event })} />
     ));
 
     {
@@ -95,18 +91,25 @@ export default class AgendaScreen extends React.Component {
 
     return (
       <View style={{ backgroundColor: 'white' }}>
-        <CustomHeader />
-        <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: 'white', height: '100%' }}>
+        <ScrollView stickyHeaderIndices={[1]} style={{ backgroundColor: 'white', height: '100%', marginBottom: '10%' }}>
 
-          <View style={{ margin: '5%', backgroundColor: 'white' }}>
+          <View style={{ paddingTop: '5%', marginHorizontal: '5%' }}>
+            <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>Eventos</Text>
+          </View>
 
-            <Text style={{ fontSize: 28, color: '#2c8f7f', textAlign: 'center', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>Eventos</Text>
-
+          <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: 'white' }}>
             <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: 'white' }}>
+              
               <View style={{ flex: 3 }}>
                 <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={() => navigate('Categories')}>
-                  <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedCategory', 'Categoria')}</Text>
-                  <Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0 }} />
+                  <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
+                    <View style={{ flex: 5 }}>
+                      <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedCategory', 'Categorias')}</Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0, fontSize: 22 }} />
+                    </View>
+                  </View>
                 </Button>
               </View>
 
@@ -116,8 +119,14 @@ export default class AgendaScreen extends React.Component {
 
               <View style={{ flex: 3 }}>
                 <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={() => navigate('Entities')}>
-                  <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedEntity', 'Orgão')}</Text>
-                  <Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0 }} />
+                  <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
+                    <View style={{ flex: 5 }}>
+                      <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedEntity', 'Orgão')}</Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0, fontSize: 22 }} />
+                    </View>
+                  </View>
                 </Button>
               </View>
 
@@ -126,9 +135,13 @@ export default class AgendaScreen extends React.Component {
 
           <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
             {events}
+            {events}
+            {events}
+            {events}
+            {events}
             {noEventsElement}
           </View>
-        </ScrollView>
+        </ScrollView >
       </View >
     );
   }
