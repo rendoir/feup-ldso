@@ -8,12 +8,14 @@ import SearchScreen from '../screens/SearchScreen';
 import AgendaScreen from '../screens/AgendaScreen';
 import EntitiesScreen from '../screens/EntitiesScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
-import { Icon } from 'native-base';
+import EventScreen from '../screens/EventScreen';
+import LogInScreen from '../screens/LogInScreen';
 
 const AgendaStack = createStackNavigator({
   Agenda: AgendaScreen,
   Entities: EntitiesScreen,
   Categories: CategoriesScreen,
+  Event: EventScreen,
 });
 
 AgendaStack.navigationOptions = {
@@ -41,8 +43,8 @@ FavoritesStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-heart${focused ? '' : '-outline'}`
-          : 'md-heart-outline'
+          ? `ios-star${focused ? '' : '-outline'}`
+          : 'md-star-outline'
       }
     />
   ),
@@ -65,12 +67,12 @@ SearchStack.navigationOptions = {
 export default createBottomTabNavigator({
   FavoritesStack,
   AgendaStack,
-  SearchStack
+  SearchStack,
 },
   {
     initialRouteName: 'AgendaStack',
     tabBarOptions: {
-      showLabel: false,
+      showLabel: true,
       activeTintColor: '#F8F8F8',
       inactiveTintColor: '#ffffff',
       style: {

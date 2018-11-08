@@ -31,7 +31,7 @@ describe('App snapshot', () => {
   it('mounts correctly', () => {
     const tree = renderer.create(<AgendaScreen />).getInstance();
     setImmediate(() => {
-      tree.componentWillMount();
+      tree.componentDidMount();
       expect(tree.state.isCancelled).toEqual(false);
       expect(tree.state.loading).toEqual(false);
     });
