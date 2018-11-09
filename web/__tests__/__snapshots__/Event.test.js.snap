@@ -20,11 +20,16 @@ exports[`render event renders event 1`] = `
   <div
     className="event-info col-sm-10"
   >
-    <p
-      className="event-title"
+    <a
+      href="/event/1"
+      onClick={[Function]}
     >
-      Title
-    </p>
+      <p
+        className="event-title"
+      >
+        Title
+      </p>
+    </a>
     <p>
       FEUP
     </p>
@@ -56,11 +61,18 @@ exports[`renders elements 1`] = `
     className="navbar-brand"
     href="#"
   >
-    <img
-      className=""
-      id="logo"
-      src="/logo.png"
-    />
+    <a
+      aria-current={null}
+      className="navbar-brand"
+      href="/events"
+      onClick={[Function]}
+    >
+      <img
+        className=""
+        id="logo"
+        src="/logo.png"
+      />
+    </a>
   </a>
   <div
     aria-expanded={null}

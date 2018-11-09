@@ -441,11 +441,18 @@ exports[`renders elements 1`] = `
     className="navbar-brand"
     href="#"
   >
-    <img
-      className=""
-      id="logo"
-      src="/logo.png"
-    />
+    <a
+      aria-current={null}
+      className="navbar-brand"
+      href="/events"
+      onClick={[Function]}
+    >
+      <img
+        className=""
+        id="logo"
+        src="/logo.png"
+      />
+    </a>
   </a>
   <div
     aria-expanded={null}
