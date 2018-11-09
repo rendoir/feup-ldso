@@ -3,6 +3,7 @@ const Entity = require('../models').entities;
 const Category = require('../models').categories;
 var sequelize = require('../models').sequelize;
 const Op = sequelize.Op;
+const fs = require('fs');
 
 function patternToTSVector(text) {
 
@@ -139,11 +140,12 @@ module.exports = {
     },
 
     delete(req, res) {
+
         return Event.destroy({
             where: { id: req.body.id }
         })
             .then(() => {
-                console.log("Event " + req.body.id + " deleted!");
+                fs.unlink('assets/' + req.body.id, () => {});
                 res.status(200).send({ message: "The event was successfully deleted!" });
             })
             .catch((error) => res.status(400).send(error));

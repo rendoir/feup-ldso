@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Col, Row, Alert, Image, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import swal from 'sweetalert';
 import './EventPage.css';
-
-const monthNames = ["JANEIRO", "FEBREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
-    "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"
-];
 
 class EventPage extends Component {
 
@@ -28,9 +26,13 @@ class EventPage extends Component {
             categories: [],
             image: "http://localhost:3030/" + props.match.params.id,
             alertType: null,
-            alertMessage: null
+            alertMessage: null,
+            redirect: false,
+            errorLoadingImage: true
         }
 
+        this.deleteEvent = this.deleteEvent.bind(this);
+        this.deleteEventConfirmed = this.deleteEventConfirmed.bind(this);
     }
 
     componentDidMount() {
@@ -69,10 +71,40 @@ class EventPage extends Component {
             .catch((err) => {
                 this.setState({ alertType: "danger", alertMessage: "Ocorreu um erro. Por favor tente novamente." })
             })
-
     }
 
+
+    deleteEvent() {
+        swal({
+            title: "Tem a certeza que quer apagar o evento?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((isConfirm) => {
+                if (isConfirm)
+                    this.deleteEventConfirmed();
+            });
+    } s
+
+    deleteEventConfirmed() {
+        let self = this;
+        axios.delete("http://localhost:3030/", {
+            data: {
+                user_id: 1,
+                id: self.state.id
+            }
+        })
+            .then((res) => this.setState({ redirect: true }))
+            .catch((err) => self.setState({ alertType: "danger", alertMessage: "Um erro ocorreu a apagar o evento. Tente mais tarde." }))
+    }
+
+
     render() {
+
+        if (this.state.redirect) {
+            return <Redirect to="/events" push />
+        }
 
         let alertElement;
         if (this.state.alertMessage !== null) {
@@ -101,12 +133,26 @@ class EventPage extends Component {
                     </Col>
                     <Col sm={4}>
                         <Button><FontAwesomeIcon icon="edit" /></Button>
-                        <Button className="delete-button"><FontAwesomeIcon icon="trash-alt" /></Button>
+                        <Button className="delete-button" onClick={this.deleteEvent}>
+                            <FontAwesomeIcon icon="trash-alt" />
+                        </Button>
                     </Col>
                 </Row>
                 <Row>
                     <Col sm={5}>
-                        <Image src={this.state.image} className="event-image" />
+                        <Image
+                            src={'http://localhost:3030/' + this.state.id}
+                            className="event-image"
+                            onError={() => {
+                                if (this.state.errorLoadingImage) {
+                                    let image = document.querySelector('img.event-image');
+                                    image.src = "/default.png";
+                                    this.setState({ errorLoadingImage: false })
+                                }
+                            }
+                            }
+                        />
+
                     </Col>
                     <Col sm={7}>
                         <p className="event-description">{this.state.description}</p>

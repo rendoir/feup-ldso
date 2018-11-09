@@ -108,13 +108,13 @@ INSERT INTO users (name, username, email, password) VALUES ('Ítala Jesus', 'ít
 
 --| PERMISSIONS |--
 
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 1);
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 9);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 1);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 2);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 9);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 3);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 12);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 5);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 5);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 1);
 
 
