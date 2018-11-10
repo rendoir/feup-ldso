@@ -185,22 +185,59 @@ describe("Check ComponentDidMount", () => {
 
 describe("Delete Event", () => {
 
-    it("Check if swal appears when delete button is clicked", () => {
+    it("Check if swal appears when delete button is clicked", async () => {
+
+        mockAxios.onGet().reply(200, {
+            id: 1,
+            title: 'Title',
+            description: 'description',
+            start_date: '2018-10-27 11:11:00',
+            end_date: '2018-10-28 11:11:00',
+            entity_id: 1,
+            location: 'Porto',
+            price: 10,
+            entity: {
+                id: 1,
+                name: 'Faculdade de Engenharia da Universidade do Porto',
+                initials: 'FEUP',
+                description: 'description',
+                color: '#ffffff',
+                color2: '#ffffff',
+                location: 'Porto'
+            },
+            categories: [
+                {
+                    id: 1,
+                    name: 'Category1',
+                    description: 'Description'
+                },
+                {
+                    id: 2,
+                    name: 'Category2',
+                    description: 'Description'
+                }
+            ]
+        });
 
         let spy = sinon.spy(swal);
 
-        const wrapper = mount(
+        const wrapper = await mount(
             <BrowserRouter>
                 <EventPage {...props} />
             </BrowserRouter>
         );
 
-        let wrapperPage = wrapper.find(EventPage).first();
 
-        const button = wrapperPage.find('button.delete-button').first();
+        let wrapperPage = await wrapper.find(EventPage).first();
+
+        await wrapperPage.instance().forceUpdate();
+        await wrapperPage.update();
+
+        const button = await wrapperPage.update().find('button.delete-button').first();
         button.simulate('click');
 
         expect(spy.calledOnce);
+
 
     });
 

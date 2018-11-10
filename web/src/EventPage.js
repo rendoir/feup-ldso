@@ -43,6 +43,7 @@ class EventPage extends Component {
                 }
                 else {
 
+
                     let date = new Date(res.data.start_date);
                     let stringDateStart = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
@@ -131,51 +132,85 @@ class EventPage extends Component {
                 </Row>);
         }
 
-        return (
-            <div className="page-event">
-                {alertElement}
-                <Row>
-                    <Col sm={8}>
-                        <h2 className="event-title">{this.state.title}</h2>
-                    </Col>
-                    <Col sm={4}>
-                        <Button><FontAwesomeIcon icon="edit" /></Button>
-                        <Button className="delete-button" onClick={this.deleteEvent}>
-                            <FontAwesomeIcon icon="trash-alt" />
-                        </Button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={5}>
-                        <Image
-                            src={'http://localhost:3030/' + this.state.id}
-                            className="event-image"
-                            onError={this.getDefaultImage}
-                        />
+        let categories = this.state.categories.map((cat, i) => {
+            return <span key={i}>{cat.name}</span>
+        })
 
-                    </Col>
-                    <Col sm={7}>
-                        <p className="event-description">{this.state.description}</p>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={5}>
-                        <div className="event-date-hour">
-                            <h4 className="display-inline">Dia/Hora: </h4>
-                            <span>{this.state.start_date}</span>
-                            <span> {this.state.end_date !== null ? "-" + this.state.end_date : ""}</span>
-                        </div>
-                        <div className="event-location">
-                            <h4 className="display-inline">Localização: </h4>
-                            <span>{this.state.location}</span>
-                        </div>
-                    </Col>
-                    <Col sm={7}>
 
-                    </Col>
-                </Row>
-            </div>
-        )
+        if (this.state.title === "") {
+            console.log('oh no');
+            return (
+                <div className="loading">
+                    <div class="loader"></div>
+                </div>
+            );
+        }
+        else {
+            console.log('here');
+
+            return (
+                <div id="page-event">
+                    {alertElement}
+                    <Row className="event-page-header">
+                        <Col sm={8} className="event-title">
+                            <h2>{this.state.title}</h2>
+                        </Col>
+                        <Col sm={4} className="event-page-buttons">
+                            <Button><FontAwesomeIcon icon="edit" /></Button>
+                            <Button className="delete-button" onClick={this.deleteEvent}>
+                                <FontAwesomeIcon icon="trash-alt" />
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row className="event-page-body">
+                        <Col sm={5}>
+                            <Image
+                                src={'http://localhost:3030/' + this.state.id}
+                                className="event-image"
+                                onError={this.getDefaultImage}
+                            />
+
+                        </Col>
+                        <Col sm={7}>
+                            <p className="event-description">{this.state.description}</p>
+                        </Col>
+                    </Row>
+                    <Row className="event-page-info">
+                        <Col sm={5}>
+                            <div className="event-date-hour">
+                                <h4 className="display-inline">Dia/Hora: </h4>
+                                <span>{this.state.start_date}</span>
+                                <span> {this.state.end_date !== null ? "-" + this.state.end_date : ""}</span>
+                            </div>
+                            <div className="event-location">
+                                <h4 className="display-inline">Localização: </h4>
+                                <span>{this.state.location}</span>
+                            </div>
+                        </Col>
+                        <Col sm={5} className="event-page-ent-cat">
+                            <div className="event-page-categories">
+                                <h4 className="display-inline">Categorias: </h4>
+                                {categories}
+                            </div>
+                            <div className="event-page-entities">
+                                <h4 className="display-inline">Entidade: </h4>
+                                <span>{this.state.entity.initials}</span>
+                            </div>
+                        </Col>
+                        <Col sm={2} className="event-page-button-map">
+                            <Button 
+                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(this.state.location)}`}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Ver no Mapa
+                            </Button>
+                        </Col>
+                    </Row>
+                </div>
+            )
+
+        }
+
     }
 }
 

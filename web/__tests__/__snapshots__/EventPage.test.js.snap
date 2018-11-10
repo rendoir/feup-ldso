@@ -2,97 +2,11 @@
 
 exports[`Render renders event page 1`] = `
 <div
-  className="page-event"
+  className="loading"
 >
   <div
-    className="row"
-  >
-    <div
-      className="col-sm-8"
-    >
-      <h2
-        className="event-title"
-      >
-        
-      </h2>
-    </div>
-    <div
-      className="col-sm-4"
-    >
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        type="button"
-      />
-      <button
-        className="delete-button btn btn-primary"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      />
-    </div>
-  </div>
-  <div
-    className="row"
-  >
-    <div
-      className="col-sm-5"
-    >
-      <img
-        className="event-image"
-        onError={[Function]}
-        src="http://localhost:3030/1"
-      />
-    </div>
-    <div
-      className="col-sm-7"
-    >
-      <p
-        className="event-description"
-      >
-        
-      </p>
-    </div>
-  </div>
-  <div
-    className="row"
-  >
-    <div
-      className="col-sm-5"
-    >
-      <div
-        className="event-date-hour"
-      >
-        <h4
-          className="display-inline"
-        >
-          Dia/Hora: 
-        </h4>
-        <span>
-          
-        </span>
-        <span>
-           
-          -
-        </span>
-      </div>
-      <div
-        className="event-location"
-      >
-        <h4
-          className="display-inline"
-        >
-          Localização: 
-        </h4>
-        <span>
-          
-        </span>
-      </div>
-    </div>
-    <div
-      className="col-sm-7"
-    />
-  </div>
+    class="loader"
+  />
 </div>
 `;
 
