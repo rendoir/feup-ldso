@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Col, Row, Alert, Image, Button } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Col, Row, Alert, Image, Button, Breadcrumb } from 'react-bootstrap';
+import { Redirect, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -149,63 +149,83 @@ class EventPage extends Component {
             console.log('here');
 
             return (
-                <div id="page-event">
+                <div>
                     {alertElement}
-                    <Row className="event-page-header">
-                        <Col sm={8} className="event-title">
-                            <h2>{this.state.title}</h2>
-                        </Col>
-                        <Col sm={4} className="event-page-buttons">
-                            <Button><FontAwesomeIcon icon="edit" /></Button>
-                            <Button className="delete-button" onClick={this.deleteEvent}>
-                                <FontAwesomeIcon icon="trash-alt" />
-                            </Button>
-                        </Col>
-                    </Row>
-                    <Row className="event-page-body">
-                        <Col sm={5}>
-                            <Image
-                                src={'http://localhost:3030/' + this.state.id}
-                                className="event-image"
-                                onError={this.getDefaultImage}
-                            />
+                    <Row>
+                        <Col sm={4} md={2}>
 
                         </Col>
-                        <Col sm={7}>
-                            <p className="event-description">{this.state.description}</p>
+                        <Col sm={5} md={8}>
+                            <Breadcrumb>
+                                <Breadcrumb.Item>
+                                    <Link to={`/events`}>
+                                        Eventos
+                                </Link>
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item active>Criar Evento</Breadcrumb.Item>
+                            </Breadcrumb>
+                        </Col>
+                        <Col sm={4} md={2}>
+
                         </Col>
                     </Row>
-                    <Row className="event-page-info">
-                        <Col sm={5}>
-                            <div className="event-date-hour">
-                                <h4 className="display-inline">Dia/Hora: </h4>
-                                <span>{this.state.start_date}</span>
-                                <span> {this.state.end_date !== null ? "-" + this.state.end_date : ""}</span>
-                            </div>
-                            <div className="event-location">
-                                <h4 className="display-inline">Localização: </h4>
-                                <span>{this.state.location}</span>
-                            </div>
-                        </Col>
-                        <Col sm={5} className="event-page-ent-cat">
-                            <div className="event-page-categories">
-                                <h4 className="display-inline">Categorias: </h4>
-                                {categories}
-                            </div>
-                            <div className="event-page-entities">
-                                <h4 className="display-inline">Entidade: </h4>
-                                <span>{this.state.entity.initials}</span>
-                            </div>
-                        </Col>
-                        <Col sm={2} className="event-page-button-map">
-                            <Button 
-                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(this.state.location)}`}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Ver no Mapa
+                    <div id="page-event">
+                        <Row className="event-page-header">
+                            <Col sm={8} className="event-title">
+                                <h2>{this.state.title}</h2>
+                            </Col>
+                            <Col sm={4} className="event-page-buttons">
+                                <Button><FontAwesomeIcon icon="edit" /></Button>
+                                <Button className="delete-button" onClick={this.deleteEvent}>
+                                    <FontAwesomeIcon icon="trash-alt" />
+                                </Button>
+                            </Col>
+                        </Row>
+                        <Row className="event-page-body">
+                            <Col sm={5}>
+                                <Image
+                                    src={'http://localhost:3030/' + this.state.id}
+                                    className="event-image"
+                                    onError={this.getDefaultImage}
+                                />
+
+                            </Col>
+                            <Col sm={7}>
+                                <p className="event-description">{this.state.description}</p>
+                            </Col>
+                        </Row>
+                        <Row className="event-page-info">
+                            <Col sm={5}>
+                                <div className="event-date-hour">
+                                    <h4 className="display-inline">Dia/Hora: </h4>
+                                    <span>{this.state.start_date}</span>
+                                    <span> {this.state.end_date !== null ? "-" + this.state.end_date : ""}</span>
+                                </div>
+                                <div className="event-location">
+                                    <h4 className="display-inline">Localização: </h4>
+                                    <span>{this.state.location}</span>
+                                </div>
+                            </Col>
+                            <Col sm={5} className="event-page-ent-cat">
+                                <div className="event-page-categories">
+                                    <h4 className="display-inline">Categorias: </h4>
+                                    {categories}
+                                </div>
+                                <div className="event-page-entities">
+                                    <h4 className="display-inline">Entidade: </h4>
+                                    <span>{this.state.entity.initials}</span>
+                                </div>
+                            </Col>
+                            <Col sm={2} className="event-page-button-map">
+                                <Button
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(this.state.location)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    Ver no Mapa
                             </Button>
-                        </Col>
-                    </Row>
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
             )
 
