@@ -253,8 +253,10 @@ describe("Check componentDidMount actions", () => {
 
     await wrapperList.update();
 
-    expect(wrapperList.state().alertType).toEqual("danger");
-    expect(wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
+    setImmediate(() => {
+      expect(wrapperList.state().alertType).toEqual("danger");
+      expect(wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
+    })
   });
 });
 
