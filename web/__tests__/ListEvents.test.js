@@ -226,7 +226,6 @@ describe("Check componentDidMount actions", () => {
       children: React.cloneElement(wrapper.props().children, { refreshListEvents: true }),
     });
 
-
     await wrapperList.update();
     expect(wrapperList.state().events).toEqual(events);
 
@@ -249,12 +248,11 @@ describe("Check componentDidMount actions", () => {
     let wrapperList = await wrapper.find(ListEvents).first();
 
     await wrapper.setProps({
-      children: React.cloneElement(wrapper.props().children, { refreshListEvents: true }),
+      children: React.cloneElement(await wrapper.props().children, { refreshListEvents: true }),
     });
 
-    await wrapperList.props();
+    await wrapperList.update();
 
-    await wrapperList.update()
     expect(wrapperList.state().alertType).toEqual("danger");
     expect(wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
   });
@@ -285,7 +283,7 @@ describe("Check deletion methods", () => {
 
 
   });
-  
+
   it("Check deleteEventFromArray - Success", async () => {
 
     const wrapper = mount(
@@ -330,7 +328,7 @@ describe("Check deletion methods", () => {
     expect(wrapperList.state().alertMessage).toEqual('O evento foi apagado com sucesso.');
 
   });
-  
+
   it("Check deleteEventFromArray - Error", async () => {
 
     const wrapper = mount(

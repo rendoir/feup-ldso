@@ -38,8 +38,6 @@ class EventPage extends Component {
         axios.get('http://localhost:3030/events/' + this.state.id)
             .then((res) => {
 
-                console.log(res)
-
                 if (res.data === "" || Object.keys(res.data).length === 0) {
                     this.setState({ alertType: "danger", alertMessage: "Este evento não existe." })
                 }
