@@ -261,7 +261,7 @@ describe("AddEventForm Inputs Change", () => {
 
     let element = document.createElement('div');
     element.innerHTML = 'Test';
-    document.querySelector = jest.fn().mockReturnValue(element)
+    document.querySelector = jest.fn().mockReturnValue(element);
 
     const wrapper = mount(
       <BrowserRouter>

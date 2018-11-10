@@ -1,0 +1,789 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render renders event page 1`] = `
+<div
+  className="page-event"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-8"
+    >
+      <h2
+        className="event-title"
+      >
+        
+      </h2>
+    </div>
+    <div
+      className="col-sm-4"
+    >
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        type="button"
+      />
+      <button
+        className="delete-button btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      />
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-5"
+    >
+      <img
+        className="event-image"
+        onError={[Function]}
+        src="http://localhost:3030/1"
+      />
+    </div>
+    <div
+      className="col-sm-7"
+    >
+      <p
+        className="event-description"
+      >
+        
+      </p>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-5"
+    >
+      <div
+        className="event-date-hour"
+      >
+        <h4
+          className="display-inline"
+        >
+          Dia/Hora: 
+        </h4>
+        <span>
+          
+        </span>
+        <span>
+           
+          -
+        </span>
+      </div>
+      <div
+        className="event-location"
+      >
+        <h4
+          className="display-inline"
+        >
+          Localização: 
+        </h4>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+    <div
+      className="col-sm-7"
+    />
+  </div>
+</div>
+`;
+
+exports[`renders elements 1`] = `
+<nav
+  className="navbar navbar-expand navbar-light"
+  id="navbar-custom"
+>
+  <a
+    className="navbar-brand"
+    href="#"
+  >
+    <a
+      aria-current={null}
+      className="navbar-brand"
+      href="/events"
+      onClick={[Function]}
+    >
+      <img
+        className=""
+        id="logo"
+        src="/logo.png"
+      />
+    </a>
+  </a>
+  <div
+    aria-expanded={null}
+    className="navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
+    <ul
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
+    <ul
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    >
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        type="button"
+      />
+    </ul>
+  </div>
+</nav>
+`;
+
+exports[`renders elements 2`] = `
+<div
+  id="list_events"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-2 col-sm-4"
+    />
+    <div
+      className="col-md-8 col-sm-5"
+    >
+      <div
+        className="fade alert show"
+        role="alert"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="col-md-2 col-sm-4"
+    />
+  </div>
+  <h1>
+    Eventos
+  </h1>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-2"
+    />
+    <div
+      className="col-sm-1"
+    >
+      <a
+        href="/create"
+        onClick={[Function]}
+      >
+        <button
+          className="primary_button btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
+    </div>
+    <div
+      className="col-sm-5"
+    >
+      <div
+        className="search-bar form-group"
+      >
+        <input
+          className="form-control"
+          id="search-text-input"
+          onChange={[Function]}
+          placeholder="Procurar Evento"
+          type="text"
+          value=""
+        />
+        <button
+          className="btn-search btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+    </div>
+    <div
+      className="dropdowns-search col-sm-4"
+    >
+      <div
+        aria-expanded={false}
+        className="ui fluid multiple search selection dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="combobox"
+      >
+        <input
+          aria-autocomplete="list"
+          autoComplete="off"
+          className="search"
+          onChange={[Function]}
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+          tabIndex={0}
+          type="text"
+          value=""
+        />
+        <span
+          className="sizer"
+        />
+        <div
+          aria-live="polite"
+          className="default text"
+          role="alert"
+        >
+          Categorias
+        </div>
+        <i
+          aria-hidden="true"
+          className="dropdown icon"
+          onClick={[Function]}
+        />
+        <div
+          aria-multiselectable={true}
+          className="menu transition"
+          role="listbox"
+        >
+          <div
+            className="message"
+          >
+            No results found.
+          </div>
+        </div>
+      </div>
+      <div
+        aria-expanded={false}
+        className="ui fluid multiple search selection dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="combobox"
+      >
+        <input
+          aria-autocomplete="list"
+          autoComplete="off"
+          className="search"
+          onChange={[Function]}
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+          tabIndex={0}
+          type="text"
+          value=""
+        />
+        <span
+          className="sizer"
+        />
+        <div
+          aria-live="polite"
+          className="default text"
+          role="alert"
+        >
+          Entidades
+        </div>
+        <i
+          aria-hidden="true"
+          className="dropdown icon"
+          onClick={[Function]}
+        />
+        <div
+          aria-multiselectable={true}
+          className="menu transition"
+          role="listbox"
+        >
+          <div
+            className="message"
+          >
+            No results found.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      aria-label="Pagination Navigation"
+      className="ui pagination pointing secondary menu"
+      onClick={[Function]}
+      role="navigation"
+    >
+      <a
+        aria-current={false}
+        aria-label="Previous item"
+        className="item"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex={0}
+        type="prevItem"
+        value={1}
+      >
+        ⟨
+      </a>
+      <a
+        aria-current={false}
+        aria-label="Next item"
+        className="item"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex={0}
+        type="nextItem"
+        value={0}
+      >
+        ⟩
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders elements 3`] = `
+<div
+  id="add_event_form_div"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-2 col-sm-4"
+    />
+    <div
+      className="col-md-8 col-sm-5"
+    >
+      <nav
+        aria-label="breadcrumb"
+      >
+        <ol
+          className="breadcrumb"
+          role="navigation"
+        >
+          <li
+            className="breadcrumb-item"
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+            >
+              <a
+                href="/events"
+                onClick={[Function]}
+              >
+                Eventos
+              </a>
+            </a>
+          </li>
+          <li
+            aria-current="page"
+            className="breadcrumb-item active"
+          >
+            <span
+              className="active"
+            >
+              Criar Evento
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div
+      className="col-md-2 col-sm-4"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-1 col-sm-1"
+    />
+    <div
+      className="col-md-10 col-sm-10"
+    >
+      <form
+        className=""
+        id="add_event_form"
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-title"
+              >
+                Título do Evento: 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                id="form-title"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="dropdowns-search col-sm-5"
+              id="dropdowns-add-event"
+            >
+              <span>
+                Test
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-8"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-descriptionAndImage"
+              >
+                Descrição do Evento: 
+              </label>
+              <textarea
+                className="form-control"
+                id="form-descriptionAndImage"
+                onChange={[Function]}
+                required={true}
+                rows="10"
+                value=""
+              />
+            </div>
+            <div
+              className="col-sm-4"
+            >
+              <div
+                className="form-group"
+                id="form-image-div"
+              >
+                <label
+                  className="text-align-center form-label"
+                  htmlFor="form-image"
+                >
+                  Inserir Imagem: 
+                </label>
+                <input
+                  className="inputfile form-control-file"
+                  id="form-image"
+                  name="file"
+                  onChange={[Function]}
+                  type="file"
+                />
+                <label
+                  className="btn"
+                  htmlFor="form-image"
+                >
+                  Escolha um ficheiro
+                </label>
+                <img
+                  className="preview_image"
+                  src=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="text-align-center form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-sm-2"
+            />
+            <div
+              className="col-sm-3"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-datesLabel"
+              >
+                Início
+              </label>
+            </div>
+            <div
+              className="col-sm-2"
+            >
+               
+            </div>
+            <div
+              className="col-sm-3"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-datesLabel"
+              >
+                Fim
+              </label>
+            </div>
+            <div
+              className="col-sm-2"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group"
+          id="form-dates-div"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-dates"
+              >
+                Data/Hora:
+              </label>
+            </div>
+            <div
+              className="col-sm-3"
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control"
+                  id="form-date-start"
+                  onChange={[Function]}
+                  required={true}
+                  type="datetime-local"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              className="text-align-center col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-dates"
+              >
+                 a 
+              </label>
+            </div>
+            <div
+              className="col-sm-3"
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control"
+                  id="form-date-end"
+                  onChange={[Function]}
+                  required={true}
+                  type="datetime-local"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              className="col-sm-2"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-1"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-location"
+              >
+                Localização: 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                id="form-location"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="align_left col-sm-1"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-location"
+              >
+                Categorias: 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+              id="add-event-form-categories-div"
+            >
+              <div
+                aria-expanded={false}
+                className="ui fluid multiple search selection dropdown"
+                id="add-event-category"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                role="combobox"
+              >
+                <input
+                  aria-autocomplete="list"
+                  autoComplete="off"
+                  className="search"
+                  onChange={[Function]}
+                  style={
+                    Object {
+                      "width": undefined,
+                    }
+                  }
+                  tabIndex={0}
+                  type="text"
+                  value=""
+                />
+                <span
+                  className="sizer"
+                />
+                <div
+                  aria-live="polite"
+                  className="default text"
+                  role="alert"
+                >
+                  Categorias
+                </div>
+                <i
+                  aria-hidden="true"
+                  className="dropdown icon"
+                  onClick={[Function]}
+                />
+                <div
+                  aria-multiselectable={true}
+                  className="menu transition"
+                  role="listbox"
+                >
+                  <div
+                    className="message"
+                  >
+                    No results found.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-1"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-price"
+              >
+                Preço: 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                min="0"
+                onChange={[Function]}
+                type="number"
+                value={0}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="buttons_style form-group"
+        >
+          <button
+            className="btn btn-secondary"
+            disabled={false}
+            type="button"
+          >
+            <a
+              href="/events"
+              onClick={[Function]}
+            >
+              <button
+                className="btn btn-secondary"
+                disabled={false}
+                type="button"
+              >
+                Cancelar
+              </button>
+            </a>
+          </button>
+          <button
+            className="primary_button btn btn-primary"
+            disabled={false}
+            type="submit"
+          >
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+    <div
+      className="col-md-1 col-sm-1"
+    />
+  </div>
+</div>
+`;

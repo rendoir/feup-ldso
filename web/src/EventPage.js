@@ -11,8 +11,6 @@ class EventPage extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props.match.params)
-
         this.state = {
             id: props.match.params.id,
             title: "",
@@ -33,24 +31,27 @@ class EventPage extends Component {
 
         this.deleteEvent = this.deleteEvent.bind(this);
         this.deleteEventConfirmed = this.deleteEventConfirmed.bind(this);
+        this.getDefaultImage = this.getDefaultImage.bind(this);
     }
 
     componentDidMount() {
         axios.get('http://localhost:3030/events/' + this.state.id)
             .then((res) => {
 
-                if (res.data === "") {
+                console.log(res)
+
+                if (res.data === "" || Object.keys(res.data).length === 0) {
                     this.setState({ alertType: "danger", alertMessage: "Este evento não existe." })
                 }
                 else {
 
                     let date = new Date(res.data.start_date);
-                    let stringDateStart = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+                    let stringDateStart = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
                     let stringDateEnd = null;
                     if (res.data.end_date !== null) {
-                        date = new Date(res.data.start_date);
-                        stringDateEnd = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+                        date = new Date(res.data.end_date);
+                        stringDateEnd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
                     }
 
                     this.setState({
@@ -85,7 +86,7 @@ class EventPage extends Component {
                 if (isConfirm)
                     this.deleteEventConfirmed();
             });
-    } s
+    }
 
     deleteEventConfirmed() {
         let self = this;
@@ -97,6 +98,14 @@ class EventPage extends Component {
         })
             .then((res) => this.setState({ redirect: true }))
             .catch((err) => self.setState({ alertType: "danger", alertMessage: "Um erro ocorreu a apagar o evento. Tente mais tarde." }))
+    }
+
+    getDefaultImage() {
+        if (this.state.errorLoadingImage) {
+            let image = document.querySelector('img.event-image');
+            image.src = "/default.png";
+            this.setState({ errorLoadingImage: false })
+        }
     }
 
 
@@ -120,7 +129,7 @@ class EventPage extends Component {
                     </Col>
                     <Col sm={4} md={2}>
 
-                    </Col>
+                    </Col>Ocorreu um erro. Por favor tente novamente.
                 </Row>);
         }
 
@@ -143,14 +152,7 @@ class EventPage extends Component {
                         <Image
                             src={'http://localhost:3030/' + this.state.id}
                             className="event-image"
-                            onError={() => {
-                                if (this.state.errorLoadingImage) {
-                                    let image = document.querySelector('img.event-image');
-                                    image.src = "/default.png";
-                                    this.setState({ errorLoadingImage: false })
-                                }
-                            }
-                            }
+                            onError={this.getDefaultImage}
                         />
 
                     </Col>
