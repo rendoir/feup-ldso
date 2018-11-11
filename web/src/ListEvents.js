@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Col, Button, Row, Container, Alert } from 'react-bootstrap';
 import { Dropdown, Pagination } from 'semantic-ui-react';
 import axios from 'axios';
@@ -64,7 +65,7 @@ class ListEvents extends Component {
     }
 
     handleChangeCategory(event) {
-        
+
     }
 
     handleChangeEntity(event) {
@@ -72,7 +73,7 @@ class ListEvents extends Component {
     }
 
     updateAlertMessage(newAlertType, newAlertMessage) {
-        this.setState({alertType: newAlertType, alertMessage: newAlertMessage});
+        this.setState({ alertType: newAlertType, alertMessage: newAlertMessage });
     }
 
     handlePagination(event) {
@@ -83,7 +84,7 @@ class ListEvents extends Component {
                 limit: 5
             }
         })
-            .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count /5), activePage: page }))
+            .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5), activePage: page }))
             .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
     }
@@ -100,14 +101,13 @@ class ListEvents extends Component {
             }
 
         }
-        console.log(index);
 
         if (index !== -1) {
             let eventsSliced;
-            if(index === 0 && this.state.events.length === 1){
+            if (index === 0 && this.state.events.length === 1) {
                 eventsSliced = [];
             }
-            else  {
+            else {
                 eventsSliced = this.state.events.splice(index, 1);
             }
             this.setState({
@@ -116,18 +116,13 @@ class ListEvents extends Component {
             });
         }
         else {
-            this.setState({alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.'})
+            this.setState({ alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.' })
         }
-        
+
     }
 
 
     render() {
-
-        let displayListEvents = "";
-        if (!this.props.displayListEvents) {
-            displayListEvents = "no-display";
-        }
 
         let events = this.state.events.map((info, i) => (
             <Event key={i} info={info}
@@ -137,31 +132,33 @@ class ListEvents extends Component {
         ));
 
         let alertElement;
-        if(this.state.alertMessage !== null) {
+        if (this.state.alertMessage !== null) {
             alertElement = (
-            <Row>
-                <Col sm={4} md={2}>
+                <Row>
+                    <Col sm={4} md={2}>
 
-                </Col>
-                <Col sm={5} md={8}>
-                    <Alert className={this.state.alertType}>
-                        {this.state.alertMessage}
-                    </Alert>
-                </Col>
-                <Col sm={4} md={2}>
+                    </Col>
+                    <Col sm={5} md={8}>
+                        <Alert className={this.state.alertType}>
+                            {this.state.alertMessage}
+                        </Alert>
+                    </Col>
+                    <Col sm={4} md={2}>
 
-                </Col>
-            </Row>);
+                    </Col>
+                </Row>);
         }
 
         return (
-            <div id="list_events" className={displayListEvents}>
+            <div id="list_events">
                 {alertElement}
                 <h1>Eventos</h1>
                 <Row>
                     <Col sm={2}></Col>
                     <Col sm={1}>
-                        <Button className="primary_button" onClick={this.props.toggleAddEventFormShowFlag}>Criar Evento</Button>
+                        <Link to={`/create`}>
+                            <Button className="primary_button">Criar Evento</Button>
+                        </Link>
                     </Col>
                     <Col sm={5}>
                         <Form.Group controlId="searchEvent" className="search-bar">

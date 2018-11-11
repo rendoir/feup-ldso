@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Button, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -59,7 +60,9 @@ class Event extends Component {
                     <h4>{this.state.year}</h4>
                 </Col>
                 <Col sm={10} className="event-info">
-                    <p className="event-title" onClick={this.props.showEventPage}>{this.props.info.title}</p>
+                    <Link to={`/event/${this.props.info.id}`}>
+                        <p className="event-title" onClick={this.props.showEventPage}>{this.props.info.title}</p>
+                    </Link>
                     <p>{this.props.info.initials}</p>
 
                     <div className="event-buttons">

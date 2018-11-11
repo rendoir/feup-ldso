@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Render renders event page 1`] = `
+<div
+  className="loading"
+>
+  <div
+    class="loader"
+  />
+</div>
+`;
+
 exports[`renders elements 1`] = `
 <nav
   className="navbar navbar-expand navbar-light"
