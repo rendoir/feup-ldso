@@ -11,7 +11,8 @@ CREATE TABLE users
     name TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    type USER_TYPE NOT NULL DEFAULT 'mobile'
+    type USER_TYPE NOT NULL DEFAULT 'mobile',
+    token TEXT DEFAULT null
 );
 
 DROP TABLE IF EXISTS entities CASCADE;

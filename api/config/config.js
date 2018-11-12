@@ -6,7 +6,8 @@ module.exports = {
         database: "postgres",
         password: "example",
         port: "5432",
-        timestamps: false
+        timestamps: false,
+        jwtSecret: "Bongo cat"
     },
     test: {
         dialect: "postgres",
@@ -15,7 +16,8 @@ module.exports = {
         database: "postgres_test",
         password: "example",
         port: "5432",
-        timestamps: false
+        timestamps: false,
+        jwtSecret: "Bongo cat"
     },
     production: {
         dialect: "postgres",
@@ -24,6 +26,7 @@ module.exports = {
         database: "postgres",
         password: "example",
         port: "5432",
-        timestamps: false
+        timestamps: false,
+        jwtSecret: "Bongo cat"
     }
 };

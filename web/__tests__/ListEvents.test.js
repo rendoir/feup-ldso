@@ -7,6 +7,7 @@ import MockAdapter from 'axios-mock-adapter';
 import ListEvents from '../src/ListEvents';
 
 var mockAxios = new MockAdapter(axios);
+document.cookie = "access_token=123";
 
 describe("Check Render ListEvents", () => {
   it('renders list events', () => {
@@ -126,7 +127,7 @@ describe("Check Pagination", () => {
       initials: 'FEUP'
     }];
 
-    mockAxios.onGet('http://localhost:3030/web/1').reply(200, {
+    mockAxios.onGet('http://localhost:3030/web').reply(200, {
       count: 7,
       events: events
     })
@@ -152,12 +153,12 @@ describe("Check Pagination", () => {
       wrapperList.update();
       expect(wrapperList.state().events).toEqual(events);
       done();
-    });
+    })
   });
 
   it("Check if pagination doens't fill events", (done) => {
 
-    mockAxios.onGet('http://localhost:3030/web/1').reply(400, {});
+    mockAxios.onGet('http://localhost:3030/web').reply(400, {});
 
     const wrapper = mount(
       <BrowserRouter>
@@ -177,10 +178,10 @@ describe("Check Pagination", () => {
 
     setImmediate(() => {
       wrapperList.update();
-      expect(wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
       expect(wrapperList.state().alertType).toEqual("danger");
+      expect(wrapperList.state().alertMessage).toEqual("Ocorreu um erro. Não foi possível mostrar os eventos.");
       done();
-    });
+    })
 
   })
 
@@ -204,12 +205,12 @@ describe("Check componentDidMount actions", () => {
       initials: 'FEUP'
     }];
 
-    mockAxios.onGet('http://localhost:3030/web/1').reply(200, {
+    mockAxios.onGet('http://localhost:3030/web').reply(200, {
       count: 7,
       events: events
     })
 
-    const wrapper = await mount(
+    const wrapper = mount(
       <BrowserRouter>
         <ListEvents
           refreshListEvents={false}
@@ -220,21 +221,22 @@ describe("Check componentDidMount actions", () => {
       </BrowserRouter>
     );
 
-    let wrapperList = await wrapper.find(ListEvents).first();
+    let wrapperList = wrapper.find(ListEvents).first();
 
-    await wrapper.setProps({
+    wrapper.setProps({
       children: React.cloneElement(wrapper.props().children, { refreshListEvents: true }),
     });
 
-    await wrapperList.update();
-    expect(wrapperList.state().events).toEqual(events);
-
+    setImmediate(() => {
+      wrapperList.update();
+      expect(wrapperList.state().events).toEqual(events);
+    })
   });
 
   it("Change refesh events flag - ERROR", async () => {
-    await mockAxios.onGet('http://localhost:3030/web/1').reply(400, {});
+    mockAxios.onGet('http://localhost:3030/web').reply(400, {});
 
-    const wrapper = await mount(
+    const wrapper = mount(
       <BrowserRouter>
         <ListEvents
           refreshListEvents={false}
@@ -375,4 +377,4 @@ describe("Check deletion methods", () => {
     expect(wrapperList.state().alertMessage).toEqual('Ocorreu um erro. Por favor tente atualizar a página.');
 
   })
-})
+}) 

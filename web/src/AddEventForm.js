@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
+import { Form, FormGroup,  Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
 import { Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -19,6 +19,11 @@ const initialState = {
     alertType: null,
     alertMessage: null,
     eventAdded: false
+}
+
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
 }
 
 class AddEventForm extends Component {
@@ -40,7 +45,6 @@ class AddEventForm extends Component {
             alertMessage: null,
             eventAdded: false
         }
-
 
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDescription = this.updateDescription.bind(this);
@@ -135,7 +139,8 @@ class AddEventForm extends Component {
         axios({
             method: 'POST',
             url: 'http://localhost:3030/',
-            config: { headers: { 'Content-Type': 'multipart/form-data' } },
+            headers: { 'Content-Type': 'multipart/form-data' ,
+             'Authorization': "Bearer " + getTokenFromCookie()},
             data: data
         })
             .then((res) => {
@@ -164,7 +169,10 @@ class AddEventForm extends Component {
 
     render() {
 
-        let alertElement;
+        if(document.cookie === undefined || 
+            document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
+
+        let alertElement = null;
         if (this.state.alertMessage !== null) {
             alertElement = (
                 <Row>
@@ -218,7 +226,7 @@ class AddEventForm extends Component {
                     </Col>
                     <Col sm={10} md={10}>
                         <Form onSubmit={this.addEventAction} id="add_event_form">
-                            <Form.Group controlId="form-title">
+                            <FormGroup controlId="form-title">
                                 <Row>
                                     <Col sm={2} className="align_left"><Form.Label>Título do Evento: </Form.Label></Col>
                                     <Col sm={5}>
@@ -228,28 +236,28 @@ class AddEventForm extends Component {
                                         {entityElement}
                                     </Col>
                                 </Row>
-                            </Form.Group>
+                            </FormGroup>
 
-                            <Form.Group controlId="form-descriptionAndImage">
+                            <FormGroup controlId="form-descriptionAndImage">
                                 <Row>
                                     <Col sm={8} className="align_left">
                                         <Form.Label>Descrição do Evento: </Form.Label>
                                         <FormControl as="textarea" required rows="10" value={this.state.description} onChange={this.updateDescription} />
                                     </Col>
                                     <Col sm={4}>
-                                        <Form.Group controlId="form-image" id="form-image-div">
+                                        <FormGroup controlId="form-image" id="form-image-div">
                                             <Form.Label className="text-align-center">Inserir Imagem: </Form.Label>
                                             <FormControl type="file" name="file" onChange={this.updateImage} className="inputfile" />
                                             <label htmlFor="form-image" className="btn">Escolha um ficheiro</label>
                                             <Image src={this.state.displayImage} className="preview_image" />
 
-                                        </Form.Group>
+                                        </FormGroup>
                                     </Col>
                                 </Row>
 
-                            </Form.Group>
+                            </FormGroup>
 
-                            <Form.Group controlId="form-datesLabel" className="text-align-center">
+                            <FormGroup controlId="form-datesLabel" className="text-align-center">
                                 <Row>
                                     <Col sm={2}></Col>
                                     <Col sm={3}>
@@ -261,29 +269,29 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={2}></Col>
                                 </Row>
-                            </Form.Group>
-                            <Form.Group controlId="form-dates" id="form-dates-div">
+                            </FormGroup>
+                            <FormGroup controlId="form-dates" id="form-dates-div">
                                 <Row>
                                     <Col sm={2} className="align_left">
                                         <Form.Label>Data/Hora:</Form.Label>
                                     </Col>
                                     <Col sm={3}>
-                                        <Form.Group controlId="form-date-start">
+                                        <FormGroup controlId="form-date-start">
                                             <FormControl required type="datetime-local" value={this.state.startDate} onChange={this.updateStartDate} />
-                                        </Form.Group>
+                                        </FormGroup>
                                     </Col>
                                     <Col sm={2} className="text-align-center">
                                         <Form.Label> a </Form.Label>
                                     </Col>
                                     <Col sm={3}>
-                                        <Form.Group controlId="form-date-end">
+                                        <FormGroup controlId="form-date-end">
                                             <FormControl required type="datetime-local" value={this.state.endDate} onChange={this.updateEndDate} />
-                                        </Form.Group>
+                                        </FormGroup>
                                     </Col>
                                     <Col sm={2}></Col>
                                 </Row>
-                            </Form.Group>
-                            <Form.Group controlId="form-location">
+                            </FormGroup>
+                            <FormGroup controlId="form-location">
                                 <Row>
                                     <Col sm={1} className="align_left">
                                         <Form.Label>Localização: </Form.Label>
@@ -298,8 +306,8 @@ class AddEventForm extends Component {
                                         <Dropdown placeholder='Categorias' id="add-event-category" fluid multiple search selection options={this.props.categories} />
                                     </Col>
                                 </Row>
-                            </Form.Group>
-                            <Form.Group controlId="form-price">
+                            </FormGroup>
+                            <FormGroup controlId="form-price">
                                 <Row>
                                     <Col sm={1} className="align_left">
                                         <Form.Label>Preço: </Form.Label>
@@ -309,16 +317,16 @@ class AddEventForm extends Component {
                                             type="number" min="0" value={this.state.price} onChange={this.updatePrice} />
                                     </Col>
                                 </Row>
-                            </Form.Group>
+                            </FormGroup>
 
-                            <Form.Group controlId="form-buttons" className="buttons_style">
+                            <FormGroup controlId="form-buttons" className="buttons_style">
                                 <Button variant="secondary">
                                 <Link to={`/events`}>
                                     <Button variant="secondary">Cancelar</Button>
                                 </Link>
                                 </Button>
                                 <Button variant="primary" type="submit" className="primary_button">Confirmar</Button>
-                            </Form.Group>
+                            </FormGroup>
 
                         </Form>
                     </Col>

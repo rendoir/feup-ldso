@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check Render ListEvents renders log in form 1`] = `
+<div
+  id="login-container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-4"
+    />
+    <div
+      className="col-sm-4"
+    >
+      <form
+        className=""
+        onSubmit={[Function]}
+      >
+        <input
+          className="form-control"
+          onChange={[Function]}
+          placeholder="Email"
+          required={true}
+          type="email"
+          value=""
+        />
+        <input
+          className="form-control"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        />
+        <button
+          className="primary_button btn btn-default"
+          disabled={false}
+          id="login-button"
+          type="submit"
+          variant="primary"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
+    <div
+      className="col-sm-4"
+    />
+  </div>
+</div>
+`;
+
+exports[`renders elements 1`] = `
+<nav
+  className="navbar navbar-default"
+  id="navbar-custom"
+>
+  <div
+    className="container"
+  >
+    <a
+      aria-current={null}
+      className="navbar-brand navbar-brand"
+      href="/events"
+      onClick={[Function]}
+    >
+      <img
+        className=""
+        id="logo"
+        src="/logo.png"
+      />
+    </a>
+    <div
+      aria-expanded={null}
+      className="navbar-collapse collapse"
+      id="responsive-navbar-nav"
+    >
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      />
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      />
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`renders elements 2`] = `null`;
+
+exports[`renders elements 3`] = `null`;

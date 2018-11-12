@@ -10,6 +10,11 @@ const monthNames = ["JANEIRO", "FEBREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
     "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"
 ];
 
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+}
+
 class Event extends Component {
 
     constructor(props) {
@@ -46,7 +51,8 @@ class Event extends Component {
             data: {
                 user_id: 1,
                 id: self.props.info.id
-            }
+            },
+            headers: {'Authorization': "Bearer " + getTokenFromCookie()}
         }).then((res) => self.props.deleteEventFromArray(self.props.info.id))
             .catch((err) => self.props.updateAlertMessage('danger', 'Ocorreu um erro a apagar o evento.:' + err))
     }

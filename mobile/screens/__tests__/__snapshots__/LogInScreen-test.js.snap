@@ -396,6 +396,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
+              "children": undefined,
               "style": Object {
                 "flex": 2,
               },
@@ -795,6 +796,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
+                "children": undefined,
                 "style": Object {
                   "flex": 2,
                 },

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Navbar from './NavbarComponent';
 import { Route, Switch } from 'react-router-dom';
+import Navbar from './NavbarComponent';
+import LogIn from './LogIn';
 import AddEventForm from './AddEventForm';
 import ListEvents from './ListEvents';
 import EventPage from './EventPage';
@@ -22,9 +23,7 @@ class App extends Component {
       entities: []
     }
 
-    this.toggleAddEventFormShowFlag = this.toggleAddEventFormShowFlag.bind(this);
     this.updateRefreshEvents = this.updateRefreshEvents.bind(this);
-    this.showEventPage = this.showEventPage.bind(this);
     this.getCategories = this.getCategories.bind(this);
     this.getEntities = this.getEntities.bind(this);
   }
@@ -34,18 +33,8 @@ class App extends Component {
     this.getEntities();
   }
 
-  toggleAddEventFormShowFlag(value) {
-    this.setState((prevState) =>
-      ({ addEventFormShow: !prevState.addEventFormShow, showListEvents: !prevState.showListEvents, refreshListEvents: value }));
-  }
-
   updateRefreshEvents(value) {
     this.setState({ refreshListEvents: value });
-  }
-
-  showEventPage(id) {
-    //access API to get all information about an event
-    this.setState({ addEventFormShow: false, showListEvents: false, showEventPage: true });
   }
 
   getCategories() {
@@ -62,12 +51,20 @@ class App extends Component {
 
   }
 
+  getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+  }
+
 
   render() {
+
+  
     return (
       <div className="App">
         <Route component={Navbar} />
         <Switch>
+          <Route exact path="/" component={LogIn} />
           <Route path="/events" render={() =>
             <ListEvents
               refreshListEvents={this.state.refreshListEvents}

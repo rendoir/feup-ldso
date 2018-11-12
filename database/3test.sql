@@ -1,7 +1,7 @@
 
 --| USERS |--
 
-INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Product Owner', 'po', 'po@test.com', 'pw');
+INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Product Owner', 'po', 'po@test.com', '$2a$10$N9hbIdg4pyMt.0549X7um.TNLWMrS4aXcxLZFf5rMheZJoLButHae');
 INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Aarão Higuera', 'aarão_higuera', 'aarão_higuera@test.com', 'pw');
 
 INSERT INTO users (type, name, username, email, password) VALUES ('moderator', 'Aarão Villanueva', 'aarão_villanueva', 'aarão_villanueva@test.com', 'pw');

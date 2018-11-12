@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Col, Button, Row, Container, Alert } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
+import { FormGroup, FormControl, Col, Button, Row, Alert } from 'react-bootstrap';
 import { Dropdown, Pagination } from 'semantic-ui-react';
 import axios from 'axios';
 import Event from './Event';
 import './ListEvents.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+}
 
 class ListEvents extends Component {
 
@@ -34,11 +39,12 @@ class ListEvents extends Component {
 
     componentDidMount() {
         //access API to get events with permission
-        axios.get('http://localhost:3030/web/' + 1, {
+        axios.get('http://localhost:3030/web', {
             params: {
                 page: 0,
                 limit: 5
-            }
+            },
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
             .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
@@ -46,11 +52,12 @@ class ListEvents extends Component {
 
     componentDidUpdate() {
         if (this.props.refreshListEvents) {
-            axios.get('http://localhost:3030/web/' + 1, {
+            axios.get('http://localhost:3030/web', {
                 params: {
                     page: 0,
                     limit: 5
-                }
+                },
+                headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
             })
                 .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
                 .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
@@ -78,11 +85,12 @@ class ListEvents extends Component {
 
     handlePagination(event) {
         var page = event.target.getAttribute('value') - 1;
-        axios.get('http://localhost:3030/web/' + 1, {
+        axios.get('http://localhost:3030/web', {
             params: {
                 page: page * 5,
                 limit: 5
-            }
+            },
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5), activePage: page }))
             .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
@@ -124,6 +132,10 @@ class ListEvents extends Component {
 
     render() {
 
+        if (document.cookie === undefined ||
+            document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
+
+
         let events = this.state.events.map((info, i) => (
             <Event key={i} info={info}
                 deleteEventFromArray={this.deleteEventFromArray}
@@ -131,7 +143,7 @@ class ListEvents extends Component {
             />
         ));
 
-        let alertElement;
+        let alertElement = null;
         if (this.state.alertMessage !== null) {
             alertElement = (
                 <Row>
@@ -161,8 +173,8 @@ class ListEvents extends Component {
                         </Link>
                     </Col>
                     <Col sm={5}>
-                        <Form.Group controlId="searchEvent" className="search-bar">
-                            <Form.Control
+                        <FormGroup controlId="searchEvent" className="search-bar">
+                            <FormControl
                                 id="search-text-input"
                                 type="text"
                                 value={this.state.searchInput}
@@ -170,7 +182,7 @@ class ListEvents extends Component {
                                 onChange={this.handleChangeSearch}
                             />
                             <Button className="btn-search" onClick={this.searchEventText}><FontAwesomeIcon icon="search" /></Button>
-                        </Form.Group>
+                        </FormGroup>
                     </Col>
                     <Col sm={4} className="dropdowns-search">
                         <Dropdown placeholder='Categorias' fluid multiple search selection options={this.props.categories} onChange={this.handleChangeCategory} />
@@ -178,7 +190,7 @@ class ListEvents extends Component {
                     </Col>
                 </Row>
 
-                <Container>
+                <div className="container">
                     {events}
                     <Pagination
                         defaultActivePage={this.state.activePage + 1}
@@ -189,7 +201,7 @@ class ListEvents extends Component {
                         totalPages={this.state.pageCount}
                         onClick={this.handlePagination}
                     />
-                </Container>
+                </div>
             </div>
         )
     }
