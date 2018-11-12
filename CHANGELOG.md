@@ -7,6 +7,8 @@ The following list representes the group of changes throughout the development o
 In the second sprint, we implemented continuous integration on the project as well a bug fix(_US#43_) and mostly search related features.
 We sucessfully implemented the deletion of an event(_US#7_ and _US#33_) and the listing of events(_US#7_) for the web. We also developed searches by category(_US#5_ and _US#31_), searches by text(_US#4_ and _US#30_) and searches by entity(_US#32_) for the mobile application.
 
+With the previous implemented features from Sprint 1, we were able to list events on the web for entities, as well as being able to search by them with any kind of search.
+
 ### Closed issues
 * US[#4](https://gitlab.com/ldso18-19/t3g2/issues/4)
 * US[#5](https://gitlab.com/ldso18-19/t3g2/issues/5)
