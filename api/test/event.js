@@ -11,7 +11,6 @@ let Favorite = require('../models/').favorites;
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
-let should = chai.should();
 
 chai.use(chaiHttp);
 describe('Add Events', () => {
@@ -104,6 +103,7 @@ describe('Add Events', () => {
 
             chai.request(app)
                 .post('/')
+                .set('Authorization', '12345') // token
                 .send(event)
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -120,7 +120,7 @@ describe('Add Events', () => {
                 })
         })
     });
-
+    
     describe('/POST Add Event Wrong Date', () => {
         it('it should return an error', (done) => {
 
@@ -141,6 +141,7 @@ describe('Add Events', () => {
 
             chai.request(app)
                 .post('/')
+                .set('Authorization', '12345') // token
                 .send(event)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -170,6 +171,7 @@ describe('Add Events', () => {
 
             chai.request(app)
                 .post('/')
+                .set('Authorization', '12345') // token
                 .field("title", event.title)
                 .field("description", event.description)
                 .field("start_date", event.start_date)
@@ -200,6 +202,7 @@ describe('Add Events', () => {
 describe('List Events', () => {
 
     before((done) => {
+
         Favorite.destroy({
             where: {},
             truncate: true,
@@ -264,6 +267,7 @@ describe('List Events', () => {
 
             chai.request(app)
                 .get('/app')
+                .set('Authorization', '12345') // token
                 .query({ page: 0, limit: 10 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -278,7 +282,8 @@ describe('List Events', () => {
         it('it should list all events on the web', (done) => {
 
             chai.request(app)
-                .get('/web/1')
+                .get('/web')
+                .set('Authorization', '12345') // token
                 .query({ page: 0, limit: 5 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -357,6 +362,7 @@ describe('Delete Events', () => {
 
             chai.request(app)
                 .delete('/')
+                .set('Authorization', '12345') // token
                 .send({ id: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -516,6 +522,7 @@ describe('Filter events', () => {
         it('It should filter events by categories', (done) => {
             chai.request(app)
                 .get('/events')
+                .set('Authorization', '12345') // token
                 .query({ categories: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -530,6 +537,7 @@ describe('Filter events', () => {
         it('It should filter events by entities', (done) => {
             chai.request(app)
                 .get('/events')
+                .set('Authorization', '12345') // token
                 .query({ entities: [2, 3] })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -679,6 +687,7 @@ describe('Search', () => {
         it('It should show entities by search pattern', (done) => {
             chai.request(app)
                 .get('/search/entities/')
+                .set('Authorization', '12345') // token
                 .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -695,6 +704,7 @@ describe('Search', () => {
         it('It should show categories by search pattern', (done) => {
             chai.request(app)
                 .get('/search/categories/')
+                .set('Authorization', '12345') // token
                 .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -711,6 +721,7 @@ describe('Search', () => {
         it('It should show events by search pattern', (done) => {
             chai.request(app)
                 .get('/search/events/')
+                .set('Authorization', '12345') // token
                 .query({ text: "conf" })
                 .end((err, res) => {
                     res.should.have.status(200);

@@ -46,6 +46,7 @@ test_api:
     - postgres:latest  
   script:
     - cd api
+    - npm install --save passport
     - npm test
   tags:
     - docker, postgres

@@ -90,16 +90,21 @@ module.exports = {
     },
 
     listForWeb(req, res) {
+
+        if(req.user === undefined){
+            return res.status(400).send("You don't have permissions to make this request")
+        }
+
         let result = {};
         return sequelize.query('SELECT COUNT(*) FROM events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
             ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp',
-            { bind: [req.params.user_id], type: sequelize.QueryTypes.SELECT })
+            { bind: [req.user.id], type: sequelize.QueryTypes.SELECT })
             .then((num) => {
                 result.count = parseInt(num[0].count);
 
                 return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id AS entity_id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
                     ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
-                    { bind: [req.params.user_id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+                    { bind: [req.user.id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
                     .then((events) => {
                         result.events = events;
                         return res.status(200).send(result);

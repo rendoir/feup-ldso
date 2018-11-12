@@ -27,6 +27,11 @@ const user = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('mobile', 'moderator', 'admin'),
             default: 'mobile',
             allowNull: false
+        },
+        token: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            default: null
         }
     }, {
         timestamps: false,

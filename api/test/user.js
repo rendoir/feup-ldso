@@ -12,13 +12,191 @@ let chaiHttp = require('chai-http');
 let app = require('../app');
 let should = chai.should();
 
-
-
 chai.use(chaiHttp);
+
+
+describe('Authentication', () => {
+
+    describe('/POST App Login New User', () => {
+
+        before((done) => {
+            models.sequelize.sync()
+                .then(() => {
+                    User.destroy({
+                        where: {},
+                        truncate: true,
+                        cascade: true
+                    })
+                    .then(() => { console.log('here'); done();})
+                    .catch(() => done())
+                })
+                .catch(() => done());
+        });
+
+        it('should login a new mobile user', (done) => {
+
+            let userBody = {
+                email: "test2user@test.com",
+                accessToken: "sdfipasdfasiudfbiuasdbf",
+                name: "test2user",
+                username: "test2user"
+            }
+            chai.request(app)
+                .post('/app/login')
+                .send(userBody)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('accessToken');
+                    res.body.should.have.property('userId');
+                    done();
+                })
+        });
+
+        describe("/POST App Login Existing User", () => {
+
+            before((done) => {
+                models.sequelize.sync()
+                    .then(() => {
+                        User.destroy({
+                            where: {},
+                            truncate: true,
+                            cascade: true
+                        })
+                        User.create({
+                            id: 1,
+                            username: "test",
+                            password: "$2a$10$MKm2RWpxsZQmrQMNl4TkMuwCVjNymctysHlXl8pLw/mQlA1eG2dCW",
+                            name: "Test User",
+                            email: "test@test.com",
+                            type: "moderator"
+                        })
+                            .then(() => done())
+                            .catch(() => done());
+                    }).catch(() => done());
+            });
+
+            it('should login an existing mobile user', (done) => {
+                let userBody = {
+                    email: "test@test.com",
+                    accessToken: "abc"
+                }
+                chai.request(app)
+                    .post('/app/login')
+                    .send(userBody)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('accessToken');
+                        res.body.should.have.property('userId');
+                        done();
+                    })
+            });
+
+        })
+    });
+
+    describe('/POST Login', () => {
+
+        before((done) => {
+            models.sequelize.sync()
+                .then(() => {
+                    User.destroy({
+                        where: {},
+                        truncate: true,
+                        cascade: true
+                    })
+                    User.create({
+                        id: 1,
+                        username: "test",
+                        password: "$2a$10$MKm2RWpxsZQmrQMNl4TkMuwCVjNymctysHlXl8pLw/mQlA1eG2dCW",
+                        name: "Test User",
+                        email: "test@test.com",
+                        type: "moderator"
+                    })
+                        .then(() => done())
+                        .catch(() => done());
+                }).catch(() => done());
+        });
+
+        it('should login into a new user', (done) => {
+
+            let user = {
+                email: "test@test.com",
+                password: "password"
+            }
+            chai.request(app)
+                .post('/login')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('token');
+                    res.body.should.have.property('info');
+                    done();
+                })
+        });
+
+        it('should return error message when logging in with wrong password', (done) => {
+
+            let user = {
+                email: "test@test.com",
+                password: "password21"
+            }
+
+            chai.request(app)
+                .post('/login')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.should.be.a('object');
+                    res.error.text.should.equal('Email or Password is invalid');
+                    done();
+                });
+        });
+
+        it('should return error message when logging in with wrong email', (done) => {
+
+            let user = {
+                email: "test21@test.com",
+                password: "password21"
+            }
+
+            chai.request(app)
+                .post('/login')
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.should.be.a('object');
+                    res.error.text.should.equal('Email or Password is invalid');
+                    done();
+                });
+        });
+
+    })
+
+    describe('/POST Logout', () => {
+
+        it('should logout successfully', (done) => {
+
+            chai.request(app)
+                .post('/logout')
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message');
+                    res.body.message.should.equal('Logged out successfully');
+                    done();
+                });
+        })
+
+    })
+})
 
 describe('Favorite/Unfavorite an event', () => {
 
-  
+
     before((done) => {
         Favorite.destroy({
             where: {},
@@ -99,7 +277,7 @@ describe('Favorite/Unfavorite an event', () => {
 
             chai.request(app)
                 .post('/favorite')
-                .send( { event_id: 1 } )
+                .send({ event_id: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -130,7 +308,7 @@ describe('Favorite/Unfavorite an event', () => {
 
             chai.request(app)
                 .post('/favorite')
-                .send( { event_id: 1 } )
+                .send({ event_id: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');

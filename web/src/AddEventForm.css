@@ -157,6 +157,7 @@ div.ui.dropdown>.label {
 div#add-event-form-categories-div > .dropdown{
     margin-left: 1em;
     vertical-align: middle;
+    overflow: hidden;
 }
 
 div#add-event-form-categories-div > .dropdown > *{

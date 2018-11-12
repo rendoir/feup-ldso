@@ -138,7 +138,6 @@ class EventPage extends Component {
 
 
         if (this.state.title === "") {
-            console.log('oh no');
             return (
                 <div className="loading">
                     <div class="loader"></div>

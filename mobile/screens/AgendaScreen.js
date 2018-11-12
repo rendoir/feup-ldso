@@ -99,7 +99,7 @@ export default class AgendaScreen extends React.Component {
 
           <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: 'white' }}>
             <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: 'white' }}>
-              
+
               <View style={{ flex: 3 }}>
                 <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={() => navigate('Categories')}>
                   <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
@@ -134,10 +134,6 @@ export default class AgendaScreen extends React.Component {
           </View>
 
           <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-            {events}
-            {events}
-            {events}
-            {events}
             {events}
             {noEventsElement}
           </View>

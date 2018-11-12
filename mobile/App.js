@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, Image } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font, Icon, SecureStore } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root } from 'native-base';
 import './global.js';
 import CustomHeader from './components/CustomHeader';
 import LogInScreen from './screens/LogInScreen';
+import axios from 'axios';
 
 export default class App extends React.Component {
   state = {
@@ -14,7 +15,9 @@ export default class App extends React.Component {
     signedIn: false,
     userName: "",
     userToken: "",
-    photoUrl: ""
+    photoUrl: "",
+    userEmail: "",
+    signInError: false
   };
 
   async componentDidMount() {
@@ -35,12 +38,12 @@ export default class App extends React.Component {
 
       if (result.type === "success") {
         this.setState({
-          signedIn: true,
           userName: result.user.name,
           userToken: result.accessToken,
-          photoUrl: result.user.photoUrl
+          photoUrl: result.user.photoUrl,
+          userEmail: result.user.email
         })
-        console.log(this.state.userToken);
+        this.handleLogIn();
       } else {
         console.log("cancelled")
       }
@@ -49,7 +52,38 @@ export default class App extends React.Component {
     }
   }
 
+  async handleLogIn() {
+    let self = this;
+    axios.post('http://' + global.api + ':3030/app/login', {
+      email: self.state.userEmail,
+      name: self.state.userName,
+      accessToken: self.state.userToken
+    })
+      .then(async (res) => {
+        if (res.status == 200) {
+          global.userId = res.data.userId;
+          await SecureStore.setItemAsync('access_token', res.data.accessToken);
+          self.setState({ signedIn: true });
+        }
+        else if (res.status == 400) {
+          self.setState({ signedIn: false, signInError: true });
+        }
+      })
+      .catch((err) => {
+        self.setState({ signedIn: false, signInError: true });
+      })
+  }
+
   render() {
+
+    let signInErrorMessage;
+    if (this.state.signInError == true) {
+      signInErrorMessage = (
+        <View>
+          <Button title="Não foi possível fazer login!" disabled onPress={() => {}}/>
+        </View>
+      );
+    }
 
     if (this.state.loading) {
       return (
@@ -77,7 +111,7 @@ export default class App extends React.Component {
         );
       } else {
         return (
-          <LogInScreen signIn={this.signIn} />
+          <LogInScreen signIn={this.signIn} signInErrorMessage={signInErrorMessage}/>
         );
       }
     }

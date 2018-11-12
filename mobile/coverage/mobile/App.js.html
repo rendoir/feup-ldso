@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55% </span>
+        <span class="strong">38.71% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>11/20</span>
+        <span class='fraction'>12/31</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>7/10</span>
+        <span class='fraction'>8/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">66.67% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/6</span>
+        <span class='fraction'>4/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55% </span>
+        <span class="strong">38.71% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/20</span>
+        <span class='fraction'>12/31</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -161,7 +161,44 @@
 116
 117
 118
-119</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,6 +246,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,12 +349,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { StyleSheet, View, Text, Button, Image } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font, Icon, SecureStore } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Root } from 'native-base';
 import './global.js';
 import CustomHeader from './components/CustomHeader';
 import LogInScreen from './screens/LogInScreen';
+import axios from 'axios';
 &nbsp;
 export default class App extends React.Component {
   state = {
@@ -295,7 +364,9 @@ export default class App extends React.Component {
     signedIn: false,
     userName: "",
     userToken: "",
-    photoUrl: ""
+    photoUrl: "",
+    userEmail: "",
+    signInError: false
   };
 &nbsp;
   async componentDidMount() {
@@ -316,12 +387,12 @@ export default class App extends React.Component {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (result.type === "success") {</span>
 <span class="cstat-no" title="statement not covered" >        this.setState({</span>
-          signedIn: true,
           userName: result.user.name,
           userToken: result.accessToken,
-          photoUrl: result.user.photoUrl
+          photoUrl: result.user.photoUrl,
+          userEmail: result.user.email
         })
-<span class="cstat-no" title="statement not covered" >        console.log(this.state.userToken);</span>
+<span class="cstat-no" title="statement not covered" >        this.handleLogIn();</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        console.log("cancelled")</span>
       }
@@ -330,7 +401,38 @@ export default class App extends React.Component {
     }
   }
 &nbsp;
+<span class="fstat-no" title="function not covered" >  as</span>ync handleLogIn() {
+    let self = <span class="cstat-no" title="statement not covered" >this;</span>
+<span class="cstat-no" title="statement not covered" >    axios.post('http://' + global.api + ':3030/app/login', {</span>
+      email: self.state.userEmail,
+      name: self.state.userName,
+      accessToken: self.state.userToken
+    })
+      .then(<span class="fstat-no" title="function not covered" >as</span>ync (res) =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (res.status == 200) {</span>
+<span class="cstat-no" title="statement not covered" >          global.userId = res.data.userId;</span>
+<span class="cstat-no" title="statement not covered" >          await SecureStore.setItemAsync('access_token', res.data.accessToken);</span>
+<span class="cstat-no" title="statement not covered" >          self.setState({ signedIn: true });</span>
+        }
+        else <span class="cstat-no" title="statement not covered" >if (res.status == 400) {</span>
+<span class="cstat-no" title="statement not covered" >          self.setState({ signedIn: false, signInError: true });</span>
+        }
+      })
+      .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >        self.setState({ signedIn: false, signInError: true });</span>
+      })
+  }
+&nbsp;
   render() {
+&nbsp;
+    let signInErrorMessage;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.state.signInError == true) {
+<span class="cstat-no" title="statement not covered" >      signInErrorMessage = (</span>
+        &lt;View&gt;
+          &lt;Button title="Não foi possível fazer login!" disabled onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; {}}/&gt;
+        &lt;/View&gt;
+      );
+    }
 &nbsp;
     if (this.state.loading) {
       return (
@@ -358,7 +460,7 @@ export default class App extends React.Component {
         );
       } else {
         return (
-          &lt;LogInScreen signIn={this.signIn} /&gt;
+          &lt;LogInScreen signIn={this.signIn} signInErrorMessage={signInErrorMessage}/&gt;
         );
       }
     }
@@ -403,7 +505,7 @@ const styles = StyleSheet.create({
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 07 2018 17:30:58 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 12 2018 21:14:00 GMT+0000 (WET)
 </div>
 </div>
 <script src="../prettify.js"></script>
