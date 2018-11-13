@@ -109,9 +109,7 @@ paths:
           required: true
           description: Page number
           schema:
-            type: array
-            items: 
-              $ref: '#/components/schemas/Event'
+            type: integer
        
       responses:
         '200':
@@ -236,17 +234,11 @@ paths:
         content:
           application/json:
             schema:
-              - name: user_id
-                in: body
-                required: true
-                description: User ID
-                schema:
+              type: object 
+              properties:
+                user_id:
                   type: integer
-              - name: event_id
-                in: body
-                required: true
-                description: User ID
-                schema:
+                event_id:
                   type: integer
       responses:
         '200':
@@ -277,19 +269,10 @@ paths:
     
     delete:
       summary: Deletes an event
-      description: Removes an event from the events list
-      parameters:
-        - name: id
-          in: body
-          required: true
-          description: User ID
-          schema:
-            type: integer
+      description: Removes an event from the events 
       responses:
         '200':
           description: The toggle was successful
-          schema:
-            $ref: '#/definitions/Favorite'
         '404':
           description: There was an error
     
@@ -302,20 +285,7 @@ components:
       scheme: basic
 
   schemas:
-    Artist:
-      type: object
-      required:
-        - username
-      properties:
-        artist_name:
-          type: string
-        artist_genre:
-            type: string
-        albums_recorded:
-            type: integer
-        username:
-            type: string
-    
+  
     Event:
       type: object
       required:
