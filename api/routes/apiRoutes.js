@@ -82,7 +82,6 @@ router.get("/search/events", eventController.searchForEvents);
 router.get("/entities/:user_id", entityController.getEntitiesWithPermission);
 router.get("/app/entities", entityController.getEntities);
 router.get("/categories", categoryController.getCategories);
-router.get("/favorite", eventController.isFavorited);
 
 // Setters
 router.post("/favorite", eventController.toggleFavorite);

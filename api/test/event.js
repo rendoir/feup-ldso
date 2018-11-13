@@ -8,6 +8,8 @@ let User = require('../models').users;
 let Permission = require('../models').permissions;
 let Favorite = require('../models/').favorites;
 
+let Common = require('./common');
+
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
@@ -18,31 +20,7 @@ describe('Add Events', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Permission.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Entity.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                User.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                EventModel.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Category.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                })
+                Common.destroyDatabase();
                 Entity.create({
                     id: 1,
                     name: 'Test Entity',
@@ -202,32 +180,7 @@ describe('Add Events', () => {
 describe('List Events', () => {
 
     before((done) => {
-
-        Favorite.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Permission.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Entity.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        User.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        EventModel.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
+        Common.destroyDatabase();
         Entity.create({
             id: 1,
             name: 'Test Entity',
@@ -300,26 +253,7 @@ describe('Delete Events', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Permission.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Entity.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                User.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                EventModel.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
+                Common.destroyDatabase();
                 Entity.create({
                     id: 1,
                     name: 'Test Entity',
@@ -374,38 +308,11 @@ describe('Delete Events', () => {
     });
 });
 
-function destroyDatabase() {
-    Category.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    Permission.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    Entity.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    User.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    EventModel.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    });
-}
 
 describe('Filter events', () => {
 
     before((done) => {
-        destroyDatabase();
+        Common.destroyDatabase();
         // Create entities
         Entity.bulkCreate([
             {
@@ -561,6 +468,20 @@ describe('Filter events', () => {
                 })
         });
     });
+
+    describe('/GET Filter events with pagination', () => {
+        it('It should filter events by categories and entities', (done) => {
+            chai.request(app)
+                .get('/events')
+                .query({ offset: 0, limit: 2})
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    done();
+                })
+        });
+    });
 });
 
 
@@ -568,7 +489,7 @@ describe('Search', () => {
 
     before((done) => {
         // this.enableTimeouts(false);
-        destroyDatabase();
+        Common.destroyDatabase();
         // Create entities
         Entity.bulkCreate([
             {
@@ -752,26 +673,7 @@ describe('Information of an event', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Permission.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Entity.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                User.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                EventModel.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
+                Common.destroyDatabase();
                 Entity.create({
                     id: 1,
                     name: 'Test Entity',

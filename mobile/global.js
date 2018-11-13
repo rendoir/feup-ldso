@@ -1,2 +1,2 @@
-global.api = '10.227.144.163';
+global.api = '10.227.152.127';
 userId = null;

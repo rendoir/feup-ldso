@@ -1,6 +1,7 @@
 const Event = require('../models').events;
 const Favorite = require('../models').favorites;
 var sequelize = require('../models').sequelize;
+const User = require('./user');
 const Op = sequelize.Op;
 const fs = require('fs');
 
@@ -185,6 +186,14 @@ module.exports = {
         query_options.where = {};
         query_options.include = [];
 
+        // Check if user token matches
+        let user_id = req.query.user_id;
+        let token = req.query.token;
+        if(!User.tokenMatches(token, user_id)) {
+            res.status(401).send();
+            return;
+        }
+
         // Shouldn't include past events
         if (!req.query.past) {
             let today = Math.floor(Date.now());
@@ -213,30 +222,43 @@ module.exports = {
             });
         }
 
+        // Get favorite boolean
+        query_options.include.push({
+            model: sequelize.models.users,
+            as: 'favorite',
+            where: {
+                id: user_id
+            },
+            attributes: ["id"],
+            required: false
+        });
+
         return Event.findAll(query_options)
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
     },
 
-    isEventFavorited(event_id) {
+    isEventFavorited(event_id, user_id) {
         let query_options = {};
         query_options.where = {
-            user_id: 1, // TODO: Change this to logged in user
+            user_id: user_id,
             event_id: event_id
         };
 
         return Favorite.count(query_options);
     },
 
-    isFavorited(req, res) {
-        return module.exports.isEventFavorited(req.query.event_id)
-            .then((num) => res.status(200).send( { has_favorite: num > 0 }))
-            .catch((error) => res.status(400).send(error));
-    },
-
     toggleFavorite(req, res) {
         let event_id = req.body.event_id;
-        module.exports.isEventFavorited(event_id)
+        let user_id = req.body.user_id;
+        let token = req.body.token;
+
+        if(!User.tokenMatches(token, user_id)) {
+            res.status(401).send();
+            return;
+        }
+
+        module.exports.isEventFavorited(event_id, user_id)
             .then((count) => {
                 let has_favorite = count > 0;
                 
@@ -244,7 +266,7 @@ module.exports = {
                 if (has_favorite) {
                     let query_options = {};
                     query_options.where = {
-                        user_id: 1, // TODO: Change this to logged in user
+                        user_id: user_id,
                         event_id: event_id
                     };
                     return Favorite.destroy(query_options)  
@@ -252,7 +274,7 @@ module.exports = {
                     .catch((error) => res.status(400).send(error));                                     
                 } else { // Add favorite
                     return Favorite.create({
-                        user_id: 1, // TODO: Change this to logged in user
+                        user_id: user_id,
                         event_id: event_id
                     })
                     .then(() => res.status(200).send({ message: "The event was added to your favorites!" }))

@@ -72,7 +72,7 @@ export default class LogInScreen extends React.Component {
                   </Text>
                     </View>
                     <View style={{ width: '50%', flex: 1 }}>
-                        <Button title="Sign in with Google" onPress={() => this.props.signIn()} />
+                        <Button title="Sign in with Google" className={'login_button'} onPress={() => this.props.signIn()} />
                     </View>
                     <View style={{ flex: 2 }}>{this.props.signInErrorMessage}</View>
                 </View>

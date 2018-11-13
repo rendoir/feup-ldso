@@ -6,6 +6,8 @@ let User = require('../models').users;
 let Permission = require('../models').permissions;
 let Favorite = require('../models/').favorites;
 
+let Common = require('./common');
+
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
@@ -18,21 +20,7 @@ describe('List Entities', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Permission.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Entity.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                User.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
+                Common.destroyDatabase();
                 Entity.bulkCreate([
                     {
                         id: 1,
