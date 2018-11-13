@@ -595,7 +595,7 @@ describe('Search', () => {
                 },
                 {
                     id: 2,
-                    name: 'Another Category 2'
+                    name: 'Conference Category 2'
                 },
                 {
                     id: 3,
@@ -612,7 +612,8 @@ describe('Search', () => {
                         email: 'email@email.com',
                         type: 'moderator'
                     }).then((user) => user.setEntities(entities) // Give full permissions to user
-                        .then(() => {
+                        .then(() => { return Category.findAll() })
+                        .then((categories) => {
                             let start_date1 = new Date();
                             let start_date2 = new Date();
                             let start_date3 = new Date();
@@ -635,7 +636,8 @@ describe('Search', () => {
                                     start_date: start_date1,
                                     user_id: 1,
                                     entity_id: 1,
-                                    location: 'Class'
+                                    location: 'Class',
+                                    description: 'Conference'
                                 },
                                 {
                                     id: 2,
@@ -643,7 +645,8 @@ describe('Search', () => {
                                     start_date: start_date2,
                                     user_id: 1,
                                     entity_id: 2,
-                                    location: 'Other'
+                                    location: 'Other',
+                                    description: 'Conference 2'
                                 },
                                 {
                                     id: 3,
@@ -671,16 +674,17 @@ describe('Search', () => {
                                 },
                                 {
                                     id: 6,
-                                    title: "Global Conference 6",
+                                    title: "Global Event 6",
                                     start_date: start_date6,
                                     user_id: 1,
                                     entity_id: 3,
                                     location: 'Anywhere'
                                 }
-                            ]).then(() => done());
+                            ]).then((events) => events[4].setCategories(categories))
+                                .then(() => done());
                         }))
-                    )
                 )
+        )
     });
 
     describe('/GET Search for entities', () => {
@@ -731,8 +735,11 @@ describe('Search', () => {
                     res.body[0].search_by.should.be.eql('title');
                     res.body[1].title.should.be.eql('Another Conference 3');
                     res.body[1].search_by.should.be.eql('title');
-                    res.body[2].title.should.be.eql('Global Conference 6');
-                    res.body[2].search_by.should.be.eql('title');
+                    res.body[2].title.should.be.eql('Event 1');
+                    res.body[2].search_by.should.be.eql('description');
+                    // TODO: should add category test.
+                    res.body[3].title.should.be.eql('Test Class 4');
+                    res.body[3].search_by.should.be.eql('location');
                     done();
                 })
         });

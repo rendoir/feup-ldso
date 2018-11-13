@@ -79,9 +79,12 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
         return sequelize.query(
-            "WITH search_title AS (SELECT id, title, location, price, start_date, entity_id, 'title' as search_by FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp) SELECT * FROM search_title " +
-            "UNION SELECT id, title, location, price, start_date, entity_id, 'location' as search_by FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery('simple', $1) AND start_date > current_timestamp AND (id, title, location, price, start_date, entity_id, 'title') NOT IN (SELECT * FROM search_title) " +
-            "ORDER BY search_by DESC, start_date ASC;",
+            "WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " + 
+            "SELECT events.id, title, location, price, start_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " + 
+            "SELECT events.id, title, location, price, start_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " + 
+            "SELECT events.id, title, location, price, start_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " + 
+            "SELECT events.id, title, location, price, start_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) " + 
+            "ORDER BY priority ASC, start_date ASC;",
             { bind: [pattern], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
