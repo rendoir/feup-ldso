@@ -11,29 +11,106 @@ security:
   - BasicAuth: []
 
 paths:
-  /app:
-    get:
-      summary: Lists some events for a User
-      description: Returns a list containing all events with a start date greater or equal than today
-      parameters:
-        - $ref: '#/components/parameters/pageNumber'
-        - $ref: '#/components/parameters/pageLimit'
+
+  /login:
+    post:
+      summary: Logs in the user on the website
+      description: Authenticates a user on the website application to have access to all his/her entities and events
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                user_id:
+                  type: integer
       responses:
         '200':
-          description: Successfully returned a list of Events
+          description: Authenticates the user
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event'
+                properties:
+                  token:
+                    type: string
+                  info:
+                    type: object
         '400':
-          $ref: '#/components/responses/400Error'
+          $ref: '#/components/responses/400Error' 
+          
+  
+  /app:
+    post:
+      summary: Lists all events on the app
+      description: Returns a list of all events available to the user
+      tags:
+        - Mobile Application 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                email:
+                  type: string
+                accessToken:
+                  type: string
+      responses:
+        '200':
+          description: Authenticates the user
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                  userID:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/400Error' 
+  
+  
+  /app/login:
+    post:
+      summary: Logs in the user on the app
+      description: Authenticates a user on the mobile application
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                email:
+                  type: string
+                accessToken:
+                  type: string
+      responses:
+        '200':
+          description: Authenticates the user
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                  userID:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/400Error' 
           
   /app/entities:
     get:
       summary: Lists all entities
       description: Returns a list containing all entities
+      tags:
+        - Mobile Application 
       responses:
         '200':
           description: Successfully returned a list of entities
@@ -46,10 +123,32 @@ paths:
         '400':
           $ref: '#/components/responses/400Error'
           
+          
+  /logout:
+    post:
+      summary: Logs out a user
+      description: Authenticates a user on the mobile application
+      tags:
+        - Authentication      
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object 
+                properties:
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/400Error' 
+          
   /web:
     get:
       summary: Lists events that a User has permission
       description: Returns a list containing all events to which the logged in user has permissions
+      tags:
+        - Website
       parameters:
         - $ref: '#/components/parameters/pageNumber'
         - $ref: '#/components/parameters/pageLimit'      
@@ -67,9 +166,10 @@ paths:
           
   /events:
     get:
-      summary: Lists some filtered events for a User
+      summary: Lists some events for a User with optional filters
       description:  Returns a list of events with startDate greater or equal than today and with the applied
-        filters
+      tags:
+        - Mobile Application
       parameters:
         - $ref: '#/components/parameters/pageNumber'
         - $ref: '#/components/parameters/pageLimit'      
@@ -103,6 +203,8 @@ paths:
     get:
       summary: Gets information of an event
       description: Returns the event with the given id
+      tags:
+        - Website
       parameters:
         - name: event_id
           in: path
@@ -127,6 +229,8 @@ paths:
     get:
       summary: Lists events related to the searched entities with the given text
       description: Returns a list of events whose entities matches the searched ones
+      tags:
+        - Search 
       parameters:
         - $ref: '#/components/parameters/givenText'
       responses:
@@ -145,6 +249,8 @@ paths:
     get:
       summary: Lists events related to the searched categories with the given text
       description: Returns a list of events whose categories matches the searched ones
+      tags:
+        - Search 
       parameters:
         - $ref: '#/components/parameters/givenText'
       responses:
@@ -163,6 +269,8 @@ paths:
     get:
       summary: Lists events with the given text
       description: Returns a list of events whose title or description matches the given text
+      tags:
+        - Search 
       parameters:
         - $ref: '#/components/parameters/givenText'
       responses:
@@ -181,8 +289,11 @@ paths:
     get:
       summary: Lists entities that the given user has permission
       description: Returns a list of entities that the given user has permission to use
+      tags:
+        - Website 
       parameters:
         - $ref: '#/components/parameters/pathUserID'
+
       responses:
         '200':
           description: Successfully returned a list of entities
@@ -199,6 +310,8 @@ paths:
     get:
       summary: Lists all categories
       description: Returns a list containing all categories
+      tags:
+        - Mobile Application 
       responses:
         '200':
           description: Successfully returned a list of categories
@@ -215,6 +328,8 @@ paths:
     get:
       summary: Verifies if an event is favorited
       description: Returns true if is favorited, false if not
+      tags:
+        - Mobile Application 
       parameters:
         - $ref: '#/components/parameters/pathUserID'
       responses:
@@ -229,6 +344,8 @@ paths:
     post:
       summary: Favorites or unfavorites an event
       description: If an event is favorited, it unfavorites the event, else it favorites the event.
+      tags:
+        - Mobile Application 
       requestBody:
         required: true
         content:
@@ -254,6 +371,8 @@ paths:
     post:
       summary: Creates an event
       description: Adds an event to the events list
+      tags:
+        - Website
       requestBody:
         required: true
         content:
@@ -269,7 +388,9 @@ paths:
     
     delete:
       summary: Deletes an event
-      description: Removes an event from the events 
+      description: Removes an event from the events
+      tags:
+        - Website
       responses:
         '200':
           description: The toggle was successful
