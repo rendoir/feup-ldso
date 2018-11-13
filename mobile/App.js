@@ -65,9 +65,6 @@ export default class App extends React.Component {
           await SecureStore.setItemAsync('access_token', res.data.accessToken);
           self.setState({ signedIn: true });
         }
-        else if (res.status == 400) {
-          self.setState({ signedIn: false, signInError: true });
-        }
       })
       .catch((err) => {
         self.setState({ signedIn: false, signInError: true });

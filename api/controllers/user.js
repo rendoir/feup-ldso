@@ -51,11 +51,9 @@ module.exports = {
                 else {
                     return this.addAppUser(userBody)
                     .then((user) => {
-                        console.log("Pintou " + user.id);
                         return user.id;
                     })
                     .catch((error) => {
-                        console.log("Merdou " + error);
                         return error;
                     })
                 }
@@ -109,6 +107,17 @@ module.exports = {
 
     checkPassword(password, user) {
         return bcrypt.compare(password, user.password);
+    },
+
+    tokenMatches(token, user) {
+        return User.findAll( {
+            where: {
+                id: user,
+                token: token
+            }
+        })
+        .then((users) => { return users.length == 1; })
+        .catch(() => { return false; });
     }
 
 }

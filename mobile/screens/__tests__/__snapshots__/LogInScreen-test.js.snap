@@ -111,6 +111,7 @@ ShallowWrapper {
             }
           >
             <Button
+              className="login_button"
               onPress={[Function]}
               title="Sign in with Google"
             />
@@ -252,6 +253,7 @@ ShallowWrapper {
               }
             >
               <Button
+                className="login_button"
                 onPress={[Function]}
                 title="Sign in with Google"
               />
@@ -368,6 +370,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <Button
+                className="login_button"
                 onPress={[Function]}
                 title="Sign in with Google"
               />,
@@ -382,6 +385,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
+                "className": "login_button",
                 "onPress": [Function],
                 "title": "Sign in with Google",
               },
@@ -511,6 +515,7 @@ ShallowWrapper {
               }
             >
               <Button
+                className="login_button"
                 onPress={[Function]}
                 title="Sign in with Google"
               />
@@ -652,6 +657,7 @@ ShallowWrapper {
                 }
               >
                 <Button
+                  className="login_button"
                   onPress={[Function]}
                   title="Sign in with Google"
                 />
@@ -768,6 +774,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <Button
+                  className="login_button"
                   onPress={[Function]}
                   title="Sign in with Google"
                 />,
@@ -782,6 +789,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
+                  "className": "login_button",
                   "onPress": [Function],
                   "title": "Sign in with Google",
                 },

@@ -6,6 +6,7 @@ import {
 import { Font, AppLoading } from "expo";
 import { Root, View, Card, Button, Icon, Text } from 'native-base';
 import axios from 'axios';
+import { SecureStore } from 'expo';
 import Event from '../components/Event';
 
 export default class AgendaScreen extends React.Component {
@@ -38,9 +39,13 @@ export default class AgendaScreen extends React.Component {
     this.setState({ loading: false });
   }
 
-  getEventsFromApi() {
+  async getEventsFromApi() {
+    let token = await SecureStore.getItemAsync('access_token');
+
     let self = this;
     let apiLink = 'http://' + global.api + ':3030/events?';
+    apiLink += "user_id=" + global.userId + '&';
+    apiLink += "token=" + token + '&';
     if (this.props.navigation.getParam('selectedEntity', 'Orgão') != 'Orgão') {
       apiLink += 'entities=' + this.state.entity + '&';
     }

@@ -4,6 +4,8 @@ import {
     Image,
     Platform,
 } from 'react-native';
+import axios from 'axios';
+import { SecureStore } from 'expo';
 
 import { Card, Icon, View, Badge, Text } from 'native-base';
 
@@ -13,8 +15,11 @@ export default class Event extends React.Component {
         super(props);
 
         this.state = {
-            imageLoaded: true
+            imageLoaded: true,
+            isFavorite: props.data.favorite.length == 1
         }
+
+        this.onFavorite = this.onFavorite.bind(this);
     }
 
     ImageLoadingError() {
@@ -39,6 +44,24 @@ export default class Event extends React.Component {
         }
     }
 
+    async onFavorite() {
+        let token = await SecureStore.getItemAsync('access_token');
+        let self = this;
+        let apiLink = 'http://' + global.api + ':3030/favorite';
+        axios.post(apiLink, {
+            user_id: global.userId,
+            event_id: this.props.data.id,
+            token: token
+        })
+        .then(function (response) {
+            if(response.status == 200)
+                self.setState({ isFavorite: !self.state.isFavorite });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
     render() {
         return (
             <Card onPress={this.props.onPress}>
@@ -56,7 +79,7 @@ export default class Event extends React.Component {
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>{this.props.data.location} - {this.props.data.start_date.split('T')[1].split(':')[0] + ':' + this.props.data.start_date.split('T')[1].split(':')[1]}</Text>
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>Preço: {this.props.data.price}€</Text>
                     </View>
-                    <Icon style={{ fontSize: 35, flex: 1, alignSelf: 'center' }} name={'md-star-outline'} onPress={this.props.onPress} />
+                    <Icon className={'fave_icon'} style={{ fontSize: 35, flex: 1, alignSelf: 'center' }} name={this.state.isFavorite ? 'md-star' : 'md-star-outline'} onPress={this.onFavorite} />
                 </View>
             </Card>
         );
