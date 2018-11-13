@@ -6,10 +6,10 @@ import TabBarIcon from '../components/TabBarIcon';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import AgendaScreen from '../screens/AgendaScreen';
+import NewAgendaScreen from '../screens/NewAgendaScreen';
 import EntitiesScreen from '../screens/EntitiesScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import EventScreen from '../screens/EventScreen';
-import LogInScreen from '../screens/LogInScreen';
 
 const AgendaStack = createStackNavigator({
   Agenda: AgendaScreen,
@@ -19,6 +19,27 @@ const AgendaStack = createStackNavigator({
 });
 
 AgendaStack.navigationOptions = {
+  tabBarLabel: 'Agenda',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-calendar${focused ? '' : '-outline'}`
+          : 'md-calendar'
+      }
+    />
+  ),
+};
+
+const NewAgendaStack = createStackNavigator({
+  Agenda: NewAgendaScreen,
+  Entities: EntitiesScreen,
+  Categories: CategoriesScreen,
+  Event: EventScreen,
+});
+
+NewAgendaStack.navigationOptions = {
   tabBarLabel: 'Agenda',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -67,6 +88,7 @@ SearchStack.navigationOptions = {
 export default createBottomTabNavigator({
   FavoritesStack,
   AgendaStack,
+  NewAgendaStack,
   SearchStack,
 },
   {
@@ -76,7 +98,8 @@ export default createBottomTabNavigator({
       activeTintColor: '#F8F8F8',
       inactiveTintColor: '#ffffff',
       style: {
-        backgroundColor: '#2c8f7f',
+        // backgroundColor: '#2c8f7f',
+        backgroundColor: '#BA4315',
       },
     }
   }

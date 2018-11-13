@@ -101,10 +101,11 @@ export default class App extends React.Component {
         />
       );
     } else {
-      if (this.state.signedIn) {
+      if (!this.state.signedIn) {
         return (
           <View style={styles.container}>
-            <CustomHeader name={this.state.userName} photoUrl={this.state.photoUrl} />
+            {/* <CustomHeader name={this.state.userName} photoUrl={this.state.photoUrl} /> */}
+            <CustomHeader />
 
             <AppNavigator />
           </View>
