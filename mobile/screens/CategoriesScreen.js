@@ -14,10 +14,6 @@ export default class CategoriesScreen extends React.Component {
     static navigationOptions = {
         header: null
     };
-    
-    componentWillUnmount() {
-        this.isCancelled = true;
-    }
 
     componentWillUnmount() {
         this.isCancelled = true;
