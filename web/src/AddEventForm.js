@@ -168,6 +168,10 @@ class AddEventForm extends Component {
     }
 
     render() {
+        let displayForm = "";
+        if (!this.props.displayForm) {
+            displayForm = "no-display";
+        }
 
         if (document.cookie === undefined ||
             document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
@@ -199,7 +203,7 @@ class AddEventForm extends Component {
         }
 
         return (
-            <div id="add_event_form_div">
+            <div id="add_event_form_div" className={displayForm}>
                 {alertElement}
                 <Row>
                     <Col sm={4} md={2}>

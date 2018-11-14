@@ -16,6 +16,17 @@ function patternToTSVector(text) {
 
 }
 
+function patternToTSVector(text) {
+
+    let words = text.trim().replace(/ +(?= )/g, '').split(' ');
+    let string = "";
+    for (i in words) {
+        string += words[i] + ":* & ";
+    }
+    return string.substring(0, string.length - 3);
+
+}
+
 module.exports = {
 
     listForUsers(req, res) {
