@@ -3,9 +3,9 @@ var express = require('express'),
     fileUpload = require('express-fileupload'),
     passport = require('passport'),
     app = express(),
-    cors = require('cors')
-    passportSetup = require('./passport/passport');
-    port = process.env.PORT || 3030;
+    cors = require('cors');
+var passportSetup = require('./passport/passport');
+var port = process.env.PORT || 3030;
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,5 +23,4 @@ passportSetup();
 app.listen(port);
 
 module.exports = app;
-
 

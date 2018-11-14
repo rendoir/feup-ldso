@@ -8,17 +8,18 @@ import Category from '../components/Category';
 export default class CategoriesScreen extends React.Component {
     state = {
         loading: true,
-        categories: [],
+        categories: []
     };
+
     static navigationOptions = {
-        header: null,
+        header: null
     };
-    
+
     componentWillUnmount() {
         this.isCancelled = true;
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await Font.loadAsync({
             Roboto: require("native-base/Fonts/Roboto.ttf"),
             Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
@@ -30,12 +31,12 @@ export default class CategoriesScreen extends React.Component {
     getCategoriesFromApi() {
         let self = this;
         axios.get('http://' + global.api + ':3030/categories')
-            .then(function (response) {
+            .then(function(response) {
                 const categories = response.data;
-                if(!this.isCancelled)
+                if (!this.isCancelled)
                     self.setState({ categories });
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 console.log(error);
             });
     }
@@ -51,7 +52,7 @@ export default class CategoriesScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         const categories = this.state.categories.map((category, i) => (
-            <Category data={category} key={i} onPress={() => navigate('Agenda', { selectedCategory: category.name, selectedCategoryId: category.id })} />
+            <Category data={category} key={i} onPress={() => { navigate('Agenda', { selectedCategory: category.name, selectedCategoryId: category.id }); this.props.navigation.state.params.onSelect({ updateCall: true }); } } />
         ));
 
         return (
@@ -61,20 +62,20 @@ export default class CategoriesScreen extends React.Component {
                 </Header>
                 <Content>
                     <List>
-                        <ListItem style={styles.listItem} onPress={() => navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' })}>
-                            <Button transparent onPress={() => navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' })}><Text style={styles.buttonText}>Todos</Text></Button>
+                        <ListItem style={styles.listItem} onPress={() => { navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); } }>
+                            <Button transparent onPress={() => { navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>Todos</Text></Button>
                         </ListItem>
                         {categories}
                     </List>
                 </Content>
             </Container>
-        )
+        );
     }
 }
 
 const styles = StyleSheet.create({
     listItem: {
-        justifyContent: "center",
+        justifyContent: "center"
     },
     header: {
         backgroundColor: '#2c8f7f',
@@ -85,12 +86,12 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         width: '100%',
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     buttonText: {
         color: 'black',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5,
-    },
+        paddingLeft: 5
+    }
 });

@@ -8,7 +8,7 @@ let Common = require('./common');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
-let should = chai.should();
+chai.should();
 
 chai.use(chaiHttp);
 
@@ -56,11 +56,11 @@ describe('Categories', () => {
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(4);
                     done();
-                })
+                });
         });
 
-       
-    })
 
-})
+    });
+
+});
 

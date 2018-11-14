@@ -29,7 +29,7 @@ describe("Check Update Functions", () => {
 
     var wrapper;
 
-    beforeAll(async () => {
+    beforeAll(async() => {
         wrapper = await mount(
             <BrowserRouter>
                 <LogIn />
@@ -37,7 +37,7 @@ describe("Check Update Functions", () => {
     });
 
 
-    it('check update email input', async () => {
+    it('check update email input', async() => {
 
         let wrapperLogIn = wrapper.find(LogIn).first();
 
@@ -51,7 +51,7 @@ describe("Check Update Functions", () => {
 
     });
 
-    it('check update password input', async () => {
+    it('check update password input', async() => {
 
         let wrapperLogIn = wrapper.find(LogIn).first();
 
@@ -65,9 +65,9 @@ describe("Check Update Functions", () => {
 
     });
 
-})
+});
 
-describe("Login", async () => {
+describe("Login", async() => {
 
 
     it("Check login returns error", () => {
@@ -92,7 +92,7 @@ describe("Login", async () => {
         setImmediate(() => {
             expect(wrapperLogIn.state().alertMessage).toEqual("Error logging in: undefined");
             expect(wrapperLogIn.state().alertType).toEqual("danger");
-        })
+        });
 
     });
 
@@ -121,13 +121,9 @@ describe("Login", async () => {
         setImmediate(() => {
             expect(wrapperLogIn.state().alertMessage).toEqual("Successfully logged in!");
             expect(wrapperLogIn.state().alertType).toEqual("success");
-        })
+        });
 
     });
 
 
-    
-
-
-
-})
+});

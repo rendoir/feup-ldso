@@ -15,7 +15,7 @@ var props = {
             id: 1
         }
     }
-}
+};
 
 describe("Render", () => {
 
@@ -51,7 +51,7 @@ describe("Render", () => {
                     description: 'Description'
                 }
             ]
-        })
+        });
 
 
         const event = rendered.create(
@@ -67,7 +67,7 @@ describe("Render", () => {
 
 describe("Check ComponentDidMount", () => {
 
-    it("/GET page info - Success", async (done) => {
+    it("/GET page info - Success", async(done) => {
 
         mockAxios.onGet().reply(200, {
             id: 1,
@@ -132,11 +132,11 @@ describe("Check ComponentDidMount", () => {
             });
             expect(wrapperPage.state().categories.length).toEqual(2);
             done();
-        })
+        });
 
     });
 
-    it("/GET page info - Doens't exist", async (done) => {
+    it("/GET page info - Doens't exist", async(done) => {
 
         mockAxios.onGet().reply(200, {});
 
@@ -155,11 +155,11 @@ describe("Check ComponentDidMount", () => {
             expect(wrapperPage.state().alertType).toEqual("danger");
             expect(wrapperPage.state().alertMessage).toEqual("Este evento não existe.");
             done();
-        })
+        });
 
     });
 
-    it("/GET page info - Error", async (done) => {
+    it("/GET page info - Error", async(done) => {
 
         mockAxios.onGet().reply(400);
 
@@ -177,15 +177,15 @@ describe("Check ComponentDidMount", () => {
             expect(wrapperPage.state().alertType).toEqual('danger');
             expect(wrapperPage.state().alertMessage).toEqual('Ocorreu um erro. Por favor tente novamente.');
             done();
-        })
+        });
 
     });
 
-})
+});
 
 describe("Delete Event", () => {
 
-    it("Check if swal appears when delete button is clicked", async () => {
+    it("Check if swal appears when delete button is clicked", async() => {
 
         mockAxios.onGet().reply(200, {
             id: 1,
@@ -241,7 +241,7 @@ describe("Delete Event", () => {
 
     });
 
-    it("Check if deletion was successfull", async (done) => {
+    it("Check if deletion was successfull", async(done) => {
 
         let state = {
             id: 1,
@@ -277,7 +277,7 @@ describe("Delete Event", () => {
             alertMessage: null,
             redirect: false,
             errorLoadingImage: true
-        }
+        };
 
         mockAxios.onDelete('http://localhost:3030/').reply(200);
 
@@ -296,12 +296,12 @@ describe("Delete Event", () => {
         setImmediate(() => {
             expect(wrapperPage.state().redirect).toEqual(true);
             done();
-        })
+        });
 
 
     });
 
-    it("Check if deletion wasn't successfull", async (done) => {
+    it("Check if deletion wasn't successfull", async(done) => {
 
         mockAxios.onDelete('http://localhost:3030/').reply(400);
 
@@ -320,14 +320,14 @@ describe("Delete Event", () => {
             expect(wrapperPage.state().alertType).toEqual("danger");
             expect(wrapperPage.state().alertMessage).toEqual("Um erro ocorreu a apagar o evento. Tente mais tarde.");
             done();
-        })
+        });
     });
 
 });
 
 describe("Get Image", () => {
 
-    it("/GET Event Image - Error", async (done) => {
+    it("/GET Event Image - Error", async(done) => {
 
         mockAxios.onGet('http://localhost:3030/1').reply(400);
 
@@ -347,11 +347,11 @@ describe("Get Image", () => {
         setImmediate(() => {
             expect(spy.calledOnce);
             done();
-        })
+        });
 
     });
 
-    it("/GET Event Image - Check getDefaultImage", async (done) => {
+    it("/GET Event Image - Check getDefaultImage", async(done) => {
 
         let wrapper = await mount(
             <BrowserRouter>
@@ -374,7 +374,7 @@ describe("Get Image", () => {
         setImmediate(() => {
             expect(wrapperPage.state().errorLoadingImage).toEqual(false);
             done();
-        })
+        });
 
     });
 

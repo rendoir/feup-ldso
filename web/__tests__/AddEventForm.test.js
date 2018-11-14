@@ -3,7 +3,6 @@ import rendered from 'react-test-renderer';
 import { BrowserRouter } from 'react-router-dom';
 import AddEventForm from '../src/AddEventForm';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -12,112 +11,112 @@ document.cookie = "access_token=123";
 
 describe("AddEventForm Render", () => {
 
-  it('renders form with one entity', () => {
+    it('renders form with one entity', () => {
 
-    const form = rendered.create(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }]
-          } />
-      </BrowserRouter>
-    );
+        const form = rendered.create(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }]
+                    } />
+            </BrowserRouter>
+        );
 
-    let tree = form.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+        let tree = form.toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 
-  it('renders form with two entities', () => {
-    const form = rendered.create(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]}
-        />
-      </BrowserRouter>);
+    it('renders form with two entities', () => {
+        const form = rendered.create(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]}
+                />
+            </BrowserRouter>);
 
-    let tree = form.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+        let tree = form.toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 
-  it('don\'t display form', () => {
-    const form = rendered.create(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]}
-        />
-      </BrowserRouter>);
+    it('don\'t display form', () => {
+        const form = rendered.create(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]}
+                />
+            </BrowserRouter>);
 
-    let tree = form.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+        let tree = form.toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 
 });
 
 describe("AddEventForm Inputs Change", () => {
 
-  it('Check state on title input change', async () => {
+    it('Check state on title input change', async() => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>);
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>);
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('input#form-title.form-control').first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input#form-title.form-control').first();
 
-    input.simulate('change', {
-      target: { value: 'Title' }
-    })
+        input.simulate('change', {
+            target: { value: 'Title' }
+        });
 
-    expect(
-      wrapperForm.state().title
-    ).toEqual('Title')
+        expect(
+            wrapperForm.state().title
+        ).toEqual('Title');
 
 
-  });
+    });
 
-  it('Check state on description input change', () => {
+    it('Check state on description input change', () => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('textarea#form-descriptionAndImage.form-control').first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('textarea#form-descriptionAndImage.form-control').first();
 
-    input.simulate('change', {
-      target: { value: 'Description' }
-    })
+        input.simulate('change', {
+            target: { value: 'Description' }
+        });
 
-    expect(
-      wrapperForm.state().description
-    ).toEqual('Description')
+        expect(
+            wrapperForm.state().description
+        ).toEqual('Description');
 
-  });
+    });
 
-  it('Check state on image input change', () => {
+    it('Check state on image input change', () => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
 
-    global.URL.createObjectURL = jest.fn();
+        global.URL.createObjectURL = jest.fn();
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('input#form-image.form-control-file').first();
-    const image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAnCAIAAAAQFoaWAAAF" +
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input#form-image.form-control-file').first();
+        const image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAnCAIAAAAQFoaWAAAF" +
       "yHpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjanZZ/susoDoX/ZxWzBJAEguXws6p3MMufDyd5c++t16+62iQxwbaQ" +
       "jo6OHPZ//zrhPxwpxxgsey2tlMhhzZp0JjW+jjsffIXvei3VEj9Hiu35fY4g59fytwvi72X5vv45p/7DkL13T+P7hc+61B+" +
       "G5HXSuwHzZG9D7T1JyvJvdi6terT//+/vDc47xOLZSvUcyioiUVW2Fr7y2k2jJq3aOTd+RZ17XnPTwm/SG/pjjN2Zh/j2SO/j" +
@@ -150,340 +149,340 @@ describe("AddEventForm Inputs Change", () => {
       "3Y+d+/in3t0PXGa/lbohi+NvHuusqKq5gj4dzXyZT7CpMXF6j6ME57330fuzcPak3Jd8cPK53BEdEB3s73j1kkg9qaHHRHOhRzg766P1ohutV38nujVttJs3tP/vGH58GjAY" +
       "jLGbiG0kfvZ9xYMDwHwg8ZbPbgEShkgBmLywfvZ/F/MBHGAiiBcGD4QncNU5+6P1m9huTUoWhcRym6Vr/k7+AouzwMJfyKt4GAIBq5HIrPyUtJpROpwf6u1OluHKxOyDt7RJhP" +
       "DeMweS+tErweumrLz8RGIS3fBn1Tk8XvnEjW2V1Z5t3F+wtz/L474dd/fKLyXxRTtF7+Q//+815X3hcoZHr19La66QE+wEZXFhnTXlnzSP1thGp+IRUjPeKun5/cb1vMPSUzL" +
-      "Wmpk+kRJOOaPfzTSuLTu1L8nc/O7Wdj4YDGKii6utGvBuXW38DUypCM1Vqx7oAAAAASUVORK5CYII="
+      "Wmpk+kRJOOaPfzTSuLTu1L8nc/O7Wdj4YDGKii6utGvBuXW38DUypCM1Vqx7oAAAAASUVORK5CYII=";
 
-    input.simulate('change', {
-      target: { files: [image] }
-    })
+        input.simulate('change', {
+            target: { files: [image] }
+        });
 
-    expect(
-      wrapperForm.state().image
-    ).toEqual(image)
+        expect(
+            wrapperForm.state().image
+        ).toEqual(image);
 
-  });
+    });
 
-  it('Check state on start date input change', () => {
+    it('Check state on start date input change', () => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('input#form-date-start.form-control').first();
-    let date = new Date();
-    date = new Date(date.getDay() + 1);
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input#form-date-start.form-control').first();
+        let date = new Date();
+        date = new Date(date.getDay() + 1);
 
-    input.simulate('change', {
-      target: { value: date.toISOString() }
-    })
+        input.simulate('change', {
+            target: { value: date.toISOString() }
+        });
 
-    expect(
-      wrapperForm.state().startDate
-    ).toEqual(date.toISOString())
+        expect(
+            wrapperForm.state().startDate
+        ).toEqual(date.toISOString());
 
-  });
+    });
 
-  it('Check state on end date input change', () => {
+    it('Check state on end date input change', () => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('input#form-date-end.form-control').first();
-    let date = new Date();
-    date = new Date(date.getDay() + 2);
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input#form-date-end.form-control').first();
+        let date = new Date();
+        date = new Date(date.getDay() + 2);
 
-    input.simulate('change', {
-      target: { value: date.toISOString() }
-    })
+        input.simulate('change', {
+            target: { value: date.toISOString() }
+        });
 
-    expect(
-      wrapperForm.state().endDate
-    ).toEqual(date.toISOString())
+        expect(
+            wrapperForm.state().endDate
+        ).toEqual(date.toISOString());
 
-  });
+    });
 
-  it('Check state on location input change', () => {
+    it('Check state on location input change', () => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('input#form-location.form-control').first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input#form-location.form-control').first();
 
-    input.simulate('change', {
-      target: { value: 'FEUP, Porto' }
-    })
+        input.simulate('change', {
+            target: { value: 'FEUP, Porto' }
+        });
 
-    expect(
-      wrapperForm.state().location
-    ).toEqual('FEUP, Porto')
+        expect(
+            wrapperForm.state().location
+        ).toEqual('FEUP, Porto');
 
-  });
+    });
 
-  it('Check state on price input change', () => {
+    it('Check state on price input change', () => {
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const input = wrapper.find('input[type="number"]').first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input[type="number"]').first();
 
-    input.simulate('change', {
-      target: { value: 10 }
-    })
+        input.simulate('change', {
+            target: { value: 10 }
+        });
 
-    expect(
-      wrapperForm.state().price
-    ).toEqual(10)
+        expect(
+            wrapperForm.state().price
+        ).toEqual(10);
 
-  });
+    });
 
-  it('Check state on choosing entity - success', () => {
+    it('Check state on choosing entity - success', () => {
 
-    let element = document.createElement('div');
-    element.innerHTML = 'Test';
-    document.querySelector = jest.fn().mockReturnValue(element);
+        let element = document.createElement('div');
+        element.innerHTML = 'Test';
+        document.querySelector = jest.fn().mockReturnValue(element);
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const div = wrapper.find('#add-event-entity div.item').first();
-    div.simulate('click');
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const div = wrapper.find('#add-event-entity div.item').first();
+        div.simulate('click');
 
-    expect(
-      wrapperForm.state().chosenEntity
-    ).toEqual(1);
+        expect(
+            wrapperForm.state().chosenEntity
+        ).toEqual(1);
 
-  });
+    });
 
-  it('Check state on choosing entity - no entity found', () => {
+    it('Check state on choosing entity - no entity found', () => {
 
-    let element = document.createElement('div');
-    element.innerHTML = 'No Test';
-    document.querySelector = jest.fn().mockReturnValue(element)
+        let element = document.createElement('div');
+        element.innerHTML = 'No Test';
+        document.querySelector = jest.fn().mockReturnValue(element);
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
-    const div = wrapper.find('#add-event-entity div.item').first();
-    div.simulate('click');
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const div = wrapper.find('#add-event-entity div.item').first();
+        div.simulate('click');
 
-    expect(
-      wrapperForm.state().chosenEntity
-    ).toEqual(null);
+        expect(
+            wrapperForm.state().chosenEntity
+        ).toEqual(null);
 
-  });
+    });
 
-})
+});
 describe("Check Add Event Form Requests", () => {
 
-  it('Check axios request POST - Success', () => {
+    it('Check axios request POST - Success', () => {
 
-    let element = document.createElement('a');
-    element.setAttribute("value", "1");
-    document.querySelectorAll = jest.fn().mockReturnValue([element])
+        let element = document.createElement('a');
+        element.setAttribute("value", "1");
+        document.querySelectorAll = jest.fn().mockReturnValue([element]);
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[{ key: 0, value: 1, text: 'Category 1' }]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[{ key: 0, value: 1, text: 'Category 1' }]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
 
-    let date = new Date();
-    let startDate = new Date(date.getDay() + 1).toISOString();
-    let endDate = new Date(date.getDay() + 2).toISOString();
-    wrapperForm.setState({
-      title: 'Title',
-      description: 'description',
-      startDate: startDate,
-      endDate: endDate,
-      location: 'FEUP, Porto',
-      price: 0,
-      chosenEntity: 1,
-      eventAdded: false
-    })
+        let date = new Date();
+        let startDate = new Date(date.getDay() + 1).toISOString();
+        let endDate = new Date(date.getDay() + 2).toISOString();
+        wrapperForm.setState({
+            title: 'Title',
+            description: 'description',
+            startDate: startDate,
+            endDate: endDate,
+            location: 'FEUP, Porto',
+            price: 0,
+            chosenEntity: 1,
+            eventAdded: false
+        });
 
 
-    mockAxios.onPost().reply(200);
+        mockAxios.onPost().reply(200);
 
-    const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
+        const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
 
-    button.simulate('submit');
+        button.simulate('submit');
 
-    setImmediate(() => {
-      wrapperForm.update();
-      expect(wrapperForm.state().eventAdded).toEqual(true);
-      expect(wrapperForm.state().alertType).toEqual("success");
-      expect(wrapperForm.state().alertMessage).toEqual("O evento foi adicionado!");
-    })
+        setImmediate(() => {
+            wrapperForm.update();
+            expect(wrapperForm.state().eventAdded).toEqual(true);
+            expect(wrapperForm.state().alertType).toEqual("success");
+            expect(wrapperForm.state().alertMessage).toEqual("O evento foi adicionado!");
+        });
 
-  });
+    });
 
-  it('Check axios request POST - Error', () => {
+    it('Check axios request POST - Error', () => {
 
-    let element = document.createElement('a');
-    element.setAttribute("value", "1");
-    document.querySelectorAll = jest.fn().mockReturnValue([element])
+        let element = document.createElement('a');
+        element.setAttribute("value", "1");
+        document.querySelectorAll = jest.fn().mockReturnValue([element]);
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[{ key: 0, value: 1, text: 'Category 1' }]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[{ key: 0, value: 1, text: 'Category 1' }]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
 
-    let date = new Date();
-    let startDate = new Date(date.getDay() + 1).toISOString();
-    let endDate = new Date(date.getDay() + 2).toISOString();
-    wrapperForm.setState({
-      title: 'Title',
-      description: 'description',
-      startDate: startDate,
-      endDate: endDate,
-      location: 'FEUP, Porto',
-      price: 0,
-      chosenEntity: 1,
-      eventAdded: false
-    })
+        let date = new Date();
+        let startDate = new Date(date.getDay() + 1).toISOString();
+        let endDate = new Date(date.getDay() + 2).toISOString();
+        wrapperForm.setState({
+            title: 'Title',
+            description: 'description',
+            startDate: startDate,
+            endDate: endDate,
+            location: 'FEUP, Porto',
+            price: 0,
+            chosenEntity: 1,
+            eventAdded: false
+        });
 
-    mockAxios.onPost().reply(400);
+        mockAxios.onPost().reply(400);
 
-    const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
-    button.simulate('submit');
+        const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
+        button.simulate('submit');
 
-    setImmediate(() => {
-      wrapperForm.update();
-      expect(wrapperForm.state().eventAdded).toEqual(false);
-      expect(wrapperForm.state().alertType).toEqual("danger");
-      expect(wrapperForm.state().alertMessage).toEqual("Ocorreu um erro. O evento não foi adicionado.");
-    })
+        setImmediate(() => {
+            wrapperForm.update();
+            expect(wrapperForm.state().eventAdded).toEqual(false);
+            expect(wrapperForm.state().alertType).toEqual("danger");
+            expect(wrapperForm.state().alertMessage).toEqual("Ocorreu um erro. O evento não foi adicionado.");
+        });
 
-  });
+    });
 
-  it('Check no entity chosen', () => {
+    it('Check no entity chosen', () => {
 
-    let element = document.createElement('a');
-    element.setAttribute("value", "1");
-    document.querySelectorAll = jest.fn().mockReturnValue([element])
+        let element = document.createElement('a');
+        element.setAttribute("value", "1");
+        document.querySelectorAll = jest.fn().mockReturnValue([element]);
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[{ key: 0, value: 1, text: 'Category 1' }]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[{ key: 0, value: 1, text: 'Category 1' }]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
 
-    let date = new Date();
-    let startDate = new Date(date.getDay() + 1).toISOString();
-    let endDate = new Date(date.getDay() + 2).toISOString();
-    wrapperForm.setState({
-      title: 'Title',
-      description: 'description',
-      startDate: startDate,
-      endDate: endDate,
-      location: 'FEUP, Porto',
-      price: 0,
-      chosenEntity: null,
-      eventAdded: false
-    })
+        let date = new Date();
+        let startDate = new Date(date.getDay() + 1).toISOString();
+        let endDate = new Date(date.getDay() + 2).toISOString();
+        wrapperForm.setState({
+            title: 'Title',
+            description: 'description',
+            startDate: startDate,
+            endDate: endDate,
+            location: 'FEUP, Porto',
+            price: 0,
+            chosenEntity: null,
+            eventAdded: false
+        });
 
-    mockAxios.onPost().reply(400);
+        mockAxios.onPost().reply(400);
 
-    const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
-    button.simulate('submit');
+        const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
+        button.simulate('submit');
 
-    setImmediate(() => {
-      wrapperForm.update();
-      expect(wrapperForm.state().eventAdded).toEqual(false);
-      expect(wrapperForm.state().alertType).toEqual("danger");
-      expect(wrapperForm.state().alertMessage).toEqual("Escolha uma entidade, por favor.");
-    })
+        setImmediate(() => {
+            wrapperForm.update();
+            expect(wrapperForm.state().eventAdded).toEqual(false);
+            expect(wrapperForm.state().alertType).toEqual("danger");
+            expect(wrapperForm.state().alertMessage).toEqual("Escolha uma entidade, por favor.");
+        });
 
-  });
+    });
 
-  it('Check no categories chosen', (done) => {
+    it('Check no categories chosen', (done) => {
 
-    let element = document.createElement('a');
-    element.setAttribute("value", "1");
-    document.querySelectorAll = jest.fn().mockReturnValue([])
+        let element = document.createElement('a');
+        element.setAttribute("value", "1");
+        document.querySelectorAll = jest.fn().mockReturnValue([]);
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <AddEventForm
-          categories={[{ key: 0, value: 1, text: 'Category 1' }]}
-          entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
-      </BrowserRouter>
-    );
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[{ key: 0, value: 1, text: 'Category 1' }]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test2' }]} />
+            </BrowserRouter>
+        );
 
-    let wrapperForm = wrapper.find(AddEventForm).first();
+        let wrapperForm = wrapper.find(AddEventForm).first();
 
-    let date = new Date();
-    let startDate = new Date(date.getDay() + 1).toISOString();
-    let endDate = new Date(date.getDay() + 2).toISOString();
-    wrapperForm.setState({
-      title: 'Title',
-      description: 'description',
-      startDate: startDate,
-      endDate: endDate,
-      location: 'FEUP, Porto',
-      price: 0,
-      chosenEntity: 1,
-      eventAdded: false
-    })
+        let date = new Date();
+        let startDate = new Date(date.getDay() + 1).toISOString();
+        let endDate = new Date(date.getDay() + 2).toISOString();
+        wrapperForm.setState({
+            title: 'Title',
+            description: 'description',
+            startDate: startDate,
+            endDate: endDate,
+            location: 'FEUP, Porto',
+            price: 0,
+            chosenEntity: 1,
+            eventAdded: false
+        });
 
-    const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
-    button.simulate('submit');
+        const button = wrapper.find('div.buttons_style.form-group button.btn.btn-primary').first();
+        button.simulate('submit');
 
-    setImmediate(() => {
-      wrapperForm.update();
-      expect(wrapperForm.state().eventAdded).toEqual(false);
-      expect(wrapperForm.state().alertType).toEqual("danger");
-      expect(wrapperForm.state().alertMessage).toEqual("Não é possível criar um evento sem categorias.");
-      done();
-    })
+        setImmediate(() => {
+            wrapperForm.update();
+            expect(wrapperForm.state().eventAdded).toEqual(false);
+            expect(wrapperForm.state().alertType).toEqual("danger");
+            expect(wrapperForm.state().alertMessage).toEqual("Não é possível criar um evento sem categorias.");
+            done();
+        });
 
-  });
+    });
 
-})
+});

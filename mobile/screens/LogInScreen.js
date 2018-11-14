@@ -1,17 +1,17 @@
 import React from 'react';
 import { Font, AppLoading } from "expo";
 import { Root } from 'native-base';
-import { StyleSheet, Text, View, Image, Button, StatusBar } from "react-native";
+import { Text, View, Image, Button, StatusBar } from "react-native";
 
 export default class LogInScreen extends React.Component {
 
     constructor(props) {
-        super(props)
-        this.state = { signedIn: false, userName: "", userToken: "" }
+        super(props);
+        this.state = { signedIn: false, userName: "", userToken: "" };
     }
 
     static navigationOptions = {
-        header: null,
+        header: null
     };
 
     componentWillUnmount() {
@@ -45,7 +45,7 @@ export default class LogInScreen extends React.Component {
                         top: 0,
                         left: 0,
                         width: '100%',
-                        height: '100%',
+                        height: '100%'
                     }}>
                     <Image
                         style={{
@@ -69,7 +69,7 @@ export default class LogInScreen extends React.Component {
                     <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: 25, color: 'white', fontFamily: 'Roboto', textAlign: 'center', marginHorizontal: '10%' }} >
                             Agenda Cultural da Universidade do Porto
-                  </Text>
+                        </Text>
                     </View>
                     <View style={{ width: '50%', flex: 1 }}>
                         <Button title="Sign in with Google" className={'login_button'} onPress={() => this.props.signIn()} />
@@ -78,9 +78,6 @@ export default class LogInScreen extends React.Component {
                 </View>
             </View>
 
-        )
+        );
     }
 }
-
-const styles = StyleSheet.create({
-});

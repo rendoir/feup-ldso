@@ -10,42 +10,42 @@ var mockAxios = new MockAdapter(axios);
 
 describe("Logout", () => {
 
-  it("Check logout is successful", async () => {
-    document.cookie = "access_token=12345"
+    it("Check logout is successful", async() => {
+        document.cookie = "access_token=12345";
 
-    let spy = sinon.spy(Navbar.prototype, 'getTokenFromCookie');
+        let spy = sinon.spy(Navbar.prototype, 'getTokenFromCookie');
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>);
+        const wrapper = mount(
+            <BrowserRouter>
+                <Navbar />
+            </BrowserRouter>);
 
-    let wrapperNavbar = wrapper.find(Navbar).first();
-    wrapperNavbar.instance().getTokenFromCookie = jest.fn(() => "");
+        let wrapperNavbar = wrapper.find(Navbar).first();
+        wrapperNavbar.instance().getTokenFromCookie = jest.fn(() => "");
 
-    mockAxios.onPost('http://localhost:3030/logout').reply(200);
+        mockAxios.onPost('http://localhost:3030/logout').reply(200);
 
-    const button = wrapper.find('button#logout-button').first();
-    button.simulate('click');
+        const button = wrapper.find('button#logout-button').first();
+        button.simulate('click');
 
-    expect(spy.calledOnce);
+        expect(spy.calledOnce);
 
-  });
+    });
 
-  it("Check getTokenFromCookie is successful", async () => {
-    document.cookie = "access_token=12345"
+    it("Check getTokenFromCookie is successful", async() => {
+        document.cookie = "access_token=12345";
 
-    const wrapper = mount(
-      <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>);
+        const wrapper = mount(
+            <BrowserRouter>
+                <Navbar />
+            </BrowserRouter>);
 
-    let wrapperNavbar = wrapper.find(Navbar).first();
-    let result = wrapperNavbar.instance().getTokenFromCookie();
+        let wrapperNavbar = wrapper.find(Navbar).first();
+        let result = wrapperNavbar.instance().getTokenFromCookie();
 
-    expect(result).toEqual("12345");
+        expect(result).toEqual("12345");
 
-  });
+    });
 
 
-})
+});

@@ -6,7 +6,6 @@ const eventController = require('../controllers').event;
 const entityController = require('../controllers').entity;
 const categoryController = require('../controllers').category;
 const userController = require('../controllers').user;
-var middleware = require("../middleware");
 
 // Authentication
 router.post("/login", (req, res) => {
@@ -15,24 +14,21 @@ router.post("/login", (req, res) => {
             return res.status(400).send(err);
         }
         if (info.errors) {
-            console.log(info.errors);
             return res.status(401).send(info.errors);
-        }
-        else {
+        } else {
             req.logIn(info, (err) => {
                 if (err) {
                     return res.status(401).send(err);
                 }
                 return res.status(200).send({ token, info });
-            })
+            });
         }
     })(req, res);
 });
 
-router.post("/app/login", async (req, res) => {
+router.post("/app/login", async(req, res) => {
     let user = await userController.appLogIn(req.body);
-    console.log("ID: " + user);
-    if(!isNaN(user))
+    if (!isNaN(user))
         return res.status(200).send({ accessToken: req.body.accessToken, userId: user });
     else
         return res.status(400).send({ err: user });
@@ -44,7 +40,7 @@ router.post('/logout', (req, res) => {
     return res.status(200).send({ message: 'Logged out successfully' });
 });
 
-router.post("/", passport.authenticate('jwt', { session: false }), function (req, res) {
+router.post("/", passport.authenticate('jwt', { session: false }), function(req, res) {
 
     if (req.user === undefined) {
         return res.status(400).send("You don't have permissions to make this request");
@@ -59,7 +55,7 @@ router.post("/", passport.authenticate('jwt', { session: false }), function (req
 
 });
 
-router.delete("/", passport.authenticate('jwt', { session: false }), function (req, res) {
+router.delete("/", passport.authenticate('jwt', { session: false }), function(req, res) {
 
     if (req.user === undefined) {
         return res.status(400).send("You don't have permissions to make this request");
