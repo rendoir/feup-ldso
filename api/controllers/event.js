@@ -9,7 +9,7 @@ function patternToTSVector(text) {
 
     let words = text.trim().replace(/ +(?= )/g, '').split(' ');
     let string = "";
-    for (i in words) {
+    for (let i in words) {
         string += words[i] + ":* & ";
     }
     return string.substring(0, string.length - 3);
@@ -39,10 +39,10 @@ module.exports = {
         return Event.findById(req.params.event_id, {
             include: [
                 {
-                    model: sequelize.models.entities,
+                    model: sequelize.models.entities
                 },
                 {
-                    model: sequelize.models.categories,
+                    model: sequelize.models.categories
                 }
             ]
         })
@@ -78,15 +78,22 @@ module.exports = {
 
     searchForEvents(req, res) {
 
+        if (!User.tokenMatches(req.query.token, req.query.user_id)) {
+            res.status(401).send();
+            return;
+        }
+
         let pattern = patternToTSVector(req.query.text);
+
+
         return sequelize.query(
-            "WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " + 
-            "SELECT events.id, title, location, price, start_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " + 
-            "SELECT events.id, title, location, price, start_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " + 
-            "SELECT events.id, title, location, price, start_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " + 
-            "SELECT events.id, title, location, price, start_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) " + 
-            "ORDER BY priority ASC, start_date ASC;",
-            { bind: [pattern], type: sequelize.QueryTypes.SELECT })
+            "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
+            "SELECT events.id, title, location, price, start_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " +
+            "SELECT events.id, title, location, price, start_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
+            "SELECT events.id, title, location, price, start_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
+            "SELECT events.id, title, location, price, start_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
+            "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
+            { bind: [pattern, req.query.user_id], type: sequelize.QueryTypes.SELECT })
 
             .then((events) => res.status(200).send(events))
             .catch((error) => res.status(400).send(error));
@@ -95,20 +102,20 @@ module.exports = {
 
     listForWeb(req, res) {
 
-        if(req.user === undefined){
-            return res.status(400).send("You don't have permissions to make this request")
+        if (req.user === undefined){
+            return res.status(400).send("You don't have permissions to make this request");
         }
 
         let result = {};
         return sequelize.query('SELECT COUNT(*) FROM events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
             ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp',
-            { bind: [req.user.id], type: sequelize.QueryTypes.SELECT })
+        { bind: [req.user.id], type: sequelize.QueryTypes.SELECT })
             .then((num) => {
                 result.count = parseInt(num[0].count);
 
                 return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id AS entity_id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
                     ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
-                    { bind: [req.user.id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+                { bind: [req.user.id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
                     .then((events) => {
                         result.events = events;
                         return res.status(200).send(result);
@@ -134,10 +141,9 @@ module.exports = {
                 event.setCategories(req.body.categories.split(','))
                     .then(() => {
                         try {
-                            this.saveImage(req.files, event)
-                            res.status(201).send(event)
-                        }
-                        catch (err) {
+                            this.saveImage(req.files, event);
+                            res.status(201).send(event);
+                        } catch (err) {
                             res.status(400).send(err);
                         }
                     })
@@ -160,12 +166,12 @@ module.exports = {
     },
 
     saveImage(files, event) {
-        //Validate image
+        // Validate image
         if (files == null || files.image == null
             || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
             return;
 
-        //Save image
+        // Save image
         let path = "./assets/" + event.id;
         files.image.mv(path)
             .catch((err) => {
@@ -175,7 +181,7 @@ module.exports = {
 
     /**
      * Returns events based on optional filters and options
-     * @param {array, integer} entities 
+     * @param {array, integer} entities
      * @param {array, integer} categories
      * @param {boolean} past
      * @param {integer} limit
@@ -189,7 +195,7 @@ module.exports = {
         // Check if user token matches
         let user_id = req.query.user_id;
         let token = req.query.token;
-        if(!User.tokenMatches(token, user_id)) {
+        if (!User.tokenMatches(token, user_id)) {
             res.status(401).send();
             return;
         }
@@ -253,7 +259,7 @@ module.exports = {
         let user_id = req.body.user_id;
         let token = req.body.token;
 
-        if(!User.tokenMatches(token, user_id)) {
+        if (!User.tokenMatches(token, user_id)) {
             res.status(401).send();
             return;
         }
@@ -261,7 +267,7 @@ module.exports = {
         module.exports.isEventFavorited(event_id, user_id)
             .then((count) => {
                 let has_favorite = count > 0;
-                
+
                 // Remove favorite
                 if (has_favorite) {
                     let query_options = {};
@@ -269,19 +275,19 @@ module.exports = {
                         user_id: user_id,
                         event_id: event_id
                     };
-                    return Favorite.destroy(query_options)  
-                    .then(() => res.status(200).send({ message: "The event was removed from your favorites!" }))
-                    .catch((error) => res.status(400).send(error));                                     
+                    return Favorite.destroy(query_options)
+                        .then(() => res.status(200).send({ message: "The event was removed from your favorites!" }))
+                        .catch((error) => res.status(400).send(error));
                 } else { // Add favorite
                     return Favorite.create({
                         user_id: user_id,
                         event_id: event_id
                     })
-                    .then(() => res.status(200).send({ message: "The event was added to your favorites!" }))
-                    .catch((error) => res.status(400).send(error));                    
+                        .then(() => res.status(200).send({ message: "The event was added to your favorites!" }))
+                        .catch((error) => res.status(400).send(error));
                 }
             })
             .catch((error) => res.status(400).send(error));
     }
 
-}
+};

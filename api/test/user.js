@@ -4,15 +4,13 @@ let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
-let Permission = require('../models').permissions;
-let Favorite = require('../models/').favorites;
 
 let Common = require('./common');
 
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
-let should = chai.should();
+chai.should();
 
 chai.use(chaiHttp);
 
@@ -28,8 +26,8 @@ describe('Authentication', () => {
                         truncate: true,
                         cascade: true
                     })
-                    .then(() => { console.log('here'); done();})
-                    .catch(() => done())
+                        .then(() => done())
+                        .catch(() => done());
                 })
                 .catch(() => done());
         });
@@ -41,7 +39,7 @@ describe('Authentication', () => {
                 accessToken: "sdfipasdfasiudfbiuasdbf",
                 name: "test2user",
                 username: "test2user"
-            }
+            };
             chai.request(app)
                 .post('/app/login')
                 .send(userBody)
@@ -51,7 +49,7 @@ describe('Authentication', () => {
                     res.body.should.have.property('accessToken');
                     res.body.should.have.property('userId');
                     done();
-                })
+                });
         });
 
         describe("/POST App Login Existing User", () => {
@@ -63,7 +61,7 @@ describe('Authentication', () => {
                             where: {},
                             truncate: true,
                             cascade: true
-                        })
+                        });
                         User.create({
                             id: 1,
                             username: "test",
@@ -81,7 +79,7 @@ describe('Authentication', () => {
                 let userBody = {
                     email: "test@test.com",
                     accessToken: "abc"
-                }
+                };
                 chai.request(app)
                     .post('/app/login')
                     .send(userBody)
@@ -91,10 +89,10 @@ describe('Authentication', () => {
                         res.body.should.have.property('accessToken');
                         res.body.should.have.property('userId');
                         done();
-                    })
+                    });
             });
 
-        })
+        });
     });
 
     describe('/POST Login', () => {
@@ -106,7 +104,7 @@ describe('Authentication', () => {
                         where: {},
                         truncate: true,
                         cascade: true
-                    })
+                    });
                     User.create({
                         id: 1,
                         username: "test",
@@ -125,7 +123,7 @@ describe('Authentication', () => {
             let user = {
                 email: "test@test.com",
                 password: "password"
-            }
+            };
             chai.request(app)
                 .post('/login')
                 .send(user)
@@ -135,7 +133,7 @@ describe('Authentication', () => {
                     res.body.should.have.property('token');
                     res.body.should.have.property('info');
                     done();
-                })
+                });
         });
 
         it('should return error message when logging in with wrong password', (done) => {
@@ -143,7 +141,7 @@ describe('Authentication', () => {
             let user = {
                 email: "test@test.com",
                 password: "password21"
-            }
+            };
 
             chai.request(app)
                 .post('/login')
@@ -161,7 +159,7 @@ describe('Authentication', () => {
             let user = {
                 email: "test21@test.com",
                 password: "password21"
-            }
+            };
 
             chai.request(app)
                 .post('/login')
@@ -174,7 +172,7 @@ describe('Authentication', () => {
                 });
         });
 
-    })
+    });
 
     describe('/POST Logout', () => {
 
@@ -190,10 +188,10 @@ describe('Authentication', () => {
                     res.body.message.should.equal('Logged out successfully');
                     done();
                 });
-        })
+        });
 
-    })
-})
+    });
+});
 
 describe('Favorite/Unfavorite an event', () => {
 
@@ -214,7 +212,7 @@ describe('Favorite/Unfavorite an event', () => {
                 email: 'email@email.com',
                 type: 'moderator',
                 token: 'token'
-            }).then(function (user) {
+            }).then(function(user) {
                 user.addEntity(entity)
                     .then(() => {
                         let start_date = new Date();
@@ -228,10 +226,10 @@ describe('Favorite/Unfavorite an event', () => {
                             entity_id: 1
                         }).then((event) => {
                             event.setUser(user).then(() => done());
-                        })
-                    }).catch((err) => done());
-            }).catch((err) => done());
-        }).catch((err) => done());
+                        });
+                    }).catch(() => done());
+            }).catch(() => done());
+        }).catch(() => done());
     });
 
     describe('/GET Checks if an event is favorited', () => {
@@ -247,7 +245,7 @@ describe('Favorite/Unfavorite an event', () => {
                     chai.expect(res.body[0].favorite).to.be.a('array');
                     chai.expect(res.body[0].favorite).to.have.length(0);
                     done();
-                })
+                });
         });
     });
 
@@ -256,18 +254,18 @@ describe('Favorite/Unfavorite an event', () => {
 
             chai.request(app)
                 .post('/favorite')
-                .send({ 
+                .send({
                     event_id: 1,
                     user_id: 1,
                     token: 'token'
-                 })
+                })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
                     chai.expect(res.body.message).to.equal("The event was added to your favorites!");
                     done();
-                })
+                });
         });
     });
 
@@ -284,7 +282,7 @@ describe('Favorite/Unfavorite an event', () => {
                     chai.expect(res.body[0].favorite).to.be.a('array');
                     chai.expect(res.body[0].favorite).to.have.length(1);
                     done();
-                })
+                });
         });
     });
 
@@ -293,18 +291,18 @@ describe('Favorite/Unfavorite an event', () => {
 
             chai.request(app)
                 .post('/favorite')
-                .send({ 
+                .send({
                     event_id: 1,
                     user_id: 1,
                     token: 'token'
-                 })
-                 .end((err, res) => {
+                })
+                .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
                     chai.expect(res.body.message).to.equal("The event was removed from your favorites!");
                     done();
-                })
+                });
         });
     });
 
@@ -321,7 +319,7 @@ describe('Favorite/Unfavorite an event', () => {
                     chai.expect(res.body[0].favorite).to.be.a('array');
                     chai.expect(res.body[0].favorite).to.have.length(0);
                     done();
-                })
+                });
         });
     });
-})
+});

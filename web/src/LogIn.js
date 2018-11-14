@@ -13,7 +13,7 @@ class LogIn extends Component {
             passwordInput: "",
             alertType: null,
             alertMessage: null
-        }
+        };
 
         this.updateEmailInput = this.updateEmailInput.bind(this);
         this.updatePasswordInput = this.updatePasswordInput.bind(this);
@@ -42,8 +42,8 @@ class LogIn extends Component {
                 self.setState({ alertType: 'success', alertMessage: "Successfully logged in!" });
             })
             .catch((err) => {
-                self.setState({ alertType: 'danger', alertMessage: "Error logging in: " + err.response.data })
-            })
+                self.setState({ alertType: 'danger', alertMessage: "Error logging in: " + err.response.data });
+            });
     }
 
     render() {
@@ -89,7 +89,7 @@ class LogIn extends Component {
                     <Col sm={4}></Col>
                 </Row>
             </div>
-        )
+        );
 
     }
 

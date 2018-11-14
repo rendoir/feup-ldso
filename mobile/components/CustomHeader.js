@@ -1,11 +1,10 @@
 import React from 'react';
 import {
     Image,
-    StatusBar,
+    StatusBar
 } from 'react-native';
 import {
     View,
-    Right,
     Text
 } from 'native-base';
 
@@ -22,7 +21,7 @@ export default class CustomHeader extends React.Component {
                                 height: '100%',
                                 resizeMode: 'contain',
                                 marginHorizontal: '1%',
-                                marginVertical: '0%',
+                                marginVertical: '0%'
                             }}
                         />
                     </View>
@@ -35,8 +34,6 @@ export default class CustomHeader extends React.Component {
                         <Image source={{ uri: this.props.photoUrl }} style={{ padding: '0%', margin: '0%', height: 40, width: 40, borderColor: "black", borderWidth: 3, borderRadius: 40 }} />
                     </View>
                 </View>
-
-                {console.log(this.props.name)}
             </View>
         );
     }

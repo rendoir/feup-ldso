@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     StyleSheet,
-    Image,
-    Platform,
+    Image
 } from 'react-native';
 import axios from 'axios';
 import { SecureStore } from 'expo';
@@ -14,10 +13,18 @@ export default class Event extends React.Component {
     constructor(props) {
         super(props);
 
+        let isFavorite = false;
+
+        if (props.data.favorite !== undefined) {
+            isFavorite = props.data.favorite.length == 1;
+        } else if (props.data.is_favorite) {
+            isFavorite = true;
+        }
+
         this.state = {
             imageLoaded: true,
-            isFavorite: props.data.favorite.length == 1
-        }
+            isFavorite: isFavorite
+        };
 
         this.onFavorite = this.onFavorite.bind(this);
     }
@@ -28,19 +35,19 @@ export default class Event extends React.Component {
 
     getMonthInString(month) {
         switch (parseInt(month)) {
-            case 1: return 'JAN';
-            case 2: return 'FEV';
-            case 3: return 'MAR';
-            case 4: return 'ABR';
-            case 5: return 'MAI';
-            case 6: return 'JUN';
-            case 7: return 'JUL';
-            case 8: return 'AGO';
-            case 9: return 'SET';
-            case 10: return 'OUT';
-            case 11: return 'NOV';
-            case 12: return 'DEZ';
-            default: return 'Error';
+        case 1: return 'JAN';
+        case 2: return 'FEV';
+        case 3: return 'MAR';
+        case 4: return 'ABR';
+        case 5: return 'MAI';
+        case 6: return 'JUN';
+        case 7: return 'JUL';
+        case 8: return 'AGO';
+        case 9: return 'SET';
+        case 10: return 'OUT';
+        case 11: return 'NOV';
+        case 12: return 'DEZ';
+        default: return 'Error';
         }
     }
 
@@ -53,13 +60,13 @@ export default class Event extends React.Component {
             event_id: this.props.data.id,
             token: token
         })
-        .then(function (response) {
-            if(response.status == 200)
-                self.setState({ isFavorite: !self.state.isFavorite });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function(response) {
+                if (response.status == 200)
+                    self.setState({ isFavorite: !self.state.isFavorite });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     render() {
@@ -67,10 +74,10 @@ export default class Event extends React.Component {
             <Card onPress={this.props.onPress}>
                 <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.props.data.id } : require('../assets/images/default.png')}
                     style={styles.image}
-                    onError={this.ImageLoadingError.bind(this)} 
+                    onError={this.ImageLoadingError.bind(this)}
                     onPress={this.props.onPress} />
                 <View style={{ flexDirection: 'row' }} onPress={this.props.onPress}>
-                    <Badge style={{ flex: 1, backgroundColor: 'grey', margin: '3%', height: 68, alignItems:'center' }}>
+                    <Badge style={{ flex: 1, backgroundColor: 'grey', margin: '3%', height: 68, alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.props.data.start_date.split('T')[0].split('-')[2]}</Text>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.getMonthInString(this.props.data.start_date.split('T')[0].split('-')[1])}</Text>
                     </Badge>
@@ -91,5 +98,5 @@ const styles = StyleSheet.create({
         height: 160,
         width: null,
         flex: 1
-    },
+    }
 });

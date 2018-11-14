@@ -1,4 +1,3 @@
-
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let Category = require('../models').categories;
@@ -39,4 +38,4 @@ module.exports = {
             cascade: true
         });
     }
-}
+};
