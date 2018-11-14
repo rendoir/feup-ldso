@@ -1,10 +1,7 @@
 const env = process.env.NODE_ENV || 'development';
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 var config = require(__dirname + '/../config/config.js')[env];
-var sequelize = require('../models').sequelize;
-const Op = sequelize.Op;
 const User = require('../models').users;
 
 module.exports = {
@@ -27,12 +24,12 @@ module.exports = {
                     const token = jwt.sign(payload, config.jwtSecret);
                     return done(null, token, user);
                 }
-                return done(null, false, { errors: 'Email or Password is invalid' })
+                return done(null, false, { errors: 'Email or Password is invalid' });
 
             })
-            .catch((err) => {
-                return done(null, false, { errors: 'Email or Password is invalid' })
-            })
+            .catch(() => {
+                return done(null, false, { errors: 'Email or Password is invalid' });
+            });
     },
 
     appLogIn(userBody) {
@@ -41,35 +38,30 @@ module.exports = {
             .then(foundUser => {
                 if (foundUser != null){
                     return this.updateToken(foundUser, userBody.accessToken)
-                    .then(() => {
-                        return foundUser.id;
-                    })
-                    .catch((error) => {
-                        return error;
-                    })
-                }
-                else {
+                        .then(() => {
+                            return foundUser.id;
+                        })
+                        .catch((error) => {
+                            return error;
+                        });
+                } else {
                     return this.addAppUser(userBody)
-                    .then((user) => {
-                        console.log("Pintou " + user.id);
-                        return user.id;
-                    })
-                    .catch((error) => {
-                        console.log("Merdou " + error);
-                        return error;
-                    })
+                        .then((user) => {
+                            return user.id;
+                        })
+                        .catch((error) => {
+                            return error;
+                        });
                 }
 
             })
             .catch((err) => {
-                console.log("Merdou.2 " + err);
                 return err;
-            })
+            });
 
     },
 
     addAppUser(user) {
-        console.log(user);
         return User.create(
             {
                 name: user.name,
@@ -90,7 +82,7 @@ module.exports = {
             {
                 where: { id: user.id }
             }
-        )
+        );
     },
 
     findUser(email) {
@@ -109,6 +101,17 @@ module.exports = {
 
     checkPassword(password, user) {
         return bcrypt.compare(password, user.password);
+    },
+
+    tokenMatches(token, user) {
+        return User.findAll( {
+            where: {
+                id: user,
+                token: token
+            }
+        })
+            .then((users) => { return users.length == 1; })
+            .catch(() => { return false; });
     }
 
-}
+};

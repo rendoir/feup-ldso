@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import Entity from '../Entity';
 
 it('renders correctly', () => {
-    entityData = {"id":2,"initials":"FEUP"};
+    const entityData = {"id": 2, "initials": "FEUP"};
     const tree = renderer.create(<Entity data={entityData}/>).toJSON();
 
     expect(tree).toMatchSnapshot();

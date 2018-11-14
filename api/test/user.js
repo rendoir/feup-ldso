@@ -4,16 +4,15 @@ let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
-let Permission = require('../models').permissions;
-let Favorite = require('../models/').favorites;
+
+let Common = require('./common');
 
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
-let should = chai.should();
+chai.should();
 
 chai.use(chaiHttp);
-
 
 describe('Authentication', () => {
 
@@ -27,8 +26,8 @@ describe('Authentication', () => {
                         truncate: true,
                         cascade: true
                     })
-                    .then(() => { console.log('here'); done();})
-                    .catch(() => done())
+                        .then(() => done())
+                        .catch(() => done());
                 })
                 .catch(() => done());
         });
@@ -40,7 +39,7 @@ describe('Authentication', () => {
                 accessToken: "sdfipasdfasiudfbiuasdbf",
                 name: "test2user",
                 username: "test2user"
-            }
+            };
             chai.request(app)
                 .post('/app/login')
                 .send(userBody)
@@ -50,7 +49,7 @@ describe('Authentication', () => {
                     res.body.should.have.property('accessToken');
                     res.body.should.have.property('userId');
                     done();
-                })
+                });
         });
 
         describe("/POST App Login Existing User", () => {
@@ -62,7 +61,7 @@ describe('Authentication', () => {
                             where: {},
                             truncate: true,
                             cascade: true
-                        })
+                        });
                         User.create({
                             id: 1,
                             username: "test",
@@ -80,7 +79,7 @@ describe('Authentication', () => {
                 let userBody = {
                     email: "test@test.com",
                     accessToken: "abc"
-                }
+                };
                 chai.request(app)
                     .post('/app/login')
                     .send(userBody)
@@ -90,10 +89,10 @@ describe('Authentication', () => {
                         res.body.should.have.property('accessToken');
                         res.body.should.have.property('userId');
                         done();
-                    })
+                    });
             });
 
-        })
+        });
     });
 
     describe('/POST Login', () => {
@@ -105,7 +104,7 @@ describe('Authentication', () => {
                         where: {},
                         truncate: true,
                         cascade: true
-                    })
+                    });
                     User.create({
                         id: 1,
                         username: "test",
@@ -124,7 +123,7 @@ describe('Authentication', () => {
             let user = {
                 email: "test@test.com",
                 password: "password"
-            }
+            };
             chai.request(app)
                 .post('/login')
                 .send(user)
@@ -134,7 +133,7 @@ describe('Authentication', () => {
                     res.body.should.have.property('token');
                     res.body.should.have.property('info');
                     done();
-                })
+                });
         });
 
         it('should return error message when logging in with wrong password', (done) => {
@@ -142,7 +141,7 @@ describe('Authentication', () => {
             let user = {
                 email: "test@test.com",
                 password: "password21"
-            }
+            };
 
             chai.request(app)
                 .post('/login')
@@ -160,7 +159,7 @@ describe('Authentication', () => {
             let user = {
                 email: "test21@test.com",
                 password: "password21"
-            }
+            };
 
             chai.request(app)
                 .post('/login')
@@ -173,7 +172,7 @@ describe('Authentication', () => {
                 });
         });
 
-    })
+    });
 
     describe('/POST Logout', () => {
 
@@ -189,40 +188,16 @@ describe('Authentication', () => {
                     res.body.message.should.equal('Logged out successfully');
                     done();
                 });
-        })
+        });
 
-    })
-})
+    });
+});
 
 describe('Favorite/Unfavorite an event', () => {
 
 
     before((done) => {
-        Favorite.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Permission.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Entity.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        User.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        EventModel.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
+        Common.destroyDatabase();
         Entity.create({
             id: 1,
             name: 'Test Entity',
@@ -233,10 +208,11 @@ describe('Favorite/Unfavorite an event', () => {
                 id: 1,
                 username: 'TestUser',
                 name: 'Test User',
-                password: 'nasdasdasd',
+                password: 'password',
                 email: 'email@email.com',
-                type: 'moderator'
-            }).then(function (user) {
+                type: 'moderator',
+                token: 'token'
+            }).then(function(user) {
                 user.addEntity(entity)
                     .then(() => {
                         let start_date = new Date();
@@ -247,28 +223,29 @@ describe('Favorite/Unfavorite an event', () => {
                             description: "Hello There",
                             start_date: start_date,
                             user_id: 1,
-                            entity_id: 1,
-
+                            entity_id: 1
                         }).then((event) => {
                             event.setUser(user).then(() => done());
-                        })
-                    }).catch((err) => done());
-            }).catch((err) => done());
-        }).catch((err) => done());
+                        });
+                    }).catch(() => done());
+            }).catch(() => done());
+        }).catch(() => done());
     });
 
     describe('/GET Checks if an event is favorited', () => {
         it('it should check that the user does not have an event as favorite', (done) => {
-
             chai.request(app)
-                .get('/favorite?event_id=1')
+                .get('/events?token=token&user_id=1')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('has_favorite');
-                    chai.expect(res.body.has_favorite).to.equal(false);
+                    res.body.should.be.a('array');
+                    res.body.should.have.length(1);
+                    chai.expect(res.body[0]).to.be.a('object');
+                    chai.expect(res.body[0]).to.have.property('favorite');
+                    chai.expect(res.body[0].favorite).to.be.a('array');
+                    chai.expect(res.body[0].favorite).to.have.length(0);
                     done();
-                })
+                });
         });
     });
 
@@ -277,29 +254,35 @@ describe('Favorite/Unfavorite an event', () => {
 
             chai.request(app)
                 .post('/favorite')
-                .send({ event_id: 1 })
+                .send({
+                    event_id: 1,
+                    user_id: 1,
+                    token: 'token'
+                })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
                     chai.expect(res.body.message).to.equal("The event was added to your favorites!");
                     done();
-                })
+                });
         });
     });
 
     describe('/GET Checks if an event is favorited, after adding as favorite', () => {
         it('it should check that the user has an event as favorite', (done) => {
-
             chai.request(app)
-                .get('/favorite?event_id=1')
+                .get('/events?token=token&user_id=1')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('has_favorite');
-                    chai.expect(res.body.has_favorite).to.equal(true);
+                    res.body.should.be.a('array');
+                    res.body.should.have.length(1);
+                    chai.expect(res.body[0]).to.be.a('object');
+                    chai.expect(res.body[0]).to.have.property('favorite');
+                    chai.expect(res.body[0].favorite).to.be.a('array');
+                    chai.expect(res.body[0].favorite).to.have.length(1);
                     done();
-                })
+                });
         });
     });
 
@@ -308,29 +291,35 @@ describe('Favorite/Unfavorite an event', () => {
 
             chai.request(app)
                 .post('/favorite')
-                .send({ event_id: 1 })
+                .send({
+                    event_id: 1,
+                    user_id: 1,
+                    token: 'token'
+                })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
                     chai.expect(res.body.message).to.equal("The event was removed from your favorites!");
                     done();
-                })
+                });
         });
     });
 
     describe('/GET Checks if an event is favorited, after removing as favorite', () => {
         it('it should check that the user does not have an event as favorite', (done) => {
-
             chai.request(app)
-                .get('/favorite?event_id=1')
+                .get('/events?token=token&user_id=1')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('has_favorite');
-                    chai.expect(res.body.has_favorite).to.equal(false);
+                    res.body.should.be.a('array');
+                    res.body.should.have.length(1);
+                    chai.expect(res.body[0]).to.be.a('object');
+                    chai.expect(res.body[0]).to.have.property('favorite');
+                    chai.expect(res.body[0].favorite).to.be.a('array');
+                    chai.expect(res.body[0].favorite).to.have.length(0);
                     done();
-                })
+                });
         });
     });
-})
+});

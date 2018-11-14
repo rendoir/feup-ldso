@@ -26,7 +26,7 @@ class Event extends Component {
             day: date.getDay(),
             month: monthNames[date.getMonth()],
             year: date.getFullYear()
-        }
+        };
         this.deleteEvent = this.deleteEvent.bind(this);
         this.deleteEventRequest = this.deleteEventRequest.bind(this);
     }
@@ -36,7 +36,7 @@ class Event extends Component {
             title: "Tem a certeza que quer apagar o evento?",
             icon: "warning",
             buttons: true,
-            dangerMode: true,
+            dangerMode: true
         })
             .then((isConfirm) => {
                 if (isConfirm)
@@ -53,8 +53,8 @@ class Event extends Component {
                 id: self.props.info.id
             },
             headers: {'Authorization': "Bearer " + getTokenFromCookie()}
-        }).then((res) => self.props.deleteEventFromArray(self.props.info.id))
-            .catch((err) => self.props.updateAlertMessage('danger', 'Ocorreu um erro a apagar o evento.:' + err))
+        }).then(() => self.props.deleteEventFromArray(self.props.info.id))
+            .catch((err) => self.props.updateAlertMessage('danger', 'Ocorreu um erro a apagar o evento.:' + err));
     }
 
     render() {
@@ -77,7 +77,7 @@ class Event extends Component {
                     </div>
                 </Col>
             </Row>
-        )
+        );
     }
 }
 

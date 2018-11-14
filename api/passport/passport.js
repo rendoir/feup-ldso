@@ -10,7 +10,7 @@ const JWTStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 
 function mockCallback(accessToken, refreshToken, profile, done) {
-    if(accessToken !== undefined){
+    if (accessToken !== undefined){
         let user = {
             id: 1,
             username: 'TestUser',
@@ -19,13 +19,12 @@ function mockCallback(accessToken, refreshToken, profile, done) {
             email: 'email@email.com',
             type: 'moderator'
         };
-        
+
         done(null, user);
-    }
-    else {
+    } else {
         done("Error", null);
     }
-  }
+}
 
 module.exports = () => {
 
@@ -38,10 +37,9 @@ module.exports = () => {
     ));
 
     if (env === 'test') {
-        
+
         passport.use(new StrategyMock('jwt', mockCallback));
-    }
-    else {
+    } else {
         passport.use(new JWTStrategy({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: config.jwtSecret
@@ -59,14 +57,14 @@ module.exports = () => {
     }
 
     passport.serializeUser((user, done) => {
-        done(null, user.id)
-    })
+        done(null, user.id);
+    });
 
     passport.deserializeUser((id, done) => {
         userController.findUserById(id)
             .then((user) => done(null, user))
             .catch((err) => done(err, null));
-    })
+    });
 
-}
+};
 

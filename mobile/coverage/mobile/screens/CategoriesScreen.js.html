@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">43.48% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>10/20</span>
+        <span class='fraction'>10/23</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">66.67% </span>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -138,7 +138,10 @@
 93
 94
 95
-96</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+96
+97
+98</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,6 +216,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,17 +247,18 @@ import Category from '../components/Category';
 export default class CategoriesScreen extends React.Component {
     state = {
         loading: true,
-        categories: [],
+        categories: []
     };
+&nbsp;
     static navigationOptions = {
-        header: null,
+        header: null
     };
-    
+&nbsp;
     componentWillUnmount() {
         this.isCancelled = true;
     }
 &nbsp;
-    async componentWillMount() {
+    async componentDidMount() {
         await Font.loadAsync({
             Roboto: require("native-base/Fonts/Roboto.ttf"),
             Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
@@ -265,12 +270,12 @@ export default class CategoriesScreen extends React.Component {
     getCategoriesFromApi() {
         let self = this;
         axios.get('http://' + global.api + ':3030/categories')
-            .then(<span class="fstat-no" title="function not covered" >fu</span>nction (response) {
+            .then(<span class="fstat-no" title="function not covered" >fu</span>nction(response) {
                 const categories = <span class="cstat-no" title="statement not covered" >response.data;</span>
-<span class="cstat-no" title="statement not covered" >                if(!this.isCancelled)</span>
+<span class="cstat-no" title="statement not covered" >                if (!this.isCancelled)</span>
 <span class="cstat-no" title="statement not covered" >                    self.setState({ categories });</span>
             })
-            .catch(<span class="fstat-no" title="function not covered" >fu</span>nction (error) {
+            .catch(<span class="fstat-no" title="function not covered" >fu</span>nction(error) {
 <span class="cstat-no" title="statement not covered" >                console.log(error);</span>
             });
     }
@@ -286,7 +291,7 @@ export default class CategoriesScreen extends React.Component {
         const { navigate } = this.props.navigation;
 &nbsp;
         const categories = <span class="cstat-no" title="statement not covered" >this.state.categories.map(<span class="fstat-no" title="function not covered" >(c</span>ategory, i) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >            &lt;Category data={category} key={i} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedCategory: category.name, selectedCategoryId: category.id })}</span> /&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Category data={category} key={i} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedCategory: category.name, selectedCategoryId: category.id }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>} } /&gt;</span>
         ));
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return (</span>
@@ -296,20 +301,20 @@ export default class CategoriesScreen extends React.Component {
                 &lt;/Header&gt;
                 &lt;Content&gt;
                     &lt;List&gt;
-                        &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' })}</span>&gt;
-                            &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' })}</span>&gt;&lt;Text style={styles.buttonText}&gt;Todos&lt;/Text&gt;&lt;/Button&gt;
+                        &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>} }&gt;
+                            &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>}}&gt;&lt;Text style={styles.buttonText}&gt;Todos&lt;/Text&gt;&lt;/Button&gt;
                         &lt;/ListItem&gt;
                         {categories}
                     &lt;/List&gt;
                 &lt;/Content&gt;
             &lt;/Container&gt;
-        )
+        );
     }
 }
 &nbsp;
 const styles = StyleSheet.create({
     listItem: {
-        justifyContent: "center",
+        justifyContent: "center"
     },
     header: {
         backgroundColor: '#2c8f7f',
@@ -320,21 +325,22 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         width: '100%',
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     buttonText: {
         color: 'black',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5,
-    },
-});</pre></td></tr>
+        paddingLeft: 5
+    }
+});
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 12 2018 21:14:00 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 14 2018 14:44:45 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -4,8 +4,8 @@ const category = require('./category');
 const user = require('./user');
 
 module.exports = {
-  event,
-  entity,
-  category,
-  user
+    event,
+    entity,
+    category,
+    user
 };

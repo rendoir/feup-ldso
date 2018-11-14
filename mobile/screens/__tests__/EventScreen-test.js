@@ -1,22 +1,15 @@
-/**  
-* @jest-environment jsdom  
+/**
+* @jest-environment jsdom
 */
 import 'react-native';
 import React from 'react';
 import EventScreen from '../EventScreen';
 import renderer from 'react-test-renderer';
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 import { shallow } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import sinon from 'sinon';
-
 Enzyme.configure({ adapter: new Adapter() });
-
-var mockAxios = new MockAdapter(axios);
-
 
 describe('App snapshot', () => {
     jest.useFakeTimers();
@@ -24,18 +17,7 @@ describe('App snapshot', () => {
         NavigationTestUtils.resetInternalState();
     });
 
-    it('renders loading', async () => {
-        const event = {
-            id: 1,
-            title: "Concerto Jogo de Damas apresenta",
-            description: "Jogo de Damas – grupo vocal do Porto",
-            start_date: "2019-01-12T21:30:00.000Z",
-            end_date: "2019-01-13T21:30:00.000Z",
-            location: "Auditório FEUP",
-            price: 0,
-            entity_id: 9,
-            user_id: 1
-        };
+    it('renders loading', async() => {
         const wrapper = shallow(<EventScreen />);
 
         wrapper.state().loading = true;
@@ -43,18 +25,7 @@ describe('App snapshot', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('renders correctly', async () => {
-        const event = {
-            id: 1,
-            title: "Concerto Jogo de Damas apresenta",
-            description: "Jogo de Damas – grupo vocal do Porto",
-            start_date: "2019-01-12T21:30:00.000Z",
-            end_date: "2019-01-13T21:30:00.000Z",
-            location: "Auditório FEUP",
-            price: 0,
-            entity_id: 9,
-            user_id: 1
-        };
+    it('renders correctly', async() => {
         const wrapper = shallow(<EventScreen />);
 
         wrapper.state().loading = false;

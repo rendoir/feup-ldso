@@ -3,16 +3,16 @@ const event = (sequelize, DataTypes) => {
         title: DataTypes.TEXT,
         description: DataTypes.TEXT,
         start_date: DataTypes.DATE,
-        end_date: DataTypes.DATE,  
+        end_date: DataTypes.DATE,
         location: DataTypes.TEXT,
-        price: DataTypes.REAL,
+        price: DataTypes.REAL
     }, {
         timestamps: false,
         underscored: true,
         validate: {
             checkDates() {
-                if(this.end_date != null) {
-                    if(this.start_date > this.end_date)
+                if (this.end_date != null) {
+                    if (this.start_date > this.end_date)
                         throw new Error("The end date must be after the start date");
                 } else this.end_date = null;
             }
@@ -25,14 +25,14 @@ const event = (sequelize, DataTypes) => {
                         entity_id: event.entity_id
                     }
                 })
-                .then((res) => {
-                    if(!res){
-                        throw new Error('User doesn\'t have permission');
-                    }
-                })
-                .catch((err) => {
-                    throw new Error(err);
-                })
+                    .then((res) => {
+                        if (!res){
+                            throw new Error('User doesn\'t have permission');
+                        }
+                    })
+                    .catch((err) => {
+                        throw new Error(err);
+                    });
             },
             beforeUpdate: function(event) {
                 return sequelize.models.permissions.find({
@@ -41,14 +41,14 @@ const event = (sequelize, DataTypes) => {
                         entity_id: event.entity_id
                     }
                 })
-                .then((res) => {
-                    if(!res){
-                        throw new Error('User doesn\'t have permission');
-                    }
-                })
-                .catch((err) => {
-                    throw new Error(err);
-                })
+                    .then((res) => {
+                        if (!res){
+                            throw new Error('User doesn\'t have permission');
+                        }
+                    })
+                    .catch((err) => {
+                        throw new Error(err);
+                    });
             },
             beforeDelete: function(event) {
                 return sequelize.models.permissions.find({
@@ -57,24 +57,24 @@ const event = (sequelize, DataTypes) => {
                         entity_id: event.entity_id
                     }
                 })
-                .then((res) => {
-                    if(!res){
-                        throw new Error('User doesn\'t have permission');
-                    }
-                })
-                .catch((err) => {
-                    throw new Error(err);
-                })
+                    .then((res) => {
+                        if (!res){
+                            throw new Error('User doesn\'t have permission');
+                        }
+                    })
+                    .catch((err) => {
+                        throw new Error(err);
+                    });
             }
-        } 
+        }
     });
 
-    EventModel.associate = function (models) {
+    EventModel.associate = function(models) {
         models.events.belongsToMany(models.categories, { through: 'event_categories'});
-        models.events.belongsToMany(models.users, { through: 'favorites'});
+        models.events.belongsToMany(models.users, { through: 'favorites', as: 'favorite'});
         models.events.belongsTo(models.entities, { foreignKey: 'entity_id', targetKey: 'id' });
         models.events.belongsTo(models.users, { foreignKey: 'user_id', targetKey: 'id' });
-    }
+    };
 
     return EventModel;
 };

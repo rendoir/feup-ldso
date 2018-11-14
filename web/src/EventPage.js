@@ -27,7 +27,7 @@ class EventPage extends Component {
             alertMessage: null,
             redirect: false,
             errorLoadingImage: true
-        }
+        };
 
         this.deleteEvent = this.deleteEvent.bind(this);
         this.deleteEventConfirmed = this.deleteEventConfirmed.bind(this);
@@ -39,9 +39,8 @@ class EventPage extends Component {
             .then((res) => {
 
                 if (res.data === "" || Object.keys(res.data).length === 0) {
-                    this.setState({ alertType: "danger", alertMessage: "Este evento não existe." })
-                }
-                else {
+                    this.setState({ alertType: "danger", alertMessage: "Este evento não existe." });
+                } else {
 
 
                     let date = new Date(res.data.start_date);
@@ -68,9 +67,9 @@ class EventPage extends Component {
                 }
 
             })
-            .catch((err) => {
-                this.setState({ alertType: "danger", alertMessage: "Ocorreu um erro. Por favor tente novamente." })
-            })
+            .catch(() => {
+                this.setState({ alertType: "danger", alertMessage: "Ocorreu um erro. Por favor tente novamente." });
+            });
     }
 
 
@@ -79,7 +78,7 @@ class EventPage extends Component {
             title: "Tem a certeza que quer apagar o evento?",
             icon: "warning",
             buttons: true,
-            dangerMode: true,
+            dangerMode: true
         })
             .then((isConfirm) => {
                 if (isConfirm)
@@ -95,15 +94,15 @@ class EventPage extends Component {
                 id: self.state.id
             }
         })
-            .then((res) => this.setState({ redirect: true }))
-            .catch((err) => self.setState({ alertType: "danger", alertMessage: "Um erro ocorreu a apagar o evento. Tente mais tarde." }))
+            .then(() => this.setState({ redirect: true }))
+            .catch(() => self.setState({ alertType: "danger", alertMessage: "Um erro ocorreu a apagar o evento. Tente mais tarde." }));
     }
 
     getDefaultImage() {
         if (this.state.errorLoadingImage) {
             let image = document.querySelector('img.event-image');
             image.src = "/default.png";
-            this.setState({ errorLoadingImage: false })
+            this.setState({ errorLoadingImage: false });
         }
     }
 
@@ -111,7 +110,7 @@ class EventPage extends Component {
     render() {
 
         if (this.state.redirect) {
-            return <Redirect to="/events" push />
+            return <Redirect to="/events" push />;
         }
 
         let alertElement;
@@ -133,19 +132,17 @@ class EventPage extends Component {
         }
 
         let categories = this.state.categories.map((cat, i) => {
-            return <span key={i}>{cat.name}</span>
-        })
+            return <span key={i}>{cat.name}</span>;
+        });
 
 
         if (this.state.title === "") {
             return (
                 <div className="loading">
-                    <div class="loader"></div>
+                    <div className="loader"></div>
                 </div>
             );
-        }
-        else {
-            console.log('here');
+        } else {
 
             return (
                 <div>
@@ -159,7 +156,7 @@ class EventPage extends Component {
                                 <Breadcrumb.Item>
                                     <Link to={`/events`}>
                                         Eventos
-                                </Link>
+                                    </Link>
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item active>Criar Evento</Breadcrumb.Item>
                             </Breadcrumb>
@@ -221,12 +218,12 @@ class EventPage extends Component {
                                     target="_blank"
                                     rel="noopener noreferrer">
                                     Ver no Mapa
-                            </Button>
+                                </Button>
                             </Col>
                         </Row>
                     </div>
                 </div>
-            )
+            );
 
         }
 

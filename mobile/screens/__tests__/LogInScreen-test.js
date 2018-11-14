@@ -1,21 +1,16 @@
-/**  
-* @jest-environment jsdom  
+/**
+* @jest-environment jsdom
 */
 import 'react-native';
 import React from 'react';
 import LogInScreen from '../LogInScreen';
 import renderer from 'react-test-renderer';
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 import { shallow } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
-
-var mockAxios = new MockAdapter(axios);
-
 
 describe('App snapshot', () => {
     jest.useFakeTimers();
@@ -23,12 +18,12 @@ describe('App snapshot', () => {
         NavigationTestUtils.resetInternalState();
     });
 
-    it('renders correctly', async () => {
+    it('renders correctly', async() => {
         const wrapper = shallow(<LogInScreen />);
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('renders loading', async () => {
+    it('renders loading', async() => {
         const wrapper = shallow(<LogInScreen />);
         wrapper.setState({ loading: true });
         expect(wrapper).toMatchSnapshot();

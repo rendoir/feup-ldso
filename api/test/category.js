@@ -3,10 +3,12 @@ process.env.NODE_ENV = 'test';
 let models = require('../models');
 let Category = require('../models').categories;
 
+let Common = require('./common');
+
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
-let should = chai.should();
+chai.should();
 
 chai.use(chaiHttp);
 
@@ -16,11 +18,7 @@ describe('Categories', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Category.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
+                Common.destroyDatabase();
                 Category.bulkCreate([
                     {
                         id: 1,
@@ -58,11 +56,11 @@ describe('Categories', () => {
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(4);
                     done();
-                })
+                });
         });
 
-       
-    })
 
-})
+    });
+
+});
 

@@ -26,7 +26,7 @@ class ListEvents extends Component {
             alertMessage: '',
             activePage: 0,
             pageCount: 0
-        }
+        };
 
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
@@ -38,7 +38,7 @@ class ListEvents extends Component {
     }
 
     componentDidMount() {
-        //access API to get events with permission
+        // Access API to get events with permission
         axios.get('http://localhost:3030/web', {
             params: {
                 page: 0,
@@ -47,7 +47,7 @@ class ListEvents extends Component {
             headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
-            .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+            .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
     }
 
     componentDidUpdate() {
@@ -60,7 +60,7 @@ class ListEvents extends Component {
                 headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
             })
                 .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
-                .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+                .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
             this.props.updateRefreshEvents(false);
         }
@@ -72,11 +72,13 @@ class ListEvents extends Component {
     }
 
     handleChangeCategory(event) {
-
+        // Remove later
+        event.preventDefault();
     }
 
     handleChangeEntity(event) {
-
+        // Remove later
+        event.preventDefault();
     }
 
     updateAlertMessage(newAlertType, newAlertMessage) {
@@ -93,12 +95,12 @@ class ListEvents extends Component {
             headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5), activePage: page }))
-            .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+            .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
     }
 
     searchEventText() {
-        //access API to get events with said text
+        // Access API to get events with said text
     }
 
     deleteEventFromArray(event_id) {
@@ -114,17 +116,15 @@ class ListEvents extends Component {
             let eventsSliced;
             if (index === 0 && this.state.events.length === 1) {
                 eventsSliced = [];
-            }
-            else {
+            } else {
                 eventsSliced = this.state.events.splice(index, 1);
             }
             this.setState({
                 events: eventsSliced,
                 alertType: 'success', alertMessage: 'O evento foi apagado com sucesso.'
             });
-        }
-        else {
-            this.setState({ alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.' })
+        } else {
+            this.setState({ alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.' });
         }
 
     }
@@ -203,7 +203,7 @@ class ListEvents extends Component {
                     />
                 </div>
             </div>
-        )
+        );
     }
 }
 

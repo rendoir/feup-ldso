@@ -6,7 +6,6 @@ import TabBarIcon from '../components/TabBarIcon';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import AgendaScreen from '../screens/AgendaScreen';
-import NewAgendaScreen from '../screens/NewAgendaScreen';
 import EntitiesScreen from '../screens/EntitiesScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import EventScreen from '../screens/EventScreen';
@@ -15,7 +14,7 @@ const AgendaStack = createStackNavigator({
   Agenda: AgendaScreen,
   Entities: EntitiesScreen,
   Categories: CategoriesScreen,
-  Event: EventScreen,
+  Event: EventScreen
 });
 
 AgendaStack.navigationOptions = {
@@ -29,32 +28,11 @@ AgendaStack.navigationOptions = {
           : 'md-calendar'
       }
     />
-  ),
-};
-
-const NewAgendaStack = createStackNavigator({
-  Agenda: NewAgendaScreen,
-  Entities: EntitiesScreen,
-  Categories: CategoriesScreen,
-  Event: EventScreen,
-});
-
-NewAgendaStack.navigationOptions = {
-  tabBarLabel: 'Agenda',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-calendar${focused ? '' : '-outline'}`
-          : 'md-calendar'
-      }
-    />
-  ),
+  )
 };
 
 const FavoritesStack = createStackNavigator({
-  Favorites: FavoritesScreen,
+  Favorites: FavoritesScreen
 });
 
 FavoritesStack.navigationOptions = {
@@ -72,24 +50,23 @@ FavoritesStack.navigationOptions = {
 };
 
 const SearchStack = createStackNavigator({
-  Search: SearchScreen,
+  Search: SearchScreen
 });
 
 SearchStack.navigationOptions = {
   tabBarLabel: 'Pesquisa',
-  tabBarIcon: ({ focused, activeTintColor }) => (
+  tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
     />
-  ),
+  )
 };
 
 export default createBottomTabNavigator({
   FavoritesStack,
   AgendaStack,
-  NewAgendaStack,
-  SearchStack,
+  SearchStack
 },
   {
     initialRouteName: 'AgendaStack',
@@ -98,9 +75,8 @@ export default createBottomTabNavigator({
       activeTintColor: '#F8F8F8',
       inactiveTintColor: '#ffffff',
       style: {
-        // backgroundColor: '#2c8f7f',
-        backgroundColor: '#002040',
-      },
+        backgroundColor: '#002040'
+      }
     }
   }
 );

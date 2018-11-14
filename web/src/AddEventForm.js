@@ -19,7 +19,7 @@ const initialState = {
     alertType: null,
     alertMessage: null,
     eventAdded: false
-}
+};
 
 function getTokenFromCookie() {
     let token = document.cookie.split("access_token=")[1];
@@ -44,7 +44,7 @@ class AddEventForm extends Component {
             alertType: null,
             alertMessage: null,
             eventAdded: false
-        }
+        };
 
         this.updateTitle = this.updateTitle.bind(this);
         this.updateDescription = this.updateDescription.bind(this);
@@ -88,12 +88,12 @@ class AddEventForm extends Component {
         this.setState({ price: event.target.value });
     }
 
-    handleChangeEntity(event) {
+    handleChangeEntity() {
         let element = document.querySelector("#add-event-entity div.text");
         if (element !== null) {
             let value = this.findIDEntity(element.innerHTML);
             if (value !== -1) {
-                this.setState({ chosenEntity: value })
+                this.setState({ chosenEntity: value });
             }
         }
     }
@@ -134,24 +134,24 @@ class AddEventForm extends Component {
         data.append('image', this.state.image);
         data.append('price', this.state.price);
         data.append('categories', categories);
-        data.append('entity_id', this.state.chosenEntity)
+        data.append('entity_id', this.state.chosenEntity);
 
         axios({
             method: 'POST',
             url: 'http://localhost:3030/',
-            headers: { 'Content-Type': 'multipart/form-data' ,
-             'Authorization': "Bearer " + getTokenFromCookie()},
+            headers: { 'Content-Type': 'multipart/form-data',
+                'Authorization': "Bearer " + getTokenFromCookie()},
             data: data
         })
-            .then((res) => {
+            .then(() => {
                 let entityElement = document.querySelector("#add-event-entity div.text");
                 if (entityElement !== null) {
                     entityElement.setAttribute("class", "text default");
-                    entityElement.innerHTML = "Entidade"
+                    entityElement.innerHTML = "Entidade";
                 }
                 this.setState({ ...initialState, eventAdded: true, alertType: "success", alertMessage: 'O evento foi adicionado!' });
             })
-            .catch((error) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. O evento não foi adicionado.' }));
+            .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. O evento não foi adicionado.' }));
 
     }
 
@@ -169,7 +169,7 @@ class AddEventForm extends Component {
 
     render() {
 
-        if(document.cookie === undefined || 
+        if (document.cookie === undefined ||
             document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
 
         let alertElement = null;
@@ -193,10 +193,9 @@ class AddEventForm extends Component {
         let entityElement;
         if (this.props.entities.length > 1) {
             entityElement = (<Dropdown placeholder='Entidade' id="add-event-entity" search fluid
-                selection options={this.props.entities} onChange={this.handleChangeEntity} />)
-        }
-        else if (this.props.entities.length > 0) {
-            entityElement = (<span>{this.props.entities[0].text}</span>)
+                selection options={this.props.entities} onChange={this.handleChangeEntity} />);
+        } else if (this.props.entities.length > 0) {
+            entityElement = (<span>{this.props.entities[0].text}</span>);
         }
 
         return (
@@ -321,9 +320,9 @@ class AddEventForm extends Component {
 
                             <FormGroup controlId="form-buttons" className="buttons_style">
                                 <Button variant="secondary">
-                                <Link to={`/events`}>
-                                    <Button variant="secondary">Cancelar</Button>
-                                </Link>
+                                    <Link to={`/events`}>
+                                        <Button variant="secondary">Cancelar</Button>
+                                    </Link>
                                 </Button>
                                 <Button variant="primary" type="submit" className="primary_button">Confirmar</Button>
                             </FormGroup>
