@@ -41,22 +41,23 @@ export default class Event extends React.Component {
 
     render() {
         return (
-            <Card onPress={this.props.onPress} style={{ backgroundColor: '#607D8B'}}>
+            <Card onPress={this.props.onPress} style={{ backgroundColor: '#D3D3D3'}}>
                 <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.props.data.id } : require('../assets/images/default.png')}
                     style={styles.image}
                     onError={this.ImageLoadingError.bind(this)} 
                     onPress={this.props.onPress} />
-                <View style={{ flexDirection: 'row', backgroundColor: '#607D8B' }} onPress={this.props.onPress}>
+                <View style={{ flexDirection: 'row', backgroundColor: '#D3D3D3' }} onPress={this.props.onPress}>
                     <Badge style={{ flex: 1, backgroundColor: '#455A64', margin: '3%', height: 68, alignItems:'center' }}>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.props.data.start_date.split('T')[0].split('-')[2]}</Text>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.getMonthInString(this.props.data.start_date.split('T')[0].split('-')[1])}</Text>
                     </Badge>
                     <View style={{ flex: 5, marginRight: '3%', marginVertical: '3%' }} onPress={this.props.onPress}>
-                        <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, fontWeight: 'bold' }} numberOfLines={1} onPress={this.props.onPress}>{this.props.data.title}</Text>
-                        <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>{this.props.data.location} - {this.props.data.start_date.split('T')[1].split(':')[0] + ':' + this.props.data.start_date.split('T')[1].split(':')[1]}</Text>
-                        <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>Preço: {this.props.data.price}€</Text>
+                        <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 18, fontWeight: 'bold' }} numberOfLines={1} onPress={this.props.onPress}>{this.props.data.title}</Text>
+                        <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>{this.props.data.location} - {this.props.data.start_date.split('T')[1].split(':')[0] + ':' + this.props.data.start_date.split('T')[1].split(':')[1]}</Text>
+                        <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>Preço: {this.props.data.price}€</Text>
                     </View>
-                    <Icon style={{ fontSize: 35, flex: 1, alignSelf: 'center', color: '#FF5722'}} name={'md-star'} onPress={this.props.onPress} />
+                    {/* <Icon style={{ fontSize: 35, flex: 1, alignSelf: 'center', color: '#FF5722'}} name={'md-star'} onPress={this.props.onPress} /> */}
+                    <Icon style={{ fontSize: 35, flex: 1, alignSelf: 'center', color: '#DD5722'}} name={'md-heart'} onPress={this.props.onPress} />
                 </View>
             </Card>
         );

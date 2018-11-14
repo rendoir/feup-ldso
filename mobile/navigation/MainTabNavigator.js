@@ -99,7 +99,7 @@ export default createBottomTabNavigator({
       inactiveTintColor: '#ffffff',
       style: {
         // backgroundColor: '#2c8f7f',
-        backgroundColor: '#BA4315',
+        backgroundColor: '#455A64',
       },
     }
   }
