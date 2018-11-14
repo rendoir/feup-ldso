@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render renders event page 1`] = `
+<div
+  className="loading"
+>
+  <div
+    class="loader"
+  />
+</div>
+`;
+
+exports[`renders elements 1`] = `
+<nav
+  className="navbar navbar-default"
+  id="navbar-custom"
+>
+  <div
+    className="container"
+  >
+    <a
+      aria-current={null}
+      className="navbar-brand navbar-brand"
+      href="/events"
+      onClick={[Function]}
+    >
+      <img
+        className=""
+        id="logo"
+        src="/logo.png"
+      />
+    </a>
+    <div
+      aria-expanded={null}
+      className="navbar-collapse collapse"
+      id="responsive-navbar-nav"
+    >
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      />
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      />
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`renders elements 2`] = `null`;
+
+exports[`renders elements 3`] = `null`;

@@ -46,7 +46,10 @@ test_api:
     - postgres:latest  
   script:
     - cd api
+    - npm install --save passport
+    - npm install --save-dev eslint
     - npm test
+    - npm run lint
   tags:
     - docker, postgres
 
@@ -56,8 +59,9 @@ test_web:
     NODE_ENV: test
   script:
     - cd web
-    - npm install --save-dev jest
+    - npm install --save-dev jest eslint eslint-plugin-react
     - npm test -- -u
+    - npm run lint
   tags:
     - docker, postgres
 
@@ -67,7 +71,8 @@ test_mobile:
     NODE_ENV: test
   script:
     - cd mobile
-    - npm install --save-dev jest
+    - npm install --save-dev jest eslint eslint-plugin-react eslint-plugin-react-native babel-eslint
     - npm test -- -u
+    - npm run lint
   tags:
     - docker, postgres

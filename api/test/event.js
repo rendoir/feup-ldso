@@ -5,13 +5,12 @@ let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let Category = require('../models').categories;
 let User = require('../models').users;
-let Permission = require('../models').permissions;
-let Favorite = require('../models/').favorites;
+
+let Common = require('./common');
 
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
-let should = chai.should();
 
 chai.use(chaiHttp);
 describe('Add Events', () => {
@@ -19,37 +18,13 @@ describe('Add Events', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Permission.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Entity.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                User.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                EventModel.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Category.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                })
+                Common.destroyDatabase();
                 Entity.create({
                     id: 1,
                     name: 'Test Entity',
                     initials: 'TEST',
                     description: 'test description'
-                }).then(function (entity) {
+                }).then(function(entity) {
                     User.create({
                         id: 1,
                         username: 'TestUser',
@@ -57,7 +32,7 @@ describe('Add Events', () => {
                         password: 'nasdasdasd',
                         email: 'email@email.com',
                         type: 'moderator'
-                    }).then(function (user) {
+                    }).then(function(user) {
                         user.addEntity(entity)
                             .then(() => {
                                 Category.create({
@@ -65,13 +40,13 @@ describe('Add Events', () => {
                                     name: 'TestCat',
                                     description: 'description'
                                 }).then(() => done())
-                                    .catch((err) => done())
-                            })
+                                    .catch(() => done());
+                            });
                     })
-                        .catch((err) => { done() });
+                        .catch(() => { done(); });
                 })
-                    .catch((err) => { done() });
-            })
+                    .catch(() => { done(); });
+            });
     });
 
     afterEach((done) => {
@@ -104,6 +79,7 @@ describe('Add Events', () => {
 
             chai.request(app)
                 .post('/')
+                .set('Authorization', '12345') // Token
                 .send(event)
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -117,8 +93,8 @@ describe('Add Events', () => {
                     res.body.should.have.property('entity_id');
                     res.body.should.have.property('user_id');
                     done();
-                })
-        })
+                });
+        });
     });
 
     describe('/POST Add Event Wrong Date', () => {
@@ -141,12 +117,13 @@ describe('Add Events', () => {
 
             chai.request(app)
                 .post('/')
+                .set('Authorization', '12345') // Token
                 .send(event)
                 .end((err, res) => {
                     res.should.have.status(400);
                     done();
-                })
-        })
+                });
+        });
     });
 
     describe('/POST Add Event With File', () => {
@@ -170,6 +147,7 @@ describe('Add Events', () => {
 
             chai.request(app)
                 .post('/')
+                .set('Authorization', '12345') // Token
                 .field("title", event.title)
                 .field("description", event.description)
                 .field("start_date", event.start_date)
@@ -191,8 +169,8 @@ describe('Add Events', () => {
                     res.body.should.have.property('price');
                     res.body.should.have.property('entity_id');
                     done();
-                })
-        })
+                });
+        });
     });
 });
 
@@ -200,31 +178,7 @@ describe('Add Events', () => {
 describe('List Events', () => {
 
     before((done) => {
-        Favorite.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Permission.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        Entity.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        User.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        })
-        EventModel.destroy({
-            where: {},
-            truncate: true,
-            cascade: true
-        });
+        Common.destroyDatabase();
         Entity.create({
             id: 1,
             name: 'Test Entity',
@@ -238,7 +192,7 @@ describe('List Events', () => {
                 password: 'nasdasdasd',
                 email: 'email@email.com',
                 type: 'moderator'
-            }).then(function (user) {
+            }).then(function(user) {
                 user.addEntity(entity)
                     .then(() => {
                         let start_date = new Date();
@@ -248,14 +202,14 @@ describe('List Events', () => {
                             description: "Hello There",
                             start_date: start_date,
                             user_id: 1,
-                            entity_id: 1,
+                            entity_id: 1
 
                         }).then((event) => {
                             event.setUser(user).then(() => done());
-                        })
-                    }).catch((err) => done());
-            }).catch((err) => done());
-        }).catch((err) => done());
+                        });
+                    }).catch(() => done());
+            }).catch(() => done());
+        }).catch(() => done());
     });
 
 
@@ -264,13 +218,14 @@ describe('List Events', () => {
 
             chai.request(app)
                 .get('/app')
+                .set('Authorization', '12345') // Token
                 .query({ page: 0, limit: 10 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(1);
                     done();
-                })
+                });
         });
     });
 
@@ -278,13 +233,14 @@ describe('List Events', () => {
         it('it should list all events on the web', (done) => {
 
             chai.request(app)
-                .get('/web/1')
+                .get('/web')
+                .set('Authorization', '12345') // Token
                 .query({ page: 0, limit: 5 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     done();
-                })
+                });
         });
     });
 });
@@ -295,32 +251,13 @@ describe('Delete Events', () => {
     before((done) => {
         models.sequelize.sync()
             .then(() => {
-                Permission.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                Entity.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                User.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
-                EventModel.destroy({
-                    where: {},
-                    truncate: true,
-                    cascade: true
-                });
+                Common.destroyDatabase();
                 Entity.create({
                     id: 1,
                     name: 'Test Entity',
                     initials: 'TEST',
                     description: 'test description'
-                }).then(function (entity) {
+                }).then(function(entity) {
                     User.create({
                         id: 1,
                         username: 'TestUser',
@@ -328,7 +265,7 @@ describe('Delete Events', () => {
                         password: 'nasdasdasd',
                         email: 'email@email.com',
                         type: 'moderator'
-                    }).then(function (user) {
+                    }).then(function(user) {
                         user.addEntity(entity)
                             .then(() => {
                                 let start_date = new Date();
@@ -345,11 +282,11 @@ describe('Delete Events', () => {
                                     price: 10,
                                     user_id: 1,
                                     entity_id: 1
-                                }).then(function () { done(); })
-                            }).catch((err) => { done() });
-                    }).catch((err) => { done() });
-                }).catch((err) => { done() });
-            }).catch((err) => { done() });
+                                }).then(function() { done(); });
+                            }).catch(() => { done(); });
+                    }).catch(() => { done(); });
+                }).catch(() => { done(); });
+            }).catch(() => { done(); });
     });
 
     describe('/DELETE Delete Event', () => {
@@ -357,49 +294,23 @@ describe('Delete Events', () => {
 
             chai.request(app)
                 .delete('/')
+                .set('Authorization', '12345') // Token
                 .send({ id: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
                     done();
-                })
-        })
+                });
+        });
     });
 });
 
-function destroyDatabase() {
-    Category.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    Permission.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    Entity.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    User.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    })
-    EventModel.destroy({
-        where: {},
-        truncate: true,
-        cascade: true
-    });
-}
 
 describe('Filter events', () => {
 
     before((done) => {
-        destroyDatabase();
+        Common.destroyDatabase();
         // Create entities
         Entity.bulkCreate([
             {
@@ -432,7 +343,7 @@ describe('Filter events', () => {
                     id: 3,
                     name: 'Test Category 3'
                 }
-            ]).then(() => { return Entity.findAll() })
+            ]).then(() => { return Entity.findAll(); })
                 .then((entities) =>
                     // Create user
                     User.create({
@@ -506,23 +417,24 @@ describe('Filter events', () => {
                                     .then((category) => EventModel.findByPrimary(4)
                                         .then((event) => event.addCategory(category)
                                         )))
-                                .then(() => done())
+                                .then(() => done());
                         })
                 )
-        )
+        );
     });
 
     describe('/GET Filter events by categories', () => {
         it('It should filter events by categories', (done) => {
             chai.request(app)
                 .get('/events')
+                .set('Authorization', '12345') // Token
                 .query({ categories: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
                     done();
-                })
+                });
         });
     });
 
@@ -530,13 +442,14 @@ describe('Filter events', () => {
         it('It should filter events by entities', (done) => {
             chai.request(app)
                 .get('/events')
+                .set('Authorization', '12345') // Token
                 .query({ entities: [2, 3] })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(5);
                     done();
-                })
+                });
         });
     });
 
@@ -550,16 +463,31 @@ describe('Filter events', () => {
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(1);
                     done();
-                })
+                });
+        });
+    });
+
+    describe('/GET Filter events with pagination', () => {
+        it('It should filter events by categories and entities', (done) => {
+            chai.request(app)
+                .get('/events')
+                .query({ offset: 0, limit: 2})
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    done();
+                });
         });
     });
 });
 
+
 describe('Search', () => {
 
     before((done) => {
-        // this.enableTimeouts(false);
-        destroyDatabase();
+        // This.enableTimeouts(false);
+        Common.destroyDatabase();
         // Create entities
         Entity.bulkCreate([
             {
@@ -586,13 +514,13 @@ describe('Search', () => {
                 },
                 {
                     id: 2,
-                    name: 'Another Category 2'
+                    name: 'Conference Category 2'
                 },
                 {
                     id: 3,
                     name: 'One More Test Category 3'
                 }
-            ]).then(() => { return Entity.findAll() })
+            ]).then(() => { return Entity.findAll(); })
                 .then((entities) =>
                     // Create user
                     User.create({
@@ -601,9 +529,11 @@ describe('Search', () => {
                         name: 'Test User',
                         password: 'nasdasdasd',
                         email: 'email@email.com',
-                        type: 'moderator'
+                        type: 'moderator',
+                        token: '123'
                     }).then((user) => user.setEntities(entities) // Give full permissions to user
-                        .then(() => {
+                        .then(() => { return Category.findAll(); })
+                        .then((categories) => {
                             let start_date1 = new Date();
                             let start_date2 = new Date();
                             let start_date3 = new Date();
@@ -616,7 +546,7 @@ describe('Search', () => {
                             start_date3.setDate(start_date3.getDate() + 3);
                             start_date4.setDate(start_date4.getDate() + 4);
                             start_date5.setDate(start_date5.getDate() + 5);
-                            start_date6.setDate(start_date6.getDate() - 6);
+                            start_date6.setDate(start_date6.getDate() + 6);
                             // Create events
 
                             EventModel.bulkCreate([
@@ -626,7 +556,8 @@ describe('Search', () => {
                                     start_date: start_date1,
                                     user_id: 1,
                                     entity_id: 1,
-                                    location: 'Class'
+                                    location: 'Class',
+                                    description: 'Conference'
                                 },
                                 {
                                     id: 2,
@@ -634,7 +565,8 @@ describe('Search', () => {
                                     start_date: start_date2,
                                     user_id: 1,
                                     entity_id: 2,
-                                    location: 'Other'
+                                    location: 'Other',
+                                    description: 'Conference 2'
                                 },
                                 {
                                     id: 3,
@@ -662,23 +594,25 @@ describe('Search', () => {
                                 },
                                 {
                                     id: 6,
-                                    title: "Global Conference 6",
+                                    title: "Global Event 6",
                                     start_date: start_date6,
                                     user_id: 1,
                                     entity_id: 3,
                                     location: 'Anywhere'
                                 }
-                            ]).then(() => done());
+                            ]).then((events) => events[4].setCategories(categories))
+                                .then(() => done());
                         }))
-                    )
                 )
+        );
     });
 
     describe('/GET Search for entities', () => {
         it('It should show entities by search pattern', (done) => {
             chai.request(app)
                 .get('/search/entities/')
-                .query({ text: "tes" })
+                .set('Authorization', '12345') // Token
+                .query({ text: "tes"})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -686,7 +620,7 @@ describe('Search', () => {
                     res.body[0].initials.should.be.eql('TEST1');
                     res.body[1].initials.should.be.eql('ONET3');
                     done();
-                })
+                });
         });
     });
 
@@ -694,7 +628,8 @@ describe('Search', () => {
         it('It should show categories by search pattern', (done) => {
             chai.request(app)
                 .get('/search/categories/')
-                .query({ text: "tes" })
+                .set('Authorization', '12345') // Token
+                .query({ text: "tes"})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -702,7 +637,7 @@ describe('Search', () => {
                     res.body[0].name.should.be.eql('Test Category 1');
                     res.body[1].name.should.be.eql('One More Test Category 3');
                     done();
-                })
+                });
         });
     });
 
@@ -710,19 +645,82 @@ describe('Search', () => {
         it('It should show events by search pattern', (done) => {
             chai.request(app)
                 .get('/search/events/')
-                .query({ text: "conf" })
+                .set('Authorization', '12345') // Token
+                .query({ text: "conf", user_id: 1, token: '123' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(3);
+                    res.body.length.should.be.eql(4);
                     res.body[0].title.should.be.eql('Test Conference 2');
                     res.body[0].search_by.should.be.eql('title');
-                    res.body[1].title.should.be.eql('Another Conference 3');
-                    res.body[1].search_by.should.be.eql('title');
-                    res.body[2].title.should.be.eql('Test Class 4');
-                    res.body[2].search_by.should.be.eql('location');
+                    res.body[1].title.should.be.eql('Test Class 4');
+                    res.body[1].search_by.should.be.eql('location');
+                    res.body[2].title.should.be.eql('Event 1');
+                    res.body[2].search_by.should.be.eql('description');
+                    res.body[3].title.should.be.eql('Another Conference 3');
+                    res.body[3].search_by.should.be.eql('title');
+                    // TODO: should add category test.
                     done();
-                })
+                });
+        });
+    });
+});
+
+
+describe('Information of an event', () => {
+
+    before((done) => {
+        models.sequelize.sync()
+            .then(() => {
+                Common.destroyDatabase();
+                Entity.create({
+                    id: 1,
+                    name: 'Test Entity',
+                    initials: 'TEST',
+                    description: 'test description'
+                }).then(function(entity) {
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator'
+                    }).then(function(user) {
+                        user.addEntity(entity)
+                            .then(() => {
+                                let start_date = new Date();
+                                let end_date = new Date();
+                                start_date.setDate(start_date.getDate() + 1);
+                                end_date.setDate(end_date.getDate() + 2);
+                                EventModel.create({
+                                    id: 1,
+                                    title: "Information of Event Test",
+                                    description: "It is a test event, without content",
+                                    start_date: start_date.toISOString(),
+                                    end_date: end_date.toISOString(),
+                                    location: "Random Location",
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }).then(function() { done(); });
+                            }).catch(() => { done(); });
+                    }).catch(() => { done(); });
+                }).catch(() => { done(); });
+            }).catch(() => { done(); });
+    });
+
+
+    describe('/GET Information of an Event', () => {
+        it('it should show all the information of an event', (done) => {
+
+            chai.request(app)
+                .get('/events/1')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.title.should.be.eql('Information of Event Test');
+                    done();
+                });
         });
     });
 });

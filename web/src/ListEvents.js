@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Form, Col, Button, Row, Container, Alert } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
+import { FormGroup, FormControl, Col, Button, Row, Alert } from 'react-bootstrap';
 import { Dropdown, Pagination } from 'semantic-ui-react';
 import axios from 'axios';
 import Event from './Event';
 import './ListEvents.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+}
 
 class ListEvents extends Component {
 
@@ -20,7 +26,7 @@ class ListEvents extends Component {
             alertMessage: '',
             activePage: 0,
             pageCount: 0
-        }
+        };
 
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
@@ -32,27 +38,29 @@ class ListEvents extends Component {
     }
 
     componentDidMount() {
-        //access API to get events with permission
-        axios.get('http://localhost:3030/web/' + 1, {
+        // Access API to get events with permission
+        axios.get('http://localhost:3030/web', {
             params: {
                 page: 0,
                 limit: 5
-            }
+            },
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
-            .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+            .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
     }
 
     componentDidUpdate() {
         if (this.props.refreshListEvents) {
-            axios.get('http://localhost:3030/web/' + 1, {
+            axios.get('http://localhost:3030/web', {
                 params: {
                     page: 0,
                     limit: 5
-                }
+                },
+                headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
             })
                 .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
-                .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+                .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
             this.props.updateRefreshEvents(false);
         }
@@ -64,32 +72,35 @@ class ListEvents extends Component {
     }
 
     handleChangeCategory(event) {
-        
+        // Remove later
+        event.preventDefault();
     }
 
     handleChangeEntity(event) {
-
+        // Remove later
+        event.preventDefault();
     }
 
     updateAlertMessage(newAlertType, newAlertMessage) {
-        this.setState({alertType: newAlertType, alertMessage: newAlertMessage});
+        this.setState({ alertType: newAlertType, alertMessage: newAlertMessage });
     }
 
     handlePagination(event) {
         var page = event.target.getAttribute('value') - 1;
-        axios.get('http://localhost:3030/web/' + 1, {
+        axios.get('http://localhost:3030/web', {
             params: {
                 page: page * 5,
                 limit: 5
-            }
+            },
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
-            .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count /5), activePage: page }))
-            .catch((err) => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+            .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5), activePage: page }))
+            .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
     }
 
     searchEventText() {
-        //access API to get events with said text
+        // Access API to get events with said text
     }
 
     deleteEventFromArray(event_id) {
@@ -100,34 +111,30 @@ class ListEvents extends Component {
             }
 
         }
-        console.log(index);
 
         if (index !== -1) {
             let eventsSliced;
-            if(index === 0 && this.state.events.length === 1){
+            if (index === 0 && this.state.events.length === 1) {
                 eventsSliced = [];
-            }
-            else  {
+            } else {
                 eventsSliced = this.state.events.splice(index, 1);
             }
             this.setState({
                 events: eventsSliced,
                 alertType: 'success', alertMessage: 'O evento foi apagado com sucesso.'
             });
+        } else {
+            this.setState({ alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.' });
         }
-        else {
-            this.setState({alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.'})
-        }
-        
+
     }
 
 
     render() {
 
-        let displayListEvents = "";
-        if (!this.props.displayListEvents) {
-            displayListEvents = "no-display";
-        }
+        if (document.cookie === undefined ||
+            document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
+
 
         let events = this.state.events.map((info, i) => (
             <Event key={i} info={info}
@@ -136,36 +143,38 @@ class ListEvents extends Component {
             />
         ));
 
-        let alertElement;
-        if(this.state.alertMessage !== null) {
+        let alertElement = null;
+        if (this.state.alertMessage !== null) {
             alertElement = (
-            <Row>
-                <Col sm={4} md={2}>
+                <Row>
+                    <Col sm={4} md={2}>
 
-                </Col>
-                <Col sm={5} md={8}>
-                    <Alert className={this.state.alertType}>
-                        {this.state.alertMessage}
-                    </Alert>
-                </Col>
-                <Col sm={4} md={2}>
+                    </Col>
+                    <Col sm={5} md={8}>
+                        <Alert className={this.state.alertType}>
+                            {this.state.alertMessage}
+                        </Alert>
+                    </Col>
+                    <Col sm={4} md={2}>
 
-                </Col>
-            </Row>);
+                    </Col>
+                </Row>);
         }
 
         return (
-            <div id="list_events" className={displayListEvents}>
+            <div id="list_events">
                 {alertElement}
                 <h1>Eventos</h1>
                 <Row>
                     <Col sm={2}></Col>
                     <Col sm={1}>
-                        <Button className="primary_button" onClick={this.props.toggleAddEventFormShowFlag}>Criar Evento</Button>
+                        <Link to={`/create`}>
+                            <Button className="primary_button">Criar Evento</Button>
+                        </Link>
                     </Col>
                     <Col sm={5}>
-                        <Form.Group controlId="searchEvent" className="search-bar">
-                            <Form.Control
+                        <FormGroup controlId="searchEvent" className="search-bar">
+                            <FormControl
                                 id="search-text-input"
                                 type="text"
                                 value={this.state.searchInput}
@@ -173,7 +182,7 @@ class ListEvents extends Component {
                                 onChange={this.handleChangeSearch}
                             />
                             <Button className="btn-search" onClick={this.searchEventText}><FontAwesomeIcon icon="search" /></Button>
-                        </Form.Group>
+                        </FormGroup>
                     </Col>
                     <Col sm={4} className="dropdowns-search">
                         <Dropdown placeholder='Categorias' fluid multiple search selection options={this.props.categories} onChange={this.handleChangeCategory} />
@@ -181,7 +190,7 @@ class ListEvents extends Component {
                     </Col>
                 </Row>
 
-                <Container>
+                <div className="container">
                     {events}
                     <Pagination
                         defaultActivePage={this.state.activePage + 1}
@@ -192,9 +201,9 @@ class ListEvents extends Component {
                         totalPages={this.state.pageCount}
                         onClick={this.handlePagination}
                     />
-                </Container>
+                </div>
             </div>
-        )
+        );
     }
 }
 

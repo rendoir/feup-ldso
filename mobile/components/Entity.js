@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-    StyleSheet,
-    Image,
+    StyleSheet
 } from 'react-native';
 
-import { Card, Icon, View, Badge, Text, ListItem, Button } from 'native-base';
+import { Text, ListItem, Button } from 'native-base';
 
 export default class Entity extends React.Component {
 
@@ -27,9 +26,9 @@ const styles = StyleSheet.create({
         color: 'black',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5,
+        paddingLeft: 5
     },
     listItem: {
-        justifyContent: "center",
-    },
+        justifyContent: "center"
+    }
 });

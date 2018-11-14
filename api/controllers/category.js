@@ -1,6 +1,4 @@
 const Category = require('../models').categories;
-var sequelize = require('../models').sequelize;
-const Op = sequelize.Op;
 
 module.exports = {
 
@@ -10,4 +8,4 @@ module.exports = {
             .catch((err) => res.status(400).send(err));
     }
 
-}
+};

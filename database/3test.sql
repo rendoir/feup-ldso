@@ -1,7 +1,7 @@
 
 --| USERS |--
 
-INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Product Owner', 'po', 'po@test.com', 'pw');
+INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Product Owner', 'po', 'po@test.com', '$2a$10$N9hbIdg4pyMt.0549X7um.TNLWMrS4aXcxLZFf5rMheZJoLButHae');
 INSERT INTO users (type, name, username, email, password) VALUES ('admin', 'Aarão Higuera', 'aarão_higuera', 'aarão_higuera@test.com', 'pw');
 
 INSERT INTO users (type, name, username, email, password) VALUES ('moderator', 'Aarão Villanueva', 'aarão_villanueva', 'aarão_villanueva@test.com', 'pw');
@@ -108,13 +108,13 @@ INSERT INTO users (name, username, email, password) VALUES ('Ítala Jesus', 'ít
 
 --| PERMISSIONS |--
 
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 1);
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 9);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 1);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 2);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 9);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 3);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 12);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (3, 5);
+INSERT INTO permissions (user_id, entity_id) VALUES (1, 5);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 1);
 
 
