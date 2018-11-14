@@ -126,6 +126,20 @@ module.exports = {
 
     },
 
+    listFavorites(req, res) {
+        
+        let result = {};
+        return sequelize.query('SELECT * FROM events INNER JOIN favorites ON favorites.event_id = events.id ' +
+            ' WHERE "favorites".user_id = $1  AND events.start_date > current_timestamp',
+        { bind: [req.body.user_id], type: sequelize.QueryTypes.SELECT })
+            .then((events) => {
+                result.events = events;
+                return res.status(200).send(result);
+            })
+            .catch((error) => res.status(400).send(error));
+
+    },
+
     add(req, res) {
         return Event.create({
             title: req.body.title,
