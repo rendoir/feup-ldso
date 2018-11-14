@@ -2,7 +2,6 @@
 
 exports[`Check Render ListEvents don't display list events 1`] = `
 <div
-  className="no-display"
   id="list_events"
 >
   <div
@@ -15,7 +14,7 @@ exports[`Check Render ListEvents don't display list events 1`] = `
       className="col-md-8 col-sm-5"
     >
       <div
-        className="fade alert show"
+        className="alert alert-info"
         role="alert"
       >
         
@@ -37,14 +36,18 @@ exports[`Check Render ListEvents don't display list events 1`] = `
     <div
       className="col-sm-1"
     >
-      <button
-        className="primary_button btn btn-primary"
-        disabled={false}
-        onClick={null}
-        type="button"
+      <a
+        href="/create"
+        onClick={[Function]}
       >
-        Criar Evento
-      </button>
+        <button
+          className="primary_button btn btn-default"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
     </div>
     <div
       className="col-sm-5"
@@ -61,7 +64,7 @@ exports[`Check Render ListEvents don't display list events 1`] = `
           value=""
         />
         <button
-          className="btn-search btn btn-primary"
+          className="btn-search btn btn-default"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -215,7 +218,6 @@ exports[`Check Render ListEvents don't display list events 1`] = `
 
 exports[`Check Render ListEvents renders list events 1`] = `
 <div
-  className=""
   id="list_events"
 >
   <div
@@ -228,7 +230,7 @@ exports[`Check Render ListEvents renders list events 1`] = `
       className="col-md-8 col-sm-5"
     >
       <div
-        className="fade alert show"
+        className="alert alert-info"
         role="alert"
       >
         
@@ -250,14 +252,18 @@ exports[`Check Render ListEvents renders list events 1`] = `
     <div
       className="col-sm-1"
     >
-      <button
-        className="primary_button btn btn-primary"
-        disabled={false}
-        onClick={null}
-        type="button"
+      <a
+        href="/create"
+        onClick={[Function]}
       >
-        Criar Evento
-      </button>
+        <button
+          className="primary_button btn btn-default"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
     </div>
     <div
       className="col-sm-5"
@@ -274,7 +280,7 @@ exports[`Check Render ListEvents renders list events 1`] = `
           value=""
         />
         <button
-          className="btn-search btn btn-primary"
+          className="btn-search btn btn-default"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -428,51 +434,52 @@ exports[`Check Render ListEvents renders list events 1`] = `
 
 exports[`renders elements 1`] = `
 <nav
-  className="navbar navbar-expand navbar-light"
+  className="navbar navbar-default"
   id="navbar-custom"
 >
-  <a
-    className="navbar-brand"
-    href="#"
-  >
-    <img
-      className=""
-      id="logo"
-      src="/logo.png"
-    />
-  </a>
   <div
-    aria-expanded={null}
-    className="navbar-collapse collapse"
-    id="responsive-navbar-nav"
+    className="container"
   >
-    <ul
-      className="navbar-nav"
-      onKeyDown={[Function]}
+    <a
+      aria-current={null}
+      className="navbar-brand navbar-brand"
+      href="/events"
+      onClick={[Function]}
     >
-      <span
-        className="navbar-text"
-      >
-        FEUP
-      </span>
-    </ul>
-    <ul
-      className="navbar-nav"
-      onKeyDown={[Function]}
-    >
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        type="button"
+      <img
+        className=""
+        id="logo"
+        src="/logo.png"
       />
-    </ul>
+    </a>
+    <div
+      aria-expanded={null}
+      className="navbar-collapse collapse"
+      id="responsive-navbar-nav"
+    >
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      />
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      >
+        <button
+          className="btn btn-default"
+          disabled={false}
+          id="logout-button"
+          onClick={[Function]}
+          type="button"
+        />
+      </ul>
+    </div>
   </div>
 </nav>
 `;
 
 exports[`renders elements 2`] = `
 <div
-  className=""
   id="list_events"
 >
   <div
@@ -485,7 +492,7 @@ exports[`renders elements 2`] = `
       className="col-md-8 col-sm-5"
     >
       <div
-        className="fade alert show"
+        className="alert alert-info"
         role="alert"
       >
         
@@ -507,14 +514,18 @@ exports[`renders elements 2`] = `
     <div
       className="col-sm-1"
     >
-      <button
-        className="primary_button btn btn-primary"
-        disabled={false}
-        onClick={null}
-        type="button"
+      <a
+        href="/create"
+        onClick={[Function]}
       >
-        Criar Evento
-      </button>
+        <button
+          className="primary_button btn btn-default"
+          disabled={false}
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
     </div>
     <div
       className="col-sm-5"
@@ -531,7 +542,7 @@ exports[`renders elements 2`] = `
           value=""
         />
         <button
-          className="btn-search btn btn-primary"
+          className="btn-search btn btn-default"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -685,7 +696,6 @@ exports[`renders elements 2`] = `
 
 exports[`renders elements 3`] = `
 <div
-  className=""
   id="add_event_form_div"
 >
   <div
@@ -713,7 +723,12 @@ exports[`renders elements 3`] = `
               onKeyDown={[Function]}
               role="button"
             >
-              Eventos
+              <a
+                href="/events"
+                onClick={[Function]}
+              >
+                Eventos
+              </a>
             </a>
           </li>
           <li
@@ -1078,10 +1093,20 @@ exports[`renders elements 3`] = `
           <button
             className="btn btn-secondary"
             disabled={false}
-            onClick={[Function]}
             type="button"
           >
-            Cancelar
+            <a
+              href="/events"
+              onClick={[Function]}
+            >
+              <button
+                className="btn btn-secondary"
+                disabled={false}
+                type="button"
+              >
+                Cancelar
+              </button>
+            </a>
           </button>
           <button
             className="primary_button btn btn-primary"

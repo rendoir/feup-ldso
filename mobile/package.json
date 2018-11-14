@@ -3,6 +3,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
     "test": "jest",
     "postinstall": "cd node_modules/react-native-vector-icons/dist && cp -r ../lib ./lib"
   },
@@ -40,9 +41,14 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
+    "babel-eslint": "^10.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
+    "eslint": "^5.9.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-native": "^3.5.0",
     "jest-expo": "30.0.0",
-    "react-addons-test-utils": "^15.6.2"
+    "react-addons-test-utils": "^15.6.2",
+    "sinon": "^7.1.1"
   }
 }

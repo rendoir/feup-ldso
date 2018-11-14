@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    StyleSheet,
+    StyleSheet
 } from 'react-native';
 
 import { Text, ListItem, Button } from 'native-base';
@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
         color: 'black',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5,
+        paddingLeft: 5
     },
     listItem: {
-        justifyContent: "center",
-    },
+        justifyContent: "center"
+    }
 });

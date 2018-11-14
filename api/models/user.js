@@ -27,17 +27,22 @@ const user = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('mobile', 'moderator', 'admin'),
             default: 'mobile',
             allowNull: false
+        },
+        token: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            default: null
         }
     }, {
         timestamps: false,
-        underscored: true   
+        underscored: true
     });
 
-    User.associate = function (models) {
-        models.users.belongsToMany(models.events, { through: 'favorites'});
+    User.associate = function(models) {
+        models.users.belongsToMany(models.events, { through: 'favorites', as: 'favorite'});
         models.users.belongsToMany(models.entities, { through: 'permissions'});
-        models.users.hasMany(models.events, {foreignKey: 'user_id',targetKey: 'id'});
-    }   
+        models.users.hasMany(models.events, {foreignKey: 'user_id', targetKey: 'id'});
+    };
 
     return User;
 };

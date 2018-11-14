@@ -17,23 +17,103 @@ exports[`renders correctly 1`] = `
         Object {},
         Object {
           "backgroundColor": "#2c8f7f",
+          "flexDirection": "row",
           "height": "100%",
-          "justifyContent": "center",
         },
       ]
     }
   >
-    <Image
-      source={1}
+    <View
       style={
-        Object {
-          "height": "100%",
-          "margin": "1%",
-          "resizeMode": "contain",
-          "width": "30%",
-        }
+        Array [
+          Object {},
+          Object {
+            "flex": 2,
+            "height": "100%",
+            "margin": "0%",
+            "padding": "0%",
+          },
+        ]
       }
-    />
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": "100%",
+            "marginHorizontal": "1%",
+            "marginVertical": "0%",
+            "resizeMode": "contain",
+            "width": "80%",
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "center",
+            "flex": 2,
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "white",
+              "marginHorizontal": "1%",
+              "paddingRight": "1%",
+              "textAlign": "right",
+            },
+          ]
+        }
+        uppercase={false}
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "center",
+            "flex": 1,
+            "marginLeft": "5%",
+            "right": 0,
+          },
+        ]
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": undefined,
+          }
+        }
+        style={
+          Object {
+            "borderColor": "black",
+            "borderRadius": 40,
+            "borderWidth": 3,
+            "height": 40,
+            "margin": "0%",
+            "padding": "0%",
+            "width": 40,
+          }
+        }
+      />
+    </View>
   </View>
 </View>
 `;
