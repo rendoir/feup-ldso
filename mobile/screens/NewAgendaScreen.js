@@ -90,41 +90,41 @@ export default class NewAgendaScreen extends React.Component {
     }
 
     return (
-      <View style={{ backgroundColor: '#607D8B' }}>
-        <ScrollView stickyHeaderIndices={[1]} style={{ backgroundColor: '#607D8B', height: '100%', marginBottom: '10%' }}>
+      <View style={{ backgroundColor: '#F0F0F0' }}>
+        <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: '#F0F0F0', height: '100%', marginBottom: '10%' }}>
 
-          <View style={{ paddingTop: '5%', marginHorizontal: '5%' }}>
-            <Text style={{ fontSize: 32, color: 'white', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>Eventos</Text>
-          </View>
+          {/* <View style={{ paddingTop: '5%', marginHorizontal: '5%' }}>
+            <Text style={{ fontSize: 32, color: 'black', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>Eventos</Text>
+          </View> */}
 
-          <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: '#607D8B' }}>
-            <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#607D8B' }}>
+          <View style={{ paddingHorizontal: '5%', paddingVertical: '7%', backgroundColor: '#F0F0F0' }}>
+            <View style={{ paddingHorizontal: '4%', justifyContent: 'center', flexDirection: 'row', backgroundColor: '#F0F0F0' }}>
 
               <View style={{ flex: 3 }}>
-                <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'white' }} transparent onPress={() => navigate('Categories')}>
-                  <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
+                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} transparent onPress={() => navigate('Categories')}>
+                  <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}>
                     <View style={{ flex: 5 }}>
-                      <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedCategory', 'Categorias')}</Text>
+                      <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedCategory', 'Categorias')}</Text>
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Icon type='FontAwesome' name='angle-down' style={{ color: 'white', position: 'absolute', right: 0, fontSize: 22 }} />
+                      <Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} />
                     </View>
                   </View>
                 </Button>
               </View>
 
               <View style={{ flex: 1 }}>
-                <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}>em</Text>
+                <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}>em</Text>
               </View>
 
               <View style={{ flex: 3 }}>
-                <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'white' }} transparent onPress={() => navigate('Entities')}>
-                  <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
+              <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} transparent onPress={() => navigate('Entities')}>
+                  <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}>
                     <View style={{ flex: 5 }}>
-                      <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedEntity', 'Orgão')}</Text>
+                      <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedEntity', 'Orgão')}</Text>
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Icon type='FontAwesome' name='angle-down' style={{ color: 'white', position: 'absolute', right: 0, fontSize: 22 }} />
+                      <Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} />
                     </View>
                   </View>
                 </Button>
@@ -133,7 +133,10 @@ export default class NewAgendaScreen extends React.Component {
             </View>
           </View>
 
-          <View style={{ marginHorizontal: '5%', backgroundColor: '#607D8B' }}>
+          <View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0' }}>
+            {events}
+            {events}
+            {events}
             {events}
             {noEventsElement}
           </View>

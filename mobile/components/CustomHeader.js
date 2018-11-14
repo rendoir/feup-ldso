@@ -13,9 +13,8 @@ export default class CustomHeader extends React.Component {
         return (
             <View style={{ height: '6%' }}>
                 <StatusBar hidden />
-                {/* <View style={{ backgroundColor: '#2c8f7f', height: '100%', flexDirection: 'row' }}> */}
-                <View style={{ backgroundColor: '#455A64', height: '100%', flexDirection: 'row' }}>
-                    <View style={{ flex: 2, height: '100%', padding: '0%', margin: '0%' }}>
+                <View style={{ backgroundColor: '#002040', height: '100%', flexDirection: 'row' }}>
+                    <View style={{ flex: 2, height: '100%' }}>
                         <Image source={require('../assets/images/original.png')}
                             style={{
                                 width: '80%',
