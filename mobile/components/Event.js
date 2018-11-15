@@ -71,13 +71,13 @@ export default class Event extends React.Component {
 
     render() {
         return (
-            <Card onPress={this.props.onPress}>
+            <Card onPress={this.props.onPress} style={{ backgroundColor: 'white'}}>
                 <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.props.data.id } : require('../assets/images/default.png')}
                     style={styles.image}
                     onError={this.ImageLoadingError.bind(this)}
                     onPress={this.props.onPress} />
-                <View style={{ flexDirection: 'row' }} onPress={this.props.onPress}>
-                    <Badge style={{ flex: 1, backgroundColor: 'grey', margin: '3%', height: 68, alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', backgroundColor: 'white' }} onPress={this.props.onPress}>
+                    <Badge style={{ flex: 1, backgroundColor: '#002040', margin: '3%', height: 68, alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.props.data.start_date.split('T')[0].split('-')[2]}</Text>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.getMonthInString(this.props.data.start_date.split('T')[0].split('-')[1])}</Text>
                     </Badge>
@@ -86,7 +86,7 @@ export default class Event extends React.Component {
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>{this.props.data.location} - {this.props.data.start_date.split('T')[1].split(':')[0] + ':' + this.props.data.start_date.split('T')[1].split(':')[1]}</Text>
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>Preço: {this.props.data.price}€</Text>
                     </View>
-                    <Icon className={'fave_icon'} style={{ fontSize: 35, flex: 1, alignSelf: 'center' }} name={this.state.isFavorite ? 'md-star' : 'md-star-outline'} onPress={this.onFavorite} />
+                    <Icon className={'fave_icon'} style={{ fontSize: 35, flex: 1, alignSelf: 'center', color: '#D05722'}} type='FontAwesome' name={this.state.isFavorite ? 'heart' : 'heart-o'} onPress={this.onFavorite} />
                 </View>
             </Card>
         );

@@ -43,7 +43,7 @@ FavoritesStack.navigationOptions = {
             name={
                 Platform.OS === 'ios'
                     ? `ios-star${focused ? '' : '-outline'}`
-                    : 'md-star-outline'
+                    : 'md-heart-outline'
             }
         />
     )
@@ -75,7 +75,7 @@ export default createBottomTabNavigator({
         activeTintColor: '#F8F8F8',
         inactiveTintColor: '#ffffff',
         style: {
-            backgroundColor: '#2c8f7f'
+            backgroundColor: '#002040'
         }
     }
 }

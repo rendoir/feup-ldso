@@ -10,5 +10,87 @@ exports[`App snapshot renders correctly 1`] = `
       },
     ]
   }
-/>
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "height": "6%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "backgroundColor": "#002040",
+            "flexDirection": "row",
+            "height": "100%",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {},
+            Object {
+              "flex": 2,
+              "height": "100%",
+            },
+          ]
+        }
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": "100%",
+              "marginHorizontal": "1%",
+              "marginVertical": "0%",
+              "resizeMode": "contain",
+              "width": "80%",
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Array [
+            Object {},
+            Object {
+              "alignSelf": "center",
+              "flex": 2,
+            },
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#000",
+                "fontFamily": "System",
+                "fontSize": 16,
+              },
+              Object {
+                "color": "white",
+                "marginHorizontal": "1%",
+                "paddingRight": "1%",
+                "textAlign": "right",
+              },
+            ]
+          }
+          uppercase={false}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;

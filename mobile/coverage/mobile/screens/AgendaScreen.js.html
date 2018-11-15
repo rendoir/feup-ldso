@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">38.24% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>13/34</span>
+        <span class='fraction'>14/35</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">16.67% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>3/11</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">39.39% </span>
+        <span class="strong">41.18% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>13/33</span>
+        <span class='fraction'>14/34</span>
       </div>
     </div>
   </div>
@@ -194,8 +194,8 @@
 149
 150
 151
-152
-153</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+152</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,6 +237,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -333,9 +334,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,6 +384,7 @@ import { Root, View, Card, Button, Icon, Text } from 'native-base';
 import axios from 'axios';
 import { SecureStore } from 'expo';
 import Event from '../components/Event';
+import CustomHeader from '../components/CustomHeader';
 &nbsp;
 export default class AgendaScreen extends React.Component {
 &nbsp;
@@ -420,12 +419,13 @@ export default class AgendaScreen extends React.Component {
 &nbsp;
     async getEventsFromApi() {
         let token = await SecureStore.getItemAsync('access_token');
+        console.log(global.userName);
 &nbsp;
         let self = this;
         let apiLink = 'http://' + global.api + ':3030/events?';
         apiLink += "user_id=" + global.userId + '&amp;';
         apiLink += "token=" + token + '&amp;';
-        if (this.props.navigation.getParam('selectedEntity', 'Orgão') != 'Orgão') {
+        if (this.props.navigation.getParam('selectedEntity', 'Entidade') != 'Entidade') {
 <span class="cstat-no" title="statement not covered" >            apiLink += 'entities=' + this.props.navigation.getParam('selectedEntityId', 'null') + '&amp;';</span>
         }
 <span class="cstat-no" title="statement not covered" >        if (this.props.navigation.getParam('selectedCategory', 'Categoria') != 'Categoria') {</span>
@@ -477,41 +477,38 @@ export default class AgendaScreen extends React.Component {
         }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return (</span>
-            &lt;View style={{ backgroundColor: 'white' }}&gt;
-                &lt;ScrollView stickyHeaderIndices={[1]} style={{ backgroundColor: 'white', height: '100%', marginBottom: '10%' }}&gt;
+            &lt;View style={{ backgroundColor: '#F0F0F0' }}&gt;
+                &lt;CustomHeader /&gt;
+                &lt;ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: '#F0F0F0', height: '100%', marginBottom: '10%' }}&gt;
 &nbsp;
-                    &lt;View style={{ paddingTop: '5%', marginHorizontal: '5%' }}&gt;
-                        &lt;Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}&gt;Eventos&lt;/Text&gt;
-                    &lt;/View&gt;
-&nbsp;
-                    &lt;View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: 'white' }}&gt;
-                        &lt;View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: 'white' }}&gt;
+                    &lt;View style={{ paddingHorizontal: '5%', paddingVertical: '7%', backgroundColor: '#F0F0F0' }}&gt;
+                        &lt;View style={{ paddingHorizontal: '4%', justifyContent: 'center', flexDirection: 'row', backgroundColor: '#F0F0F0' }}&gt;
 &nbsp;
                             &lt;View style={{ flex: 3 }}&gt;
-                                &lt;Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Categories', { onSelect: this.onSelect })}</span>&gt;
-                                    &lt;View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}&gt;
+                                &lt;Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Categories', { onSelect: this.onSelect })}</span>&gt;
+                                    &lt;View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}&gt;
                                         &lt;View style={{ flex: 5 }}&gt;
-                                            &lt;Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}&gt;{this.props.navigation.getParam('selectedCategory', 'Categorias')}&lt;/Text&gt;
+                                            &lt;Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}&gt;{this.props.navigation.getParam('selectedCategory', 'Categorias')}&lt;/Text&gt;
                                         &lt;/View&gt;
                                         &lt;View style={{ flex: 1 }}&gt;
-                                            &lt;Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0, fontSize: 22 }} /&gt;
+                                            &lt;Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} /&gt;
                                         &lt;/View&gt;
                                     &lt;/View&gt;
                                 &lt;/Button&gt;
                             &lt;/View&gt;
 &nbsp;
                             &lt;View style={{ flex: 1 }}&gt;
-                                &lt;Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}&gt;em&lt;/Text&gt;
+                                &lt;Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}&gt;em&lt;/Text&gt;
                             &lt;/View&gt;
 &nbsp;
                             &lt;View style={{ flex: 3 }}&gt;
-                                &lt;Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Entities', { onSelect: this.onSelect })}</span>&gt;
-                                    &lt;View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}&gt;
+                                &lt;Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate('Entities', { onSelect: this.onSelect })}</span>&gt;
+                                    &lt;View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}&gt;
                                         &lt;View style={{ flex: 5 }}&gt;
-                                            &lt;Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}&gt;{this.props.navigation.getParam('selectedEntity', 'Orgão')}&lt;/Text&gt;
+                                            &lt;Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}&gt;{this.props.navigation.getParam('selectedEntity', 'Entidade')}&lt;/Text&gt;
                                         &lt;/View&gt;
                                         &lt;View style={{ flex: 1 }}&gt;
-                                            &lt;Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0, fontSize: 22 }} /&gt;
+                                            &lt;Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} /&gt;
                                         &lt;/View&gt;
                                     &lt;/View&gt;
                                 &lt;/Button&gt;
@@ -520,7 +517,7 @@ export default class AgendaScreen extends React.Component {
                         &lt;/View&gt;
                     &lt;/View&gt;
 &nbsp;
-                    &lt;View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}&gt;
+                    &lt;View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0' }}&gt;
                         {events}
                         {noEventsElement}
                     &lt;/View&gt;
@@ -535,7 +532,7 @@ export default class AgendaScreen extends React.Component {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 14 2018 14:44:45 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 15 2018 11:44:51 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>

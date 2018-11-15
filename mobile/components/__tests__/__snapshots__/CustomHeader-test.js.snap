@@ -16,7 +16,7 @@ exports[`renders correctly 1`] = `
       Array [
         Object {},
         Object {
-          "backgroundColor": "#2c8f7f",
+          "backgroundColor": "#002040",
           "flexDirection": "row",
           "height": "100%",
         },
@@ -30,8 +30,6 @@ exports[`renders correctly 1`] = `
           Object {
             "flex": 2,
             "height": "100%",
-            "margin": "0%",
-            "padding": "0%",
           },
         ]
       }
@@ -80,38 +78,6 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
-      />
-    </View>
-    <View
-      style={
-        Array [
-          Object {},
-          Object {
-            "alignSelf": "center",
-            "flex": 1,
-            "marginLeft": "5%",
-            "right": 0,
-          },
-        ]
-      }
-    >
-      <Image
-        source={
-          Object {
-            "uri": undefined,
-          }
-        }
-        style={
-          Object {
-            "borderColor": "black",
-            "borderRadius": 40,
-            "borderWidth": 3,
-            "height": 40,
-            "margin": "0%",
-            "padding": "0%",
-            "width": 40,
-          }
-        }
       />
     </View>
   </View>

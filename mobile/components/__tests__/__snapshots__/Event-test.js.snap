@@ -3,28 +3,33 @@
 exports[`renders correctly 1`] = `
 <View
   style={
-    Object {
-      "backgroundColor": "#fff",
-      "borderBottomWidth": 0.5,
-      "borderColor": "#ccc",
-      "borderLeftWidth": 0.5,
-      "borderRadius": 2,
-      "borderRightWidth": 0.5,
-      "borderTopWidth": 0.5,
-      "elevation": 3,
-      "flexWrap": "nowrap",
-      "marginBottom": 5,
-      "marginLeft": 2,
-      "marginRight": 2,
-      "marginTop": 5,
-      "shadowColor": "#000",
-      "shadowOffset": Object {
-        "height": 2,
-        "width": 0,
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#ccc",
+        "borderLeftWidth": 0.5,
+        "borderRadius": 2,
+        "borderRightWidth": 0.5,
+        "borderTopWidth": 0.5,
+        "elevation": 3,
+        "flexWrap": "nowrap",
+        "marginBottom": 5,
+        "marginLeft": 2,
+        "marginRight": 2,
+        "marginTop": 5,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 1.5,
       },
-      "shadowOpacity": 0.1,
-      "shadowRadius": 1.5,
-    }
+      Object {
+        "backgroundColor": "white",
+      },
+    ]
   }
 >
   <Image
@@ -47,6 +52,7 @@ exports[`renders correctly 1`] = `
       Array [
         Object {},
         Object {
+          "backgroundColor": "white",
           "flexDirection": "row",
         },
       ]
@@ -68,7 +74,7 @@ exports[`renders correctly 1`] = `
           },
           Object {
             "alignItems": "center",
-            "backgroundColor": "grey",
+            "backgroundColor": "#002040",
             "flex": 1,
             "height": 68,
             "margin": "3%",

@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Font, AppLoading } from "expo";
-import { Root, Container, Header, Content, List, Text, Button, ListItem } from 'native-base';
+import { Root, Container, Content, List, Text, Button, ListItem } from 'native-base';
 import axios from 'axios';
 import Category from '../components/Category';
+import NewCustomHeader from '../components/NewCustomHeader';
 
 export default class CategoriesScreen extends React.Component {
     state = {
@@ -57,9 +58,7 @@ export default class CategoriesScreen extends React.Component {
 
         return (
             <Container>
-                <Header style={styles.header}>
-                    <Text style={styles.headerText}>Categorias</Text>
-                </Header>
+                <NewCustomHeader text='Categorias' fave={false} />
                 <Content>
                     <List>
                         <ListItem style={styles.listItem} onPress={() => { navigate('Agenda', { selectedCategory: 'Categoria', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); } }>

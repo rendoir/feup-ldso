@@ -2,10 +2,11 @@ import React from 'react';
 import {
     ScrollView
 } from 'react-native';
-import { Font, AppLoading, SecureStore} from "expo";
+import { Font, AppLoading, SecureStore } from "expo";
 import { Root, View, Card, Icon, Text, Item, Input } from 'native-base';
 import axios from 'axios';
 import Event from '../components/Event';
+import CustomHeader from '../components/CustomHeader';
 
 export default class SearchScreen extends React.Component {
     constructor(props) {
@@ -88,21 +89,20 @@ export default class SearchScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: 'white' }}>
-                <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: 'white', height: '100%' }}>
+            <View style={{ backgroundColor: '#F0F0F0' }}>
+                <CustomHeader />
+                <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: '#F0F0F0', height: '100%' }}>
 
-                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: 'white' }}>
+                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: '#F0F0F0' }}>
 
-                        <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>Pesquisa</Text>
-
-                        <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: 'white' }}>
+                        <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#F0F0F0' }}>
                             <View style={{ flex: 1 }}>
                                 <Text> </Text>
                             </View>
                             <View style={{ flex: 5 }}>
-                                <Item regular style={{ height: 30 }}>
-                                    <Input onChangeText={(searchText) =>{ this.setState({ searchText }); this.doSearch(); }} />
-                                    <Icon type="FontAwesome" name="search" />
+                                <Item style={{ height: 30, borderBottomWidth: 3, borderColor: '#002040' }}>
+                                    <Input style={{ fontSize: 20, width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
+                                    <Icon style={{ fontSize: 20 }} type="FontAwesome" name="search" />
                                 </Item>
                             </View>
                             <View style={{ flex: 1 }}>
@@ -111,7 +111,7 @@ export default class SearchScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
+                    <View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0' }}>
                         {events}
                         {noEventsElement}
                     </View>
