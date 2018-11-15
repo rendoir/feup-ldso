@@ -11,72 +11,72 @@ import CategoriesScreen from '../screens/CategoriesScreen';
 import EventScreen from '../screens/EventScreen';
 
 const AgendaStack = createStackNavigator({
-  Agenda: AgendaScreen,
-  Entities: EntitiesScreen,
-  Categories: CategoriesScreen,
-  Event: EventScreen
+    Agenda: AgendaScreen,
+    Entities: EntitiesScreen,
+    Categories: CategoriesScreen,
+    Event: EventScreen
 });
 
 AgendaStack.navigationOptions = {
-  tabBarLabel: 'Agenda',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-calendar${focused ? '' : '-outline'}`
-          : 'md-calendar'
-      }
-    />
-  )
+    tabBarLabel: 'Agenda',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-calendar${focused ? '' : '-outline'}`
+                    : 'md-calendar'
+            }
+        />
+    )
 };
 
 const FavoritesStack = createStackNavigator({
-  Favorites: FavoritesScreen
+    Favorites: FavoritesScreen
 });
 
 FavoritesStack.navigationOptions = {
-  tabBarLabel: 'Favoritos',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-star${focused ? '' : '-outline'}`
-          : 'md-heart-outline'
-      }
-    />
-  ),
+    tabBarLabel: 'Favoritos',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-star${focused ? '' : '-outline'}`
+                    : 'md-heart-outline'
+            }
+        />
+    )
 };
 
 const SearchStack = createStackNavigator({
-  Search: SearchScreen
+    Search: SearchScreen
 });
 
 SearchStack.navigationOptions = {
-  tabBarLabel: 'Pesquisa',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
-    />
-  )
+    tabBarLabel: 'Pesquisa',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
+        />
+    )
 };
 
 export default createBottomTabNavigator({
-  FavoritesStack,
-  AgendaStack,
-  SearchStack
+    FavoritesStack,
+    AgendaStack,
+    SearchStack
 },
-  {
+{
     initialRouteName: 'AgendaStack',
     tabBarOptions: {
-      showLabel: true,
-      activeTintColor: '#F8F8F8',
-      inactiveTintColor: '#ffffff',
-      style: {
-        backgroundColor: '#002040'
-      }
+        showLabel: true,
+        activeTintColor: '#F8F8F8',
+        inactiveTintColor: '#ffffff',
+        style: {
+            backgroundColor: '#002040'
+        }
     }
-  }
+}
 );

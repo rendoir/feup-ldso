@@ -53,11 +53,11 @@ export default class SearchScreen extends React.Component {
         apiLink += "token=" + this.state.token;
 
         axios.get(apiLink)
-            .then(function (response) {
+            .then(function(response) {
                 const events = response.data;
                 self.setState({ events });
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 console.log(error);
             });
     }

@@ -55,12 +55,12 @@ export default class AgendaScreen extends React.Component {
             apiLink += 'categories=' + this.props.navigation.getParam('selectedCategoryId', 'null') + '&';
         }
         axios.get(apiLink)
-            .then(function (response) {
+            .then(function(response) {
                 const events = response.data;
                 if (!this.isCancelled)
                     self.setState({ events });
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 console.log(error);
             });
         this.setState({ updateCall: false });
