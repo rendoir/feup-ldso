@@ -323,3 +323,65 @@ describe('Favorite/Unfavorite an event', () => {
         });
     });
 });
+
+
+
+
+describe('List favorites', () => {
+
+
+    before((done) => {
+        Common.destroyDatabase();
+        Entity.create({
+            id: 1,
+            name: 'Test Entity',
+            initials: 'TEST',
+            description: 'test description'
+        }).then((entity) => {
+            User.create({
+                id: 1,
+                username: 'TestUser',
+                name: 'Test User',
+                password: 'password',
+                email: 'email@email.com',
+                type: 'moderator',
+                token: 'token'
+            }).then(function(user) {
+                user.addEntity(entity)
+                    .then(() => {
+                        let start_date = new Date();
+                        start_date.setDate(start_date.getDate() + 1);
+                        EventModel.create({
+                            id: 1,
+                            title: "Test ",
+                            description: "Hello There",
+                            start_date: start_date,
+                            user_id: 1,
+                            entity_id: 1
+                        }).then((event) => {
+                            event.setUser(user).then(() => 
+                                //event here
+                                done());
+                        });
+                    }).catch(() => done());
+            }).catch(() => done());
+        }).catch(() => done());
+    });
+
+    describe('/GET Checks if an event is favorited', () => {
+        it('it should check that the user does not have an event as favorite', (done) => {
+            chai.request(app)
+                .get('/events?token=token&user_id=1')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.length(1);
+                    chai.expect(res.body[0]).to.be.a('object');
+                    chai.expect(res.body[0]).to.have.property('favorite');
+                    chai.expect(res.body[0].favorite).to.be.a('array');
+                    chai.expect(res.body[0].favorite).to.have.length(0);
+                    done();
+                });
+        });
+    });
+});

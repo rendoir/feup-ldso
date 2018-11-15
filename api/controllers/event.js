@@ -246,10 +246,10 @@ module.exports = {
 
     listFavorites(req, res) {
 
-        /*if (!User.tokenMatches(req.query.token, req.query.user_id)) {
+        if (!User.tokenMatches(req.query.token, req.query.user_id)) {
             res.status(401).send();
             return;
-        }*/
+        }
         
         return sequelize.query('SELECT * FROM events INNER JOIN favorites ON favorites.event_id = events.id' +
         ' WHERE "favorites".user_id = $1 AND events.start_date > current_timestamp',
