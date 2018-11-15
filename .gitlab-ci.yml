@@ -71,7 +71,7 @@ test_mobile:
     NODE_ENV: test
   script:
     - cd mobile
-    - npm install --save-dev jest eslint eslint-plugin-react eslint-plugin-react-native babel-eslint jest-expo
+    - npm install --save-dev jest eslint eslint-plugin-react eslint-plugin-react-native babel-eslint
     - npm test -- -u
     - npm run lint
   tags:
