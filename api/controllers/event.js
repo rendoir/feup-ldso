@@ -200,6 +200,55 @@ module.exports = {
             return;
         }
 
+        query_options = module.exports.filterOfQueryOptions(req, query_options);
+
+        // Get favorite boolean
+        query_options.include.push({
+            model: sequelize.models.users,
+            as: 'favorite',
+            where: {
+                id: user_id
+            },
+            attributes: ["id"],
+            required: false
+        });
+
+        return Event.findAll(query_options)
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    listFavorites(req, res) {
+        let query_options = {};
+        query_options.where = {};
+        query_options.include = [];
+
+        // Check if user token matches
+        let user_id = req.query.user_id;
+        let token = req.query.token;
+        if (!User.tokenMatches(token, user_id)) {
+            res.status(401).send();
+            return;
+        }
+
+        query_options = module.exports.filterOfQueryOptions(req, query_options);
+
+        // Get favorite boolean
+        query_options.include.push({
+            model: sequelize.models.favorites,
+            required: true,
+            where: {
+                user_id: user_id
+            }
+        });
+
+        return Event.findAll(query_options)
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+
+    },
+
+    filterOfQueryOptions(req, query_options){
         // Shouldn't include past events
         if (!req.query.past) {
             let today = Math.floor(Date.now());
@@ -227,38 +276,7 @@ module.exports = {
                 }
             });
         }
-
-        // Get favorite boolean
-        query_options.include.push({
-            model: sequelize.models.users,
-            as: 'favorite',
-            where: {
-                id: user_id
-            },
-            attributes: ["id"],
-            required: false
-        });
-
-        return Event.findAll(query_options)
-            .then((events) => res.status(200).send(events))
-            .catch((error) => res.status(400).send(error));
-    },
-
-    listFavorites(req, res) {
-
-        if (!User.tokenMatches(req.query.token, req.query.user_id)) {
-            res.status(401).send();
-            return;
-        }
-        
-        return sequelize.query('SELECT * FROM events INNER JOIN favorites ON favorites.event_id = events.id' +
-        ' WHERE "favorites".user_id = $1 AND events.start_date > current_timestamp',
-           
-            { bind: [req.query.user_id], type: sequelize.QueryTypes.SELECT })
-
-            .then((events) => res.status(200).send(events))
-            .catch((error) => res.status(400).send(error));  
-
+        return query_options;
     },
 
     isEventFavorited(event_id, user_id) {
