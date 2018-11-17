@@ -3,6 +3,7 @@
 */
 import 'react-native';
 import React from 'react';
+import { Linking } from 'react-native';
 import EventScreen from '../EventScreen';
 import renderer from 'react-test-renderer';
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
@@ -20,7 +21,9 @@ describe('App snapshot', () => {
     it('renders loading', async() => {
         const wrapper = shallow(<EventScreen />);
 
-        wrapper.state().loading = true;
+        wrapper.setState({
+            loading: true
+        });
 
         expect(wrapper).toMatchSnapshot();
     });
@@ -86,6 +89,37 @@ describe('App snapshot', () => {
         wrapper.instance().ImageLoadingError();
 
         expect(wrapper.state().imageLoaded).toEqual(false);
+    });
+
+    it('image load error', () => {
+
+        jest.mock('Platform', () => {
+            const Platform = require.requireActual('Platform');
+            Platform.OS = 'android';
+            return Platform;
+        });
+
+        const wrapper = shallow(<EventScreen />);
+
+        wrapper.setState({
+            loading: false,
+            event: {
+                title: "Event",
+                descritpion: "Event",
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                price: 10,
+                location: 'Letraria, Porto'
+            }
+        });
+
+        const spy = jest.spyOn(Linking, 'openURL');
+
+        // Wrapper.instance().redirectGoogleMaps();
+        const buttonMap = wrapper.find(".map-button").first();
+        buttonMap.props().onPress();
+
+        expect(spy).toHaveBeenCalled();
     });
 
 });
