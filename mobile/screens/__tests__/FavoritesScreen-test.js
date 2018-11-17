@@ -11,6 +11,10 @@ describe('App snapshot', () => {
     });
 
     it('renders correctly', async() => {
+        const mockFn = jest.fn('didFocusSubscription');
+        let i = 0;
+        if (i == 1)
+            mockFn();
         const tree = renderer.create(<FavoritesScreen />).toJSON();
         expect(tree).toMatchSnapshot();
     });

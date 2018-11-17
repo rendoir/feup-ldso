@@ -10,6 +10,7 @@ exports[`App snapshot renders correctly 1`] = `
       },
     ]
   }
+  virtual={undefined}
 >
   <View
     style={
@@ -20,6 +21,7 @@ exports[`App snapshot renders correctly 1`] = `
         },
       ]
     }
+    virtual={undefined}
   >
     <View
       style={
@@ -32,6 +34,7 @@ exports[`App snapshot renders correctly 1`] = `
           },
         ]
       }
+      virtual={undefined}
     >
       <View
         style={
@@ -43,6 +46,7 @@ exports[`App snapshot renders correctly 1`] = `
             },
           ]
         }
+        virtual={undefined}
       >
         <Image
           source={1}
@@ -67,6 +71,7 @@ exports[`App snapshot renders correctly 1`] = `
             },
           ]
         }
+        virtual={undefined}
       >
         <Text
           accessible={true}
@@ -88,6 +93,7 @@ exports[`App snapshot renders correctly 1`] = `
             ]
           }
           uppercase={false}
+          virtual={undefined}
         />
       </View>
     </View>

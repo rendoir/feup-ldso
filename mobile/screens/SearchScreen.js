@@ -19,6 +19,8 @@ export default class SearchScreen extends React.Component {
             token: null
         };
 
+        this.onFavorite = this.onFavorite.bind(this);
+        this.doSearch = this.doSearch.bind(this);
     }
 
     static navigationOptions = {
@@ -38,15 +40,16 @@ export default class SearchScreen extends React.Component {
         let token = await SecureStore.getItemAsync('access_token');
         this.doSearch();
         this.setState({ loading: false, token: token });
+        this.didFocusSubscription();
     }
 
     doSearch() {
         let self = this;
+
         if (self.state.searchText == "" || self.state.searchText == null) {
             self.setState({ events: [] });
             return;
         }
-
 
         let apiLink = 'http://' + global.api + ':3030/search/events?text=' + self.state.searchText;
         apiLink += "&user_id=" + global.userId + '&';
@@ -54,8 +57,47 @@ export default class SearchScreen extends React.Component {
 
         axios.get(apiLink)
             .then(function(response) {
-                const events = response.data;
+
+                const events = response.data.map((event) => {
+                    let isFav = false;
+                    if (event.is_favorite !== undefined)
+                        isFav = event.is_favorite;
+                    else if (event.favorite !== undefined)
+                        isFav = (event.favorite.length == 1);
+
+                    return { ...event, is_favorite: isFav };
+                });
                 self.setState({ events });
+
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    didFocusSubscription() {
+        this.props.navigation.addListener('didFocus', () => {
+
+            this.doSearch();
+        });
+    }
+
+    async onFavorite(event_id) {
+        let token = await SecureStore.getItemAsync('access_token');
+        let self = this;
+
+        let apiLink = 'http://' + global.api + ':3030/favorite';
+        axios.post(apiLink, {
+            user_id: global.userId,
+            event_id: event_id,
+            token: token
+        })
+            .then(function() {
+
+                const list = self.state.events.map((ev) => (
+                    ev.id == event_id ? { ...ev, is_favorite: !ev.is_favorite } : ev
+                ));
+                self.setState({ events: list });
             })
             .catch(function(error) {
                 console.log(error);
@@ -71,9 +113,12 @@ export default class SearchScreen extends React.Component {
             );
         }
 
-        const events = this.state.events.map((event, i) => (
-            <Event data={event} key={i} />
+        const { navigate } = this.props.navigation;
+
+        const events = this.state.events.map((event) => (
+            <Event {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
+
 
         let noEventsElement;
         if (this.state.events.length == 0 || this.state.searchText == '' || this.state.searchText == null) {

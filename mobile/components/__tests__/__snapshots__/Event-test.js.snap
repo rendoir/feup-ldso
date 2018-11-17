@@ -2,6 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <View
+  onPress={undefined}
   style={
     Array [
       Object {
@@ -31,9 +32,11 @@ exports[`renders correctly 1`] = `
       },
     ]
   }
+  virtual={undefined}
 >
   <Image
     onError={[Function]}
+    onPress={undefined}
     source={
       Object {
         "uri": "http://undefined:3030/2",
@@ -48,6 +51,7 @@ exports[`renders correctly 1`] = `
     }
   />
   <View
+    onPress={undefined}
     style={
       Array [
         Object {},
@@ -57,6 +61,7 @@ exports[`renders correctly 1`] = `
         },
       ]
     }
+    virtual={undefined}
   >
     <View
       style={
@@ -81,11 +86,13 @@ exports[`renders correctly 1`] = `
           },
         ]
       }
+      virtual={undefined}
     >
       <Text
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
+        onPress={undefined}
         style={
           Array [
             Object {
@@ -106,6 +113,7 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
+        virtual={undefined}
       >
         15
       </Text>
@@ -113,6 +121,7 @@ exports[`renders correctly 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
+        onPress={undefined}
         style={
           Array [
             Object {
@@ -133,11 +142,13 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
+        virtual={undefined}
       >
         OUT
       </Text>
     </View>
     <View
+      onPress={undefined}
       style={
         Array [
           Object {},
@@ -148,12 +159,14 @@ exports[`renders correctly 1`] = `
           },
         ]
       }
+      virtual={undefined}
     >
       <Text
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
         numberOfLines={1}
+        onPress={undefined}
         style={
           Array [
             Object {
@@ -170,6 +183,7 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
+        virtual={undefined}
       >
         Feup Career Fair 2018
       </Text>
@@ -178,6 +192,7 @@ exports[`renders correctly 1`] = `
         allowFontScaling={true}
         ellipsizeMode="tail"
         numberOfLines={1}
+        onPress={undefined}
         style={
           Array [
             Object {
@@ -193,6 +208,7 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
+        virtual={undefined}
       >
         FEUP
          - 
@@ -203,6 +219,7 @@ exports[`renders correctly 1`] = `
         allowFontScaling={true}
         ellipsizeMode="tail"
         numberOfLines={1}
+        onPress={undefined}
         style={
           Array [
             Object {
@@ -218,6 +235,7 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
+        virtual={undefined}
       >
         Preço: 
         0

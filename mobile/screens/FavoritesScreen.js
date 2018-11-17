@@ -11,6 +11,12 @@ export default class FavoritesScreen extends React.Component {
         header: null
     };
 
+    didFocusSubscription() {
+        this.props.navigation.addListener('didFocus', () => {
+
+        });
+    }
+
     render() {
         return (
             <View style={{ backgroundColor: 'white' }}>

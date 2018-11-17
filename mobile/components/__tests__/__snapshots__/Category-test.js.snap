@@ -2,8 +2,15 @@
 
 exports[`renders correctly 1`] = `
 <View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
   accessible={true}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
   isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
   onResponderRelease={[Function]}
@@ -11,8 +18,11 @@ exports[`renders correctly 1`] = `
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
   style={null}
+  testID={undefined}
+  tvParallaxProperties={undefined}
 >
   <View
+    onPress={undefined}
     style={
       Array [
         Object {
@@ -31,10 +41,19 @@ exports[`renders correctly 1`] = `
         },
       ]
     }
+    virtual={undefined}
   >
     <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
       accessible={true}
+      collapsable={undefined}
+      hasTVPreferredFocus={undefined}
+      hitSlop={undefined}
       isTVSelectable={true}
+      nativeID={undefined}
+      onLayout={undefined}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -66,6 +85,8 @@ exports[`renders correctly 1`] = `
           "shadowRadius": null,
         }
       }
+      testID={undefined}
+      tvParallaxProperties={undefined}
     >
       <Text
         accessible={true}
@@ -92,6 +113,7 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
+        virtual={undefined}
       >
         Literatura
       </Text>

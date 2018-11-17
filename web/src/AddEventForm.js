@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Form, FormGroup,  Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
+import { Form, FormGroup, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
 import { Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -139,8 +139,10 @@ class AddEventForm extends Component {
         axios({
             method: 'POST',
             url: 'http://localhost:3030/',
-            headers: { 'Content-Type': 'multipart/form-data',
-                'Authorization': "Bearer " + getTokenFromCookie()},
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': "Bearer " + getTokenFromCookie()
+            },
             data: data
         })
             .then(() => {
@@ -168,10 +170,6 @@ class AddEventForm extends Component {
     }
 
     render() {
-        let displayForm = "";
-        if (!this.props.displayForm) {
-            displayForm = "no-display";
-        }
 
         if (document.cookie === undefined ||
             document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
@@ -203,7 +201,7 @@ class AddEventForm extends Component {
         }
 
         return (
-            <div id="add_event_form_div" className={displayForm}>
+            <div id="add_event_form_div">
                 {alertElement}
                 <Row>
                     <Col sm={4} md={2}>
@@ -323,11 +321,9 @@ class AddEventForm extends Component {
                             </FormGroup>
 
                             <FormGroup controlId="form-buttons" className="buttons_style">
-                                <Button variant="secondary">
-                                    <Link to={`/events`}>
-                                        <Button variant="secondary">Cancelar</Button>
-                                    </Link>
-                                </Button>
+                                <Link to={`/events`}>
+                                    <Button variant="secondary">Cancelar</Button>
+                                </Link>
                                 <Button variant="primary" type="submit" className="primary_button">Confirmar</Button>
                             </FormGroup>
 
