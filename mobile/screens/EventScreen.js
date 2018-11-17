@@ -2,7 +2,9 @@ import React from 'react';
 import {
     ScrollView,
     StyleSheet,
-    Image
+    Image,
+    Platform,
+    Linking
 } from 'react-native';
 import { Font, AppLoading } from "expo";
 import { Root, View, Button, Icon, Text } from 'native-base';
@@ -15,8 +17,11 @@ export default class AgendaScreen extends React.Component {
 
         this.state = {
             imageLoaded: true,
-            loading: true
+            loading: true,
+            event: null
         };
+
+        this.redirectGoogleMaps = this.redirectGoogleMaps.bind(this);
     }
 
     ImageLoadingError() {
@@ -38,8 +43,8 @@ export default class AgendaScreen extends React.Component {
             'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
             'DJB-Coffee-Shoppe-Espresso': require('../assets/fonts/DJB-Coffee-Shoppe-Espresso.ttf')
         });
-        this.event = this.props.navigation.getParam('eventData', 'null');
-        this.setState({ loading: false });
+        let event = this.props.navigation.getParam('eventData', 'null');
+        this.setState({ loading: false, event: event });
     }
 
     getEventDate(event) {
@@ -60,6 +65,13 @@ export default class AgendaScreen extends React.Component {
         return date;
     }
 
+    redirectGoogleMaps() {
+
+        Platform.OS === 'ios'
+            ? Linking.openURL('http://maps.apple.com/maps?daddr=' + this.state.event.location)
+            : Linking.openURL('http://maps.google.com/maps/geo:0,0?q=' + encodeURI(this.state.event.location));
+    }
+
     render() {
         if (this.state.loading) {
             return (
@@ -75,34 +87,34 @@ export default class AgendaScreen extends React.Component {
                 <ScrollView style={{ backgroundColor: 'white', height: '100%' }}>
 
                     <View style={{ margin: '0%', padding: '0%', width: '100%', backgroundColor: 'white' }}>
-                        <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.event.id } : require('../assets/images/default.png')}
+                        <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.state.event.id } : require('../assets/images/default.png')}
                             style={styles.image}
                             onError={this.ImageLoadingError.bind(this)} />
                     </View>
 
                     <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-                        <Text style={{ textAlign: 'left', lineHeight: 45, fontSize: 16, color: '#2c8f7f', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>{this.event.title}</Text>
+                        <Text style={{ textAlign: 'left', lineHeight: 45, fontSize: 16, color: '#2c8f7f', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>{this.state.event.title}</Text>
                     </View>
 
                     <View style={{ marginHorizontal: '5%', backgroundColor: '#f8f8d9' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon type='FontAwesome' name='calendar' style={{ flex: 1, fontSize: 13 }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>{this.getEventDate(this.event)}</Text>
+                            <Text style={[styles.simpleText, { flex: 11 }]}>{this.getEventDate(this.state.event)}</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row' }}>
                             <Icon type='Entypo' name='location-pin' style={{ flex: 1, fontSize: 13 }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>{this.event.location}</Text>
+                            <Text style={[styles.simpleText, { flex: 11 }]}>{this.state.event.location}</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row' }}>
                             <Icon type='FontAwesome' name='money' style={{ flex: 1, fontSize: 13 }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>Preço: {this.event.price}€</Text>
+                            <Text style={[styles.simpleText, { flex: 11 }]}>Preço: {this.state.event.price}€</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: '2%' }}>
                             <View style={{ flex: 1 }} />
-                            <Button rounded style={{ flex: 3, height: 35, backgroundColor: '#2c8f7f' }}>
+                            <Button className="map-button" rounded style={{ flex: 3, height: 35, backgroundColor: '#2c8f7f' }} onPress={() => this.redirectGoogleMaps()}>
                                 <Text>Mapa</Text>
                             </Button>
                             <View style={{ flex: 1 }} />
@@ -115,7 +127,7 @@ export default class AgendaScreen extends React.Component {
                     </View>
 
                     <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-                        <Text style={[styles.simpleText, { textAlign: 'justify' }]}>{this.event.description}</Text>
+                        <Text style={[styles.simpleText, { textAlign: 'justify' }]}>{this.state.event.description}</Text>
                     </View>
 
                 </ScrollView>
