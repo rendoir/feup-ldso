@@ -88,10 +88,10 @@ module.exports = {
 
         return sequelize.query(
             "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
-            "SELECT events.id, title, location, price, start_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " +
-            "SELECT events.id, title, location, price, start_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
-            "SELECT events.id, title, location, price, start_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
-            "SELECT events.id, title, location, price, start_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
+            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " +
+            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
+            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
+            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
             "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
             { bind: [pattern, req.query.user_id], type: sequelize.QueryTypes.SELECT })
 
@@ -102,7 +102,7 @@ module.exports = {
 
     listForWeb(req, res) {
 
-        if (req.user === undefined){
+        if (req.user === undefined) {
             return res.status(400).send("You don't have permissions to make this request");
         }
 
@@ -117,6 +117,12 @@ module.exports = {
                     ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
                 { bind: [req.user.id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
                     .then((events) => {
+                        "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
+                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " +
+                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
+                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
+                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
+                            "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
                         result.events = events;
                         return res.status(200).send(result);
                     })
@@ -159,7 +165,7 @@ module.exports = {
             where: { id: req.body.id }
         })
             .then(() => {
-                fs.unlink('assets/' + req.body.id, () => {});
+                fs.unlink('assets/' + req.body.id, () => { });
                 res.status(200).send({ message: "The event was successfully deleted!" });
             })
             .catch((error) => res.status(400).send(error));
@@ -215,6 +221,8 @@ module.exports = {
         if (req.query.entities) {
             query_options.where.entity_id = Array.isArray(req.query.entities) ? { [Op.or]: req.query.entities } : req.query.entities;
             query_options.include.push(sequelize.models.entities);
+        } else {
+            query_options.include.push(sequelize.models.entities);
         }
 
         // Filter categories
@@ -226,6 +234,10 @@ module.exports = {
                     id: Array.isArray(req.query.categories) ? { [Op.or]: req.query.categories } : req.query.categories
                 }
             });
+        } else {
+            query_options.include.push({
+                model: sequelize.models.categories
+            });
         }
 
         // Get favorite boolean
@@ -235,9 +247,17 @@ module.exports = {
             where: {
                 id: user_id
             },
-            attributes: ["id"],
+            attributes: {
+                exclude: ["id", "username", "name", "password", "email", "token", "type"],
+                include: [[sequelize.literal('CASE "favorite".id WHEN ' + user_id + ' THEN true ELSE false END'), 'is_favorite']]
+            },
             required: false
         });
+
+        query_options.attributes = [
+            'id', 'title', 'description', 'entity_id',
+            'start_date', 'end_date', 'location', 'user_id'
+        ];
 
         return Event.findAll(query_options)
             .then((events) => res.status(200).send(events))

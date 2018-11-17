@@ -10,6 +10,7 @@
   "jest": {
     "preset": "jest-expo",
     "collectCoverage": true,
+    "testURL": "http://localhost",
     "coverageReporters": [
       "json",
       "html"

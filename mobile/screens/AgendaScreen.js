@@ -11,17 +11,25 @@ import CustomHeader from '../components/CustomHeader';
 
 export default class AgendaScreen extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            events: [],
+            entity: null,
+            category: null,
+            updateCall: false
+        };
+
+        this.onFavorite = this.onFavorite.bind(this);
+        this.getEventsFromApi = this.getEventsFromApi.bind(this);
+    }
+
     static navigationOptions = {
         header: null
     };
 
-    state = {
-        loading: true,
-        events: [],
-        entity: null,
-        category: null,
-        updateCall: false
-    };
 
     componentWillUnmount() {
         this.isCancelled = true;
@@ -38,11 +46,11 @@ export default class AgendaScreen extends React.Component {
         });
         this.getEventsFromApi();
         this.setState({ loading: false });
+        this.didFocusSubscription();
     }
 
     async getEventsFromApi() {
         let token = await SecureStore.getItemAsync('access_token');
-        console.log(global.userName);
 
         let self = this;
         let apiLink = 'http://' + global.api + ':3030/events?';
@@ -54,11 +62,23 @@ export default class AgendaScreen extends React.Component {
         if (this.props.navigation.getParam('selectedCategory', 'Categoria') != 'Categoria') {
             apiLink += 'categories=' + this.props.navigation.getParam('selectedCategoryId', 'null') + '&';
         }
+
         axios.get(apiLink)
             .then(function(response) {
-                const events = response.data;
-                if (!this.isCancelled)
+
+                if (!this.isCancelled) {
+                    const events = response.data.map((event) => {
+                        let isFav = false;
+                        if (event.is_favorite !== undefined)
+                            isFav = event.is_favorite;
+                        else if (event.favorite !== undefined)
+                            isFav = (event.favorite.length == 1);
+
+                        return { ...event, is_favorite: isFav };
+                    });
                     self.setState({ events });
+                }
+
             })
             .catch(function(error) {
                 console.log(error);
@@ -68,6 +88,34 @@ export default class AgendaScreen extends React.Component {
 
     onSelect = updateCall => {
         this.setState(updateCall);
+    };
+
+    didFocusSubscription() {
+        this.props.navigation.addListener('didFocus', () => {
+            this.getEventsFromApi();
+        });
+    }
+
+    async onFavorite(event_id) {
+        let token = await SecureStore.getItemAsync('access_token');
+        let self = this;
+
+        let apiLink = 'http://' + global.api + ':3030/favorite';
+        axios.post(apiLink,
+            {
+                user_id: global.userId,
+                event_id: event_id,
+                token: token
+            })
+            .then(function() {
+                const list = self.state.events.map((ev) => (
+                    ev.id == event_id ? { ...ev, is_favorite: !ev.is_favorite } : ev
+                ));
+                self.setState({ events: list });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     render() {
@@ -80,8 +128,8 @@ export default class AgendaScreen extends React.Component {
         }
         const { navigate } = this.props.navigation;
 
-        const events = this.state.events.map((event, i) => (
-            <Event data={event} key={i} onPress={() => navigate('Event', { eventData: event })} />
+        const events = this.state.events.map((event) => (
+            <Event {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
 
         if (this.state.updateCall)

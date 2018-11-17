@@ -25,9 +25,9 @@
         <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/12</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -117,17 +117,7 @@
 72
 73
 74
-75
-76
-77
-78
-79
-80
-81
-82
-83</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+75</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,10 +144,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,11 +158,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,6 +167,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,9 +192,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-&nbsp;
 import TabBarIcon from '../components/TabBarIcon';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -231,11 +213,7 @@ AgendaStack.navigationOptions = {
     tabBarIcon: <span class="fstat-no" title="function not covered" >({</span> focused }) =&gt; (
 <span class="cstat-no" title="statement not covered" >        &lt;TabBarIcon</span>
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-calendar${focused ? '' : '-outline'}`
-                    : 'md-calendar'
-            }
+            name={'calendar'}
         /&gt;
     )
 };
@@ -249,17 +227,14 @@ FavoritesStack.navigationOptions = {
     tabBarIcon: <span class="fstat-no" title="function not covered" >({</span> focused }) =&gt; (
 <span class="cstat-no" title="statement not covered" >        &lt;TabBarIcon</span>
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-star${focused ? '' : '-outline'}`
-                    : 'md-heart-outline'
-            }
+            name={'heart-o'}
         /&gt;
     )
 };
 &nbsp;
 const SearchStack = createStackNavigator({
-    Search: SearchScreen
+    Search: SearchScreen,
+    Event: EventScreen
 });
 &nbsp;
 SearchStack.navigationOptions = {
@@ -267,7 +242,7 @@ SearchStack.navigationOptions = {
     tabBarIcon: <span class="fstat-no" title="function not covered" >({</span> focused }) =&gt; (
 <span class="cstat-no" title="statement not covered" >        &lt;TabBarIcon</span>
             focused={focused}
-            name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
+            name={'search'}
         /&gt;
     )
 };
@@ -283,6 +258,7 @@ export default createBottomTabNavigator({
         showLabel: true,
         activeTintColor: '#F8F8F8',
         inactiveTintColor: '#ffffff',
+        activeBackgroundColor: '#6090c0',
         style: {
             backgroundColor: '#002040'
         }
@@ -295,7 +271,7 @@ export default createBottomTabNavigator({
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 15 2018 15:57:58 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Nov 17 2018 16:21:54 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>
