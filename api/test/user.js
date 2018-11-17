@@ -4,7 +4,7 @@ let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
-
+let Favorite = require('../models').favorites;
 let Common = require('./common');
 
 let chai = require('chai');
@@ -325,10 +325,7 @@ describe('Favorite/Unfavorite an event', () => {
 });
 
 
-
-
 describe('List favorites', () => {
-
 
     before((done) => {
         Common.destroyDatabase();
@@ -359,14 +356,20 @@ describe('List favorites', () => {
                             user_id: 1,
                             entity_id: 1
                         }).then((event) => {
-                            event.setUser(user).then(() => 
-                                //event here
-                                done());
-                        });
+                            event.setUser(user).then(() => {
+                                Favorite.create({
+                                    event_id: 1,
+                                    user_id: 1
+                                }).then((favorite) =>
+                                    user.setFavorite(favorite))
+                                    .then(() => done());
+                            });
+                        }).catch(() => done());
                     }).catch(() => done());
             }).catch(() => done());
-        }).catch(() => done());
+        });
     });
+
 
     describe('/GET Checks if an event is favorited', () => {
         it('it should check that the user does not have an event as favorite', (done) => {
