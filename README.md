@@ -51,8 +51,8 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
     - Web - 128.199.32.104:3000
     - API - 128.199.32.104:3030
 * **Production**: 
-    - Web - 142.93.105.47:3000
-    - API - 142.93.105.47:3030
+    - Web - 174.138.10.224:3000
+    - API - 174.138.10.224:3030
 
 ## Authors
 
