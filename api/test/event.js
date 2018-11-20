@@ -13,6 +13,7 @@ let chaiHttp = require('chai-http');
 let app = require('../app');
 
 chai.use(chaiHttp);
+/*
 describe('Add Events', () => {
 
     before((done) => {
@@ -719,6 +720,202 @@ describe('Information of an event', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.title.should.be.eql('Information of Event Test');
+                    done();
+                });
+        });
+    });
+});
+*/
+
+describe('List and filter favorited events', () => {
+
+    before((done) => {
+        Common.destroyDatabase();
+        // Create entities
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity 1',
+                initials: 'TEST1'
+            },
+            {
+                id: 2,
+                name: 'Test Entity 2',
+                initials: 'TEST2'
+            },
+            {
+                id: 3,
+                name: 'Test Entity 3',
+                initials: 'TEST3'
+            }
+        ]).then(() =>
+            // Create categories
+            Category.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Category 1'
+                },
+                {
+                    id: 2,
+                    name: 'Test Category 2'
+                },
+                {
+                    id: 3,
+                    name: 'Test Category 3'
+                }
+            ]).then(() => { return Entity.findAll(); })
+                .then((entities) =>
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator'
+                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
+                        .then(() => {
+                            let start_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            // Create events
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Test 1",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test 2",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 2
+                                },
+                                {
+                                    id: 3,
+                                    title: "Test 3",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 2
+                                },
+                                {
+                                    id: 4,
+                                    title: "Test 4",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 3
+                                },
+                                {
+                                    id: 5,
+                                    title: "Test 5",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 3
+                                },
+                                {
+                                    id: 6,
+                                    title: "Test 6",
+                                    start_date: start_date,
+                                    user_id: 1,
+                                    entity_id: 3
+                                }
+                            ])
+                                // Add category 1 to event 1
+                                .then(() => Category.findByPrimary(1)
+                                    .then((category) => EventModel.findByPrimary(1)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                // Add category 1 and 3 to event 2
+                                .then(() => Category.findAll({ where: { id: { [models.sequelize.Op.or]: [1, 3] } } })
+                                    .then((categories) => EventModel.findByPrimary(2)
+                                        .then((event) => event.setCategories(categories)
+                                        )))
+                                // Add category 2 to event 4
+                                .then(() => Category.findByPrimary(2)
+                                    .then((category) => EventModel.findByPrimary(4)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+
+                                // Add events 1, 2,5 and 6 as favorite
+                                .then(() => EventModel.findAll({ where: { id: { [models.sequelize.Op.or]: [1, 2, 5, 6] } } })
+                                    .then((events) => User.findByPrimary(1)
+                                        .then((user) => user.setFavorite(events)
+                                        )))             
+                                .then(() => done());
+                        })
+                )
+        );
+    });
+
+    describe('/GET List all favorites', () => {
+        it('It should list all favorited events ', (done) => {
+            chai.request(app)
+                .get('/events/favorites')
+                .set('Authorization', '12345') // Token
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(4);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events by categories', () => {
+        it('It should filter favorited events by categories', (done) => {
+            chai.request(app)
+                .get('/events/favorites')
+                .set('Authorization', '12345') // Token
+                .query({ categories: 1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events by entities', () => {
+        it('It should filter favorited events by entities', (done) => {
+            chai.request(app)
+                .get('/events/favorites')
+                .set('Authorization', '12345') // Token
+                .query({ entities: [1, 2, 3] })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(4);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events by categories and entities', () => {
+        it('It should filter favorited events by categories and entities', (done) => {
+            chai.request(app)
+                .get('/events/favorites')
+                .query({ categories: 1, entities: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events with pagination', () => {
+        it('It should filter favorited events using pagination', (done) => {
+            chai.request(app)
+                .get('/events/favorites')
+                .query({ offset: 0, limit: 2})
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
                     done();
                 });
         });

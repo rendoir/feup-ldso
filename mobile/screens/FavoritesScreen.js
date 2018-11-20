@@ -36,13 +36,12 @@ export default class AgendaScreen extends React.Component {
             'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
             'DJB-Coffee-Shoppe-Espresso': require('../assets/fonts/DJB-Coffee-Shoppe-Espresso.ttf')
         });
-        this.getEventsFromApi();
+        this.getFavorites();
         this.setState({ loading: false });
     }
 
     async getFavorites() {
         let token = await SecureStore.getItemAsync('access_token');
-        console.log(global.userName);
 
         let self = this;
         let apiLink = 'http://' + global.api + ':3030/events/favorites?';
@@ -54,6 +53,7 @@ export default class AgendaScreen extends React.Component {
         if (this.props.navigation.getParam('selectedCategory', 'Categoria') != 'Categoria') {
             apiLink += 'categories=' + this.props.navigation.getParam('selectedCategoryId', 'null') + '&';
         }
+
         axios.get(apiLink)
             .then(function(response) {
                 const events = response.data;

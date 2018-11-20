@@ -233,13 +233,14 @@ module.exports = {
 
         query_options = module.exports.filterOfQueryOptions(req, query_options);
 
-        // Get favorite boolean
         query_options.include.push({
-            model: sequelize.models.favorites,
-            required: true,
+            model: sequelize.models.users,
+            as: 'favorite',
             where: {
-                user_id: user_id
-            }
+                id: user_id
+            },
+            attributes: ["id"],
+            required: true
         });
 
         return Event.findAll(query_options)
@@ -249,26 +250,27 @@ module.exports = {
     },
 
     filterOfQueryOptions(req, query_options){
+        let query_opts = query_options;
         // Shouldn't include past events
         if (!req.query.past) {
             let today = Math.floor(Date.now());
-            query_options.where.start_date = { [Op.gte]: today };
+            query_opts.where.start_date = { [Op.gte]: today };
         }
 
         // Set pagination settings
-        if (req.query.limit) query_options.limit = req.query.limit;
-        if (req.query.offset) query_options.offset = req.query.page;
-        query_options.order = [['start_date', 'ASC']];
+        if (req.query.limit) query_opts.limit = req.query.limit;
+        if (req.query.offset) query_opts.offset = req.query.page;
+        query_opts.order = [['start_date', 'ASC']];
 
         // Filter entities
         if (req.query.entities) {
-            query_options.where.entity_id = Array.isArray(req.query.entities) ? { [Op.or]: req.query.entities } : req.query.entities;
-            query_options.include.push(sequelize.models.entities);
+            query_opts.where.entity_id = Array.isArray(req.query.entities) ? { [Op.or]: req.query.entities } : req.query.entities;
+            query_opts.include.push(sequelize.models.entities);
         }
 
         // Filter categories
         if (req.query.categories) {
-            query_options.include.push({
+            query_opts.include.push({
                 model: sequelize.models.categories,
                 required: true,
                 where: {
@@ -276,7 +278,7 @@ module.exports = {
                 }
             });
         }
-        return query_options;
+        return query_opts;
     },
 
     isEventFavorited(event_id, user_id) {
