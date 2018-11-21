@@ -23,7 +23,7 @@ describe("Logout", () => {
         let wrapperNavbar = wrapper.find(Navbar).first();
         wrapperNavbar.instance().getTokenFromCookie = jest.fn(() => "");
 
-        mockAxios.onPost('http://localhost:3030/logout').reply(200);
+        mockAxios.onPost().reply(200);
 
         const button = wrapper.find('button#logout-button').first();
         button.simulate('click');

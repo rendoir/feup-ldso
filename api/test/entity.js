@@ -66,25 +66,12 @@ describe('List Entities', () => {
         it('it should list all entities for which the User has permissions to', (done) => {
 
             chai.request(app)
-                .get('/entities/1')
+                .get('/entities')
+                .set('Authorization', '12345') // Token
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(3);
-                    done();
-                });
-        });
-    });
-
-    describe('/GET List Entities for which the User has no permissions to', () => {
-        it('it should list no entities', (done) => {
-
-            chai.request(app)
-                .get('/entities/2')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(0);
                     done();
                 });
         });

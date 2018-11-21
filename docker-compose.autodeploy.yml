@@ -27,31 +27,25 @@ services:
       - postgres
 
   api:
-    build: api
+    image: registry.gitlab.com/feup-tbs/ldso18-19/t3g2/api:dev
     command: npm start
     ports:
       - "3030:3030"
-    expose:
-      - '3030'
     environment:
       DATABASE_URL: postgres://postgres:example@postgres/postgres
       SECRET_KEY: 'secret_key_very_secret'
-      NODE_ENV: 'development'
-    volumes:
-      - "./api:/usr/src/app"
-      - '/usr/src/app/node_modules'
+      NODE_ENV: 'production'
     depends_on:
       - postgres
+    expose:
+      - '3030'
 
   web:
-    build: web
+    image: registry.gitlab.com/feup-tbs/ldso18-19/t3g2/web:dev
     command: npm start
     ports:
       - "3000:3000"
     expose:
       - '3000'
-    volumes:
-      - "./web:/usr/src/app"
-      - '/usr/src/app/node_modules'
     depends_on:
       - api

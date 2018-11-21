@@ -279,7 +279,7 @@ describe("Delete Event", () => {
             errorLoadingImage: true
         };
 
-        mockAxios.onDelete('http://localhost:3030/').reply(200);
+        mockAxios.onDelete().reply(200);
 
         const wrapper = await mount(
             <BrowserRouter>
@@ -303,7 +303,7 @@ describe("Delete Event", () => {
 
     it("Check if deletion wasn't successfull", async(done) => {
 
-        mockAxios.onDelete('http://localhost:3030/').reply(400);
+        mockAxios.onDelete().reply(400);
 
         const wrapper = await mount(
             <BrowserRouter>
@@ -329,7 +329,7 @@ describe("Get Image", () => {
 
     it("/GET Event Image - Error", async(done) => {
 
-        mockAxios.onGet('http://localhost:3030/1').reply(400);
+        mockAxios.onGet().reply(400);
 
         let wrapper = await mount(
             <BrowserRouter>

@@ -48,11 +48,11 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
 ## Servers
 
 * **Staging**: 
-    - Web - 128.199.32.104:3000
-    - API - 128.199.32.104:3030
+    - Web - 188.166.95.23:3000
+    - API - 188.166.95.23:3030
 * **Production**: 
-    - Web - 174.138.10.224:3000
-    - API - 174.138.10.224:3030
+    - Web - 188.166.41.239:3000
+    - API - 188.166.41.239:3030
 
 ## Authors
 
