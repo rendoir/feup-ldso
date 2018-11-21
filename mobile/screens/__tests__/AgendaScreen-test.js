@@ -16,7 +16,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 var mockAxios = new MockAdapter(axios);
 
-
 describe('App snapshot', () => {
     jest.useFakeTimers();
     beforeEach(() => {
@@ -151,7 +150,6 @@ describe('Get events', () => {
             navigation={navigation}
         />);
 
-
         await wrapper.instance().getEventsFromApi();
 
         expect(wrapper.state().events.length).toEqual(3);
@@ -261,5 +259,180 @@ describe('Favorites', () => {
         wrapper.instance().onFavorite(1);
 
         expect(wrapper.state().events[0].is_favorite).toEqual(true);
+    });
+});
+
+describe('Infinite scroll', () => {
+    it('Handles scroll', async() => {
+
+        mockAxios.onGet().reply(200,
+            [{
+                id: 1,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                is_favorite: true
+            },
+            {
+                id: 2,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                is_favorite: false
+            },
+            {
+                id: 3,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                favorite: [1]
+            }]
+        );
+
+        const navigation = { getParam: jest.fn() };
+
+        const wrapper = await shallow(<AgendaScreen
+            loading={true}
+            category={null}
+            entity={null}
+            navigation={navigation}
+        />);
+
+        await wrapper.instance().getEventsFromApi();
+
+        expect(wrapper.state().events.length).toEqual(3);
+
+        const event = {
+            isTrusted: true,
+            type: "scroll",
+            nativeEvent: {
+                contentOffset: {
+                    y: 1000
+                }
+            }
+        };
+
+        await wrapper.instance().handleScroll(event);
+
+        expect(wrapper.state().events.length).toBeGreaterThanOrEqual(3);
+
+    });
+
+    it('Get more events on scroll handling', async() => {
+
+        mockAxios.onGet().reply(200,
+            [{
+                id: 1,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                is_favorite: true
+            },
+            {
+                id: 2,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                is_favorite: false
+            },
+            {
+                id: 3,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                favorite: [1]
+            }]
+        );
+
+        const navigation = { getParam: jest.fn() };
+
+        const wrapper = await shallow(<AgendaScreen
+            loading={true}
+            category={null}
+            entity={null}
+            navigation={navigation}
+        />);
+
+        await wrapper.instance().getEventsFromApi();
+
+        expect(wrapper.state().events.length).toEqual(3);
+
+        let page = wrapper.state().eventsPage + 1;
+
+        await wrapper.setState({ eventsPage: page });
+
+        await wrapper.instance().getEventsFromApi();
+
+        expect(wrapper.state().events.length).toBeGreaterThanOrEqual(3);
+    });
+});
+
+describe('Pull refresh', () => {
+    it('Refreshes events on pull', async() => {
+
+        mockAxios.onGet().reply(200,
+            [{
+                id: 1,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                is_favorite: true
+            },
+            {
+                id: 2,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                is_favorite: false
+            },
+            {
+                id: 3,
+                title: 'Title',
+                description: 'description',
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                initials: 'FEUP',
+                favorite: [1]
+            }]
+        );
+
+        const navigation = { getParam: jest.fn() };
+
+        const wrapper = await shallow(<AgendaScreen
+            loading={true}
+            category={null}
+            entity={null}
+            navigation={navigation}
+        />);
+
+        await wrapper.instance().getEventsFromApi();
+
+        expect(wrapper.state().events.length).toEqual(3);
+
+        let page = wrapper.state().eventsPage + 1;
+
+        await wrapper.setState({ eventsPage: page });
+
+        expect(wrapper.state().eventsPage).toEqual(1);
+
+        await wrapper.instance()._onRefresh();
+
+        expect(wrapper.state().eventsPage).toEqual(0);
     });
 });

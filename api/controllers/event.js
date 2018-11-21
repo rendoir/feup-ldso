@@ -114,15 +114,10 @@ module.exports = {
                 result.count = parseInt(num[0].count);
 
                 return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id AS entity_id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
-                    ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OFFSET $2 LIMIT $3',
+                    ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OR (events.start_date < current_timestamp AND events.end_date > current_timestamp) ORDER BY start_date OFFSET $2 LIMIT $3',
                 { bind: [req.user.id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
+
                     .then((events) => {
-                        "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
-                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " +
-                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
-                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
-                            "SELECT events.id, title, location, price, start_date, end_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
-                            "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
                         result.events = events;
                         return res.status(200).send(result);
                     })
@@ -131,6 +126,7 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
 
     },
+
 
     add(req, res) {
         return Event.create({
@@ -209,13 +205,21 @@ module.exports = {
         // Shouldn't include past events
         if (!req.query.past) {
             let today = Math.floor(Date.now());
-            query_options.where.start_date = { [Op.gte]: today };
+            query_options.where = {
+                [Op.or]: [
+                    { start_date: { [Op.gte]: today } },
+                    {
+                        start_date: { [Op.lt]: today },
+                        end_date: { [Op.gte]: today }
+                    }
+                ]
+            };
         }
 
         // Set pagination settings
         if (req.query.limit) query_options.limit = req.query.limit;
-        if (req.query.offset) query_options.offset = req.query.page;
-        query_options.order = [['start_date', 'ASC']];
+        if (req.query.offset) query_options.offset = req.query.offset;
+        query_options.order = [['start_date', 'ASC'], ['id', 'ASC']];
 
         // Filter entities
         if (req.query.entities) {
