@@ -8,7 +8,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 var mockAxios = new MockAdapter(axios);
 
-document.cookie = "";
+document.cookie = undefined;
 
 describe("Check Render ListEvents", () => {
 
@@ -30,6 +30,8 @@ describe("Check Update Functions", () => {
     var wrapper;
 
     beforeAll(async() => {
+        document.cookie = undefined;
+
         wrapper = await mount(
             <BrowserRouter>
                 <LogIn />
@@ -41,7 +43,7 @@ describe("Check Update Functions", () => {
 
         let wrapperLogIn = wrapper.find(LogIn).first();
 
-        const input = wrapperLogIn.find("input[type='email']").first();
+        const input = await wrapperLogIn.find("input.email-input").first();
         await input.simulate('change', {
             target: { value: 'email@email.com' }
         });
@@ -55,7 +57,7 @@ describe("Check Update Functions", () => {
 
         let wrapperLogIn = wrapper.find(LogIn).first();
 
-        const input = wrapperLogIn.find("input[type='password']").first();
+        const input = await wrapperLogIn.find("input.password-input").first();
         await input.simulate('change', {
             target: { value: 'verysecurepassword' }
         });

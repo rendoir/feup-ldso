@@ -1,23 +1,32 @@
-image: node:latest
+image: docker:latest
 
 services:
   - postgres:latest
+  - docker:dind
+
 variables:
   POSTGRES_HOST: postgres
   POSTGRES_DB: postgres_test
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: example
+  REGISTRY_URL: registry.gitlab.com/feup-tbs/ldso18-19/t3g2
+
 
 stages:
   - build
   - test
+  - release
   - deploy
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
   - api/node_modules/
+  - web/node_modules/
+  - mobile/node_modules/
 
 build_api:
+  image: node:latest
   stage: build
   
   script:
@@ -27,6 +36,7 @@ build_api:
     - docker, postgres
 
 build_web:
+  image: node:latest
   stage: build
   script:
     - cd web
@@ -35,12 +45,14 @@ build_web:
     - docker, postgres
 
 build_mobile:
+  image: node:latest
   stage: build
   script:
     - cd mobile
     - npm install
 
 test_api:
+  image: node:latest
   stage: test
   variables:
     NODE_ENV: test
@@ -56,6 +68,7 @@ test_api:
     - docker, postgres
 
 test_web:
+  image: node:latest
   stage: test
   variables:
     NODE_ENV: test
@@ -68,6 +81,7 @@ test_web:
     - docker, postgres
 
 test_mobile:
+  image: node:latest
   stage: test
   variables:
     NODE_ENV: test
@@ -79,28 +93,82 @@ test_mobile:
   tags:
     - docker, postgres
 
-staging:
-  stage: deploy
+release_api:
+  image: docker:stable
+  stage: release
   only:
     - dev
+  before_script:
+    - cd api
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - sudo apt-get install -y python-pip
-    - pip install docker-compose
-    - docker-compose up -d --build
-  environment: staging
-  when: manual
-  tags:
-    - staging
+    - docker build -t $REGISTRY_URL/api:$CI_COMMIT_REF_NAME .
+    - docker push $REGISTRY_URL/api:$CI_COMMIT_REF_NAME
+  after_script:
+    - "docker logout ${CI_REGISTRY}"
 
-production:
-  stage: deploy
+release_web_staging:
+  image: docker:stable
+  stage: release
+  only:
+    - dev
+  before_script:
+    - cd web
+    - echo "REACT_APP_API_URL=$DEPLOYMENT_SERVER_STAGING_IP" > .env
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $REGISTRY_URL/web:$CI_COMMIT_REF_NAME .
+    - docker push $REGISTRY_URL/web:$CI_COMMIT_REF_NAME
+  after_script:
+    - "docker logout ${CI_REGISTRY}"
+
+release_web_production:
+  image: docker:stable
+  stage: release
   only:
     - master
+  before_script:
+    - cd web
+    - echo "REACT_APP_API_URL=$DEPLOYMENT_SERVER_PRODUCTION_IP" > .env
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - sudo apt-get install -y python-pip
-    - pip install docker-compose
-    - docker-compose up -d --build
+    - docker build -t $REGISTRY_URL/web:$CI_COMMIT_REF_NAME .
+    - docker push $REGISTRY_URL/web:$CI_COMMIT_REF_NAME
+  after_script:
+    - "docker logout ${CI_REGISTRY}"
+
+release_mobile:
+  image: docker:stable
+  stage: release
+  only:
+    - dev
+  before_script:
+    - cd web
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $REGISTRY_URL/mobile:$CI_COMMIT_REF_NAME .
+    - docker push $REGISTRY_URL/mobile:$CI_COMMIT_REF_NAME
+  after_script:
+    - "docker logout ${CI_REGISTRY}"
+
+deploy_staging:
+  stage: deploy
+  image: gitlab/dind:latest
+  only:
+    - dev
+  environment: staging
+  before_script:
+    - apt-get update -y && apt-get install sshpass -y
+  script:
+    - sshpass -p "${STAGING_SERVER_SSH_PASS}" ssh -o StrictHostKeyChecking=no root@${DEPLOYMENT_SERVER_STAGING_IP} "sh /root/home/deploy.sh"
+
+deploy_production:
+  stage: deploy
+  image: gitlab/dind:latest
+  only:
+    - master
   environment: production
-  when: manual
-  tags:
-    - production
+  before_script:
+    - apt-get update -y && apt-get install sshpass -y
+  script:
+    - sshpass -p "${PRODUCTION_SERVER_SSH_PASS}" ssh -o StrictHostKeyChecking=no root@${DEPLOYMENT_SERVER_PRODUCTION_IP} "sh /root/home/deploy.sh"

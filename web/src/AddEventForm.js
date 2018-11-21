@@ -138,7 +138,7 @@ class AddEventForm extends Component {
 
         axios({
             method: 'POST',
-            url: 'http://localhost:3030/',
+            url: 'http://' + process.env.REACT_APP_API_URL + ':3030/',
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': "Bearer " + getTokenFromCookie()

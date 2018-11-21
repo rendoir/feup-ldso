@@ -28,7 +28,7 @@ class NavbarComponent extends Component {
 
         axios({
             method: 'POST',
-            url: 'http://localhost:3030/logout',
+            url: 'http://' + process.env.REACT_APP_API_URL + ':3030/logout',
             headers: { 'Authorization': "Bearer " + this.getTokenFromCookie() }
         })
             .then(() => {

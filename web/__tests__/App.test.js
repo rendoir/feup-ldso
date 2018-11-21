@@ -16,7 +16,7 @@ var mockAxios = new MockAdapter(axios);
 
 it('renders elements', () => {
 
-    mockAxios.onGet('http://localhost:3030/web/1').reply(200, {
+    mockAxios.onGet().reply(200, {
         count: 3,
         events: [{
             title: 'Title',
