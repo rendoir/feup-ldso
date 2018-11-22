@@ -5,6 +5,7 @@ let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let Category = require('../models').categories;
 let User = require('../models').users;
+let Favorite = require('../models').favorites;
 
 let Common = require('./common');
 
@@ -836,14 +837,18 @@ describe('List and filter favorited events', () => {
                                 .then(() => Category.findByPrimary(2)
                                     .then((category) => EventModel.findByPrimary(4)
                                         .then((event) => event.addCategory(category)
-                                        )))
+                                        )))                                     
 
                                 // Add events 1, 2,5 and 6 as favorite
                                 .then(() => EventModel.findAll({ where: { id: { [models.sequelize.Op.or]: [1, 2, 5, 6] } } })
                                     .then((events) => User.findByPrimary(1)
-                                        .then((user) => user.setFavorite(events)
-                                        )))             
-                                .then(() => done());
+                                        .then((user) => {
+                                            user.setFavorite(events[0]);
+                                            user.setFavorite(events[1]);
+                                            user.setFavorite(events[2]);
+                                            user.setFavorite(events[3]);
+                                        })
+                                        .then(() => done())));
                         })
                 )
         );
@@ -852,7 +857,7 @@ describe('List and filter favorited events', () => {
     describe('/GET List all favorites', () => {
         it('It should list all favorited events ', (done) => {
             chai.request(app)
-                .get('/events/favorites')
+                .get('/events/favorites?user_id=1')
                 .set('Authorization', '12345') // Token
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -866,7 +871,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by categories', () => {
         it('It should filter favorited events by categories', (done) => {
             chai.request(app)
-                .get('/events/favorites')
+                .get('/events/favorites?user_id=1')
                 .set('Authorization', '12345') // Token
                 .query({ categories: 1 })
                 .end((err, res) => {
@@ -881,7 +886,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by entities', () => {
         it('It should filter favorited events by entities', (done) => {
             chai.request(app)
-                .get('/events/favorites')
+                .get('/events/favorites?user_id=1')
                 .set('Authorization', '12345') // Token
                 .query({ entities: [1, 2, 3] })
                 .end((err, res) => {
@@ -896,7 +901,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by categories and entities', () => {
         it('It should filter favorited events by categories and entities', (done) => {
             chai.request(app)
-                .get('/events/favorites')
+                .get('/events/favorites?user_id=1')
                 .query({ categories: 1, entities: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
