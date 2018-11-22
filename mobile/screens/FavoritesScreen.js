@@ -56,7 +56,7 @@ export default class FavoritesScreen extends React.Component {
         let token = await SecureStore.getItemAsync('access_token');
 
         let self = this;
-        let apiLink = 'http://' + global.api + ':3030/events?limit=' + 10 + '&offset=' + (this.state.eventsPage * 10) + '&';
+        let apiLink = 'http://' + global.api + ':3030/events/favorites?limit=' + 10 + '&offset=' + (this.state.eventsPage * 10) + '&';
         apiLink += "user_id=" + global.userId + '&';
         apiLink += "token=" + token + '&';
         if (this.props.navigation.getParam('selectedEntity', 'Entidade') != 'Entidade') {
