@@ -75,7 +75,7 @@ router.get("/search/categories", eventController.searchForCategories);
 router.get("/search/events", eventController.searchForEvents);
 
 // Getters
-router.get("/entities/:user_id", entityController.getEntitiesWithPermission);
+router.get("/entities", passport.authenticate('jwt', { session: false }), entityController.getEntitiesWithPermission);
 router.get("/app/entities", entityController.getEntities);
 router.get("/categories", categoryController.getCategories);
 

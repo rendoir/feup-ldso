@@ -106,14 +106,13 @@ ShallowWrapper {
             style={
               Object {
                 "flex": 1,
-                "width": "50%",
+                "width": "60%",
               }
             }
           >
             <Button
-              className="login_button"
               onPress={[Function]}
-              title="Sign in with Google"
+              title="Entrar com a conta Google"
             />
           </Component>
           <Component
@@ -248,14 +247,13 @@ ShallowWrapper {
               style={
                 Object {
                   "flex": 1,
-                  "width": "50%",
+                  "width": "60%",
                 }
               }
             >
               <Button
-                className="login_button"
                 onPress={[Function]}
-                title="Sign in with Google"
+                title="Entrar com a conta Google"
               />
             </Component>,
             <Component
@@ -370,13 +368,12 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <Button
-                className="login_button"
                 onPress={[Function]}
-                title="Sign in with Google"
+                title="Entrar com a conta Google"
               />,
               "style": Object {
                 "flex": 1,
-                "width": "50%",
+                "width": "60%",
               },
             },
             "ref": null,
@@ -385,9 +382,8 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "className": "login_button",
                 "onPress": [Function],
-                "title": "Sign in with Google",
+                "title": "Entrar com a conta Google",
               },
               "ref": null,
               "rendered": null,
@@ -510,14 +506,13 @@ ShallowWrapper {
               style={
                 Object {
                   "flex": 1,
-                  "width": "50%",
+                  "width": "60%",
                 }
               }
             >
               <Button
-                className="login_button"
                 onPress={[Function]}
-                title="Sign in with Google"
+                title="Entrar com a conta Google"
               />
             </Component>
             <Component
@@ -652,14 +647,13 @@ ShallowWrapper {
                 style={
                   Object {
                     "flex": 1,
-                    "width": "50%",
+                    "width": "60%",
                   }
                 }
               >
                 <Button
-                  className="login_button"
                   onPress={[Function]}
-                  title="Sign in with Google"
+                  title="Entrar com a conta Google"
                 />
               </Component>,
               <Component
@@ -774,13 +768,12 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <Button
-                  className="login_button"
                   onPress={[Function]}
-                  title="Sign in with Google"
+                  title="Entrar com a conta Google"
                 />,
                 "style": Object {
                   "flex": 1,
-                  "width": "50%",
+                  "width": "60%",
                 },
               },
               "ref": null,
@@ -789,9 +782,8 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "className": "login_button",
                   "onPress": [Function],
-                  "title": "Sign in with Google",
+                  "title": "Entrar com a conta Google",
                 },
                 "ref": null,
                 "rendered": null,

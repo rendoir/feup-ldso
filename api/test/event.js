@@ -354,7 +354,8 @@ describe('Filter events', () => {
                         name: 'Test User',
                         password: 'nasdasdasd',
                         email: 'email@email.com',
-                        type: 'moderator'
+                        type: 'moderator',
+                        token: 'token'
                     }).then((user) => user.setEntities(entities)) // Give full permissions to user
                         .then(() => {
                             let start_date = new Date();
@@ -430,7 +431,7 @@ describe('Filter events', () => {
             chai.request(app)
                 .get('/events')
                 .set('Authorization', '12345') // Token
-                .query({ categories: 1 })
+                .query({ categories: 1, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -445,7 +446,7 @@ describe('Filter events', () => {
             chai.request(app)
                 .get('/events')
                 .set('Authorization', '12345') // Token
-                .query({ entities: [2, 3] })
+                .query({ entities: [2, 3], user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -459,7 +460,7 @@ describe('Filter events', () => {
         it('It should filter events by categories and entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .query({ categories: 1, entities: 2 })
+                .query({ categories: 1, entities: 2, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -473,7 +474,7 @@ describe('Filter events', () => {
         it('It should filter events by categories and entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .query({ offset: 0, limit: 2})
+                .query({ offset: 0, limit: 2, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -614,7 +615,7 @@ describe('Search', () => {
             chai.request(app)
                 .get('/search/entities/')
                 .set('Authorization', '12345') // Token
-                .query({ text: "tes"})
+                .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -631,7 +632,7 @@ describe('Search', () => {
             chai.request(app)
                 .get('/search/categories/')
                 .set('Authorization', '12345') // Token
-                .query({ text: "tes"})
+                .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');

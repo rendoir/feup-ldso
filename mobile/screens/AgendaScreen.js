@@ -1,25 +1,38 @@
 import React from 'react';
 import {
-    ScrollView
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 import { Font, AppLoading } from "expo";
 import { Root, View, Card, Button, Icon, Text } from 'native-base';
 import axios from 'axios';
 import { SecureStore } from 'expo';
 import Event from '../components/Event';
+import CustomHeader from '../components/CustomHeader';
 
 export default class AgendaScreen extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            events: [],
+            entity: null,
+            category: null,
+            updateCall: false,
+            eventsPage: 0,
+            refreshing: false
+        };
+
+        this.handleScroll = this.handleScroll.bind(this);
+        this.onFavorite = this.onFavorite.bind(this);
+        this.getEventsFromApi = this.getEventsFromApi.bind(this);
+        this._onRefresh = this._onRefresh.bind(this);
+    }
+
     static navigationOptions = {
         header: null
-    };
-
-    state = {
-        loading: true,
-        events: [],
-        entity: null,
-        category: null,
-        updateCall: false
     };
 
     componentWillUnmount() {
@@ -36,17 +49,18 @@ export default class AgendaScreen extends React.Component {
             'DJB-Coffee-Shoppe-Espresso': require('../assets/fonts/DJB-Coffee-Shoppe-Espresso.ttf')
         });
         this.getEventsFromApi();
-        this.setState({ loading: false });
+        this.setState({ loading: false, events: [], eventsPage: 0 });
+        this.didFocusSubscription();
     }
 
     async getEventsFromApi() {
         let token = await SecureStore.getItemAsync('access_token');
 
         let self = this;
-        let apiLink = 'http://' + global.api + ':3030/events?';
+        let apiLink = 'http://' + global.api + ':3030/events?limit=' + 10 + '&offset=' + (this.state.eventsPage * 10) + '&';
         apiLink += "user_id=" + global.userId + '&';
         apiLink += "token=" + token + '&';
-        if (this.props.navigation.getParam('selectedEntity', 'Orgão') != 'Orgão') {
+        if (this.props.navigation.getParam('selectedEntity', 'Entidade') != 'Entidade') {
             apiLink += 'entities=' + this.props.navigation.getParam('selectedEntityId', 'null') + '&';
         }
         if (this.props.navigation.getParam('selectedCategory', 'Categoria') != 'Categoria') {
@@ -54,9 +68,20 @@ export default class AgendaScreen extends React.Component {
         }
         axios.get(apiLink)
             .then(function(response) {
-                const events = response.data;
-                if (!this.isCancelled)
-                    self.setState({ events });
+
+                if (!this.isCancelled) {
+                    const evs = response.data.map((event) => {
+                        let isFav = false;
+                        if (event.is_favorite !== undefined)
+                            isFav = event.is_favorite;
+                        else if (event.favorite !== undefined)
+                            isFav = (event.favorite.length == 1);
+
+                        return { ...event, is_favorite: isFav };
+                    });
+                    self.setState({ events: [...self.state.events, ...evs] });
+                }
+
             })
             .catch(function(error) {
                 console.log(error);
@@ -66,6 +91,50 @@ export default class AgendaScreen extends React.Component {
 
     onSelect = updateCall => {
         this.setState(updateCall);
+    };
+
+    didFocusSubscription() {
+        this.props.navigation.addListener('didFocus', () => {
+            this.setState({ events: [], eventsPage: 0 });
+            this.getEventsFromApi();
+        });
+    }
+
+    async onFavorite(event_id) {
+        let token = await SecureStore.getItemAsync('access_token');
+        let self = this;
+
+        let apiLink = 'http://' + global.api + ':3030/favorite';
+        axios.post(apiLink,
+            {
+                user_id: global.userId,
+                event_id: event_id,
+                token: token
+            })
+            .then(function() {
+                const list = self.state.events.map((ev) => (
+                    ev.id == event_id ? { ...ev, is_favorite: !ev.is_favorite } : ev
+                ));
+                self.setState({ events: list });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    handleScroll(event) {
+        let scrollOffsetY = event.nativeEvent.contentOffset.y;
+        if (scrollOffsetY > (5 * (this.state.eventsPage + 1) * 130)) {
+            let page = this.state.eventsPage + 1;
+            this.setState({ eventsPage: page });
+            this.getEventsFromApi();
+        }
+    }
+
+    _onRefresh() {
+        this.setState({ refreshing: true, events: [], eventsPage: 0 });
+        this.getEventsFromApi();
+        this.setState({refreshing: false});
     }
 
     render() {
@@ -78,8 +147,8 @@ export default class AgendaScreen extends React.Component {
         }
         const { navigate } = this.props.navigation;
 
-        const events = this.state.events.map((event, i) => (
-            <Event data={event} key={i} onPress={() => navigate('Event', { eventData: event })} />
+        const events = this.state.events.map((event) => (
+            <Event {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
 
         if (this.state.updateCall)
@@ -98,41 +167,38 @@ export default class AgendaScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: 'white' }}>
-                <ScrollView stickyHeaderIndices={[1]} style={{ backgroundColor: 'white', height: '100%', marginBottom: '10%' }}>
+            <View style={{ backgroundColor: '#F0F0F0' }}>
+                <CustomHeader />
+                <ScrollView className="scroll_view" refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /> } stickyHeaderIndices={[0]} style={{ backgroundColor: '#F0F0F0', height: '100%', marginBottom: '10%' }} onScroll={this.handleScroll}>
 
-                    <View style={{ paddingTop: '5%', marginHorizontal: '5%' }}>
-                        <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>Eventos</Text>
-                    </View>
-
-                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: 'white' }}>
-                        <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: 'white' }}>
+                    <View style={{ paddingHorizontal: '5%', paddingVertical: '7%', backgroundColor: '#F0F0F0' }}>
+                        <View style={{ paddingHorizontal: '4%', justifyContent: 'center', flexDirection: 'row', backgroundColor: '#F0F0F0' }}>
 
                             <View style={{ flex: 3 }}>
-                                <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={() => navigate('Categories', { onSelect: this.onSelect })}>
-                                    <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
+                                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} transparent onPress={() => navigate('Categories', { onSelect: this.onSelect })}>
+                                    <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}>
                                         <View style={{ flex: 5 }}>
-                                            <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedCategory', 'Categorias')}</Text>
+                                            <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedCategory', 'Categorias')}</Text>
                                         </View>
                                         <View style={{ flex: 1 }}>
-                                            <Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0, fontSize: 22 }} />
+                                            <Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} />
                                         </View>
                                     </View>
                                 </Button>
                             </View>
 
                             <View style={{ flex: 1 }}>
-                                <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}>em</Text>
+                                <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}>em</Text>
                             </View>
 
                             <View style={{ flex: 3 }}>
-                                <Button style={{ width: '100%', height: 30, borderWidth: 1, borderColor: 'black' }} transparent onPress={() => navigate('Entities', { onSelect: this.onSelect })}>
-                                    <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '5%' }}>
+                                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} transparent onPress={() => navigate('Entities', { onSelect: this.onSelect })}>
+                                    <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}>
                                         <View style={{ flex: 5 }}>
-                                            <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedEntity', 'Orgão')}</Text>
+                                            <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.props.navigation.getParam('selectedEntity', 'Entidade')}</Text>
                                         </View>
                                         <View style={{ flex: 1 }}>
-                                            <Icon type='FontAwesome' name='angle-down' style={{ color: 'black', position: 'absolute', right: 0, fontSize: 22 }} />
+                                            <Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} />
                                         </View>
                                     </View>
                                 </Button>
@@ -141,7 +207,7 @@ export default class AgendaScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
+                    <View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0', marginBottom: '10%' }}>
                         {events}
                         {noEventsElement}
                     </View>

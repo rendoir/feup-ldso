@@ -5,22 +5,23 @@ exports[`Render renders event page 1`] = `
   className="loading"
 >
   <div
-    class="loader"
+    className="loader"
   />
 </div>
 `;
 
 exports[`renders elements 1`] = `
 <nav
-  className="navbar navbar-default"
+  className="navbar navbar-expand navbar-light"
   id="navbar-custom"
 >
-  <div
-    className="container"
+  <a
+    className="navbar-brand"
+    href="#"
   >
     <a
       aria-current={null}
-      className="navbar-brand navbar-brand"
+      className="navbar-brand"
       href="/events"
       onClick={[Function]}
     >
@@ -30,20 +31,20 @@ exports[`renders elements 1`] = `
         src="/logo.png"
       />
     </a>
+  </a>
+  <div
+    aria-expanded={null}
+    className="navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
     <div
-      aria-expanded={null}
-      className="navbar-collapse collapse"
-      id="responsive-navbar-nav"
-    >
-      <ul
-        className="nav navbar-nav"
-        role={null}
-      />
-      <ul
-        className="nav navbar-nav"
-        role={null}
-      />
-    </div>
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
+    <div
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
   </div>
 </nav>
 `;

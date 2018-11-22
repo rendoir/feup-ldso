@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -139,8 +139,7 @@
 94
 95
 96
-97
-98</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+97</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,12 +155,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -169,12 +163,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -202,8 +198,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,9 +238,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Font, AppLoading } from "expo";
-import { Root, Container, Header, List, Text, Content, ListItem, Button } from 'native-base';
+import { Root, Container, List, Text, Content, ListItem, Button } from 'native-base';
 import axios from 'axios';
 import Entity from '../components/Entity';
+import NewCustomHeader from '../components/NewCustomHeader';
 &nbsp;
 export default class EntitiesScreen extends React.Component {
     state = {
@@ -300,13 +295,11 @@ export default class EntitiesScreen extends React.Component {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return (</span>
             &lt;Container&gt;
-                &lt;Header style={styles.header}&gt;
-                    &lt;Text style={styles.headerText}&gt;Organizações&lt;/Text&gt;
-                &lt;/Header&gt;
+                &lt;NewCustomHeader text='Entidades' fave={false} /&gt;
                 &lt;Content&gt;
                     &lt;List&gt;
-                        &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: 'Orgão', selectedEntityId: 'null' }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>}}&gt;
-                            &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: 'Orgão', selectedEntityId: 'null' }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>}}&gt;&lt;Text style={styles.buttonText}&gt;Todos&lt;/Text&gt;&lt;/Button&gt;
+                        &lt;ListItem style={styles.listItem} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: 'Entidade', selectedEntityId: 'null' }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>}}&gt;
+                            &lt;Button transparent onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >navigate('Agenda', { selectedEntity: 'Entidade', selectedEntityId: 'null' }); <span class="cstat-no" title="statement not covered" ></span>this.props.navigation.state.params.onSelect({ updateCall: true }); </span>}}&gt;&lt;Text style={styles.buttonText}&gt;Todos&lt;/Text&gt;&lt;/Button&gt;
                         &lt;/ListItem&gt;
                         {entities}
                     &lt;/List&gt;
@@ -344,7 +337,7 @@ const styles = StyleSheet.create({
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 14 2018 14:44:45 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 22 2018 22:45:50 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>

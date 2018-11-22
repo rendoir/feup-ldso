@@ -22,7 +22,7 @@ class EventPage extends Component {
             location: "",
             price: null,
             categories: [],
-            image: "http://localhost:3030/" + props.match.params.id,
+            image: "http://" + process.env.REACT_APP_API_URL + ":3030/" + props.match.params.id,
             alertType: null,
             alertMessage: null,
             redirect: false,
@@ -35,7 +35,7 @@ class EventPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3030/events/' + this.state.id)
+        axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/events/' + this.state.id)
             .then((res) => {
 
                 if (res.data === "" || Object.keys(res.data).length === 0) {
@@ -88,7 +88,7 @@ class EventPage extends Component {
 
     deleteEventConfirmed() {
         let self = this;
-        axios.delete("http://localhost:3030/", {
+        axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
                 user_id: 1,
                 id: self.state.id
@@ -180,7 +180,7 @@ class EventPage extends Component {
                         <Row className="event-page-body">
                             <Col sm={5}>
                                 <Image
-                                    src={'http://localhost:3030/' + this.state.id}
+                                    src={'http://' + process.env.REACT_APP_API_URL + ':3030/' + this.state.id}
                                     className="event-image"
                                     onError={this.getDefaultImage}
                                 />

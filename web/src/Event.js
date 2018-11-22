@@ -47,7 +47,7 @@ class Event extends Component {
 
     deleteEventRequest() {
         let self = this;
-        axios.delete("http://localhost:3030/", {
+        axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
                 user_id: 1,
                 id: self.props.info.id

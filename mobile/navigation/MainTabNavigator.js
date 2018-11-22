@@ -1,7 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -22,11 +20,7 @@ AgendaStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-calendar${focused ? '' : '-outline'}`
-                    : 'md-calendar'
-            }
+            name={'calendar'}
         />
     )
 };
@@ -40,17 +34,14 @@ FavoritesStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-star${focused ? '' : '-outline'}`
-                    : 'md-star-outline'
-            }
+            name={'heart-o'}
         />
     )
 };
 
 const SearchStack = createStackNavigator({
-    Search: SearchScreen
+    Search: SearchScreen,
+    Event: EventScreen
 });
 
 SearchStack.navigationOptions = {
@@ -58,7 +49,7 @@ SearchStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
+            name={'search'}
         />
     )
 };
@@ -74,8 +65,9 @@ export default createBottomTabNavigator({
         showLabel: true,
         activeTintColor: '#F8F8F8',
         inactiveTintColor: '#ffffff',
+        activeBackgroundColor: '#6090c0',
         style: {
-            backgroundColor: '#2c8f7f'
+            backgroundColor: '#002040'
         }
     }
 }
