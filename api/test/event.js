@@ -5,7 +5,6 @@ let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let Category = require('../models').categories;
 let User = require('../models').users;
-let Favorite = require('../models').favorites;
 
 let Common = require('./common');
 
@@ -14,7 +13,7 @@ let chaiHttp = require('chai-http');
 let app = require('../app');
 
 chai.use(chaiHttp);
-/*
+
 describe('Add Events', () => {
 
     before((done) => {
@@ -727,132 +726,142 @@ describe('Information of an event', () => {
         });
     });
 });
-*/
+
 
 describe('List and filter favorited events', () => {
 
     before((done) => {
-        Common.destroyDatabase();
-        // Create entities
-        Entity.bulkCreate([
-            {
-                id: 1,
-                name: 'Test Entity 1',
-                initials: 'TEST1'
-            },
-            {
-                id: 2,
-                name: 'Test Entity 2',
-                initials: 'TEST2'
-            },
-            {
-                id: 3,
-                name: 'Test Entity 3',
-                initials: 'TEST3'
-            }
-        ]).then(() =>
-            // Create categories
-            Category.bulkCreate([
+        // This.enableTimeouts(false);
+        models.sequelize.sync().then(() => {
+            Common.destroyDatabase();
+            // Create entities
+            Entity.bulkCreate([
                 {
                     id: 1,
-                    name: 'Test Category 1'
+                    name: 'Test Entity 1',
+                    initials: 'TEST1'
                 },
                 {
                     id: 2,
-                    name: 'Test Category 2'
+                    name: 'Another Entity 2',
+                    initials: 'ANOT2'
                 },
                 {
                     id: 3,
-                    name: 'Test Category 3'
+                    name: 'One More Test Entity 3',
+                    initials: 'ONET3'
+                },
+                {
+                    id: 4,
+                    name: 'One More Test Entity 4',
+                    initials: 'ONET4'
                 }
-            ]).then(() => { return Entity.findAll(); })
-                .then((entities) =>
-                    // Create user
-                    User.create({
-                        id: 1,
-                        username: 'TestUser',
-                        name: 'Test User',
-                        password: 'nasdasdasd',
-                        email: 'email@email.com',
-                        type: 'moderator'
-                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
-                        .then(() => {
-                            let start_date = new Date();
-                            start_date.setDate(start_date.getDate() + 1);
-                            // Create events
-                            EventModel.bulkCreate([
-                                {
-                                    id: 1,
-                                    title: "Test 1",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 1
-                                },
-                                {
-                                    id: 2,
-                                    title: "Test 2",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 2
-                                },
-                                {
-                                    id: 3,
-                                    title: "Test 3",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 2
-                                },
-                                {
-                                    id: 4,
-                                    title: "Test 4",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 3
-                                },
-                                {
-                                    id: 5,
-                                    title: "Test 5",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 3
-                                },
-                                {
-                                    id: 6,
-                                    title: "Test 6",
-                                    start_date: start_date,
-                                    user_id: 1,
-                                    entity_id: 3
-                                }
-                            ])
-                                // Add category 1 to event 1
-                                .then(() => Category.findByPrimary(1)
-                                    .then((category) => EventModel.findByPrimary(1)
-                                        .then((event) => event.addCategory(category)
-                                        )))
-                                // Add category 1 and 3 to event 2
-                                .then(() => Category.findAll({ where: { id: { [models.sequelize.Op.or]: [1, 3] } } })
-                                    .then((categories) => EventModel.findByPrimary(2)
-                                        .then((event) => event.setCategories(categories)
-                                        )))
-                                // Add category 2 to event 4
-                                .then(() => Category.findByPrimary(2)
-                                    .then((category) => EventModel.findByPrimary(4)
-                                        .then((event) => event.addCategory(category)
-                                        )))                                     
+            ]).then(() =>
 
-                                // Add events 1, 2,5 and 6 as favorite
-                                .then(() => EventModel.findAll({ where: { id: { [models.sequelize.Op.or]: [1, 2, 5, 6] } } })
-                                    .then((events) => User.findByPrimary(1)
-                                        .then((user) => {
-                                            user.setFavorite(events[0]);
-                                            user.setFavorite(events[1]);
-                                            user.setFavorite(events[2]);
-                                            user.setFavorite(events[3]);
-                                        })
-                                        .then(() => done())));
-                        })
-                )
-        );
+                Category.bulkCreate([
+                    {
+                        id: 1,
+                        name: 'Test Category 1'
+                    },
+                    {
+                        id: 2,
+                        name: 'Conference Category 2'
+                    },
+                    {
+                        id: 3,
+                        name: 'One More Test Category 3'
+                    }
+                ]).then(() => { return Entity.findAll(); })
+                    .then((entities) =>
+                        // Create user
+                        User.create({
+                            id: 1,
+                            username: 'TestUser',
+                            name: 'Test User',
+                            password: 'nasdasdasd',
+                            email: 'email@email.com',
+                            type: 'moderator',
+                            token: '123'
+                        }).then((user) => user.setEntities(entities) // Give full permissions to user
+                            .then(() => { return Category.findAll(); })
+                            .then((categories) => {
+                                let start_date1 = new Date();
+                                let start_date2 = new Date();
+                                let start_date3 = new Date();
+                                let start_date4 = new Date();
+                                let start_date5 = new Date();
+                                let start_date6 = new Date();
+
+                                start_date1.setDate(start_date1.getDate() + 1);
+                                start_date2.setDate(start_date2.getDate() + 2);
+                                start_date3.setDate(start_date3.getDate() + 3);
+                                start_date4.setDate(start_date4.getDate() + 4);
+                                start_date5.setDate(start_date5.getDate() + 5);
+                                start_date6.setDate(start_date6.getDate() + 6);
+                                // Create events
+
+                                EventModel.bulkCreate([
+                                    {
+                                        id: 1,
+                                        title: "Event 1",
+                                        start_date: start_date1,
+                                        user_id: 1,
+                                        entity_id: 1,
+                                        location: 'Class',
+                                        description: 'Conference'
+                                    },
+                                    {
+                                        id: 2,
+                                        title: "Test Conference 2",
+                                        start_date: start_date2,
+                                        user_id: 1,
+                                        entity_id: 2,
+                                        location: 'Other',
+                                        description: 'Conference 2'
+                                    },
+                                    {
+                                        id: 3,
+                                        title: "Another Conference 3",
+                                        start_date: start_date3,
+                                        user_id: 1,
+                                        entity_id: 2,
+                                        location: 'Somewhere'
+                                    },
+                                    {
+                                        id: 4,
+                                        title: "Test Class 4",
+                                        start_date: start_date4,
+                                        user_id: 1,
+                                        entity_id: 3,
+                                        location: 'Conference'
+                                    },
+                                    {
+                                        id: 5,
+                                        title: "One More Class 5",
+                                        start_date: start_date5,
+                                        user_id: 1,
+                                        entity_id: 4,
+                                        location: 'Class'
+                                    },
+                                    {
+                                        id: 6,
+                                        title: "Global Event 6",
+                                        start_date: start_date6,
+                                        user_id: 1,
+                                        entity_id: 4,
+                                        location: 'Anywhere'
+                                    }
+                                ]).then((events) => {
+                                    events[0].addCategory(categories[0]);
+                                    events[1].addCategory(categories[0]);
+                                    user.setFavorite(events[0]);
+                                    user.setFavorite(events[1]);
+                                    user.setFavorite(events[2]);
+                                    user.setFavorite(events[3]);
+                                })
+                                    .then(() => done());
+                            }))));
+        });
     });
 
     describe('/GET List all favorites', () => {
@@ -903,6 +912,7 @@ describe('List and filter favorited events', () => {
         it('It should filter favorited events by categories and entities', (done) => {
             chai.request(app)
                 .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
                 .query({ categories: 1, entities: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -916,8 +926,9 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events with pagination', () => {
         it('It should filter favorited events using pagination', (done) => {
             chai.request(app)
-                .get('/events/favorites')
-                .query({ offset: 0, limit: 2})
+                .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
+                .query({ offset: 0, limit: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');

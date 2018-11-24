@@ -12,7 +12,7 @@ let app = require('../app');
 chai.should();
 
 chai.use(chaiHttp);
-/*
+
 describe('List Entities', () => {
 
     before((done) => {
@@ -91,4 +91,3 @@ describe('List Entities', () => {
         });
     });
 });
-*/

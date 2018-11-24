@@ -12,7 +12,7 @@ let app = require('../app');
 chai.should();
 
 chai.use(chaiHttp);
-/*
+
 describe('Authentication', () => {
 
     describe('/POST App Login New User', () => {
@@ -275,9 +275,8 @@ describe('Favorite/Unfavorite an event', () => {
                     res.body.should.be.a('array');
                     res.body.should.have.length(1);
                     res.body[0].favorite[0].should.be.a('object');
-                    res.body[0].favorite[0].should.have.property('is_favorite');
-                    res.body[0].favorite[0].is_favorite.should.be.a('boolean');
-                    res.body[0].favorite[0].is_favorite.should.equal(true);
+                    res.body[0].favorite[0].should.have.property('favorites');
+                    res.body[0].favorite[0].favorites.should.be.a('object');
                     done();
                 });
         });
@@ -319,4 +318,3 @@ describe('Favorite/Unfavorite an event', () => {
         });
     });
 });
-*/

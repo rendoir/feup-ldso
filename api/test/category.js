@@ -11,7 +11,6 @@ let app = require('../app');
 chai.should();
 
 chai.use(chaiHttp);
-/*
 
 describe('Categories', () => {
 
@@ -63,5 +62,3 @@ describe('Categories', () => {
     });
 
 });
-
-*/

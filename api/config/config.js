@@ -12,7 +12,7 @@ module.exports = {
     test: {
         dialect: "postgres",
         user: "postgres",
-        host: "192.168.99.100", // 192.168.99.100 for Vitor
+        host: "postgres", // 192.168.99.100 for Vitor
         database: "postgres_test",
         password: "example",
         port: "5432",
