@@ -3,9 +3,11 @@ info:
   version: "1.0.0-oas3"
   title: Acontece na UPorto
   description: The API related to the event app Acontece na UPorto
-  
+  license:
+    name: FEUP
+
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://188.166.41.239:3030/api/docs'
 
 security:
   - BasicAuth: []
@@ -15,6 +17,7 @@ paths:
   /login:
     post:
       summary: Logs in the user on the website
+      operationId: logIn
       description: Authenticates a user on the website application to have access to all his/her entities and events
       tags:
         - Authentication
@@ -27,6 +30,7 @@ paths:
               properties:
                 user_id:
                   type: integer
+        x-name: login
       responses:
         '200':
           description: Authenticates the user
@@ -40,11 +44,33 @@ paths:
                     type: object
         '400':
           $ref: '#/components/responses/400Error' 
-          
-  
+      x-router-controller: "user"
+
+  /logout:
+    post:
+      summary: Logs out a user
+      operationId: appLogOut
+      description: Authenticates a user on the mobile application
+      tags:
+        - Authentication      
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object 
+                properties:
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/400Error' 
+      x-router-controller: "user"
+
   /app:
     post:
       summary: Lists all events on the app
+      operationId: listForUsers
       description: Returns a list of all events available to the user
       tags:
         - Mobile Application 
@@ -71,12 +97,14 @@ paths:
                   userID:
                     type: integer
         '400':
-          $ref: '#/components/responses/400Error' 
+          $ref: '#/components/responses/400Error'
+      x-router-controller: "event"
   
   
   /app/login:
     post:
       summary: Logs in the user on the app
+      operationId: appLogIn
       description: Authenticates a user on the mobile application
       tags:
         - Authentication
@@ -103,11 +131,13 @@ paths:
                   userID:
                     type: integer
         '400':
-          $ref: '#/components/responses/400Error' 
+          $ref: '#/components/responses/400Error'       
+      x-router-controller: "user"
           
   /app/entities:
     get:
       summary: Lists all entities
+      operationId: getEntities
       description: Returns a list containing all entities
       tags:
         - Mobile Application 
@@ -122,30 +152,14 @@ paths:
                   $ref: '#/components/schemas/Entity'
         '400':
           $ref: '#/components/responses/400Error'
+      x-router-controller: "entity"
           
-          
-  /logout:
-    post:
-      summary: Logs out a user
-      description: Authenticates a user on the mobile application
-      tags:
-        - Authentication      
-      responses:
-        '200':
-          description: Logout successful
-          content:
-            application/json:
-              schema:
-                type: object 
-                properties:
-                  message:
-                    type: string
-        '400':
-          $ref: '#/components/responses/400Error' 
-          
+
+         
   /web:
     get:
       summary: Lists events that a User has permission
+      operationId: listForWeb
       description: Returns a list containing all events to which the logged in user has permissions
       tags:
         - Website
@@ -163,10 +177,12 @@ paths:
                   $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/400Error'
-          
+      x-router-controller: "event"
+
   /events:
     get:
       summary: Lists some events for a User with optional filters
+      operationId: getEvents
       description:  Returns a list of events with startDate greater or equal than today and with the applied
       tags:
         - Mobile Application
@@ -198,10 +214,12 @@ paths:
                   $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/400Error'
-          
+      x-router-controller: "event"
+
   /events/{event_id}:
     get:
       summary: Gets information of an event
+      operationId: getEventInfo
       description: Returns the event with the given id
       tags:
         - Website
@@ -224,10 +242,12 @@ paths:
                   $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/400Error'
-  
+      x-router-controller: "event"
+
   /search/entities:
     get:
       summary: Lists events related to the searched entities with the given text
+      operationId: searchForEntities
       description: Returns a list of events whose entities matches the searched ones
       tags:
         - Search 
@@ -244,10 +264,12 @@ paths:
                   $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/400Error'
-  
+      x-router-controller: "event"
+
   /search/categories:
     get:
       summary: Lists events related to the searched categories with the given text
+      operationId: searchForCategories
       description: Returns a list of events whose categories matches the searched ones
       tags:
         - Search 
@@ -264,10 +286,12 @@ paths:
                   $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/400Error'
-          
+      x-router-controller: "event"
+
   /search/events:
     get:
       summary: Lists events with the given text
+      operationId: searchForEvents
       description: Returns a list of events whose title or description matches the given text
       tags:
         - Search 
@@ -284,10 +308,12 @@ paths:
                   $ref: '#/components/schemas/Event'
         '400':
           $ref: '#/components/responses/400Error'
-          
+      x-router-controller: "event"  
+
   /entities/{user_id}:
     get:
       summary: Lists entities that the given user has permission
+      operationId: getEntitiesWithPermission
       description: Returns a list of entities that the given user has permission to use
       tags:
         - Website 
@@ -305,10 +331,12 @@ paths:
                   $ref: '#/components/schemas/Entity'
         '400':
           $ref: '#/components/responses/400Error'        
+      x-router-controller: "entity"
 
   /categories:
     get:
       summary: Lists all categories
+      operationId: getCategories
       description: Returns a list containing all categories
       tags:
         - Mobile Application 
@@ -323,26 +351,12 @@ paths:
                   $ref: '#/components/schemas/Category'
         '400':
           $ref: '#/components/responses/400Error'
-          
+      x-router-controller: "category"    
+
   /favorite:
-    get:
-      summary: Verifies if an event is favorited
-      description: Returns true if is favorited, false if not
-      tags:
-        - Mobile Application 
-      parameters:
-        - $ref: '#/components/parameters/pathUserID'
-      responses:
-        '200':
-          description: The endpoint was successful
-          content:
-            application/json:
-              schema:
-                type: boolean
-        '400':
-          $ref: '#/components/responses/400Error'    
     post:
       summary: Favorites or unfavorites an event
+      operationId: toggleFavorite
       description: If an event is favorited, it unfavorites the event, else it favorites the event.
       tags:
         - Mobile Application 
@@ -366,10 +380,12 @@ paths:
                 $ref: '#/components/schemas/Favorite'
         '400':
           $ref: '#/components/responses/400Error' 
-          
+      x-router-controller: "event"  
+
   /:
     post:
       summary: Creates an event
+      operationId: add
       description: Adds an event to the events list
       tags:
         - Website
@@ -384,10 +400,11 @@ paths:
           description: Successfully created a new artist
         '400':
           $ref: '#/components/responses/400Error' 
-    
+      x-router-controller: "event"
     
     delete:
       summary: Deletes an event
+      operationId: delete
       description: Removes an event from the events
       tags:
         - Website
@@ -396,7 +413,7 @@ paths:
           description: The toggle was successful
         '404':
           description: There was an error
-    
+      x-router-controller: "event"
             
 
 components:
