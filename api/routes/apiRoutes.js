@@ -34,11 +34,9 @@ router.post("/app/login", async(req, res) => {
         return res.status(400).send({ err: user });
 });
 
-router.post('/logout', (req, res) => {
-    req.logout();
 
-    return res.status(200).send({ message: 'Logged out successfully' });
-});
+router.post("/logout",  userController.appLogOut);
+
 
 router.post("/", passport.authenticate('jwt', { session: false }), function(req, res) {
 
@@ -89,5 +87,6 @@ router.get("/events/:event_id", eventController.getEventInfo);
 // List events
 router.get("/app", eventController.listForUsers);
 router.get("/web", passport.authenticate('jwt', { session: false }), eventController.listForWeb);
+
 
 module.exports = router;

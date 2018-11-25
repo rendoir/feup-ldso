@@ -4,7 +4,6 @@ let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
-
 let Common = require('./common');
 
 let chai = require('chai');
