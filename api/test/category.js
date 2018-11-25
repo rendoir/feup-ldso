@@ -12,7 +12,6 @@ chai.should();
 
 chai.use(chaiHttp);
 
-
 describe('Categories', () => {
 
     before((done) => {
@@ -63,4 +62,3 @@ describe('Categories', () => {
     });
 
 });
-

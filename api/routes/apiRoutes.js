@@ -82,6 +82,7 @@ router.post("/favorite", eventController.toggleFavorite);
 
 // Filter events
 router.get("/events", eventController.getEvents);
+router.get("/events/favorites", eventController.listFavorites);
 router.get("/events/:event_id", eventController.getEventInfo);
 
 // List events

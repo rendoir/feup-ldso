@@ -30,6 +30,7 @@ export default class CategoriesScreen extends React.Component {
     }
 
     getCategoriesFromApi() {
+        console.log("LOL");
         let self = this;
         axios.get('http://' + global.api + ':3030/categories')
             .then(function(response) {

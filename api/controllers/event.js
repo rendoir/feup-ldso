@@ -202,6 +202,57 @@ module.exports = {
             return;
         }
 
+        query_options = module.exports.filterOfQueryOptions(req, query_options);
+
+        // Get favorite boolean
+        query_options.include.push({
+            model: sequelize.models.users,
+            as: 'favorite',
+            where: {
+                id: user_id
+            },
+            attributes: ["id"],
+            required: false
+        });
+
+        return Event.findAll(query_options)
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    listFavorites(req, res) {
+        let query_options = {};
+        query_options.where = {};
+        query_options.include = [];
+
+        // Check if user token matches
+        let user_id = req.query.user_id;
+        let token = req.query.token;
+        if (!User.tokenMatches(token, user_id)) {
+            res.status(401).send();
+            return;
+        }
+
+        query_options = module.exports.filterOfQueryOptions(req, query_options);
+
+        query_options.include.push({
+            model: sequelize.models.users,
+            as: 'favorite',
+            where: {
+                id: user_id
+            },
+            attributes: ["id"],
+            required: true
+        });
+
+        return Event.findAll(query_options)
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+
+    },
+
+    filterOfQueryOptions(req, query_options){
+        let query_opts = query_options;
         // Shouldn't include past events
         if (!req.query.past) {
             let today = Math.floor(Date.now());
@@ -231,7 +282,7 @@ module.exports = {
 
         // Filter categories
         if (req.query.categories) {
-            query_options.include.push({
+            query_opts.include.push({
                 model: sequelize.models.categories,
                 required: true,
                 where: {
@@ -243,29 +294,7 @@ module.exports = {
                 model: sequelize.models.categories
             });
         }
-
-        // Get favorite boolean
-        query_options.include.push({
-            model: sequelize.models.users,
-            as: 'favorite',
-            where: {
-                id: user_id
-            },
-            attributes: {
-                exclude: ["id", "username", "name", "password", "email", "token", "type"],
-                include: [[sequelize.literal('CASE "favorite".id WHEN ' + user_id + ' THEN true ELSE false END'), 'is_favorite']]
-            },
-            required: false
-        });
-
-        query_options.attributes = [
-            'id', 'title', 'description', 'entity_id',
-            'start_date', 'end_date', 'location', 'user_id'
-        ];
-
-        return Event.findAll(query_options)
-            .then((events) => res.status(200).send(events))
-            .catch((error) => res.status(400).send(error));
+        return query_opts;
     },
 
     isEventFavorited(event_id, user_id) {
