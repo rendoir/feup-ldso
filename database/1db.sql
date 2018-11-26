@@ -32,7 +32,9 @@ CREATE TABLE events
 (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
+    title_english TEXT NOT NULL,
     description TEXT,
+    description_english TEXT,
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP,
     location TEXT,
@@ -53,7 +55,9 @@ CREATE TABLE categories
 (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
-    description TEXT
+    name_english TEXT NOT NULL UNIQUE,
+    description TEXT,
+    description_english TEXT
 );
 
 DROP TABLE IF EXISTS notifications;
@@ -62,6 +66,7 @@ CREATE TABLE notifications
     id SERIAL PRIMARY KEY,
     date TIMESTAMP NOT NULL,
     description TEXT NOT NULL,
+    description_english TEXT NOT NULL,
     seen BOOLEAN NOT NULL,
     
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

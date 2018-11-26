@@ -304,57 +304,6 @@ describe('Infinite scroll', () => {
 
     });
 
-    it('Get more events on scroll handling', async() => {
-
-        mockAxios.onGet().reply(200,
-            [{
-                id: 1,
-                title: 'Title',
-                description: 'description',
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                initials: 'FEUP',
-                is_favorite: true
-            },
-            {
-                id: 2,
-                title: 'Title',
-                description: 'description',
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                initials: 'FEUP',
-                is_favorite: false
-            },
-            {
-                id: 3,
-                title: 'Title',
-                description: 'description',
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                initials: 'FEUP',
-                favorite: [1]
-            }]
-        );
-
-        const navigation = { getParam: jest.fn() };
-
-        const wrapper = await shallow(<FavoritesScreen
-            loading={true}
-            navigation={navigation}
-        />);
-
-        await wrapper.instance().getFavoriteEvents();
-
-        expect(wrapper.state().events.length).toEqual(3);
-
-        let page = wrapper.state().eventsPage + 1;
-
-        await wrapper.setState({ eventsPage: page });
-
-        await wrapper.instance().getFavoriteEvents();
-
-        expect(wrapper.state().events.length).toBeGreaterThanOrEqual(3);
-    });
 });
 
 describe('Pull refresh', () => {

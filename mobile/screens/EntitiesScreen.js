@@ -58,11 +58,11 @@ export default class EntitiesScreen extends React.Component {
 
         return (
             <Container>
-                <NewCustomHeader text='Entidades' fave={false} />
+                <NewCustomHeader text={global.dictionary["ENTITIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
                 <Content>
                     <List>
-                        <ListItem style={styles.listItem} onPress={() => { navigate('Agenda', { selectedEntity: 'Entidade', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
-                            <Button transparent onPress={() => { navigate('Agenda', { selectedEntity: 'Entidade', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>Todos</Text></Button>
+                        <ListItem style={styles.listItem} className="list-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
+                            <Button transparent className="all-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
                         </ListItem>
                         {entities}
                     </List>

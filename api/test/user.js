@@ -219,7 +219,9 @@ describe('Favorite/Unfavorite an event', () => {
                         EventModel.create({
                             id: 1,
                             title: "Test ",
+                            title_english: "Test ",
                             description: "Hello There",
+                            description_english: "Hello There",
                             start_date: start_date,
                             user_id: 1,
                             entity_id: 1

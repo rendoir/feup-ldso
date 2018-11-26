@@ -72,6 +72,16 @@ export default class AgendaScreen extends React.Component {
             : Linking.openURL('http://maps.google.com/maps/geo:0,0?q=' + encodeURI(this.state.event.location));
     }
 
+    getTitle() {
+        if (this.props.screenProps.language === "PT") return this.state.event.title;
+        else if (this.props.screenProps.language === "EN") return this.state.event.title_english;
+    }
+
+    getDescription() {
+        if (this.props.screenProps.language === "PT") return this.state.event.description;
+        else if (this.props.screenProps.language === "EN") return this.state.event.description_english;
+    }
+
     render() {
         if (this.state.loading) {
             return (
@@ -83,8 +93,8 @@ export default class AgendaScreen extends React.Component {
 
         return (
             <View style={{ backgroundColor: 'white' }}>
-                <NewCustomHeader text=' ' fave={true} />
-                <ScrollView style={{ backgroundColor: 'white', height: '100%' }}>
+                <NewCustomHeader text=' ' fave={true} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
+                <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: 'white', height: '100%' }}>
 
                     <View style={{ margin: '0%', padding: '0%', width: '100%', backgroundColor: 'white' }}>
                         <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.state.event.id } : require('../assets/images/default.png')}
@@ -93,7 +103,7 @@ export default class AgendaScreen extends React.Component {
                     </View>
 
                     <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-                        <Text style={{ textAlign: 'left', lineHeight: 45, fontSize: 16, color: '#2c8f7f', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>{this.state.event.title}</Text>
+                        <Text style={{ textAlign: 'left', lineHeight: 45, fontSize: 16, color: '#2c8f7f', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>{this.getTitle()}</Text>
                     </View>
 
                     <View style={{ marginHorizontal: '5%', backgroundColor: '#f8f8d9' }}>
@@ -109,17 +119,17 @@ export default class AgendaScreen extends React.Component {
 
                         <View style={{ flexDirection: 'row' }}>
                             <Icon type='FontAwesome' name='money' style={{ flex: 1, fontSize: 13 }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>Preço: {this.state.event.price}€</Text>
+                            <Text style={[styles.simpleText, { flex: 11 }]}>{global.dictionary["PRICE"][this.props.screenProps.language]}: {this.state.event.price}€</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: '2%' }}>
                             <View style={{ flex: 1 }} />
                             <Button className="map-button" rounded style={{ flex: 3, height: 35, backgroundColor: '#2c8f7f' }} onPress={() => this.redirectGoogleMaps()}>
-                                <Text>Mapa</Text>
+                                <Text>{global.dictionary["MAP"][this.props.screenProps.language]}</Text>
                             </Button>
                             <View style={{ flex: 1 }} />
                             <Button rounded style={{ flex: 3, height: 35, backgroundColor: '#2c8f7f' }}>
-                                <Text>Calendário</Text>
+                                <Text>{global.dictionary["CALENDAR"][this.props.screenProps.language]}</Text>
                             </Button>
                             <View style={{ flex: 1 }} />
                         </View>
@@ -127,13 +137,14 @@ export default class AgendaScreen extends React.Component {
                     </View>
 
                     <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-                        <Text style={[styles.simpleText, { textAlign: 'justify' }]}>{this.state.event.description}</Text>
+                        <Text style={[styles.simpleText, { textAlign: 'justify' }]}>{this.getDescription()}</Text>
                     </View>
 
                 </ScrollView>
             </View >
         );
     }
+
 }
 
 const styles = StyleSheet.create({

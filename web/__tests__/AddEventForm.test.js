@@ -79,6 +79,29 @@ describe("AddEventForm Inputs Change", () => {
 
     });
 
+    it('Check state on title_english input change', async() => {
+
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>);
+
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('input#form-title-english.form-control').first();
+
+        input.simulate('change', {
+            target: { value: 'Title' }
+        });
+
+        expect(
+            wrapperForm.state().title_english
+        ).toEqual('Title');
+
+
+    });
+
     it('Check state on description input change', () => {
 
         const wrapper = mount(
@@ -98,6 +121,29 @@ describe("AddEventForm Inputs Change", () => {
 
         expect(
             wrapperForm.state().description
+        ).toEqual('Description');
+
+    });
+
+    it('Check state on description_english input change', () => {
+
+        const wrapper = mount(
+            <BrowserRouter>
+                <AddEventForm
+                    categories={[]}
+                    entities={[{ key: 0, value: 1, text: 'Test' }, { key: 1, value: 2, text: 'Test' }]} />
+            </BrowserRouter>
+        );
+
+        let wrapperForm = wrapper.find(AddEventForm).first();
+        const input = wrapper.find('textarea#form-descriptionAndImage.form-control.description_english').first();
+
+        input.simulate('change', {
+            target: { value: 'Description' }
+        });
+
+        expect(
+            wrapperForm.state().description_english
         ).toEqual('Description');
 
     });
@@ -329,7 +375,9 @@ describe("Check Add Event Form Requests", () => {
         let endDate = new Date(date.getDay() + 2).toISOString();
         wrapperForm.setState({
             title: 'Title',
+            title_english: 'Title',
             description: 'description',
+            description_english: 'description',
             startDate: startDate,
             endDate: endDate,
             location: 'FEUP, Porto',
@@ -375,7 +423,9 @@ describe("Check Add Event Form Requests", () => {
         let endDate = new Date(date.getDay() + 2).toISOString();
         wrapperForm.setState({
             title: 'Title',
+            title_english: 'Title',
             description: 'description',
+            description_english: 'description',
             startDate: startDate,
             endDate: endDate,
             location: 'FEUP, Porto',
@@ -419,7 +469,9 @@ describe("Check Add Event Form Requests", () => {
         let endDate = new Date(date.getDay() + 2).toISOString();
         wrapperForm.setState({
             title: 'Title',
+            title_english: 'Title',
             description: 'description',
+            description_english: 'description',
             startDate: startDate,
             endDate: endDate,
             location: 'FEUP, Porto',
@@ -463,7 +515,9 @@ describe("Check Add Event Form Requests", () => {
         let endDate = new Date(date.getDay() + 2).toISOString();
         wrapperForm.setState({
             title: 'Title',
+            title_english: 'Title',
             description: 'description',
+            description_english: 'description',
             startDate: startDate,
             endDate: endDate,
             location: 'FEUP, Porto',

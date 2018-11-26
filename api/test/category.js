@@ -22,21 +22,29 @@ describe('Categories', () => {
                     {
                         id: 1,
                         name: "Category 1",
-                        description: "description 1"
+                        name_english: "Category 1",
+                        description: "description 1",
+                        description_english: "description 1"
                     },
                     {
                         id: 2,
                         name: "Category 2",
-                        description: "description 2"
+                        name_english: "Category 2",
+                        description: "description 2",
+                        description_english: "description 2"
                     },
                     {
                         id: 3,
                         name: "Category 3",
-                        description: "description 3"
+                        name_english: "Category 3",
+                        description: "description 3",
+                        description_english: "description 3"
                     }, {
                         id: 4,
                         name: "Category 4",
-                        description: "description 4"
+                        name_english: "Category 4",
+                        description: "description 4",
+                        description_english: "description 4"
                     }
                 ]).then(() => done())
                     .catch(() => done());

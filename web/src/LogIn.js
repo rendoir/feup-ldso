@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, FormControl, Col, Button, Row, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import './LogIn.css';
 
 class LogIn extends Component {
 
@@ -76,6 +77,7 @@ class LogIn extends Component {
                     <Col sm={4}></Col>
                     <Col sm={4}>
                         <Form onSubmit={this.handleLogIn}>
+                            <h2>Acontece na U.Porto</h2>
                             <FormControl type="email" required placeholder="Email"
                                 value={this.state.emailInput} className="email-input" onChange={this.updateEmailInput} />
 

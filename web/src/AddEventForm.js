@@ -8,7 +8,9 @@ import './AddEventForm.css';
 
 const initialState = {
     title: "",
+    title_english: "",
     description: "",
+    description_english: "",
     image: "",
     startDate: "",
     endDate: "",
@@ -33,7 +35,9 @@ class AddEventForm extends Component {
 
         this.state = {
             title: "",
+            title_english: "",
             description: "",
+            description_english: "",
             image: "",
             startDate: "",
             endDate: "",
@@ -47,7 +51,9 @@ class AddEventForm extends Component {
         };
 
         this.updateTitle = this.updateTitle.bind(this);
+        this.updateTitleEnglish = this.updateTitleEnglish.bind(this);
         this.updateDescription = this.updateDescription.bind(this);
+        this.updateDescriptionEnglish = this.updateDescriptionEnglish.bind(this);
         this.updateImage = this.updateImage.bind(this);
         this.updateStartDate = this.updateStartDate.bind(this);
         this.updateEndDate = this.updateEndDate.bind(this);
@@ -64,8 +70,16 @@ class AddEventForm extends Component {
         this.setState({ title: event.target.value });
     }
 
+    updateTitleEnglish(event) {
+        this.setState({ title_english: event.target.value });
+    }
+
     updateDescription(event) {
         this.setState({ description: event.target.value });
+    }
+
+    updateDescriptionEnglish(event) {
+        this.setState({ description_english: event.target.value });
     }
 
     updateImage(event) {
@@ -127,7 +141,9 @@ class AddEventForm extends Component {
 
         var data = new FormData();
         data.append('title', this.state.title);
+        data.append('title_english', this.state.title_english);
         data.append('description', this.state.description);
+        data.append('description_english', this.state.description_english);
         data.append('start_date', this.state.startDate);
         data.append('end_date', this.state.endDate);
         data.append('location', this.state.location);
@@ -238,12 +254,25 @@ class AddEventForm extends Component {
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            <FormGroup controlId="form-title-english">
+                                <Row>
+                                    <Col sm={2} className="align_left"><Form.Label>Título do Evento (Inglês): </Form.Label></Col>
+                                    <Col sm={5}>
+                                        <FormControl type="text" required value={this.state.title_english} onChange={this.updateTitleEnglish} />
+                                    </Col>
+                                    <Col sm={5}></Col>
+                                </Row>
+                            </FormGroup>
 
                             <FormGroup controlId="form-descriptionAndImage">
                                 <Row>
-                                    <Col sm={8} className="align_left">
+                                    <Col sm={4} className="align_left">
                                         <Form.Label>Descrição do Evento: </Form.Label>
                                         <FormControl as="textarea" required rows="10" value={this.state.description} onChange={this.updateDescription} />
+                                    </Col>
+                                    <Col sm={4} className="align_left">
+                                        <Form.Label>Descrição do Evento (Inglês): </Form.Label>
+                                        <FormControl as="textarea" className="description_english" required rows="10" value={this.state.description_english} onChange={this.updateDescriptionEnglish} />
                                     </Col>
                                     <Col sm={4}>
                                         <FormGroup controlId="form-image" id="form-image-div">

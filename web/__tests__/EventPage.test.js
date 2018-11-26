@@ -25,8 +25,8 @@ describe("Render", () => {
             id: 1,
             title: 'Title',
             description: 'description',
-            start_date: '2018-10-27 11:11:00',
-            end_date: '2018-10-28 11:11:00',
+            start_date: '2018-10-07 11:00:00',
+            end_date: '2018-10-08 11:00:00',
             entity_id: 1,
             location: 'Porto',
             price: 10,
@@ -73,8 +73,8 @@ describe("Check ComponentDidMount", () => {
             id: 1,
             title: 'Title',
             description: 'description',
-            start_date: '2018-10-27 11:11:00',
-            end_date: '2018-10-28 11:11:00',
+            start_date: '2019-01-27 11:11:00',
+            end_date: '2019-01-28 11:11:00',
             entity_id: 1,
             location: 'Porto',
             price: 10,
@@ -116,8 +116,8 @@ describe("Check ComponentDidMount", () => {
             expect(wrapperPage.state().id).toEqual(1);
             expect(wrapperPage.state().title).toEqual('Title');
             expect(wrapperPage.state().description).toEqual('description');
-            expect(wrapperPage.state().start_date).toEqual('27/10/2018 11:11');
-            expect(wrapperPage.state().end_date).toEqual('28/10/2018 11:11');
+            expect(wrapperPage.state().start_date).toEqual('27/01/2019 11:11');
+            expect(wrapperPage.state().end_date).toEqual('28/01/2019 11:11');
             expect(wrapperPage.state().entity_id).toEqual(1);
             expect(wrapperPage.state().location).toEqual('Porto');
             expect(wrapperPage.state().price).toEqual(10);

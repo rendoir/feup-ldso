@@ -17,8 +17,6 @@ export default class FavoritesScreen extends React.Component {
         this.state = {
             loading: true,
             events: [],
-            entity: null,
-            category: null,
             updateCall: false,
             eventsPage: 0,
             refreshing: false
@@ -54,17 +52,10 @@ export default class FavoritesScreen extends React.Component {
 
     async getFavoriteEvents() {
         let token = await SecureStore.getItemAsync('access_token');
-
         let self = this;
         let apiLink = 'http://' + global.api + ':3030/events/favorites?limit=' + 10 + '&offset=' + (this.state.eventsPage * 10) + '&';
         apiLink += "user_id=" + global.userId + '&';
         apiLink += "token=" + token + '&';
-        if (this.props.navigation.getParam('selectedEntity', 'Entidade') != 'Entidade') {
-            apiLink += 'entities=' + this.props.navigation.getParam('selectedEntityId', 'null') + '&';
-        }
-        if (this.props.navigation.getParam('selectedCategory', 'Categoria') != 'Categoria') {
-            apiLink += 'categories=' + this.props.navigation.getParam('selectedCategoryId', 'null') + '&';
-        }
         axios.get(apiLink)
             .then(function(response) {
 
@@ -147,7 +138,7 @@ export default class FavoritesScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         const events = this.state.events.map((event) => (
-            <FavoriteEvent {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
+            <FavoriteEvent language={this.props.screenProps.language} {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
 
         if (this.state.updateCall)
@@ -159,7 +150,7 @@ export default class FavoritesScreen extends React.Component {
                 <Card>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: '5%' }}>
                         <Icon type="Feather" name="info" />
-                        <Text>Não há eventos favoritos para mostrar.</Text>
+                        <Text>{global.dictionary["NO_FAVORITES"][this.props.screenProps.language]}</Text>
                     </View>
                 </Card>
             );
@@ -167,11 +158,11 @@ export default class FavoritesScreen extends React.Component {
 
         return (
             <View style={{ backgroundColor: '#7C8589' }}>
-                <CustomHeader />
+                <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
                 <ScrollView className="scroll_view" refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /> } stickyHeaderIndices={[0]} style={{ backgroundColor: '#7C8589', height: '100%', marginBottom: '10%' }} onScroll={this.handleScroll}>
 
                     <View style={{ marginVertical: '3%', paddingHorizontal: '5%', backgroundColor: '#7C8589', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 25, color: 'white' }}>Favoritos</Text>
+                        <Text style={{ fontSize: 25, color: 'white' }}>{global.dictionary["FAVORITES"][this.props.screenProps.language]}</Text>
                     </View>
 
                     <View style={{ marginHorizontal: '2%', backgroundColor: '#7C8589', marginBottom: '10%' }}>

@@ -9,15 +9,19 @@ export default class Category extends React.Component {
 
     constructor(props) {
         super(props);
-
     }
 
     render() {
         return (
             <ListItem style={styles.listItem} onPress={this.props.onPress} >
-                <Button transparent onPress={this.props.onPress}><Text style={styles.buttonText}>{this.props.data.name}</Text></Button>
+                <Button transparent onPress={this.props.onPress}><Text style={styles.buttonText}>{this.getName()}</Text></Button>
             </ListItem>
         );
+    }
+
+    getName() {
+        if (this.props.language === "PT")      return this.props.data.name;
+        else if (this.props.language === "EN") return this.props.data.name_english;
     }
 }
 
