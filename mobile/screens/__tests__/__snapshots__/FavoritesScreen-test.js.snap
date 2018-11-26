@@ -81,7 +81,6 @@ exports[`App snapshot renders list events 1`] = `
       "flex": 1,
     }
   }
-  virtual={undefined}
 >
   <Modal
     animationType="fade"
@@ -91,16 +90,8 @@ exports[`App snapshot renders list events 1`] = `
     visible={false}
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
       accessible={true}
-      collapsable={undefined}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
       isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -115,20 +106,10 @@ exports[`App snapshot renders list events 1`] = `
           "opacity": 1,
         }
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
         accessible={true}
-        collapsable={undefined}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
         isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
         onResponderRelease={[Function]}
@@ -146,8 +127,6 @@ exports[`App snapshot renders list events 1`] = `
             "padding": 15,
           }
         }
-        testID={undefined}
-        tvParallaxProperties={undefined}
       />
     </View>
   </Modal>

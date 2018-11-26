@@ -23,7 +23,7 @@ class Event extends Component {
         var date = new Date(props.info.start_date);
 
         this.state = {
-            day: date.getDay(),
+            day: (date.getDate() < 10 ? '0' : '') + date.getDate(),
             month: monthNames[date.getMonth()],
             year: date.getFullYear()
         };

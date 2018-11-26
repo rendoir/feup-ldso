@@ -15,6 +15,15 @@ const AgendaStack = createStackNavigator({
     Event: EventScreen
 });
 
+const FavoritesStack = createStackNavigator({
+    Favorites: FavoritesScreen
+});
+
+const SearchStack = createStackNavigator({
+    Search: SearchScreen,
+    Event: EventScreen
+});
+
 AgendaStack.navigationOptions = {
     tabBarLabel: 'Agenda',
     tabBarIcon: ({ focused }) => (
@@ -24,10 +33,6 @@ AgendaStack.navigationOptions = {
         />
     )
 };
-
-const FavoritesStack = createStackNavigator({
-    Favorites: FavoritesScreen
-});
 
 FavoritesStack.navigationOptions = {
     tabBarLabel: 'Favoritos',
@@ -39,11 +44,6 @@ FavoritesStack.navigationOptions = {
     )
 };
 
-const SearchStack = createStackNavigator({
-    Search: SearchScreen,
-    Event: EventScreen
-});
-
 SearchStack.navigationOptions = {
     tabBarLabel: 'Pesquisa',
     tabBarIcon: ({ focused }) => (
@@ -54,7 +54,7 @@ SearchStack.navigationOptions = {
     )
 };
 
-export default createBottomTabNavigator({
+const MyBottomTabNavigator = createBottomTabNavigator({
     FavoritesStack,
     AgendaStack,
     SearchStack
@@ -72,3 +72,22 @@ export default createBottomTabNavigator({
     }
 }
 );
+
+export default class MainTabNavigator extends React.Component {
+    static router = MyBottomTabNavigator.router;
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        this.setLabels();
+        return <MyBottomTabNavigator {...this.props} />;
+    }
+
+    setLabels() {
+        MainTabNavigator.router.getComponentForRouteName('AgendaStack').navigationOptions.tabBarLabel = global.dictionary["AGENDA"][this.props.screenProps.language];
+        MainTabNavigator.router.getComponentForRouteName('FavoritesStack').navigationOptions.tabBarLabel = global.dictionary["FAVORITES"][this.props.screenProps.language];
+        MainTabNavigator.router.getComponentForRouteName('SearchStack').navigationOptions.tabBarLabel = global.dictionary["SEARCH"][this.props.screenProps.language];
+    }
+}

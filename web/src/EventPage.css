@@ -26,9 +26,12 @@ div.row.event-page-body {
     padding: 0 2em;
 }
 
+div.row.event-page-body > div:first-of-type {
+    text-align: left;
+}
+
 img.event-image {
-    margin: 1em auto;
-    text-align: center;
+    margin: 1em auto 1em 0;
     max-width: 100%;
     max-height: 300px;
 }
@@ -39,13 +42,33 @@ p.event-description {
     text-align: justify;
 }
 
+span.category-span {
+    background-color: #4a4a4a;
+    border-radius: 10px;
+    color: white;
+    padding: 0.5em;
+    margin: 0 0.5em;
+}
+
 div.row.event-page-info {
     margin: 2em 0;
+    text-align: left;
+}
+
+div.row.event-page-info > div:first-of-type{
+    padding-left: 4em;
 }
 
 div.row.event-page-info div div {
     margin: 1em 0;
 }
+
+
+div.div-border {
+    border-right: 1px solid black;
+}
+
+
 
 h4.display-inline {
     display: inline;

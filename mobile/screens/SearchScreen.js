@@ -53,7 +53,8 @@ export default class SearchScreen extends React.Component {
 
         let apiLink = 'http://' + global.api + ':3030/search/events?text=' + self.state.searchText;
         apiLink += "&user_id=" + global.userId + '&';
-        apiLink += "token=" + this.state.token;
+        apiLink += "token=" + this.state.token + '&';
+        apiLink += "lang=" + this.props.screenProps.language;
 
         axios.get(apiLink)
             .then(function(response) {
@@ -115,8 +116,8 @@ export default class SearchScreen extends React.Component {
 
         const { navigate } = this.props.navigation;
 
-        const events = this.state.events.map((event) => (
-            <Event {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
+        let events = this.state.events.map((event) => (
+            <Event language={this.props.screenProps.language} {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
 
 
@@ -127,7 +128,7 @@ export default class SearchScreen extends React.Component {
                 <Card>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: '5%' }}>
                         <Icon type="Feather" name="info" />
-                        <Text>Não há eventos para a pesquisa feita.</Text>
+                        <Text>{global.dictionary["NO_SEARCH_RESULTS"][this.props.screenProps.language]}</Text>
                     </View>
                 </Card>
             );
@@ -135,10 +136,11 @@ export default class SearchScreen extends React.Component {
 
         return (
             <View style={{ backgroundColor: '#F0F0F0' }}>
-                <CustomHeader />
-                <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: '#F0F0F0', height: '100%' }}>
+                <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
+                <ScrollView stickyHeaderIndices={[2]} style={{ backgroundColor: '#F0F0F0', height: '100%' }}>
 
-                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', backgroundColor: '#F0F0F0' }}>
+                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', paddingBottom: '2%', backgroundColor: '#F0F0F0' }}>
+                        <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>{global.dictionary["SEARCH"][this.props.screenProps.language]}</Text>
 
                         <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#F0F0F0' }}>
                             <View style={{ flex: 1 }}>
@@ -146,7 +148,7 @@ export default class SearchScreen extends React.Component {
                             </View>
                             <View style={{ flex: 5 }}>
                                 <Item style={{ height: 30, borderBottomWidth: 3, borderColor: '#002040' }}>
-                                    <Input style={{ fontSize: 20, width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
+                                    <Input style={{ fontSize: 20, width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} className="search-input" onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
                                     <Icon style={{ fontSize: 20 }} type="FontAwesome" name="search" />
                                 </Item>
                             </View>

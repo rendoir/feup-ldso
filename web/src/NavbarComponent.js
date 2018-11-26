@@ -42,12 +42,12 @@ class NavbarComponent extends Component {
         let logoutElement;
 
         if (document.cookie !== undefined &&
-      document.cookie.indexOf("access_token=") !== -1) {
+            document.cookie.indexOf("access_token=") !== -1) {
 
             logoutElement =
-        <Route render={({ history }) =>
-            (<Button onClick={() => this.handleLogOut(history)}
-                id="logout-button"><FontAwesomeIcon icon="sign-out-alt" /></Button>)} />;
+                <Route render={({ history }) =>
+                    (<Button onClick={() => this.handleLogOut(history)}
+                        id="logout-button"><FontAwesomeIcon icon="sign-out-alt" /></Button>)} />;
         }
 
         return (

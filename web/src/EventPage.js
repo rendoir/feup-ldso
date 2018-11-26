@@ -14,7 +14,9 @@ class EventPage extends Component {
         this.state = {
             id: props.match.params.id,
             title: "",
+            title_english: "",
             description: "",
+            description_english: "",
             entity_id: null,
             entity: null,
             end_date: "",
@@ -44,17 +46,37 @@ class EventPage extends Component {
 
 
                     let date = new Date(res.data.start_date);
-                    let stringDateStart = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+                    let dd = date.getDate();
+                    let mm = date.getMonth() + 1;
+                    let yyyy = date.getFullYear();
+                    if (dd < 10) {
+                        dd = '0' + dd;
+                    }
+                    if (mm < 10) {
+                        mm = '0' + mm;
+                    }
+                    let stringDateStart = dd + "/" + mm + "/" + yyyy + " " + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
                     let stringDateEnd = null;
                     if (res.data.end_date !== null) {
                         date = new Date(res.data.end_date);
-                        stringDateEnd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+                        dd = date.getDate();
+                        mm = date.getMonth() + 1;
+                        yyyy = date.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd;
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm;
+                        }
+                        stringDateEnd = dd + "/" + mm + "/" + yyyy + " " + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
                     }
 
                     this.setState({
                         title: res.data.title,
+                        title_english: res.data.title_english,
                         description: res.data.description,
+                        description_english: res.data.description_english,
                         start_date: stringDateStart,
                         end_date: stringDateEnd,
                         location: res.data.location,
@@ -132,7 +154,7 @@ class EventPage extends Component {
         }
 
         let categories = this.state.categories.map((cat, i) => {
-            return <span key={i}>{cat.name}</span>;
+            return <span key={i} className="category-span">{cat.name}</span>;
         });
 
 
@@ -158,7 +180,7 @@ class EventPage extends Component {
                                         Eventos
                                     </Link>
                                 </Breadcrumb.Item>
-                                <Breadcrumb.Item active>Criar Evento</Breadcrumb.Item>
+                                <Breadcrumb.Item active>{this.state.title}</Breadcrumb.Item>
                             </Breadcrumb>
                         </Col>
                         <Col sm={4} md={2}>
@@ -168,7 +190,7 @@ class EventPage extends Component {
                     <div id="page-event">
                         <Row className="event-page-header">
                             <Col sm={8} className="event-title">
-                                <h2>{this.state.title}</h2>
+                                <h2>{this.state.title} / {this.state.title_english}</h2>
                             </Col>
                             <Col sm={4} className="event-page-buttons">
                                 <Button><FontAwesomeIcon icon="edit" /></Button>
@@ -178,7 +200,7 @@ class EventPage extends Component {
                             </Col>
                         </Row>
                         <Row className="event-page-body">
-                            <Col sm={5}>
+                            <Col sm={4}>
                                 <Image
                                     src={'http://' + process.env.REACT_APP_API_URL + ':3030/' + this.state.id}
                                     className="event-image"
@@ -186,8 +208,11 @@ class EventPage extends Component {
                                 />
 
                             </Col>
-                            <Col sm={7}>
+                            <Col sm={4} className="div-border">
                                 <p className="event-description">{this.state.description}</p>
+                            </Col>
+                            <Col sm={4}>
+                                <p className="event-description">{this.state.description_english}</p>
                             </Col>
                         </Row>
                         <Row className="event-page-info">

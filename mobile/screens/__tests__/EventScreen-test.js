@@ -10,16 +10,19 @@ import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
 import { shallow } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import '../../global.js';
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('App snapshot', () => {
     jest.useFakeTimers();
     beforeEach(() => {
         NavigationTestUtils.resetInternalState();
+        global.dictionary["PRICE"] = jest.fn(() => "");
     });
 
     it('renders loading', async() => {
-        const wrapper = shallow(<EventScreen />);
+        const wrapper = shallow(<EventScreen screenProps={{language: 'PT'}}/>);
 
         wrapper.setState({
             loading: true
@@ -29,21 +32,22 @@ describe('App snapshot', () => {
     });
 
     it('renders correctly', async() => {
-        const wrapper = shallow(<EventScreen />);
+        const wrapper = shallow(<EventScreen screenProps={{language: 'PT'}}/>);
 
         wrapper.state().loading = false;
 
         expect(wrapper).toMatchSnapshot();
     });
 
+
     it('unmounts correctly', () => {
-        const tree = renderer.create(<EventScreen />).getInstance();
+        const tree = renderer.create(<EventScreen screenProps={{language: 'PT'}}/>).getInstance();
         tree.componentWillUnmount();
         expect(tree.isCancelled).toEqual(true);
     });
 
     it('get date with end_date === null', () => {
-        const wrapper = shallow(<EventScreen />);
+        const wrapper = shallow(<EventScreen screenProps={{language: 'PT'}}/>);
         const event = {
             id: 1,
             title: "Concerto Jogo de Damas apresenta",
@@ -63,7 +67,7 @@ describe('App snapshot', () => {
     });
 
     it('get date with end_date !== null', () => {
-        const wrapper = shallow(<EventScreen />);
+        const wrapper = shallow(<EventScreen screenProps={{language: 'PT'}}/>);
         const event = {
             id: 1,
             title: "Concerto Jogo de Damas apresenta",
@@ -84,7 +88,7 @@ describe('App snapshot', () => {
 
     it('image load error', () => {
 
-        const wrapper = shallow(<EventScreen />);
+        const wrapper = shallow(<EventScreen screenProps={{language: 'PT'}}/>);
 
         wrapper.instance().ImageLoadingError();
 
@@ -99,7 +103,7 @@ describe('App snapshot', () => {
             return Platform;
         });
 
-        const wrapper = shallow(<EventScreen />);
+        const wrapper = shallow(<EventScreen screenProps={{language: 'PT'}}/>);
 
         wrapper.setState({
             loading: false,
@@ -115,11 +119,50 @@ describe('App snapshot', () => {
 
         const spy = jest.spyOn(Linking, 'openURL');
 
-        // Wrapper.instance().redirectGoogleMaps();
         const buttonMap = wrapper.find(".map-button").first();
         buttonMap.props().onPress();
 
         expect(spy).toHaveBeenCalled();
+    });
+
+    it('get title english', async() => {
+
+        const wrapper = shallow(<EventScreen screenProps={{language: 'EN'}}/>);
+        wrapper.setState({
+            loading: false,
+            event: {
+                title: "Event",
+                title_english: "Event English",
+                descritpion: "Event",
+                description_english: "Description English",
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                price: 10,
+                location: 'Letraria, Porto'
+            }
+        });
+
+        expect(wrapper.instance().getTitle()).toEqual("Event English");
+    });
+
+    it('get description english', async() => {
+
+        const wrapper = shallow(<EventScreen screenProps={{language: 'EN'}}/>);
+        wrapper.setState({
+            loading: false,
+            event: {
+                title: "Event",
+                title_english: "Event English",
+                descritpion: "Event",
+                description_english: "Description English",
+                start_date: '2018-10-27 11:11:00',
+                end_date: '2018-10-28 11:11:00',
+                price: 10,
+                location: 'Letraria, Porto'
+            }
+        });
+
+        expect(wrapper.instance().getDescription()).toEqual("Description English");
     });
 
 });

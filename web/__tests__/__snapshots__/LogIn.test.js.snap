@@ -17,6 +17,9 @@ exports[`Check Render ListEvents renders log in form 1`] = `
         className=""
         onSubmit={[Function]}
       >
+        <h2>
+          Acontece na U.Porto
+        </h2>
         <input
           className="email-input form-control"
           onChange={[Function]}

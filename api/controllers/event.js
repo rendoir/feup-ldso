@@ -85,18 +85,33 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
 
+        if (req.query.lang === "EN"){
+            return sequelize.query(
+                "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title_english' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title_english) @@ to_tsquery('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) ) SELECT * FROM search_title UNION " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description_english' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description_english) @@ to_tsquery ('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title_english', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name_english) @@ to_tsquery ('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title_english', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description_english', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title_english', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description_english', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
+                "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
+                { bind: [pattern, req.query.user_id], type: sequelize.QueryTypes.SELECT })
 
-        return sequelize.query(
-            "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
-            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND start_date > current_timestamp ) SELECT * FROM search_title UNION " +
-            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
-            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
-            "SELECT events.id, title, location, price, start_date, end_date, events.description, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND start_date > current_timestamp AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, location, price, start_date, end_date, events.description, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
-            "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
-            { bind: [pattern, req.query.user_id], type: sequelize.QueryTypes.SELECT })
+                .then((events) => res.status(200).send(events))
+                .catch((error) => res.status(400).send(error));
+        } else {
+            return sequelize.query(
+                "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) ) SELECT * FROM search_title UNION " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description' as search_by, '2' as priority FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ) SELECT * FROM search_title_desc UNION " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'category' as search_by, '3' as priority FROM events JOIN event_categories ON event_categories.event_id = events.id JOIN categories ON event_categories.event_id = categories.id WHERE to_tsvector('simple', categories.name) @@ to_tsquery ('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc) ) SELECT * FROM search_title_desc_category UNION " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'location' as search_by, '4' as priority FROM events WHERE to_tsvector('simple', events.location) @@ to_tsquery ('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description', '2') NOT IN (SELECT * FROM search_title_desc_category) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'category', '3') NOT IN (SELECT * FROM search_title_desc_category) ORDER BY priority ASC, start_date ASC ) " +
+                "SELECT full_search.*, case user_id when $2 then true else false end as is_favorite FROM full_search LEFT OUTER JOIN favorites ON favorites.event_id = full_search.id AND favorites.user_id = $2",
+                { bind: [pattern, req.query.user_id], type: sequelize.QueryTypes.SELECT })
 
-            .then((events) => res.status(200).send(events))
-            .catch((error) => res.status(400).send(error));
+                .then((events) => res.status(200).send(events))
+                .catch((error) => res.status(400).send(error));
+
+        }
+
 
     },
 
@@ -131,7 +146,9 @@ module.exports = {
     add(req, res) {
         return Event.create({
             title: req.body.title,
+            title_english: req.body.title_english,
             description: req.body.description,
+            description_english: req.body.description_english,
             start_date: req.body.start_date,
             end_date: req.body.end_date,
             location: req.body.location,

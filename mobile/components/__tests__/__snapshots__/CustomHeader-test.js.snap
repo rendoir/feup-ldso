@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Custom Header renders correctly 1`] = `
 <View
   style={
     Array [
@@ -10,7 +10,6 @@ exports[`renders correctly 1`] = `
       },
     ]
   }
-  virtual={undefined}
 >
   <View
     style={
@@ -23,7 +22,6 @@ exports[`renders correctly 1`] = `
         },
       ]
     }
-    virtual={undefined}
   >
     <View
       style={
@@ -35,7 +33,6 @@ exports[`renders correctly 1`] = `
           },
         ]
       }
-      virtual={undefined}
     >
       <Image
         source={1}
@@ -51,6 +48,117 @@ exports[`renders correctly 1`] = `
       />
     </View>
     <View
+      style={Object {}}
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderRadius": 18,
+              "flexDirection": "row",
+              "height": 36,
+              "padding": 3,
+              "width": 72,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "flex-start",
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 9,
+                }
+              }
+            >
+              EN
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(229, 225, 224, 1)",
+                "borderRadius": 15,
+                "height": 30,
+                "justifyContent": "center",
+                "position": "absolute",
+                "transform": Array [
+                  Object {
+                    "translateX": 36,
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          >
+            <View>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "fontSize": 9,
+                  }
+                }
+              >
+                
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 9,
+                }
+              }
+            >
+              PT
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
       style={
         Array [
           Object {},
@@ -60,7 +168,6 @@ exports[`renders correctly 1`] = `
           },
         ]
       }
-      virtual={undefined}
     >
       <Text
         accessible={true}
@@ -82,7 +189,6 @@ exports[`renders correctly 1`] = `
           ]
         }
         uppercase={false}
-        virtual={undefined}
       />
     </View>
   </View>

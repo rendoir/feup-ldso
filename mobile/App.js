@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon, SecureStore } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import MainTabNavigator from './navigation/MainTabNavigator';
 import { Root } from 'native-base';
 import './global.js';
 import LogInScreen from './screens/LogInScreen';
@@ -16,7 +16,8 @@ export default class App extends React.Component {
       userName: "",
       userToken: "",
       userEmail: "",
-      signInError: false
+      signInError: false,
+      language: "PT"
   };
 
   async componentDidMount() {
@@ -70,6 +71,11 @@ export default class App extends React.Component {
           });
   }
 
+  toggleLanguage() {
+      if (this.state.language == "PT")      this.setState({ language: "EN" });
+      else if (this.state.language == "EN") this.setState({ language: "PT" });
+  }
+
   render() {
 
       let signInErrorMessage;
@@ -100,14 +106,12 @@ export default class App extends React.Component {
           if (this.state.signedIn) {
               return (
                   <View style={styles.container}>
-                      {/* <CustomHeader name={this.state.userName} /> */}
-
-                      <AppNavigator />
+                      <MainTabNavigator screenProps={ {language: this.state.language, toggleLanguage: this.toggleLanguage.bind(this)} } />
                   </View>
               );
           } else {
               return (
-                  <LogInScreen signIn={this.signIn} signInErrorMessage={signInErrorMessage}/>
+                  <LogInScreen language={this.state.language} signIn={this.signIn} signInErrorMessage={signInErrorMessage}/>
               );
           }
       }

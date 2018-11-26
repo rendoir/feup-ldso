@@ -68,11 +68,11 @@ export default class LogInScreen extends React.Component {
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: 25, color: 'white', fontFamily: 'Roboto', textAlign: 'center', marginHorizontal: '10%' }} >
-                            Agenda Cultural da Universidade do Porto
+                            {global.dictionary["APP_NAME"][this.props.language]}
                         </Text>
                     </View>
                     <View style={{ width: '60%', flex: 1 }}>
-                        <Button title="Entrar com a conta Google" onPress={() => this.props.signIn()} />
+                        <Button title={global.dictionary["GOOGLE_SIGNIN"][this.props.language]} className={'login_button'} onPress={() => this.props.signIn()} />
                     </View>
                     <View style={{ flex: 2 }}>{this.props.signInErrorMessage}</View>
                 </View>
