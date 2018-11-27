@@ -6,12 +6,13 @@ import { mount } from 'enzyme';
 import MockAdapter from 'axios-mock-adapter';
 import ListEvents from '../src/ListEvents';
 
+
 var mockAxios = new MockAdapter(axios);
 document.cookie = "access_token=123";
 
 describe("Check Render ListEvents", () => {
     it('renders list events', () => {
-        mockAxios.onGet('http://localhost:3030/web').reply(200, {
+        mockAxios.onGet().reply(200, {
             count: 3,
             events: [{
                 title: 'Title',
@@ -51,7 +52,7 @@ describe("Check Render ListEvents", () => {
     });
 
     it('don\'t display list events', () => {
-        mockAxios.onGet('http://localhost:3030/web').reply(200, {
+        mockAxios.onGet().reply(200, {
             count: 3,
             events: [{
                 title: 'Title',
@@ -127,7 +128,7 @@ describe("Check Pagination", () => {
             initials: 'FEUP'
         }];
 
-        mockAxios.onGet('http://localhost:3030/web').reply(200, {
+        mockAxios.onGet().reply(200, {
             count: 7,
             events: events
         });
@@ -158,7 +159,7 @@ describe("Check Pagination", () => {
 
     it("Check if pagination doens't fill events", (done) => {
 
-        mockAxios.onGet('http://localhost:3030/web').reply(400, {});
+        mockAxios.onGet().reply(400, {});
 
         const wrapper = mount(
             <BrowserRouter>
@@ -205,7 +206,7 @@ describe("Check componentDidMount actions", () => {
             initials: 'FEUP'
         }];
 
-        mockAxios.onGet('http://localhost:3030/web').reply(200, {
+        mockAxios.onGet().reply(200, {
             count: 7,
             events: events
         });
@@ -234,7 +235,7 @@ describe("Check componentDidMount actions", () => {
     });
 
     it("Change refesh events flag - ERROR", async() => {
-        mockAxios.onGet('http://localhost:3030/web').reply(400, {});
+        mockAxios.onGet().reply(400, {});
 
         const wrapper = mount(
             <BrowserRouter>

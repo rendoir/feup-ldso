@@ -8,7 +8,7 @@ exports[`render event renders event 1`] = `
     className="event-date col-sm-2"
   >
     <h4>
-      6
+      27
     </h4>
     <h4>
       OUTUBRO
@@ -37,12 +37,12 @@ exports[`render event renders event 1`] = `
       className="event-buttons"
     >
       <button
-        className="btn btn-default"
+        className="btn btn-primary"
         disabled={false}
         type="button"
       />
       <button
-        className="delete-button btn btn-default"
+        className="delete-button btn btn-primary"
         disabled={false}
         onClick={[Function]}
         type="button"
@@ -54,15 +54,16 @@ exports[`render event renders event 1`] = `
 
 exports[`renders elements 1`] = `
 <nav
-  className="navbar navbar-default"
+  className="navbar navbar-expand navbar-light"
   id="navbar-custom"
 >
-  <div
-    className="container"
+  <a
+    className="navbar-brand"
+    href="#"
   >
     <a
       aria-current={null}
-      className="navbar-brand navbar-brand"
+      className="navbar-brand"
       href="/events"
       onClick={[Function]}
     >
@@ -72,20 +73,20 @@ exports[`renders elements 1`] = `
         src="/logo.png"
       />
     </a>
+  </a>
+  <div
+    aria-expanded={null}
+    className="navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
     <div
-      aria-expanded={null}
-      className="navbar-collapse collapse"
-      id="responsive-navbar-nav"
-    >
-      <ul
-        className="nav navbar-nav"
-        role={null}
-      />
-      <ul
-        className="nav navbar-nav"
-        role={null}
-      />
-    </div>
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
+    <div
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
   </div>
 </nav>
 `;

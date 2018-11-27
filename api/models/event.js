@@ -1,11 +1,41 @@
 const event = (sequelize, DataTypes) => {
     const EventModel = sequelize.define('events', {
-        title: DataTypes.TEXT,
-        description: DataTypes.TEXT,
-        start_date: DataTypes.DATE,
-        end_date: DataTypes.DATE,
-        location: DataTypes.TEXT,
-        price: DataTypes.REAL
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        title: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        title_english: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        description_english: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        start_date: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        end_date: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        location: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        price: {
+            type: DataTypes.REAL
+        }
     }, {
         timestamps: false,
         underscored: true,

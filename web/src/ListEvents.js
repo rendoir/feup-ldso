@@ -39,7 +39,7 @@ class ListEvents extends Component {
 
     componentDidMount() {
         // Access API to get events with permission
-        axios.get('http://localhost:3030/web', {
+        axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/web', {
             params: {
                 page: 0,
                 limit: 5
@@ -52,7 +52,7 @@ class ListEvents extends Component {
 
     componentDidUpdate() {
         if (this.props.refreshListEvents) {
-            axios.get('http://localhost:3030/web', {
+            axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/web', {
                 params: {
                     page: 0,
                     limit: 5
@@ -87,7 +87,7 @@ class ListEvents extends Component {
 
     handlePagination(event) {
         var page = event.target.getAttribute('value') - 1;
-        axios.get('http://localhost:3030/web', {
+        axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/web', {
             params: {
                 page: page * 5,
                 limit: 5

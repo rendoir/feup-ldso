@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Font, AppLoading } from "expo";
-import { Root, Container, Header, List, Text, Content, ListItem, Button } from 'native-base';
+import { Root, Container, List, Text, Content, ListItem, Button } from 'native-base';
 import axios from 'axios';
 import Entity from '../components/Entity';
+import NewCustomHeader from '../components/NewCustomHeader';
 
 export default class EntitiesScreen extends React.Component {
     state = {
@@ -57,13 +58,11 @@ export default class EntitiesScreen extends React.Component {
 
         return (
             <Container>
-                <Header style={styles.header}>
-                    <Text style={styles.headerText}>Organizações</Text>
-                </Header>
+                <NewCustomHeader text={global.dictionary["ENTITIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
                 <Content>
                     <List>
-                        <ListItem style={styles.listItem} onPress={() => { navigate('Agenda', { selectedEntity: 'Orgão', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
-                            <Button transparent onPress={() => { navigate('Agenda', { selectedEntity: 'Orgão', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>Todos</Text></Button>
+                        <ListItem style={styles.listItem} className="list-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
+                            <Button transparent className="all-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
                         </ListItem>
                         {entities}
                     </List>

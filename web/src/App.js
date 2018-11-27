@@ -12,6 +12,11 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSignOutAlt, faEdit, faTrashAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch);
 
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+}
+
 class App extends Component {
 
     constructor(props) {
@@ -38,14 +43,19 @@ class App extends Component {
     }
 
     getCategories() {
-        axios.get('http://localhost:3030/categories')
+        axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/categories')
             .then((res) => this.setState({ categories: res.data.map((obj, i) => { return { key: i, value: obj.id, text: obj.name }; }) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar as categorias.' }));
 
     }
 
     getEntities() {
-        axios.get('http://localhost:3030/entities/' + 1)
+        axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/entities', {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': "Bearer " + getTokenFromCookie()
+            }
+        })
             .then((res) => this.setState({ entities: res.data.map((obj, i) => { return { key: i, value: obj.id, text: obj.initials }; }) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar as entidades.' }));
 

@@ -67,3 +67,30 @@ describe('App snapshot', () => {
         });
     });
 });
+
+describe('Toggle language', () => {
+    it('Changes language', () => {
+
+        const wrapper = shallow(<App/>);
+        wrapper.setState({
+            isLoadingComplete: true,
+            loading: false,
+            signedIn: true,
+            signInError: false,
+            language: "PT"
+        });
+
+        wrapper.instance().toggleLanguage();
+
+        setImmediate(() => {
+            expect(wrapper.state().language).toEqual('EN');
+        });
+
+        wrapper.instance().toggleLanguage();
+
+        setImmediate(() => {
+            expect(wrapper.state().language).toEqual('PT');
+        });
+    });
+
+});

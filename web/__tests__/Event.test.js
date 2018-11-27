@@ -89,7 +89,7 @@ describe("Delete Event", () => {
             updateAlertMessage: null
         };
 
-        mockAxios.onDelete('http://localhost:3030/').reply(200);
+        mockAxios.onDelete().reply(200);
 
         const wrapper = mount(
             <BrowserRouter>
@@ -120,7 +120,7 @@ describe("Delete Event", () => {
             updateAlertMessage: jest.fn()
         };
 
-        mockAxios.onDelete('http://localhost:3030/').reply(400);
+        mockAxios.onDelete().reply(400);
 
         const wrapper = mount(
             <BrowserRouter>

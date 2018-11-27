@@ -34,11 +34,9 @@ router.post("/app/login", async(req, res) => {
         return res.status(400).send({ err: user });
 });
 
-router.post('/logout', (req, res) => {
-    req.logout();
 
-    return res.status(200).send({ message: 'Logged out successfully' });
-});
+router.post("/logout",  userController.appLogOut);
+
 
 router.post("/", passport.authenticate('jwt', { session: false }), function(req, res) {
 
@@ -75,7 +73,7 @@ router.get("/search/categories", eventController.searchForCategories);
 router.get("/search/events", eventController.searchForEvents);
 
 // Getters
-router.get("/entities/:user_id", entityController.getEntitiesWithPermission);
+router.get("/entities", passport.authenticate('jwt', { session: false }), entityController.getEntitiesWithPermission);
 router.get("/app/entities", entityController.getEntities);
 router.get("/categories", categoryController.getCategories);
 
@@ -84,6 +82,7 @@ router.post("/favorite", eventController.toggleFavorite);
 
 // Filter events
 router.get("/events", eventController.getEvents);
+router.get("/events/favorites", eventController.listFavorites);
 router.get("/events/:event_id", eventController.getEventInfo);
 
 // List events

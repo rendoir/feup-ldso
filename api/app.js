@@ -4,9 +4,13 @@ var express = require('express'),
     passport = require('passport'),
     app = express(),
     cors = require('cors');
+
 var passportSetup = require('./passport/passport');
 var port = process.env.PORT || 3030;
 
+var openAPI = require('./openAPI');
+
+openAPI.init(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

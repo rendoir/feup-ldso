@@ -189,7 +189,40 @@ exports[`AddEventForm Render don't display form 1`] = `
             className="row"
           >
             <div
-              className="align_left col-sm-8"
+              className="align_left col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-title-english"
+              >
+                Título do Evento (Inglês): 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                id="form-title-english"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-sm-5"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-4"
             >
               <label
                 className="form-label"
@@ -199,6 +232,24 @@ exports[`AddEventForm Render don't display form 1`] = `
               </label>
               <textarea
                 className="form-control"
+                id="form-descriptionAndImage"
+                onChange={[Function]}
+                required={true}
+                rows="10"
+                value=""
+              />
+            </div>
+            <div
+              className="align_left col-sm-4"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-descriptionAndImage"
+              >
+                Descrição do Evento (Inglês): 
+              </label>
+              <textarea
+                className="description_english form-control"
                 id="form-descriptionAndImage"
                 onChange={[Function]}
                 required={true}
@@ -472,24 +523,18 @@ exports[`AddEventForm Render don't display form 1`] = `
         <div
           className="buttons_style form-group"
         >
-          <button
-            className="btn btn-secondary"
-            disabled={false}
-            type="button"
+          <a
+            href="/events"
+            onClick={[Function]}
           >
-            <a
-              href="/events"
-              onClick={[Function]}
+            <button
+              className="btn btn-secondary"
+              disabled={false}
+              type="button"
             >
-              <button
-                className="btn btn-secondary"
-                disabled={false}
-                type="button"
-              >
-                Cancelar
-              </button>
-            </a>
-          </button>
+              Cancelar
+            </button>
+          </a>
           <button
             className="primary_button btn btn-primary"
             disabled={false}
@@ -620,7 +665,40 @@ exports[`AddEventForm Render renders form with one entity 1`] = `
             className="row"
           >
             <div
-              className="align_left col-sm-8"
+              className="align_left col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-title-english"
+              >
+                Título do Evento (Inglês): 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                id="form-title-english"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-sm-5"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-4"
             >
               <label
                 className="form-label"
@@ -630,6 +708,24 @@ exports[`AddEventForm Render renders form with one entity 1`] = `
               </label>
               <textarea
                 className="form-control"
+                id="form-descriptionAndImage"
+                onChange={[Function]}
+                required={true}
+                rows="10"
+                value=""
+              />
+            </div>
+            <div
+              className="align_left col-sm-4"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-descriptionAndImage"
+              >
+                Descrição do Evento (Inglês): 
+              </label>
+              <textarea
+                className="description_english form-control"
                 id="form-descriptionAndImage"
                 onChange={[Function]}
                 required={true}
@@ -903,24 +999,18 @@ exports[`AddEventForm Render renders form with one entity 1`] = `
         <div
           className="buttons_style form-group"
         >
-          <button
-            className="btn btn-secondary"
-            disabled={false}
-            type="button"
+          <a
+            href="/events"
+            onClick={[Function]}
           >
-            <a
-              href="/events"
-              onClick={[Function]}
+            <button
+              className="btn btn-secondary"
+              disabled={false}
+              type="button"
             >
-              <button
-                className="btn btn-secondary"
-                disabled={false}
-                type="button"
-              >
-                Cancelar
-              </button>
-            </a>
-          </button>
+              Cancelar
+            </button>
+          </a>
           <button
             className="primary_button btn btn-primary"
             disabled={false}
@@ -1127,7 +1217,40 @@ exports[`AddEventForm Render renders form with two entities 1`] = `
             className="row"
           >
             <div
-              className="align_left col-sm-8"
+              className="align_left col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-title-english"
+              >
+                Título do Evento (Inglês): 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                id="form-title-english"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-sm-5"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-4"
             >
               <label
                 className="form-label"
@@ -1137,6 +1260,24 @@ exports[`AddEventForm Render renders form with two entities 1`] = `
               </label>
               <textarea
                 className="form-control"
+                id="form-descriptionAndImage"
+                onChange={[Function]}
+                required={true}
+                rows="10"
+                value=""
+              />
+            </div>
+            <div
+              className="align_left col-sm-4"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-descriptionAndImage"
+              >
+                Descrição do Evento (Inglês): 
+              </label>
+              <textarea
+                className="description_english form-control"
                 id="form-descriptionAndImage"
                 onChange={[Function]}
                 required={true}
@@ -1410,24 +1551,18 @@ exports[`AddEventForm Render renders form with two entities 1`] = `
         <div
           className="buttons_style form-group"
         >
-          <button
-            className="btn btn-secondary"
-            disabled={false}
-            type="button"
+          <a
+            href="/events"
+            onClick={[Function]}
           >
-            <a
-              href="/events"
-              onClick={[Function]}
+            <button
+              className="btn btn-secondary"
+              disabled={false}
+              type="button"
             >
-              <button
-                className="btn btn-secondary"
-                disabled={false}
-                type="button"
-              >
-                Cancelar
-              </button>
-            </a>
-          </button>
+              Cancelar
+            </button>
+          </a>
           <button
             className="primary_button btn btn-primary"
             disabled={false}
@@ -1447,15 +1582,16 @@ exports[`AddEventForm Render renders form with two entities 1`] = `
 
 exports[`renders elements 1`] = `
 <nav
-  className="navbar navbar-default"
+  className="navbar navbar-expand navbar-light"
   id="navbar-custom"
 >
-  <div
-    className="container"
+  <a
+    className="navbar-brand"
+    href="#"
   >
     <a
       aria-current={null}
-      className="navbar-brand navbar-brand"
+      className="navbar-brand"
       href="/events"
       onClick={[Function]}
     >
@@ -1465,27 +1601,27 @@ exports[`renders elements 1`] = `
         src="/logo.png"
       />
     </a>
+  </a>
+  <div
+    aria-expanded={null}
+    className="navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
     <div
-      aria-expanded={null}
-      className="navbar-collapse collapse"
-      id="responsive-navbar-nav"
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
+    <div
+      className="navbar-nav"
+      onKeyDown={[Function]}
     >
-      <ul
-        className="nav navbar-nav"
-        role={null}
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        id="logout-button"
+        onClick={[Function]}
+        type="button"
       />
-      <ul
-        className="nav navbar-nav"
-        role={null}
-      >
-        <button
-          className="btn btn-default"
-          disabled={false}
-          id="logout-button"
-          onClick={[Function]}
-          type="button"
-        />
-      </ul>
     </div>
   </div>
 </nav>
@@ -1505,7 +1641,7 @@ exports[`renders elements 2`] = `
       className="col-md-8 col-sm-5"
     >
       <div
-        className="alert alert-info"
+        className="fade alert show"
         role="alert"
       >
         
@@ -1532,7 +1668,7 @@ exports[`renders elements 2`] = `
         onClick={[Function]}
       >
         <button
-          className="primary_button btn btn-default"
+          className="primary_button btn btn-primary"
           disabled={false}
           type="button"
         >
@@ -1555,7 +1691,7 @@ exports[`renders elements 2`] = `
           value=""
         />
         <button
-          className="btn-search btn btn-default"
+          className="btn-search btn btn-primary"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -1820,7 +1956,40 @@ exports[`renders elements 3`] = `
             className="row"
           >
             <div
-              className="align_left col-sm-8"
+              className="align_left col-sm-2"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-title-english"
+              >
+                Título do Evento (Inglês): 
+              </label>
+            </div>
+            <div
+              className="col-sm-5"
+            >
+              <input
+                className="form-control"
+                id="form-title-english"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-sm-5"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="align_left col-sm-4"
             >
               <label
                 className="form-label"
@@ -1830,6 +1999,24 @@ exports[`renders elements 3`] = `
               </label>
               <textarea
                 className="form-control"
+                id="form-descriptionAndImage"
+                onChange={[Function]}
+                required={true}
+                rows="10"
+                value=""
+              />
+            </div>
+            <div
+              className="align_left col-sm-4"
+            >
+              <label
+                className="form-label"
+                htmlFor="form-descriptionAndImage"
+              >
+                Descrição do Evento (Inglês): 
+              </label>
+              <textarea
+                className="description_english form-control"
                 id="form-descriptionAndImage"
                 onChange={[Function]}
                 required={true}
@@ -2103,24 +2290,18 @@ exports[`renders elements 3`] = `
         <div
           className="buttons_style form-group"
         >
-          <button
-            className="btn btn-secondary"
-            disabled={false}
-            type="button"
+          <a
+            href="/events"
+            onClick={[Function]}
           >
-            <a
-              href="/events"
-              onClick={[Function]}
+            <button
+              className="btn btn-secondary"
+              disabled={false}
+              type="button"
             >
-              <button
-                className="btn btn-secondary"
-                disabled={false}
-                type="button"
-              >
-                Cancelar
-              </button>
-            </a>
-          </button>
+              Cancelar
+            </button>
+          </a>
           <button
             className="primary_button btn btn-primary"
             disabled={false}

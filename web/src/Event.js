@@ -23,7 +23,7 @@ class Event extends Component {
         var date = new Date(props.info.start_date);
 
         this.state = {
-            day: date.getDay(),
+            day: (date.getDate() < 10 ? '0' : '') + date.getDate(),
             month: monthNames[date.getMonth()],
             year: date.getFullYear()
         };
@@ -47,7 +47,7 @@ class Event extends Component {
 
     deleteEventRequest() {
         let self = this;
-        axios.delete("http://localhost:3030/", {
+        axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
                 user_id: 1,
                 id: self.props.info.id

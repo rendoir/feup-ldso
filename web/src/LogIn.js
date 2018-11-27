@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, FormControl, Col, Button, Row, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import './LogIn.css';
 
 class LogIn extends Component {
 
@@ -33,7 +34,7 @@ class LogIn extends Component {
 
         let self = this;
 
-        axios.post('http://localhost:3030/login', {
+        axios.post('http://' + process.env.REACT_APP_API_URL + ':3030/login', {
             email: self.state.emailInput,
             password: self.state.passwordInput
         })
@@ -66,7 +67,7 @@ class LogIn extends Component {
                 </Row>);
         }
 
-        if (document.cookie === undefined ||
+        if (document.cookie !== undefined &&
             document.cookie.indexOf("access_token=") !== -1) return <Redirect to={'/events'} />;
 
         return (
@@ -76,11 +77,12 @@ class LogIn extends Component {
                     <Col sm={4}></Col>
                     <Col sm={4}>
                         <Form onSubmit={this.handleLogIn}>
+                            <h2>Acontece na U.Porto</h2>
                             <FormControl type="email" required placeholder="Email"
-                                value={this.state.emailInput} onChange={this.updateEmailInput} />
+                                value={this.state.emailInput} className="email-input" onChange={this.updateEmailInput} />
 
                             <FormControl type="password" required placeholder="Password"
-                                value={this.state.passwordInput} onChange={this.updatePasswordInput} />
+                                value={this.state.passwordInput} className="password-input" onChange={this.updatePasswordInput} />
 
                             <Button variant="primary" type="submit"
                                 id="login-button" className="primary_button">Entrar</Button>

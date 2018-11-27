@@ -54,19 +54,19 @@ VALUES ('Porto Business School', '#192AEA', '#FFFFFF', 'PBS', 'Com origens em 19
 
 -- Rever com a PO:
 
-INSERT INTO categories (name) VALUES ('Desporto');
-INSERT INTO categories (name) VALUES ('Música');
-INSERT INTO categories (name) VALUES ('Tecnologia');
-INSERT INTO categories (name) VALUES ('Biologia');
-INSERT INTO categories (name) VALUES ('Química');
-INSERT INTO categories (name) VALUES ('Física');
-INSERT INTO categories (name) VALUES ('Cultura');
-INSERT INTO categories (name) VALUES ('Arte');
-INSERT INTO categories (name) VALUES ('Teatro');
-INSERT INTO categories (name) VALUES ('Literatura');
-INSERT INTO categories (name) VALUES ('Natureza');
-INSERT INTO categories (name) VALUES ('Gastronomia');
-INSERT INTO categories (name) VALUES ('Moda');
-INSERT INTO categories (name) VALUES ('Lazer');
-INSERT INTO categories (name) VALUES ('Comédia');
-INSERT INTO categories (name) VALUES ('Informática');
+INSERT INTO categories (name, name_english) VALUES ('Desporto', 'Sports');
+INSERT INTO categories (name, name_english) VALUES ('Música', 'Music');
+INSERT INTO categories (name, name_english) VALUES ('Tecnologia', 'Technology');
+INSERT INTO categories (name, name_english) VALUES ('Biologia', 'Biology');
+INSERT INTO categories (name, name_english) VALUES ('Química', 'Chemistry');
+INSERT INTO categories (name, name_english) VALUES ('Física', 'Physics');
+INSERT INTO categories (name, name_english) VALUES ('Cultura', 'Culture');
+INSERT INTO categories (name, name_english) VALUES ('Arte', 'Arts');
+INSERT INTO categories (name, name_english) VALUES ('Teatro', 'Theatre');
+INSERT INTO categories (name, name_english) VALUES ('Literatura', 'Literature');
+INSERT INTO categories (name, name_english) VALUES ('Natureza', 'Nature');
+INSERT INTO categories (name, name_english) VALUES ('Gastronomia', 'Gastronomy');
+INSERT INTO categories (name, name_english) VALUES ('Moda', 'Fashion');
+INSERT INTO categories (name, name_english) VALUES ('Lazer', 'Recreation');
+INSERT INTO categories (name, name_english) VALUES ('Comédia', 'Comedy');
+INSERT INTO categories (name, name_english) VALUES ('Informática', 'Computer Science');

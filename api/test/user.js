@@ -4,7 +4,6 @@ let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
-
 let Common = require('./common');
 
 let chai = require('chai');
@@ -220,7 +219,9 @@ describe('Favorite/Unfavorite an event', () => {
                         EventModel.create({
                             id: 1,
                             title: "Test ",
+                            title_english: "Test ",
                             description: "Hello There",
+                            description_english: "Hello There",
                             start_date: start_date,
                             user_id: 1,
                             entity_id: 1
@@ -240,10 +241,8 @@ describe('Favorite/Unfavorite an event', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.should.have.length(1);
-                    chai.expect(res.body[0]).to.be.a('object');
-                    chai.expect(res.body[0]).to.have.property('favorite');
-                    chai.expect(res.body[0].favorite).to.be.a('array');
-                    chai.expect(res.body[0].favorite).to.have.length(0);
+                    res.body[0].favorite.should.be.a('array');
+                    res.body[0].favorite.should.have.length(0);
                     done();
                 });
         });
@@ -263,7 +262,7 @@ describe('Favorite/Unfavorite an event', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
-                    chai.expect(res.body.message).to.equal("The event was added to your favorites!");
+                    res.body.message.should.equal("The event was added to your favorites!");
                     done();
                 });
         });
@@ -277,10 +276,9 @@ describe('Favorite/Unfavorite an event', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.should.have.length(1);
-                    chai.expect(res.body[0]).to.be.a('object');
-                    chai.expect(res.body[0]).to.have.property('favorite');
-                    chai.expect(res.body[0].favorite).to.be.a('array');
-                    chai.expect(res.body[0].favorite).to.have.length(1);
+                    res.body[0].favorite[0].should.be.a('object');
+                    res.body[0].favorite[0].should.have.property('favorites');
+                    res.body[0].favorite[0].favorites.should.be.a('object');
                     done();
                 });
         });
@@ -300,7 +298,7 @@ describe('Favorite/Unfavorite an event', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
-                    chai.expect(res.body.message).to.equal("The event was removed from your favorites!");
+                    res.body.message.should.equal("The event was removed from your favorites!");
                     done();
                 });
         });
@@ -314,10 +312,9 @@ describe('Favorite/Unfavorite an event', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.should.have.length(1);
-                    chai.expect(res.body[0]).to.be.a('object');
-                    chai.expect(res.body[0]).to.have.property('favorite');
-                    chai.expect(res.body[0].favorite).to.be.a('array');
-                    chai.expect(res.body[0].favorite).to.have.length(0);
+                    res.body[0].should.be.a('object');
+                    res.body[0].favorite.should.be.a('array');
+                    res.body[0].favorite.should.have.length(0);
                     done();
                 });
         });

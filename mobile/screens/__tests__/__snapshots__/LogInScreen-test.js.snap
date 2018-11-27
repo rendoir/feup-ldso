@@ -98,22 +98,19 @@ ShallowWrapper {
                   "textAlign": "center",
                 }
               }
-            >
-              Agenda Cultural da Universidade do Porto
-            </Text>
+            />
           </Component>
           <Component
             style={
               Object {
                 "flex": 1,
-                "width": "50%",
+                "width": "60%",
               }
             }
           >
             <Button
               className="login_button"
               onPress={[Function]}
-              title="Sign in with Google"
             />
           </Component>
           <Component
@@ -240,22 +237,19 @@ ShallowWrapper {
                     "textAlign": "center",
                   }
                 }
-              >
-                Agenda Cultural da Universidade do Porto
-              </Text>
+              />
             </Component>,
             <Component
               style={
                 Object {
                   "flex": 1,
-                  "width": "50%",
+                  "width": "60%",
                 }
               }
             >
               <Button
                 className="login_button"
                 onPress={[Function]}
-                title="Sign in with Google"
               />
             </Component>,
             <Component
@@ -333,9 +327,7 @@ ShallowWrapper {
                     "textAlign": "center",
                   }
                 }
-              >
-                Agenda Cultural da Universidade do Porto
-              </Text>,
+              />,
               "style": Object {
                 "flex": 1,
               },
@@ -348,7 +340,7 @@ ShallowWrapper {
               "props": Object {
                 "accessible": true,
                 "allowFontScaling": true,
-                "children": "Agenda Cultural da Universidade do Porto",
+                "children": undefined,
                 "ellipsizeMode": "tail",
                 "style": Object {
                   "color": "white",
@@ -359,7 +351,7 @@ ShallowWrapper {
                 },
               },
               "ref": null,
-              "rendered": "Agenda Cultural da Universidade do Porto",
+              "rendered": null,
               "type": [Function],
             },
             "type": [Function],
@@ -372,11 +364,10 @@ ShallowWrapper {
               "children": <Button
                 className="login_button"
                 onPress={[Function]}
-                title="Sign in with Google"
               />,
               "style": Object {
                 "flex": 1,
-                "width": "50%",
+                "width": "60%",
               },
             },
             "ref": null,
@@ -387,7 +378,7 @@ ShallowWrapper {
               "props": Object {
                 "className": "login_button",
                 "onPress": [Function],
-                "title": "Sign in with Google",
+                "title": undefined,
               },
               "ref": null,
               "rendered": null,
@@ -502,22 +493,19 @@ ShallowWrapper {
                     "textAlign": "center",
                   }
                 }
-              >
-                Agenda Cultural da Universidade do Porto
-              </Text>
+              />
             </Component>
             <Component
               style={
                 Object {
                   "flex": 1,
-                  "width": "50%",
+                  "width": "60%",
                 }
               }
             >
               <Button
                 className="login_button"
                 onPress={[Function]}
-                title="Sign in with Google"
               />
             </Component>
             <Component
@@ -644,22 +632,19 @@ ShallowWrapper {
                       "textAlign": "center",
                     }
                   }
-                >
-                  Agenda Cultural da Universidade do Porto
-                </Text>
+                />
               </Component>,
               <Component
                 style={
                   Object {
                     "flex": 1,
-                    "width": "50%",
+                    "width": "60%",
                   }
                 }
               >
                 <Button
                   className="login_button"
                   onPress={[Function]}
-                  title="Sign in with Google"
                 />
               </Component>,
               <Component
@@ -737,9 +722,7 @@ ShallowWrapper {
                       "textAlign": "center",
                     }
                   }
-                >
-                  Agenda Cultural da Universidade do Porto
-                </Text>,
+                />,
                 "style": Object {
                   "flex": 1,
                 },
@@ -752,7 +735,7 @@ ShallowWrapper {
                 "props": Object {
                   "accessible": true,
                   "allowFontScaling": true,
-                  "children": "Agenda Cultural da Universidade do Porto",
+                  "children": undefined,
                   "ellipsizeMode": "tail",
                   "style": Object {
                     "color": "white",
@@ -763,7 +746,7 @@ ShallowWrapper {
                   },
                 },
                 "ref": null,
-                "rendered": "Agenda Cultural da Universidade do Porto",
+                "rendered": null,
                 "type": [Function],
               },
               "type": [Function],
@@ -776,11 +759,10 @@ ShallowWrapper {
                 "children": <Button
                   className="login_button"
                   onPress={[Function]}
-                  title="Sign in with Google"
                 />,
                 "style": Object {
                   "flex": 1,
-                  "width": "50%",
+                  "width": "60%",
                 },
               },
               "ref": null,
@@ -791,7 +773,7 @@ ShallowWrapper {
                 "props": Object {
                   "className": "login_button",
                   "onPress": [Function],
-                  "title": "Sign in with Google",
+                  "title": undefined,
                 },
                 "ref": null,
                 "rendered": null,

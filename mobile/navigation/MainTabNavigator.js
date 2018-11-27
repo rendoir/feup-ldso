@@ -1,7 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -17,53 +15,46 @@ const AgendaStack = createStackNavigator({
     Event: EventScreen
 });
 
+const FavoritesStack = createStackNavigator({
+    Favorites: FavoritesScreen
+});
+
+const SearchStack = createStackNavigator({
+    Search: SearchScreen,
+    Event: EventScreen
+});
+
 AgendaStack.navigationOptions = {
     tabBarLabel: 'Agenda',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-calendar${focused ? '' : '-outline'}`
-                    : 'md-calendar'
-            }
+            name={'calendar'}
         />
     )
 };
-
-const FavoritesStack = createStackNavigator({
-    Favorites: FavoritesScreen
-});
 
 FavoritesStack.navigationOptions = {
     tabBarLabel: 'Favoritos',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-star${focused ? '' : '-outline'}`
-                    : 'md-star-outline'
-            }
+            name={'heart-o'}
         />
     )
 };
-
-const SearchStack = createStackNavigator({
-    Search: SearchScreen
-});
 
 SearchStack.navigationOptions = {
     tabBarLabel: 'Pesquisa',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'}
+            name={'search'}
         />
     )
 };
 
-export default createBottomTabNavigator({
+const MyBottomTabNavigator = createBottomTabNavigator({
     FavoritesStack,
     AgendaStack,
     SearchStack
@@ -74,9 +65,29 @@ export default createBottomTabNavigator({
         showLabel: true,
         activeTintColor: '#F8F8F8',
         inactiveTintColor: '#ffffff',
+        activeBackgroundColor: '#6090c0',
         style: {
-            backgroundColor: '#2c8f7f'
+            backgroundColor: '#002040'
         }
     }
 }
 );
+
+export default class MainTabNavigator extends React.Component {
+    static router = MyBottomTabNavigator.router;
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        this.setLabels();
+        return <MyBottomTabNavigator {...this.props} />;
+    }
+
+    setLabels() {
+        MainTabNavigator.router.getComponentForRouteName('AgendaStack').navigationOptions.tabBarLabel = global.dictionary["AGENDA"][this.props.screenProps.language];
+        MainTabNavigator.router.getComponentForRouteName('FavoritesStack').navigationOptions.tabBarLabel = global.dictionary["FAVORITES"][this.props.screenProps.language];
+        MainTabNavigator.router.getComponentForRouteName('SearchStack').navigationOptions.tabBarLabel = global.dictionary["SEARCH"][this.props.screenProps.language];
+    }
+}

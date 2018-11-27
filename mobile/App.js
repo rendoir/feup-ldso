@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import { AppLoading, Asset, Font, Icon, SecureStore } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import MainTabNavigator from './navigation/MainTabNavigator';
 import { Root } from 'native-base';
 import './global.js';
-import CustomHeader from './components/CustomHeader';
 import LogInScreen from './screens/LogInScreen';
 import axios from 'axios';
 import Expo from 'expo';
@@ -16,9 +15,9 @@ export default class App extends React.Component {
       signedIn: false,
       userName: "",
       userToken: "",
-      photoUrl: "",
       userEmail: "",
-      signInError: false
+      signInError: false,
+      language: "PT"
   };
 
   async componentDidMount() {
@@ -41,9 +40,9 @@ export default class App extends React.Component {
               this.setState({
                   userName: result.user.name,
                   userToken: result.accessToken,
-                  photoUrl: result.user.photoUrl,
                   userEmail: result.user.email
               });
+              global.userName = result.user.name;
               this.handleLogIn();
           } else {
               console.log("cancelled");
@@ -70,6 +69,11 @@ export default class App extends React.Component {
           .catch(() => {
               self.setState({ signedIn: false, signInError: true });
           });
+  }
+
+  toggleLanguage() {
+      if (this.state.language == "PT")      this.setState({ language: "EN" });
+      else if (this.state.language == "EN") this.setState({ language: "PT" });
   }
 
   render() {
@@ -102,14 +106,12 @@ export default class App extends React.Component {
           if (this.state.signedIn) {
               return (
                   <View style={styles.container}>
-                      <CustomHeader name={this.state.userName} photoUrl={this.state.photoUrl} />
-
-                      <AppNavigator />
+                      <MainTabNavigator screenProps={ {language: this.state.language, toggleLanguage: this.toggleLanguage.bind(this)} } />
                   </View>
               );
           } else {
               return (
-                  <LogInScreen signIn={this.signIn} signInErrorMessage={signInErrorMessage}/>
+                  <LogInScreen language={this.state.language} signIn={this.signIn} signInErrorMessage={signInErrorMessage}/>
               );
           }
       }

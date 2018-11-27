@@ -32,6 +32,11 @@ module.exports = {
             });
     },
 
+    appLogOut(req, res){
+        req.logout();
+        return res.status(200).send({ message: 'Logged out successfully' });
+    },
+
     appLogIn(userBody) {
 
         return this.findUser(userBody.email)

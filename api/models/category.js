@@ -9,7 +9,12 @@ const category = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             unique: true
         },
-        description: DataTypes.TEXT
+        name_english: {
+            type: DataTypes.TEXT,
+            unique: true
+        },
+        description: DataTypes.TEXT,
+        description_english: DataTypes.TEXT
     }, {
         timestamps: false,
         underscored: true

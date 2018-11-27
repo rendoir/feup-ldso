@@ -12,7 +12,11 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
 
+chai.use(require('chai-like'));
+chai.use(require('chai-things'));
+
 chai.use(chaiHttp);
+
 describe('Add Events', () => {
 
     before((done) => {
@@ -38,6 +42,7 @@ describe('Add Events', () => {
                                 Category.create({
                                     id: 1,
                                     name: 'TestCat',
+                                    name_english: 'TestCat',
                                     description: 'description'
                                 }).then(() => done())
                                     .catch(() => done());
@@ -67,7 +72,9 @@ describe('Add Events', () => {
             end_date.setDate(end_date.getDate() + 2);
             let event = {
                 title: "Test Event",
+                title_english: "Test Event",
                 description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
                 start_date: start_date.toISOString(),
                 end_date: end_date.toISOString(),
                 location: "Random Location",
@@ -105,7 +112,9 @@ describe('Add Events', () => {
             start_date.setDate(start_date.getDate() + 1);
             let event = {
                 title: "Test Event",
+                title_english: "Test Event",
                 description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
                 start_date: start_date,
                 end_date: end_date,
                 location: "Random Location",
@@ -135,7 +144,9 @@ describe('Add Events', () => {
             end_date.setDate(end_date.getDate() + 2);
             let event = {
                 title: "Test Event22",
+                title_english: "Test Event22",
                 description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
                 start_date: start_date.toISOString(),
                 end_date: end_date.toISOString(),
                 location: "Random Location",
@@ -149,7 +160,9 @@ describe('Add Events', () => {
                 .post('/')
                 .set('Authorization', '12345') // Token
                 .field("title", event.title)
+                .field("title_english", event.title_english)
                 .field("description", event.description)
+                .field("description_english", event.description_english)
                 .field("start_date", event.start_date)
                 .field("end_date", event.end_date)
                 .field("location", event.location)
@@ -199,7 +212,9 @@ describe('List Events', () => {
                         start_date.setDate(start_date.getDate() + 1);
                         EventModel.create({
                             title: "Test ",
+                            title_english: "Test ",
                             description: "Hello There",
+                            description_english: "Hello There",
                             start_date: start_date,
                             user_id: 1,
                             entity_id: 1
@@ -275,7 +290,9 @@ describe('Delete Events', () => {
                                 EventModel.create({
                                     id: 1,
                                     title: "Delete Event Test",
+                                    title_english: "Delete Event Test",
                                     description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
                                     start_date: start_date.toISOString(),
                                     end_date: end_date.toISOString(),
                                     location: "Random Location",
@@ -333,15 +350,18 @@ describe('Filter events', () => {
             Category.bulkCreate([
                 {
                     id: 1,
-                    name: 'Test Category 1'
+                    name: 'Test Category 1',
+                    name_english: 'Test Category 1'
                 },
                 {
                     id: 2,
-                    name: 'Test Category 2'
+                    name: 'Test Category 2',
+                    name_english: 'Test Category 2'
                 },
                 {
                     id: 3,
-                    name: 'Test Category 3'
+                    name: 'Test Category 3',
+                    name_english: 'Test Category 3'
                 }
             ]).then(() => { return Entity.findAll(); })
                 .then((entities) =>
@@ -352,7 +372,8 @@ describe('Filter events', () => {
                         name: 'Test User',
                         password: 'nasdasdasd',
                         email: 'email@email.com',
-                        type: 'moderator'
+                        type: 'moderator',
+                        token: 'token'
                     }).then((user) => user.setEntities(entities)) // Give full permissions to user
                         .then(() => {
                             let start_date = new Date();
@@ -362,6 +383,7 @@ describe('Filter events', () => {
                                 {
                                     id: 1,
                                     title: "Test 1",
+                                    title_english: "Test 1",
                                     start_date: start_date,
                                     user_id: 1,
                                     entity_id: 1
@@ -369,6 +391,7 @@ describe('Filter events', () => {
                                 {
                                     id: 2,
                                     title: "Test 2",
+                                    title_english: "Test 2",
                                     start_date: start_date,
                                     user_id: 1,
                                     entity_id: 2
@@ -376,6 +399,7 @@ describe('Filter events', () => {
                                 {
                                     id: 3,
                                     title: "Test 3",
+                                    title_english: "Test 3",
                                     start_date: start_date,
                                     user_id: 1,
                                     entity_id: 2
@@ -383,6 +407,7 @@ describe('Filter events', () => {
                                 {
                                     id: 4,
                                     title: "Test 4",
+                                    title_english: "Test 4",
                                     start_date: start_date,
                                     user_id: 1,
                                     entity_id: 3
@@ -390,6 +415,7 @@ describe('Filter events', () => {
                                 {
                                     id: 5,
                                     title: "Test 5",
+                                    title_english: "Test 5",
                                     start_date: start_date,
                                     user_id: 1,
                                     entity_id: 3
@@ -397,6 +423,7 @@ describe('Filter events', () => {
                                 {
                                     id: 6,
                                     title: "Test 6",
+                                    title_english: "Test 6",
                                     start_date: start_date,
                                     user_id: 1,
                                     entity_id: 3
@@ -428,7 +455,7 @@ describe('Filter events', () => {
             chai.request(app)
                 .get('/events')
                 .set('Authorization', '12345') // Token
-                .query({ categories: 1 })
+                .query({ categories: 1, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -443,7 +470,7 @@ describe('Filter events', () => {
             chai.request(app)
                 .get('/events')
                 .set('Authorization', '12345') // Token
-                .query({ entities: [2, 3] })
+                .query({ entities: [2, 3], user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -457,7 +484,7 @@ describe('Filter events', () => {
         it('It should filter events by categories and entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .query({ categories: 1, entities: 2 })
+                .query({ categories: 1, entities: 2, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -471,7 +498,7 @@ describe('Filter events', () => {
         it('It should filter events by categories and entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .query({ offset: 0, limit: 2})
+                .query({ offset: 0, limit: 2, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -510,15 +537,18 @@ describe('Search', () => {
             Category.bulkCreate([
                 {
                     id: 1,
-                    name: 'Test Category 1'
+                    name: 'Test Category 1',
+                    name_english: 'Test Category 1'
                 },
                 {
                     id: 2,
-                    name: 'Conference Category 2'
+                    name: 'Conference Category 2',
+                    name_english: 'Conference Category 2'
                 },
                 {
                     id: 3,
-                    name: 'One More Test Category 3'
+                    name: 'One More Test Category 3',
+                    name_english: 'One More Test Category 3'
                 }
             ]).then(() => { return Entity.findAll(); })
                 .then((entities) =>
@@ -552,25 +582,30 @@ describe('Search', () => {
                             EventModel.bulkCreate([
                                 {
                                     id: 1,
-                                    title: "Event 1",
+                                    title: "Evento 1",
+                                    title_english: "Event 1",
                                     start_date: start_date1,
                                     user_id: 1,
                                     entity_id: 1,
                                     location: 'Class',
-                                    description: 'Conference'
+                                    description: 'Conference',
+                                    description_english: 'Conference'
                                 },
                                 {
                                     id: 2,
                                     title: "Test Conference 2",
+                                    title_english: "Test Conference 2",
                                     start_date: start_date2,
                                     user_id: 1,
                                     entity_id: 2,
                                     location: 'Other',
-                                    description: 'Conference 2'
+                                    description: 'Conference 2',
+                                    description_english: 'Conference 2'
                                 },
                                 {
                                     id: 3,
                                     title: "Another Conference 3",
+                                    title_english: "Another Conference 3",
                                     start_date: start_date3,
                                     user_id: 1,
                                     entity_id: 2,
@@ -579,6 +614,7 @@ describe('Search', () => {
                                 {
                                     id: 4,
                                     title: "Test Class 4",
+                                    title_english: "Test Class 4",
                                     start_date: start_date4,
                                     user_id: 1,
                                     entity_id: 3,
@@ -587,6 +623,7 @@ describe('Search', () => {
                                 {
                                     id: 5,
                                     title: "One More Class 5",
+                                    title_english: "One More Class 5",
                                     start_date: start_date5,
                                     user_id: 1,
                                     entity_id: 3,
@@ -594,7 +631,8 @@ describe('Search', () => {
                                 },
                                 {
                                     id: 6,
-                                    title: "Global Event 6",
+                                    title: "Evento Global 6",
+                                    title_english: "Global Event 6",
                                     start_date: start_date6,
                                     user_id: 1,
                                     entity_id: 3,
@@ -612,7 +650,7 @@ describe('Search', () => {
             chai.request(app)
                 .get('/search/entities/')
                 .set('Authorization', '12345') // Token
-                .query({ text: "tes"})
+                .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -629,7 +667,7 @@ describe('Search', () => {
             chai.request(app)
                 .get('/search/categories/')
                 .set('Authorization', '12345') // Token
-                .query({ text: "tes"})
+                .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -646,19 +684,33 @@ describe('Search', () => {
             chai.request(app)
                 .get('/search/events/')
                 .set('Authorization', '12345') // Token
-                .query({ text: "conf", user_id: 1, token: '123' })
+                .query({ text: "conf", user_id: 1, token: '123', lang: 'PT' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(4);
-                    res.body[0].title.should.be.eql('Test Conference 2');
-                    res.body[0].search_by.should.be.eql('title');
-                    res.body[1].title.should.be.eql('Test Class 4');
-                    res.body[1].search_by.should.be.eql('location');
-                    res.body[2].title.should.be.eql('Event 1');
-                    res.body[2].search_by.should.be.eql('description');
-                    res.body[3].title.should.be.eql('Another Conference 3');
-                    res.body[3].search_by.should.be.eql('title');
+                    chai.expect(res.body).to.contain.something.like({title: 'Test Conference 2', search_by: 'title'});
+                    chai.expect(res.body).to.contain.something.like({title: 'Test Class 4', search_by: 'location'});
+                    chai.expect(res.body).to.contain.something.like({title: 'Evento 1', search_by: 'description'});
+                    chai.expect(res.body).to.contain.something.like({title: 'Another Conference 3', search_by: 'title'});
+                    // TODO: should add category test.
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Search for events', () => {
+        it('It should show events by search pattern in English', (done) => {
+            chai.request(app)
+                .get('/search/events/')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Event", user_id: 1, token: '123', lang: 'EN' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    chai.expect(res.body).to.contain.something.like({title_english: 'Global Event 6', search_by: 'title_english'});
+                    chai.expect(res.body).to.contain.something.like({title_english: 'Event 1', search_by: 'title_english'});
                     // TODO: should add category test.
                     done();
                 });
@@ -696,7 +748,9 @@ describe('Information of an event', () => {
                                 EventModel.create({
                                     id: 1,
                                     title: "Information of Event Test",
+                                    title_english: "Information of Event Test",
                                     description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
                                     start_date: start_date.toISOString(),
                                     end_date: end_date.toISOString(),
                                     location: "Random Location",
@@ -719,6 +773,224 @@ describe('Information of an event', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.title.should.be.eql('Information of Event Test');
+                    done();
+                });
+        });
+    });
+});
+
+
+describe('List and filter favorited events', () => {
+
+    before((done) => {
+        // This.enableTimeouts(false);
+        models.sequelize.sync().then(() => {
+            Common.destroyDatabase();
+            // Create entities
+            Entity.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Entity 1',
+                    initials: 'TEST1'
+                },
+                {
+                    id: 2,
+                    name: 'Another Entity 2',
+                    initials: 'ANOT2'
+                },
+                {
+                    id: 3,
+                    name: 'One More Test Entity 3',
+                    initials: 'ONET3'
+                },
+                {
+                    id: 4,
+                    name: 'One More Test Entity 4',
+                    initials: 'ONET4'
+                }
+            ]).then(() =>
+
+                Category.bulkCreate([
+                    {
+                        id: 1,
+                        name: 'Test Category 1'
+                    },
+                    {
+                        id: 2,
+                        name: 'Conference Category 2'
+                    },
+                    {
+                        id: 3,
+                        name: 'One More Test Category 3'
+                    }
+                ]).then(() => { return Entity.findAll(); })
+                    .then((entities) =>
+                        // Create user
+                        User.create({
+                            id: 1,
+                            username: 'TestUser',
+                            name: 'Test User',
+                            password: 'nasdasdasd',
+                            email: 'email@email.com',
+                            type: 'moderator',
+                            token: '123'
+                        }).then((user) => user.setEntities(entities) // Give full permissions to user
+                            .then(() => { return Category.findAll(); })
+                            .then((categories) => {
+                                let start_date1 = new Date();
+                                let start_date2 = new Date();
+                                let start_date3 = new Date();
+                                let start_date4 = new Date();
+                                let start_date5 = new Date();
+                                let start_date6 = new Date();
+
+                                start_date1.setDate(start_date1.getDate() + 1);
+                                start_date2.setDate(start_date2.getDate() + 2);
+                                start_date3.setDate(start_date3.getDate() + 3);
+                                start_date4.setDate(start_date4.getDate() + 4);
+                                start_date5.setDate(start_date5.getDate() + 5);
+                                start_date6.setDate(start_date6.getDate() + 6);
+                                // Create events
+
+                                EventModel.bulkCreate([
+                                    {
+                                        id: 1,
+                                        title: "Event 1",
+                                        title_english: "Event 1",
+                                        start_date: start_date1,
+                                        user_id: 1,
+                                        entity_id: 1,
+                                        location: 'Class',
+                                        description: 'Conference'
+                                    },
+                                    {
+                                        id: 2,
+                                        title: "Test Conference 2",
+                                        title_english: "Test Conference 2",
+                                        start_date: start_date2,
+                                        user_id: 1,
+                                        entity_id: 2,
+                                        location: 'Other',
+                                        description: 'Conference 2'
+                                    },
+                                    {
+                                        id: 3,
+                                        title: "Another Conference 3",
+                                        title_english: "Another Conference 3",
+                                        start_date: start_date3,
+                                        user_id: 1,
+                                        entity_id: 2,
+                                        location: 'Somewhere'
+                                    },
+                                    {
+                                        id: 4,
+                                        title: "Test Class 4",
+                                        title_english: "Test Class 4",
+                                        start_date: start_date4,
+                                        user_id: 1,
+                                        entity_id: 3,
+                                        location: 'Conference'
+                                    },
+                                    {
+                                        id: 5,
+                                        title: "One More Class 5",
+                                        title_english: "One More Class 5",
+                                        start_date: start_date5,
+                                        user_id: 1,
+                                        entity_id: 4,
+                                        location: 'Class'
+                                    },
+                                    {
+                                        id: 6,
+                                        title: "Global Event 6",
+                                        title_english: "Global Event 6",
+                                        start_date: start_date6,
+                                        user_id: 1,
+                                        entity_id: 4,
+                                        location: 'Anywhere'
+                                    }
+                                ]).then((events) => {
+                                    events[0].addCategory(categories[0]);
+                                    events[1].addCategory(categories[0]);
+                                    user.setFavorite(events[0]);
+                                    user.setFavorite(events[1]);
+                                    user.setFavorite(events[2]);
+                                    user.setFavorite(events[3]);
+                                })
+                                    .then(() => done());
+                            }))));
+        });
+    });
+
+    describe('/GET List all favorites', () => {
+        it('It should list all favorited events ', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(4);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events by categories', () => {
+        it('It should filter favorited events by categories', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
+                .query({ categories: 1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events by entities', () => {
+        it('It should filter favorited events by entities', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
+                .query({ entities: [1, 2, 3] })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(4);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events by categories and entities', () => {
+        it('It should filter favorited events by categories and entities', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
+                .query({ categories: 1, entities: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events with pagination', () => {
+        it('It should filter favorited events using pagination', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1')
+                .set('Authorization', '12345') // Token
+                .query({ offset: 0, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(2);
                     done();
                 });
         });

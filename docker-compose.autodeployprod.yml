@@ -1,0 +1,51 @@
+version: '3.3'
+services:
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+     - "5432:5432"
+    volumes:
+      - ./database/1db.sql:/docker-entrypoint-initdb.d/1db.sql
+      - ./database/2seed.sql:/docker-entrypoint-initdb.d/2seed.sql
+      - ./database/3test.sql:/docker-entrypoint-initdb.d/3test.sql
+
+
+  pgadmin:
+    image: thajeztah/pgadmin4
+    environment:
+      PGADMIN_SETUP_EMAIL: postgres
+      PGADMIN_SETUP_PASSWORD: example
+    ports:
+      - "5050:5050"
+    depends_on:
+      - postgres
+
+  api:
+    image: registry.gitlab.com/feup-tbs/ldso18-19/t3g2/api:master
+    command: npm start
+    ports:
+      - "3030:3030"
+    environment:
+      DATABASE_URL: postgres://postgres:example@postgres/postgres
+      SECRET_KEY: 'secret_key_very_secret'
+      NODE_ENV: 'production'
+    depends_on:
+      - postgres
+    expose:
+      - '3030'
+
+  web:
+    image: registry.gitlab.com/feup-tbs/ldso18-19/t3g2/web:master
+    command: npm start
+    ports:
+      - "3000:3000"
+    expose:
+      - '3000'
+    depends_on:
+      - api
