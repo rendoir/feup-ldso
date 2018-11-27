@@ -62,10 +62,7 @@ test_api:
     - cd api
     - npm install --save passport
     - npm install --save-dev eslint
-<<<<<<< HEAD
-=======
     - npm install --save oas-tools
->>>>>>> dev
     - npm test
     - npm run lint
   tags:
@@ -91,11 +88,7 @@ test_mobile:
     NODE_ENV: test
   script:
     - cd mobile
-<<<<<<< HEAD
-    - npm install --save-dev jest eslint eslint-plugin-react eslint-plugin-react-native babel-eslint
-=======
     - npm install --save-dev jest eslint eslint-plugin-react eslint-plugin-react-native babel-eslint jest-expo
->>>>>>> dev
     - npm test -- -u
     - npm run lint
   tags:
