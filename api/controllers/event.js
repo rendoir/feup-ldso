@@ -16,6 +16,21 @@ function patternToTSVector(text) {
 
 }
 
+function getEventInfoFunction(event_id, status_code_success, res) {
+    return Event.findById(event_id, {
+        include: [
+            {
+                model: sequelize.models.entities
+            },
+            {
+                model: sequelize.models.categories
+            }
+        ]
+    })
+        .then((event) => res.status(status_code_success).send(event))
+        .catch((error) => res.status(400).send(error));
+}
+
 module.exports = {
 
     listForUsers(req, res) {
@@ -36,18 +51,8 @@ module.exports = {
     },
 
     getEventInfo(req, res) {
-        return Event.findById(req.params.event_id, {
-            include: [
-                {
-                    model: sequelize.models.entities
-                },
-                {
-                    model: sequelize.models.categories
-                }
-            ]
-        })
-            .then((event) => res.status(200).send(event))
-            .catch((error) => res.status(400).send(error));
+        console.log('here');
+        return getEventInfoFunction(req.params.event_id, 200, res);
     },
 
     searchForEntities(req, res) {
@@ -85,7 +90,7 @@ module.exports = {
 
         let pattern = patternToTSVector(req.query.text);
 
-        if (req.query.lang === "EN"){
+        if (req.query.lang === "EN") {
             return sequelize.query(
                 "WITH full_search AS( WITH search_title_desc_category AS ( WITH search_title_desc AS ( WITH search_title AS ( " +
                 "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title_english' as search_by, '1' as priority FROM events WHERE to_tsvector('simple', events.title_english) @@ to_tsquery('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) ) SELECT * FROM search_title UNION " +
@@ -184,12 +189,49 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
 
+    edit(req, res) {
+        return Event.update(
+            {
+                title: req.body.title,
+                title_english: req.body.title_english,
+                description: req.body.description,
+                description_english: req.body.description_english,
+                start_date: req.body.start_date,
+                end_date: req.body.end_date,
+                location: req.body.location,
+                price: req.body.price,
+                user_id: req.body.user_id,
+                entity_id: req.body.entity_id
+            },
+            {
+                returning: true,
+                where: { id: req.params.event_id }
+            })
+            .then(([updatedRows, [updatedEvent]]) => {
+                updatedEvent.setCategories(req.body.categories.split(','))
+                    .then(() => {
+                        if (updatedRows !== 1)
+                            res.status(400).send("There was a problem editing this event. Please try again later.");
+                        try {
+
+                            this.saveImage(req.files, updatedEvent);
+                            getEventInfoFunction(req.params.event_id, 201, res);
+
+                        } catch (err) {
+                            res.status(400).send(err);
+                        }
+                    })
+                    .catch((error) => res.status(400).send(error));
+
+            })
+            .catch(() => res.status(400).send("There was a problem editing this event. Please try again later."));
+    },
+
     saveImage(files, event) {
         // Validate image
         if (files == null || files.image == null
             || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
             return;
-
         // Save image
         let path = "./assets/" + event.id;
         files.image.mv(path)
@@ -268,7 +310,7 @@ module.exports = {
 
     },
 
-    filterOfQueryOptions(req, query_options){
+    filterOfQueryOptions(req, query_options) {
         let query_opts = query_options;
         // Shouldn't include past events
         if (!req.query.past) {
