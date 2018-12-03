@@ -689,10 +689,10 @@ describe('Search', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(4);
-                    chai.expect(res.body).to.contain.something.like({title: 'Test Conference 2', search_by: 'title'});
-                    chai.expect(res.body).to.contain.something.like({title: 'Test Class 4', search_by: 'location'});
-                    chai.expect(res.body).to.contain.something.like({title: 'Evento 1', search_by: 'description'});
-                    chai.expect(res.body).to.contain.something.like({title: 'Another Conference 3', search_by: 'title'});
+                    chai.expect(res.body).to.contain.something.like({ title: 'Test Conference 2', search_by: 'title' });
+                    chai.expect(res.body).to.contain.something.like({ title: 'Test Class 4', search_by: 'location' });
+                    chai.expect(res.body).to.contain.something.like({ title: 'Evento 1', search_by: 'description' });
+                    chai.expect(res.body).to.contain.something.like({ title: 'Another Conference 3', search_by: 'title' });
                     // TODO: should add category test.
                     done();
                 });
@@ -709,8 +709,8 @@ describe('Search', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
-                    chai.expect(res.body).to.contain.something.like({title_english: 'Global Event 6', search_by: 'title_english'});
-                    chai.expect(res.body).to.contain.something.like({title_english: 'Event 1', search_by: 'title_english'});
+                    chai.expect(res.body).to.contain.something.like({ title_english: 'Global Event 6', search_by: 'title_english' });
+                    chai.expect(res.body).to.contain.something.like({ title_english: 'Event 1', search_by: 'title_english' });
                     // TODO: should add category test.
                     done();
                 });
@@ -993,6 +993,203 @@ describe('List and filter favorited events', () => {
                     res.body.length.should.be.eql(2);
                     done();
                 });
+        });
+    });
+});
+
+describe('Edit events', () => {
+
+    before((done) => {
+        Common.destroyDatabase();
+        // Create entities
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity 1',
+                initials: 'TEST1'
+            }
+        ]).then(() =>
+            // Create categories
+            Category.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Category 1',
+                    name_english: 'Test Category 1'
+                }
+            ]).then(() => { return Entity.findAll(); })
+                .then((entities) =>
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator',
+                        token: 'token'
+                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
+                        .then(() => {
+                            let start_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            // Create events
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Test 1",
+                                    title_english: "Test 1",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test 2",
+                                    title_english: "Test 2",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }
+                            ])
+                                // Add category 1 to event 1
+                                .then(() => Category.findByPrimary(1)
+                                    .then((category) => EventModel.findByPrimary(1)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                // Add category 1 to event 2
+                                .then(() => Category.findByPrimary(1)
+                                    .then((category) => EventModel.findByPrimary(2)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                .then(() => done());
+                        })
+                )
+        );
+    });
+
+    describe('/POST Edit Event', () => {
+        it('it should edit an event', (done) => {
+
+            let start_date = new Date();
+            start_date.setDate(start_date.getDate() + 1);
+            let newEvent = {
+                title: "New Test Event",
+                title_english: "Test Event",
+                description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
+                start_date: start_date.toISOString(),
+                end_date: null,
+                location: "Random Location",
+                price: 10,
+                user_id: 1,
+                entity_id: 1,
+                categories: '1'
+            };
+
+            EventModel.findByPrimary(1)
+                .then((oldEvent) => {
+                    chai.request(app)
+                        .put('/events/1')
+                        .set('Authorization', '12345') // Token
+                        .send(newEvent)
+                        .end((err, res) => {
+                            res.should.have.status(201);
+                            res.body.title.should.be.eql("New Test Event");
+                            res.body.title.should.not.be.eql(oldEvent.dataValues.title);
+                            res.body.title_english.should.be.eql("Test Event");
+                            res.body.title_english.should.not.be.eql(oldEvent.dataValues.title_english);
+                            res.body.should.have.property('title');
+                            done();
+                        });
+                });
+        });
+    });
+
+    describe('/POST Edit Event With a new File', () => {
+
+        it('it should save the new file in directory', (done) => {
+
+            EventModel.findByPrimary(2)
+                .then((oldEvent) => {
+                    let start_date = new Date();
+                    start_date.setDate(start_date.getDate() + 1);
+                    let end_date = new Date();
+                    end_date.setDate(start_date.getDate() + 2);
+                    let event = {
+                        title: "New Test Event 2",
+                        title_english: "Test Event",
+                        description: "It is a test event, without content",
+                        description_english: "It is a test event, without content",
+                        start_date: start_date.toISOString(),
+                        end_date: end_date.toISOString(),
+                        location: "Random Location",
+                        price: 10,
+                        user_id: 1,
+                        entity_id: 1,
+                        categories: '1'
+                    };
+                    chai.request(app)
+                        .put('/events/1')
+                        .set('Authorization', '12345') // Token
+                        .field("title", event.title)
+                        .field("title_english", event.title_english)
+                        .field("description", event.description)
+                        .field("description_english", event.description_english)
+                        .field("start_date", event.start_date)
+                        .field("end_date", event.end_date)
+                        .field("location", event.location)
+                        .field("price", event.price)
+                        .field("user_id", event.user_id)
+                        .field("entity_id", event.entity_id)
+                        .field("categories", event.categories)
+                        .attach('image', './test/assets/test_image.jpg', 'image')
+                        .end((err, res) => {
+                            res.should.have.status(201);
+                            res.body.title.should.be.eql("New Test Event 2");
+                            res.body.title.should.not.be.eql(oldEvent.dataValues.title);
+                            res.body.should.have.property('title');
+                            done();
+                        });
+                });
+        });
+    });
+
+    describe('/POST Edit Event Failure', () => {
+        it('it should fail to edit an event because there is no event with said id', (done) => {
+
+            let start_date = new Date();
+            start_date.setDate(start_date.getDate() + 1);
+            let newEvent = {
+                title: "New Test Event",
+                title_english: "Test Event",
+                description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
+                start_date: start_date.toISOString(),
+                end_date: null,
+                location: "Random Location",
+                price: 10,
+                user_id: 1,
+                entity_id: 1,
+                categories: '1'
+            };
+
+            chai.request(app)
+                .put('/events/10')
+                .set('Authorization', '12345') // Token
+                .send(newEvent)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.text.should.be.eql("There was a problem editing this event. Please try again later.");
+                    done();
+                });
+
         });
     });
 });

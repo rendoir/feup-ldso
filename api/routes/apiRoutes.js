@@ -67,6 +67,20 @@ router.delete("/", passport.authenticate('jwt', { session: false }), function(re
 
 });
 
+router.put("/events/:event_id", passport.authenticate('jwt', { session: false }), function(req, res) {
+
+    if (req.user === undefined) {
+        return res.status(400).send("You don't have permissions to make this request");
+    }
+
+    var user_id = req.user.id;
+    var reqData = req;
+    reqData.body.user_id = user_id;
+
+    eventController.edit(reqData, res);
+
+});
+
 // Search
 router.get("/search/entities", eventController.searchForEntities);
 router.get("/search/categories", eventController.searchForCategories);
