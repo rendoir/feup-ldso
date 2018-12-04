@@ -19,12 +19,14 @@ class EventPage extends Component {
             description_english: "",
             entity_id: null,
             entity: null,
+            end_date_nonformat: "",
+            start_date_nonformat: "",
             end_date: "",
             start_date: "",
             location: "",
             price: null,
             categories: [],
-            image: "http://" + process.env.REACT_APP_API_URL + ":3030/" + props.match.params.id,
+            image: null,
             alertType: null,
             alertMessage: null,
             redirect: false,
@@ -43,7 +45,6 @@ class EventPage extends Component {
                 if (res.data === "" || Object.keys(res.data).length === 0) {
                     this.setState({ alertType: "danger", alertMessage: "Este evento não existe." });
                 } else {
-
 
                     let date = new Date(res.data.start_date);
                     let dd = date.getDate();
@@ -77,13 +78,16 @@ class EventPage extends Component {
                         title_english: res.data.title_english,
                         description: res.data.description,
                         description_english: res.data.description_english,
+                        start_date_nonformat: res.data.start_date,
+                        end_date_nonformat: res.data.end_date,
                         start_date: stringDateStart,
                         end_date: stringDateEnd,
                         location: res.data.location,
                         price: res.data.price,
                         entity: res.data.entity,
                         entity_id: res.data.entity_id,
-                        categories: res.data.categories
+                        categories: res.data.categories,
+                        image: "http://" + process.env.REACT_APP_API_URL + ":3030/" + this.state.id + "?" + Date.now()
                     });
 
                 }
@@ -93,7 +97,6 @@ class EventPage extends Component {
                 this.setState({ alertType: "danger", alertMessage: "Ocorreu um erro. Por favor tente novamente." });
             });
     }
-
 
     deleteEvent() {
         swal({
@@ -193,7 +196,12 @@ class EventPage extends Component {
                                 <h2>{this.state.title} / {this.state.title_english}</h2>
                             </Col>
                             <Col sm={4} className="event-page-buttons">
-                                <Button><FontAwesomeIcon icon="edit" /></Button>
+                                <Link className="btn btn-link btn-primary" to={{
+                                    pathname: `/events/${this.state.id}/edit`,
+                                    state: { event: this.state }
+                                }}>
+                                    <FontAwesomeIcon icon="edit" />
+                                </Link>
                                 <Button className="delete-button" onClick={this.deleteEvent}>
                                     <FontAwesomeIcon icon="trash-alt" />
                                 </Button>
@@ -202,7 +210,7 @@ class EventPage extends Component {
                         <Row className="event-page-body">
                             <Col sm={4}>
                                 <Image
-                                    src={'http://' + process.env.REACT_APP_API_URL + ':3030/' + this.state.id}
+                                    src={this.state.image}
                                     className="event-image"
                                     onError={this.getDefaultImage}
                                 />

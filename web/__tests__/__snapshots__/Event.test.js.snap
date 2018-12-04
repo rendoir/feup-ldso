@@ -21,7 +21,7 @@ exports[`render event renders event 1`] = `
     className="event-info col-sm-10"
   >
     <a
-      href="/event/1"
+      href="/events/1"
       onClick={[Function]}
     >
       <p
@@ -36,10 +36,10 @@ exports[`render event renders event 1`] = `
     <div
       className="event-buttons"
     >
-      <button
-        className="btn btn-primary"
-        disabled={false}
-        type="button"
+      <a
+        className="btn btn-link"
+        href="/events/1/edit"
+        onClick={[Function]}
       />
       <button
         className="delete-button btn btn-primary"

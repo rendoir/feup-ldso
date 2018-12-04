@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { FormGroup, FormControl, Col, Button, Row, Alert } from 'react-bootstrap';
-import { Dropdown, Pagination } from 'semantic-ui-react';
+import { Pagination } from 'semantic-ui-react';
+import Select from 'react-select';
 import axios from 'axios';
 import Event from './Event';
 import './ListEvents.css';
@@ -72,13 +73,11 @@ class ListEvents extends Component {
     }
 
     handleChangeCategory(event) {
-        // Remove later
-        event.preventDefault();
+        this.setState({ chosenCategories: event });
     }
 
     handleChangeEntity(event) {
-        // Remove later
-        event.preventDefault();
+        this.setState({ chosenEntities: event });
     }
 
     updateAlertMessage(newAlertType, newAlertMessage) {
@@ -104,28 +103,15 @@ class ListEvents extends Component {
     }
 
     deleteEventFromArray(event_id) {
-        let index = -1;
-        for (var i = 0; i < this.state.events.length; i++) {
-            if (parseInt(this.state.events[i].id) === parseInt(event_id)) {
-                index = i;
-            }
 
-        }
+        let eventsSliced = this.state.events.filter(function(value) {
+            return parseInt(value.id) !== parseInt(event_id);
+        });
 
-        if (index !== -1) {
-            let eventsSliced;
-            if (index === 0 && this.state.events.length === 1) {
-                eventsSliced = [];
-            } else {
-                eventsSliced = this.state.events.splice(index, 1);
-            }
-            this.setState({
-                events: eventsSliced,
-                alertType: 'success', alertMessage: 'O evento foi apagado com sucesso.'
-            });
-        } else {
-            this.setState({ alertType: 'danger', alertMessage: 'Ocorreu um erro. Por favor tente atualizar a página.' });
-        }
+        this.setState({
+            events: eventsSliced,
+            alertType: 'success', alertMessage: 'O evento foi apagado com sucesso.'
+        });
 
     }
 
@@ -172,7 +158,7 @@ class ListEvents extends Component {
                             <Button className="primary_button">Criar Evento</Button>
                         </Link>
                     </Col>
-                    <Col sm={5}>
+                    <Col sm={3}>
                         <FormGroup controlId="searchEvent" className="search-bar">
                             <FormControl
                                 id="search-text-input"
@@ -185,9 +171,10 @@ class ListEvents extends Component {
                         </FormGroup>
                     </Col>
                     <Col sm={4} className="dropdowns-search">
-                        <Dropdown placeholder='Categorias' fluid multiple search selection options={this.props.categories} onChange={this.handleChangeCategory} />
-                        <Dropdown placeholder='Entidades' fluid multiple search selection options={this.props.entities} onChange={this.handleChangeEntity} />
+                        <Select placeholder='Categorias' isMulti={true} closeMenuOnSelect={false} onChange={this.handleChangeCategory} options={this.props.categories} />
+                        <Select placeholder='Entidades' isMulti={true} closeMenuOnSelect={false} onChange={this.handleChangeEntity} options={this.props.entities} />
                     </Col>
+                    <Col sm={2}></Col>
                 </Row>
 
                 <div className="container">

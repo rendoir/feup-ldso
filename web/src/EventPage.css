@@ -80,6 +80,16 @@ button.btn {
     color: #4a4a4a;
 }
 
+.btn.btn-link.btn-primary {
+    color: #4a4a4a;
+    border-color: inherit;
+}
+
+.btn.btn-primary:hover {
+    background-color: #4a4a4a;
+    color: white;
+}
+
 div.event-page-button-map a {
     transform-origin: center center;
     position: absolute;

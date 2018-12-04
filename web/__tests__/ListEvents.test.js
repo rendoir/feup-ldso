@@ -374,8 +374,6 @@ describe("Check deletion methods", () => {
 
         await wrapperList.update();
         expect(wrapperList.state().events.length).toBe(2);
-        expect(wrapperList.state().alertType).toEqual('danger');
-        expect(wrapperList.state().alertMessage).toEqual('Ocorreu um erro. Por favor tente atualizar a página.');
 
     });
 });

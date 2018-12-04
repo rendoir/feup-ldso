@@ -70,3 +70,4 @@ INSERT INTO categories (name, name_english) VALUES ('Moda', 'Fashion');
 INSERT INTO categories (name, name_english) VALUES ('Lazer', 'Recreation');
 INSERT INTO categories (name, name_english) VALUES ('Comédia', 'Comedy');
 INSERT INTO categories (name, name_english) VALUES ('Informática', 'Computer Science');
+INSERT INTO categories (name, name_english) VALUES ('Outros', 'Others');

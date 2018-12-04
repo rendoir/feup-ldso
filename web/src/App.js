@@ -5,6 +5,7 @@ import LogIn from './LogIn';
 import AddEventForm from './AddEventForm';
 import ListEvents from './ListEvents';
 import EventPage from './EventPage';
+import EventPageEdit from './EventPageEdit';
 import './App.css';
 
 import axios from 'axios';
@@ -44,7 +45,7 @@ class App extends Component {
 
     getCategories() {
         axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/categories')
-            .then((res) => this.setState({ categories: res.data.map((obj, i) => { return { key: i, value: obj.id, text: obj.name }; }) }))
+            .then((res) => this.setState({ categories: res.data.map((obj) => { return { value: obj.id, label: obj.name }; }) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar as categorias.' }));
 
     }
@@ -56,7 +57,7 @@ class App extends Component {
                 'Authorization': "Bearer " + getTokenFromCookie()
             }
         })
-            .then((res) => this.setState({ entities: res.data.map((obj, i) => { return { key: i, value: obj.id, text: obj.initials }; }) }))
+            .then((res) => this.setState({ entities: res.data.map((obj) => { return { value: obj.id, label: obj.initials }; }) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar as entidades.' }));
 
     }
@@ -75,6 +76,16 @@ class App extends Component {
                 <Route component={Navbar} />
                 <Switch>
                     <Route exact path="/" component={LogIn} />
+
+                    <Route exact path="/events/:id" component={EventPage} />
+                    <Route path="/events/:id/edit" render={props =>
+                        <EventPageEdit
+                            {...props}
+                            allCategories={this.state.categories}
+                            allEntities={this.state.entities}
+                        />
+                    } />
+
                     <Route path="/events" render={() =>
                         <ListEvents
                             refreshListEvents={this.state.refreshListEvents}
@@ -83,13 +94,13 @@ class App extends Component {
                             entities={this.state.entities}
                         />
                     } />
+
                     <Route path="/create" render={() =>
                         <AddEventForm
                             categories={this.state.categories}
                             entities={this.state.entities}
                         />
                     } />
-                    <Route path="/event/:id" component={EventPage}/>
                 </Switch>
             </div>
         );
