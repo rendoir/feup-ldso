@@ -54,14 +54,23 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
     - Web - 188.166.41.239:3000
     - API - 188.166.41.239:3030
 
+## API Documentation
+
+To access the documentation of the API:
+* **Staging**: 
+    - 188.166.95.23:3030/docs
+* **Production**: 
+    - 188.166.41.239:3030/docs
+
+
 ## Authors
 
 * **Daniel Marques** - *Developer* - [rendoir](https://gitlab.com/rendoir)
 * **Danny Soares** - *Developer* - [dannysoares](https://gitlab.com/dannysoares)
 * **Leonardo Teixeira** - *Developer* - [LeoTeixeira](https://gitlab.com/LeoTeixeira)
 * **Margarida Silva** - *Scrum Master* - [BeeMargarida](https://gitlab.com/BeeMargarida)
-* **Tiago Carvalho** - *Developer* - [TiagoC97](https://gitlab.com/TiagoC97)
 * **Ricardo Santos** - *Developer* - [rjsantos](https://gitlab.com/rjsantos)
+* **Tiago Carvalho** - *Developer* - [TiagoC97](https://gitlab.com/TiagoC97)
 * **Vítor Magalhães** - *Surrogate Product Owner* - [LastLombax](https://gitlab.com/LastLombax)
 
 ## Screenshots of Sprint 1
