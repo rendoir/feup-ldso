@@ -23,9 +23,18 @@ button.btn-search {
     background-color: inherit;
     color: black;
     border-color: #6c757d;
-    margin-right: 2em;
+    margin-right: 1em;
 }
 
 div.row {
     width: 100%;
+}
+
+div.dropdowns-search > * {
+    display: inline-block;
+    width: 50%;
+}
+
+.btn.btn-link {
+    color: #4a4a4a;
 }

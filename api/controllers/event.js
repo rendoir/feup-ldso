@@ -4,6 +4,8 @@ var sequelize = require('../models').sequelize;
 const User = require('./user');
 const Op = sequelize.Op;
 const fs = require('fs');
+var env = process.env.NODE_ENV || 'development';
+var config = require(__dirname + '/../config/config.js')[env];
 
 function patternToTSVector(text) {
 
@@ -134,7 +136,7 @@ module.exports = {
                 result.count = parseInt(num[0].count);
 
                 return sequelize.query('SELECT events.id, events.title, events.start_date, entities.id AS entity_id, entities.initials from events INNER JOIN permissions ON permissions.entity_id = events.entity_id' +
-                    ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OR (events.start_date < current_timestamp AND events.end_date > current_timestamp) ORDER BY start_date OFFSET $2 LIMIT $3',
+                    ' INNER JOIN entities ON "entities".id = "permissions".entity_id WHERE "permissions".user_id = $1  AND events.start_date > current_timestamp OR (events.start_date < current_timestamp AND events.end_date > current_timestamp) GROUP BY events.id, events.title, events.start_date, entities.id ORDER BY start_date OFFSET $2 LIMIT $3',
                 { bind: [req.user.id, req.query.page, req.query.limit], type: sequelize.QueryTypes.SELECT })
 
                     .then((events) => {
@@ -233,7 +235,7 @@ module.exports = {
             || files.image.size == 0 || !files.image.mimetype.startsWith('image'))
             return;
         // Save image
-        let path = "./assets/" + event.id;
+        let path = config.assertsDir + "/assets/" + event.id;
         files.image.mv(path)
             .catch((err) => {
                 throw new Error("Error saving original image: " + err);

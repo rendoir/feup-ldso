@@ -97,8 +97,11 @@ test_mobile:
 release_api:
   image: docker:stable
   stage: release
+  variables:
+    NODE_ENV: production
   only:
     - dev
+    - master
   before_script:
     - cd api
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
