@@ -1,5 +1,5 @@
 div#login-container {
-    transform-origin: center center;
+    /* transform-origin: center center;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -7,10 +7,16 @@ div#login-container {
     left: 0;
     right: 0;
     top: 0;
-    bottom: 0;
+    bottom: 0; */
+    background-color: white;
+    height: 100vh;
 }
 
-div#login-container div.row {
+div.login-col-first {
+    background-color: #292929;
+}
+
+div.login-col-first img {
     transform-origin: center center;
     position: absolute;
     margin-left: auto;
@@ -18,10 +24,36 @@ div#login-container div.row {
     left: 0;
     right: 0;
     top: 25%;
+    max-width: 50%;
+}
+
+div#login-container div.row {
+    /* transform-origin: center center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 25%; */
+    height: 100%;
 }
 
 div#login-container form {
-    padding: 4em;
+    transform-origin: center center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 40%;
+    max-width: 50%;
+    background-color: white;
+}
+
+span#basic-addon {
+    padding: 0.5em;
+    max-height: 33.5px;
+    border: 1px solid #455a64;
     background-color: white;
 }
 
@@ -31,4 +63,16 @@ div#login-container form h2 {
 
 div#login-container form input {
     margin-bottom: 1em;
+    border: 1px solid #455a64;
+    border-left: 0;
+}
+
+button#login-button {
+    background-color: #455a64;
+    border-color: #455a64;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0.5em 1.5em;
+    color: white;
 }

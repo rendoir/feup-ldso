@@ -43,6 +43,7 @@ exports[`Check Render ListEvents don't display list events 1`] = `
         <button
           className="primary_button btn btn-primary"
           disabled={false}
+          id="create-event"
           type="button"
         >
           Criar Evento
@@ -364,6 +365,7 @@ exports[`Check Render ListEvents renders list events 1`] = `
         <button
           className="primary_button btn btn-primary"
           disabled={false}
+          id="create-event"
           type="button"
         >
           Criar Evento
@@ -648,21 +650,16 @@ exports[`renders elements 1`] = `
   id="navbar-custom"
 >
   <a
+    aria-current={null}
     className="navbar-brand"
-    href="#"
+    href="/events"
+    onClick={[Function]}
   >
-    <a
-      aria-current={null}
-      className="navbar-brand"
-      href="/events"
-      onClick={[Function]}
-    >
-      <img
-        className=""
-        id="logo"
-        src="/logo.png"
-      />
-    </a>
+    <img
+      className=""
+      id="logo"
+      src="/logotipo_agenda.png"
+    />
   </a>
   <div
     aria-expanded={null}
@@ -732,6 +729,7 @@ exports[`renders elements 2`] = `
         <button
           className="primary_button btn btn-primary"
           disabled={false}
+          id="create-event"
           type="button"
         >
           Criar Evento

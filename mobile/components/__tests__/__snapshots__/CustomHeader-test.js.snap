@@ -16,9 +16,10 @@ exports[`Custom Header renders correctly 1`] = `
       Array [
         Object {},
         Object {
-          "backgroundColor": "#002040",
+          "backgroundColor": "#455A64",
           "flexDirection": "row",
           "height": "100%",
+          "justifyContent": "space-between",
         },
       ]
     }
@@ -28,7 +29,9 @@ exports[`Custom Header renders correctly 1`] = `
         Array [
           Object {},
           Object {
-            "flex": 2,
+            "alignItems": "flex-start",
+            "alignSelf": "center",
+            "flex": 1,
             "height": "100%",
           },
         ]
@@ -38,17 +41,60 @@ exports[`Custom Header renders correctly 1`] = `
         source={1}
         style={
           Object {
-            "height": "100%",
-            "marginHorizontal": "1%",
-            "marginVertical": "0%",
+            "height": "85%",
+            "marginLeft": "2%",
+            "marginVertical": "1%",
             "resizeMode": "contain",
-            "width": "80%",
+            "width": "50%",
           }
         }
       />
     </View>
     <View
-      style={Object {}}
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "center",
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "white",
+              "marginHorizontal": "1%",
+              "paddingRight": "1%",
+              "textAlign": "center",
+            },
+          ]
+        }
+        uppercase={false}
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignItems": "flex-end",
+            "alignSelf": "center",
+            "flex": 1,
+            "marginRight": "2%",
+          },
+        ]
+      }
     >
       <View
         accessible={true}
@@ -157,39 +203,6 @@ exports[`Custom Header renders correctly 1`] = `
           </View>
         </View>
       </View>
-    </View>
-    <View
-      style={
-        Array [
-          Object {},
-          Object {
-            "alignSelf": "center",
-            "flex": 2,
-          },
-        ]
-      }
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "color": "#000",
-              "fontFamily": "System",
-              "fontSize": 16,
-            },
-            Object {
-              "color": "white",
-              "marginHorizontal": "1%",
-              "paddingRight": "1%",
-              "textAlign": "right",
-            },
-          ]
-        }
-        uppercase={false}
-      />
     </View>
   </View>
 </View>

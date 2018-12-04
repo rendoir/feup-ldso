@@ -39,7 +39,7 @@ export default class Event extends React.Component {
                     onError={this.ImageLoadingError.bind(this)}
                     onPress={this.props.onPress} />
                 <View style={{ flexDirection: 'row', backgroundColor: 'white' }} onPress={this.props.onPress}>
-                    <Badge style={{ flex: 1, backgroundColor: '#002040', margin: '3%', height: 68, alignItems: 'center' }}>
+                    <Badge style={{ flex: 1, backgroundColor: '#455A64', margin: '3%', height: 68, alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.props.start_date.split('T')[0].split('-')[2]}</Text>
                         <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, lineHeight: 30 }} onPress={this.props.onPress}>{this.getMonthInString(this.props.start_date.split('T')[0].split('-')[1])}</Text>
                     </Badge>
@@ -48,7 +48,7 @@ export default class Event extends React.Component {
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>{this.props.location} - {this.props.start_date.split('T')[1].split(':')[0] + ':' + this.props.start_date.split('T')[1].split(':')[1]}</Text>
                         <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 16 }} numberOfLines={1} onPress={this.props.onPress}>{global.dictionary["PRICE"][this.props.language]}: {this.getPrice()}</Text>
                     </View>
-                    <Icon className="fave_icon" style={{ fontSize: 35, flex: 1, alignSelf: 'center', color: '#D05722' }} type='FontAwesome' name={this.props.is_favorite ? 'heart' : 'heart-o'} onPress={this.onFavoriteCall} />
+                    <Icon className="fave_icon" style={{ fontSize: 35, flex: 1, alignSelf: 'center', color: '#FF5722' }} type='FontAwesome' name={this.props.is_favorite ? 'heart' : 'heart-o'} onPress={this.onFavoriteCall} />
                 </View>
             </Card>
         );

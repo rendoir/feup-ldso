@@ -3,7 +3,7 @@ div.event {
 }
 
 div.event-date {
-    background-color: #4a4a4a;
+    background-color: #292929;
     color: white;
     font-weight: bold;
     padding: 1em;
@@ -19,6 +19,8 @@ div.event-info {
 
 div.event-info p.event-title {
     cursor: pointer;
+    color: black;
+    font-weight: 600;
     display: inline-block;
 }
 
@@ -36,4 +38,8 @@ div.event-info div.event-buttons button.btn{
     background-color: inherit;
     border-color: white;
     color: #4a4a4a;
+}
+
+div.event-info div.event-buttons button.delete-button.btn.btn-primary {
+    color: #e0314f;
 }

@@ -7,7 +7,7 @@ export default class TabBarIcon extends React.Component {
             <Icon type='FontAwesome'
                 name={this.props.name}
                 size={40}
-                style={{ marginBottom: -3, color: '#F0F0F0' }}
+                style={{ marginBottom: -3, color: 'white' }}
             />
         );
     }

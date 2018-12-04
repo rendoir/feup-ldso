@@ -11,6 +11,8 @@ class EventPage extends Component {
     constructor(props) {
         super(props);
 
+        // Console.log(props);
+
         this.state = {
             id: props.match.params.id,
             title: "",

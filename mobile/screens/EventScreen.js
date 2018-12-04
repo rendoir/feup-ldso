@@ -93,7 +93,7 @@ export default class AgendaScreen extends React.Component {
 
         return (
             <View style={{ backgroundColor: 'white' }}>
-                <NewCustomHeader text=' ' fave={true} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
+                <NewCustomHeader navigation={this.props.navigation} text=' ' fave={true} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
                 <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: 'white', height: '100%' }}>
 
                     <View style={{ margin: '0%', padding: '0%', width: '100%', backgroundColor: 'white' }}>
@@ -102,36 +102,38 @@ export default class AgendaScreen extends React.Component {
                             onError={this.ImageLoadingError.bind(this)} />
                     </View>
 
-                    <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-                        <Text style={{ textAlign: 'left', lineHeight: 45, fontSize: 16, color: '#2c8f7f', fontFamily: 'DJB-Coffee-Shoppe-Espresso' }}>{this.getTitle()}</Text>
+                    <View style={{ margin: 0, borderBottomColor: 'black', borderBottomWidth: 1, backgroundColor: 'white' }}>
+                        <Text style={{ textAlign: 'center', lineHeight: 45, fontSize: 20, color: 'black', fontFamily: 'OpenSans-Regular' }}>{this.getTitle()}</Text>
                     </View>
 
-                    <View style={{ marginHorizontal: '5%', backgroundColor: '#f8f8d9' }}>
+                    <View style={{ margin: 0, backgroundColor: 'white', flexDirection: 'row' }}>
+                        <View style={{ flex: 1 }}></View>
+                        <Button className="map-button" rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }} onPress={() => this.redirectGoogleMaps()}>
+                            <Icon type='Entypo' name='location-pin' style={{ flex: 1, fontSize: 13, color: '#D05722' }} />
+                            <Text style={{ color: 'black' }} >{global.dictionary["MAP"][this.props.screenProps.language]}</Text>
+                        </Button>
+                        <View style={{ flex: 1 }}></View>
+                        <Button rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }}>
+                            <Icon type='FontAwesome' name='calendar' style={{ flex: 1, fontSize: 13, color: '#D05722' }} />
+                            <Text style={{ color: 'black' }} >{global.dictionary["CALENDAR"][this.props.screenProps.language]}</Text>
+                        </Button>
+                        <View style={{ flex: 1 }}></View>
+                    </View>
+
+                    <View style={{ marginHorizontal: '0%', backgroundColor: '#7C8589' }}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Icon type='FontAwesome' name='calendar' style={{ flex: 1, fontSize: 13 }} />
+                            <Icon type='Entypo' name='dot-single' style={{ flex: 1, fontSize: 20, color: 'white' }} />
                             <Text style={[styles.simpleText, { flex: 11 }]}>{this.getEventDate(this.state.event)}</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row' }}>
-                            <Icon type='Entypo' name='location-pin' style={{ flex: 1, fontSize: 13 }} />
+                            <Icon type='Entypo' name='dot-single' style={{ flex: 1, fontSize: 20, color: 'white' }} />
                             <Text style={[styles.simpleText, { flex: 11 }]}>{this.state.event.location}</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row' }}>
-                            <Icon type='FontAwesome' name='money' style={{ flex: 1, fontSize: 13 }} />
+                            <Icon type='Entypo' name='dot-single' style={{ flex: 1, fontSize: 20, color: 'white' }} />
                             <Text style={[styles.simpleText, { flex: 11 }]}>{global.dictionary["PRICE"][this.props.screenProps.language]}: {this.state.event.price}€</Text>
-                        </View>
-
-                        <View style={{ flexDirection: 'row', marginTop: '2%' }}>
-                            <View style={{ flex: 1 }} />
-                            <Button className="map-button" rounded style={{ flex: 3, height: 35, backgroundColor: '#2c8f7f' }} onPress={() => this.redirectGoogleMaps()}>
-                                <Text>{global.dictionary["MAP"][this.props.screenProps.language]}</Text>
-                            </Button>
-                            <View style={{ flex: 1 }} />
-                            <Button rounded style={{ flex: 3, height: 35, backgroundColor: '#2c8f7f' }}>
-                                <Text>{global.dictionary["CALENDAR"][this.props.screenProps.language]}</Text>
-                            </Button>
-                            <View style={{ flex: 1 }} />
                         </View>
 
                     </View>
@@ -161,9 +163,9 @@ const styles = StyleSheet.create({
         paddingLeft: 5
     },
     simpleText: {
-        color: 'black',
+        color: 'white',
         fontFamily: 'OpenSans-Regular',
-        fontSize: 13
+        fontSize: 16
     },
     eventTitle: {
         color: 'black',

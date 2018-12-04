@@ -52,6 +52,7 @@
     "eslint-plugin-react-native": "^3.5.0",
     "jest-expo": "30.0.0",
     "react-addons-test-utils": "^15.6.2",
+    "react-google-button": "^0.5.3",
     "sinon": "^7.1.1"
   }
 }

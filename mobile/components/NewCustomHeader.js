@@ -17,30 +17,23 @@ export default class NewCustomHeader extends React.Component {
 
     render() {
 
-        let faveElement;
-        if (this.props.fave) {
-            faveElement = (
-                <Icon type='FontAwesome' name='heart-o' style={{ color: '#D05722' }} />
-            );
-        } else {
-            faveElement = (
-                <Text> </Text>
-            );
-        }
-
         return (
             <View style={{ height: '6%' }}>
                 <StatusBar hidden />
-                <View style={{ backgroundColor: '#002040', flexDirection: 'row', height: '100%' }}>
-                    <View style={{ flex: 1 }} >
-                        <Icon type='FontAwesome' name='arrow-left' style={{ color: '#F0F0F0' }} />
+                <View style={{ backgroundColor: '#455A64', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: '2%', alignItems: 'flex-start', alignSelf: 'center' }}>
+                        <Icon
+                            onPress={ () => this.props.navigation.goBack(null) }
+                            name='arrow-circle-left'
+                            type='FontAwesome'
+                            style={{ color: '#D05722', fontSize: 28 }} />
                     </View>
-                    <View style={{ flex: 2 }} >
-                        <Text style={{ color: '#F0F0F0' }}>
+                    <View style={{ flex: 1, alignSelf: 'center', alignItems: 'center' }} >
+                        <Text style={{ color: '#F0F0F0', textAlign: 'center' }}>
                             {this.props.text}
                         </Text>
                     </View>
-                    <View style={{ flex: 2 }}>
+                    <View style={{ flex: 1, alignItems: 'flex-end', marginRight: '2%', alignSelf: 'center' }}>
                         <SwitchToggle
                             buttonText={this.props.language === 'EN' ? 'EN' : ''}
                             backTextRight={"PT"}
@@ -67,9 +60,6 @@ export default class NewCustomHeader extends React.Component {
                             accessibilityLabel="Toggle language"
 
                         />
-                    </View>
-                    <View style={{ flex: 1 }} >
-                        {faveElement}
                     </View>
                 </View>
             </View>

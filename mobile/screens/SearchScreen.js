@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    ScrollView
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 import { Font, AppLoading, SecureStore } from "expo";
 import { Root, View, Card, Icon, Text, Item, Input } from 'native-base';
@@ -16,11 +17,13 @@ export default class SearchScreen extends React.Component {
             loading: true,
             searchText: "",
             events: [],
-            token: null
+            token: null,
+            refreshing: false
         };
 
         this.onFavorite = this.onFavorite.bind(this);
         this.doSearch = this.doSearch.bind(this);
+        this._onRefresh = this._onRefresh.bind(this);
     }
 
     static navigationOptions = {
@@ -105,6 +108,12 @@ export default class SearchScreen extends React.Component {
             });
     }
 
+    _onRefresh() {
+        this.setState({ refreshing: true, events: [], eventsPage: 0, searchText: "" });
+        this.doSearch();
+        this.setState({ refreshing: false });
+    }
+
     render() {
         if (this.state.loading) {
             return (
@@ -135,21 +144,21 @@ export default class SearchScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: '#F0F0F0' }}>
+            <View style={{ backgroundColor: '#7C8589' }}>
                 <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
-                <ScrollView stickyHeaderIndices={[2]} style={{ backgroundColor: '#F0F0F0', height: '100%' }}>
+                <ScrollView stickyHeaderIndices={[2]} style={{ backgroundColor: '#7C8589', height: '100%' }} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />} >
 
-                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', paddingBottom: '2%', backgroundColor: '#F0F0F0' }}>
-                        <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>{global.dictionary["SEARCH"][this.props.screenProps.language]}</Text>
+                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', paddingBottom: '2%', backgroundColor: '#7C8589' }}>
+                        <Text style={{ fontSize: 32, color: 'white', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>{global.dictionary["SEARCH"][this.props.screenProps.language]}</Text>
 
-                        <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#F0F0F0' }}>
+                        <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#7C8589' }}>
                             <View style={{ flex: 1 }}>
                                 <Text> </Text>
                             </View>
                             <View style={{ flex: 5 }}>
-                                <Item style={{ height: 30, borderBottomWidth: 3, borderColor: '#002040' }}>
-                                    <Input style={{ fontSize: 20, width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} className="search-input" onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
-                                    <Icon style={{ fontSize: 20 }} type="FontAwesome" name="search" />
+                                <Item style={{ height: 30, borderBottomWidth: 3, borderColor: 'white' }}>
+                                    <Input style={{ fontSize: 20, color: 'white', width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: 'white', backgroundColor: '#7C8589' }} className="search-input" onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
+                                    <Icon style={{ fontSize: 20, color: 'white' }} type="FontAwesome" name="search" />
                                 </Item>
                             </View>
                             <View style={{ flex: 1 }}>
@@ -158,7 +167,7 @@ export default class SearchScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0' }}>
+                    <View style={{ marginHorizontal: '2%', backgroundColor: '#7C8589' }}>
                         {events}
                         {noEventsElement}
                     </View>

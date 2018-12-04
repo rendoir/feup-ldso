@@ -4,6 +4,12 @@ exports[`App snapshot renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <AgendaScreen
+    navigation={
+      Object {
+        "getParam": [MockFunction],
+        "navigate": [MockFunction],
+      }
+    }
     screenProps={
       Object {
         "language": "PT",

@@ -1,5 +1,6 @@
 #list_events {
     margin: 2em 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 div#list_events div.row:first-of-type {
@@ -16,6 +17,14 @@ input[type="text"].form-control#search-text-input{
     width: 100%;
     display: inline;
     vertical-align: middle;
+}
+
+button#create-event {
+    background-color: #455a64;
+    border-color: #455a64;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
 }
 
 button.btn-search {

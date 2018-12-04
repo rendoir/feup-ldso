@@ -29,34 +29,59 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "children": Array [
+        <StatusBar
+          animated={false}
+          hidden={true}
+          showHideTransition="fade"
+        />,
         <NewCustomHeader
           fave={false}
           language="PT"
+          navigation={
+            Object {
+              "navigate": [MockFunction],
+            }
+          }
           text="Categorias"
         />,
         <Styled(Content)>
-          <Styled(List)>
+          <Styled(List)
+            style={
+              Object {
+                "backgroundColor": "#7C8589",
+              }
+            }
+          >
             <Styled(ListItem)
               className="list-categories"
               onPress={[Function]}
               style={
                 Object {
+                  "backgroundColor": "#7C8589",
+                  "borderBottomColor": "white",
+                  "borderBottomWidth": 1,
                   "justifyContent": "center",
+                  "width": "91%",
                 }
               }
             >
               <Styled(Button)
                 className="all-categories"
                 onPress={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                  }
+                }
                 transparent={true}
               >
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "black",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 18,
-                      "paddingLeft": 5,
+                      "textAlign": "center",
                     }
                   }
                 >
@@ -76,8 +101,24 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
+          "animated": false,
+          "hidden": true,
+          "showHideTransition": "fade",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
           "fave": false,
           "language": "PT",
+          "navigation": Object {
+            "navigate": [MockFunction],
+          },
           "text": "Categorias",
           "toggleLanguage": undefined,
         },
@@ -90,28 +131,43 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": <Styled(List)>
+          "children": <Styled(List)
+            style={
+              Object {
+                "backgroundColor": "#7C8589",
+              }
+            }
+          >
             <Styled(ListItem)
               className="list-categories"
               onPress={[Function]}
               style={
                 Object {
+                  "backgroundColor": "#7C8589",
+                  "borderBottomColor": "white",
+                  "borderBottomWidth": 1,
                   "justifyContent": "center",
+                  "width": "91%",
                 }
               }
             >
               <Styled(Button)
                 className="all-categories"
                 onPress={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                  }
+                }
                 transparent={true}
               >
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "black",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 18,
-                      "paddingLeft": 5,
+                      "textAlign": "center",
                     }
                   }
                 >
@@ -134,22 +190,31 @@ ShallowWrapper {
                 onPress={[Function]}
                 style={
                   Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   }
                 }
               >
                 <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -159,6 +224,9 @@ ShallowWrapper {
               </Styled(ListItem)>,
               Array [],
             ],
+            "style": Object {
+              "backgroundColor": "#7C8589",
+            },
             "virtual": undefined,
           },
           "ref": null,
@@ -171,15 +239,20 @@ ShallowWrapper {
                 "children": <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -189,7 +262,11 @@ ShallowWrapper {
                 "className": "list-categories",
                 "onPress": [Function],
                 "style": Object {
+                  "backgroundColor": "#7C8589",
+                  "borderBottomColor": "white",
+                  "borderBottomWidth": 1,
                   "justifyContent": "center",
+                  "width": "91%",
                 },
                 "virtual": undefined,
               },
@@ -202,10 +279,10 @@ ShallowWrapper {
                   "children": <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -213,6 +290,9 @@ ShallowWrapper {
                   </Styled(Text)>,
                   "className": "all-categories",
                   "onPress": [Function],
+                  "style": Object {
+                    "alignItems": "center",
+                  },
                   "transparent": true,
                   "virtual": undefined,
                 },
@@ -224,10 +304,10 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Todos",
                     "style": Object {
-                      "color": "black",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 18,
-                      "paddingLeft": 5,
+                      "textAlign": "center",
                     },
                     "virtual": undefined,
                   },
@@ -254,34 +334,59 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "children": Array [
+          <StatusBar
+            animated={false}
+            hidden={true}
+            showHideTransition="fade"
+          />,
           <NewCustomHeader
             fave={false}
             language="PT"
+            navigation={
+              Object {
+                "navigate": [MockFunction],
+              }
+            }
             text="Categorias"
           />,
           <Styled(Content)>
-            <Styled(List)>
+            <Styled(List)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                }
+              }
+            >
               <Styled(ListItem)
                 className="list-categories"
                 onPress={[Function]}
                 style={
                   Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   }
                 }
               >
                 <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -301,8 +406,24 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
+            "animated": false,
+            "hidden": true,
+            "showHideTransition": "fade",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
             "fave": false,
             "language": "PT",
+            "navigation": Object {
+              "navigate": [MockFunction],
+            },
             "text": "Categorias",
             "toggleLanguage": undefined,
           },
@@ -315,28 +436,43 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": <Styled(List)>
+            "children": <Styled(List)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                }
+              }
+            >
               <Styled(ListItem)
                 className="list-categories"
                 onPress={[Function]}
                 style={
                   Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   }
                 }
               >
                 <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -359,22 +495,31 @@ ShallowWrapper {
                   onPress={[Function]}
                   style={
                     Object {
+                      "backgroundColor": "#7C8589",
+                      "borderBottomColor": "white",
+                      "borderBottomWidth": 1,
                       "justifyContent": "center",
+                      "width": "91%",
                     }
                   }
                 >
                   <Styled(Button)
                     className="all-categories"
                     onPress={[Function]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                      }
+                    }
                     transparent={true}
                   >
                     <Styled(Text)
                       style={
                         Object {
-                          "color": "black",
+                          "color": "white",
                           "fontFamily": "OpenSans-Regular",
                           "fontSize": 18,
-                          "paddingLeft": 5,
+                          "textAlign": "center",
                         }
                       }
                     >
@@ -384,6 +529,9 @@ ShallowWrapper {
                 </Styled(ListItem)>,
                 Array [],
               ],
+              "style": Object {
+                "backgroundColor": "#7C8589",
+              },
               "virtual": undefined,
             },
             "ref": null,
@@ -396,15 +544,20 @@ ShallowWrapper {
                   "children": <Styled(Button)
                     className="all-categories"
                     onPress={[Function]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                      }
+                    }
                     transparent={true}
                   >
                     <Styled(Text)
                       style={
                         Object {
-                          "color": "black",
+                          "color": "white",
                           "fontFamily": "OpenSans-Regular",
                           "fontSize": 18,
-                          "paddingLeft": 5,
+                          "textAlign": "center",
                         }
                       }
                     >
@@ -414,7 +567,11 @@ ShallowWrapper {
                   "className": "list-categories",
                   "onPress": [Function],
                   "style": Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   },
                   "virtual": undefined,
                 },
@@ -427,10 +584,10 @@ ShallowWrapper {
                     "children": <Styled(Text)
                       style={
                         Object {
-                          "color": "black",
+                          "color": "white",
                           "fontFamily": "OpenSans-Regular",
                           "fontSize": 18,
-                          "paddingLeft": 5,
+                          "textAlign": "center",
                         }
                       }
                     >
@@ -438,6 +595,9 @@ ShallowWrapper {
                     </Styled(Text)>,
                     "className": "all-categories",
                     "onPress": [Function],
+                    "style": Object {
+                      "alignItems": "center",
+                    },
                     "transparent": true,
                     "virtual": undefined,
                   },
@@ -449,10 +609,10 @@ ShallowWrapper {
                     "props": Object {
                       "children": "Todos",
                       "style": Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       },
                       "virtual": undefined,
                     },
@@ -522,34 +682,59 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "children": Array [
+        <StatusBar
+          animated={false}
+          hidden={true}
+          showHideTransition="fade"
+        />,
         <NewCustomHeader
           fave={false}
           language="PT"
+          navigation={
+            Object {
+              "navigate": [MockFunction],
+            }
+          }
           text="Categorias"
         />,
         <Styled(Content)>
-          <Styled(List)>
+          <Styled(List)
+            style={
+              Object {
+                "backgroundColor": "#7C8589",
+              }
+            }
+          >
             <Styled(ListItem)
               className="list-categories"
               onPress={[Function]}
               style={
                 Object {
+                  "backgroundColor": "#7C8589",
+                  "borderBottomColor": "white",
+                  "borderBottomWidth": 1,
                   "justifyContent": "center",
+                  "width": "91%",
                 }
               }
             >
               <Styled(Button)
                 className="all-categories"
                 onPress={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                  }
+                }
                 transparent={true}
               >
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "black",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 18,
-                      "paddingLeft": 5,
+                      "textAlign": "center",
                     }
                   }
                 >
@@ -599,8 +784,24 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
+          "animated": false,
+          "hidden": true,
+          "showHideTransition": "fade",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
           "fave": false,
           "language": "PT",
+          "navigation": Object {
+            "navigate": [MockFunction],
+          },
           "text": "Categorias",
           "toggleLanguage": undefined,
         },
@@ -613,28 +814,43 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": <Styled(List)>
+          "children": <Styled(List)
+            style={
+              Object {
+                "backgroundColor": "#7C8589",
+              }
+            }
+          >
             <Styled(ListItem)
               className="list-categories"
               onPress={[Function]}
               style={
                 Object {
+                  "backgroundColor": "#7C8589",
+                  "borderBottomColor": "white",
+                  "borderBottomWidth": 1,
                   "justifyContent": "center",
+                  "width": "91%",
                 }
               }
             >
               <Styled(Button)
                 className="all-categories"
                 onPress={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                  }
+                }
                 transparent={true}
               >
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "black",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 18,
-                      "paddingLeft": 5,
+                      "textAlign": "center",
                     }
                   }
                 >
@@ -687,22 +903,31 @@ ShallowWrapper {
                 onPress={[Function]}
                 style={
                   Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   }
                 }
               >
                 <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -743,6 +968,9 @@ ShallowWrapper {
                 />,
               ],
             ],
+            "style": Object {
+              "backgroundColor": "#7C8589",
+            },
             "virtual": undefined,
           },
           "ref": null,
@@ -755,15 +983,20 @@ ShallowWrapper {
                 "children": <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -773,7 +1006,11 @@ ShallowWrapper {
                 "className": "list-categories",
                 "onPress": [Function],
                 "style": Object {
+                  "backgroundColor": "#7C8589",
+                  "borderBottomColor": "white",
+                  "borderBottomWidth": 1,
                   "justifyContent": "center",
+                  "width": "91%",
                 },
                 "virtual": undefined,
               },
@@ -786,10 +1023,10 @@ ShallowWrapper {
                   "children": <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -797,6 +1034,9 @@ ShallowWrapper {
                   </Styled(Text)>,
                   "className": "all-categories",
                   "onPress": [Function],
+                  "style": Object {
+                    "alignItems": "center",
+                  },
                   "transparent": true,
                   "virtual": undefined,
                 },
@@ -808,10 +1048,10 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Todos",
                     "style": Object {
-                      "color": "black",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 18,
-                      "paddingLeft": 5,
+                      "textAlign": "center",
                     },
                     "virtual": undefined,
                   },
@@ -886,34 +1126,59 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "children": Array [
+          <StatusBar
+            animated={false}
+            hidden={true}
+            showHideTransition="fade"
+          />,
           <NewCustomHeader
             fave={false}
             language="PT"
+            navigation={
+              Object {
+                "navigate": [MockFunction],
+              }
+            }
             text="Categorias"
           />,
           <Styled(Content)>
-            <Styled(List)>
+            <Styled(List)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                }
+              }
+            >
               <Styled(ListItem)
                 className="list-categories"
                 onPress={[Function]}
                 style={
                   Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   }
                 }
               >
                 <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -963,8 +1228,24 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
+            "animated": false,
+            "hidden": true,
+            "showHideTransition": "fade",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
             "fave": false,
             "language": "PT",
+            "navigation": Object {
+              "navigate": [MockFunction],
+            },
             "text": "Categorias",
             "toggleLanguage": undefined,
           },
@@ -977,28 +1258,43 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": <Styled(List)>
+            "children": <Styled(List)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                }
+              }
+            >
               <Styled(ListItem)
                 className="list-categories"
                 onPress={[Function]}
                 style={
                   Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   }
                 }
               >
                 <Styled(Button)
                   className="all-categories"
                   onPress={[Function]}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                    }
+                  }
                   transparent={true}
                 >
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       }
                     }
                   >
@@ -1051,22 +1347,31 @@ ShallowWrapper {
                   onPress={[Function]}
                   style={
                     Object {
+                      "backgroundColor": "#7C8589",
+                      "borderBottomColor": "white",
+                      "borderBottomWidth": 1,
                       "justifyContent": "center",
+                      "width": "91%",
                     }
                   }
                 >
                   <Styled(Button)
                     className="all-categories"
                     onPress={[Function]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                      }
+                    }
                     transparent={true}
                   >
                     <Styled(Text)
                       style={
                         Object {
-                          "color": "black",
+                          "color": "white",
                           "fontFamily": "OpenSans-Regular",
                           "fontSize": 18,
-                          "paddingLeft": 5,
+                          "textAlign": "center",
                         }
                       }
                     >
@@ -1107,6 +1412,9 @@ ShallowWrapper {
                   />,
                 ],
               ],
+              "style": Object {
+                "backgroundColor": "#7C8589",
+              },
               "virtual": undefined,
             },
             "ref": null,
@@ -1119,15 +1427,20 @@ ShallowWrapper {
                   "children": <Styled(Button)
                     className="all-categories"
                     onPress={[Function]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                      }
+                    }
                     transparent={true}
                   >
                     <Styled(Text)
                       style={
                         Object {
-                          "color": "black",
+                          "color": "white",
                           "fontFamily": "OpenSans-Regular",
                           "fontSize": 18,
-                          "paddingLeft": 5,
+                          "textAlign": "center",
                         }
                       }
                     >
@@ -1137,7 +1450,11 @@ ShallowWrapper {
                   "className": "list-categories",
                   "onPress": [Function],
                   "style": Object {
+                    "backgroundColor": "#7C8589",
+                    "borderBottomColor": "white",
+                    "borderBottomWidth": 1,
                     "justifyContent": "center",
+                    "width": "91%",
                   },
                   "virtual": undefined,
                 },
@@ -1150,10 +1467,10 @@ ShallowWrapper {
                     "children": <Styled(Text)
                       style={
                         Object {
-                          "color": "black",
+                          "color": "white",
                           "fontFamily": "OpenSans-Regular",
                           "fontSize": 18,
-                          "paddingLeft": 5,
+                          "textAlign": "center",
                         }
                       }
                     >
@@ -1161,6 +1478,9 @@ ShallowWrapper {
                     </Styled(Text)>,
                     "className": "all-categories",
                     "onPress": [Function],
+                    "style": Object {
+                      "alignItems": "center",
+                    },
                     "transparent": true,
                     "virtual": undefined,
                   },
@@ -1172,10 +1492,10 @@ ShallowWrapper {
                     "props": Object {
                       "children": "Todos",
                       "style": Object {
-                        "color": "black",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 18,
-                        "paddingLeft": 5,
+                        "textAlign": "center",
                       },
                       "virtual": undefined,
                     },

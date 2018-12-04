@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, FormControl, Col, Button, Row, Alert } from 'react-bootstrap';
+import { Form, FormControl, Col, Button, Row, Alert, Image, InputGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import './LogIn.css';
 
@@ -41,9 +42,15 @@ class LogIn extends Component {
             .then((res) => {
                 document.cookie = 'access_token=' + res.data.token;
                 self.setState({ alertType: 'success', alertMessage: "Successfully logged in!" });
+                self.props.getEntities();
+                self.props.getCategories();
             })
             .catch((err) => {
-                self.setState({ alertType: 'danger', alertMessage: "Error logging in: " + err.response.data });
+                if (err.response.data) {
+                    self.setState({ alertType: 'danger', alertMessage: "Error logging in: " + err.response.data });
+                } else {
+                    self.setState({ alertType: 'danger', alertMessage: "Error logging in!" });
+                }
             });
     }
 
@@ -72,23 +79,40 @@ class LogIn extends Component {
 
         return (
             <div id="login-container">
-                {alertElement}
                 <Row>
-                    <Col sm={4}></Col>
-                    <Col sm={4}>
+                    {alertElement}
+                    <Col sm={6} className="login-col-first">
+                        <Image src="logotipo_completo.png" />
+                    </Col>
+                    <Col sm={6}>
                         <Form onSubmit={this.handleLogIn}>
-                            <h2>Acontece na U.Porto</h2>
-                            <FormControl type="email" required placeholder="Email"
-                                value={this.state.emailInput} className="email-input" onChange={this.updateEmailInput} />
 
-                            <FormControl type="password" required placeholder="Password"
-                                value={this.state.passwordInput} className="password-input" onChange={this.updatePasswordInput} />
+                            <InputGroup>
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon">
+                                        <FontAwesomeIcon icon="at" />
+                                    </span>
+                                </div>
+                                <FormControl type="email" required placeholder="Email"
+                                    value={this.state.emailInput} className="email-input"
+                                    onChange={this.updateEmailInput} aria-describedby="basic-addon" />
+                            </InputGroup>
+                            <InputGroup>
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon">
+                                        <FontAwesomeIcon icon="unlock-alt" />
+                                    </span>
+                                </div>
+                                <FormControl type="password" required placeholder="Password"
+                                    value={this.state.passwordInput} className="password-input"
+                                    onChange={this.updatePasswordInput} />
+                            </InputGroup>
+
 
                             <Button variant="primary" type="submit"
                                 id="login-button" className="primary_button">Entrar</Button>
                         </Form>
                     </Col>
-                    <Col sm={4}></Col>
                 </Row>
             </div>
         );
