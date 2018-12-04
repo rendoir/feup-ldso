@@ -58,9 +58,9 @@ export default class EntitiesScreen extends React.Component {
 
         return (
             <Container>
-                <NewCustomHeader text={global.dictionary["ENTITIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
+                <NewCustomHeader navigation={this.props.navigation} text={global.dictionary["ENTITIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
                 <Content>
-                    <List>
+                    <List style={{ backgroundColor: '#7C8589' }} >
                         <ListItem style={styles.listItem} className="list-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
                             <Button transparent className="all-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
                         </ListItem>
@@ -74,7 +74,11 @@ export default class EntitiesScreen extends React.Component {
 
 const styles = StyleSheet.create({
     listItem: {
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: '#7C8589',
+        width: '91%',
+        borderBottomWidth: 1,
+        borderBottomColor: 'white'
     },
     header: {
         backgroundColor: '#2c8f7f',
@@ -88,9 +92,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     buttonText: {
-        color: 'black',
+        color: 'white',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5
+        textAlign: 'center'
     }
 });

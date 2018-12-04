@@ -4,6 +4,24 @@ div#page-event {
     background: white;
 }
 
+li.breadcrumb-item a {
+    font-weight: 600;
+    color: white;
+    text-decoration: underline;
+}
+
+li.breadcrumb-item a:hover {
+    color: #455a64;
+}
+
+li.breadcrumb-item+.breadcrumb-item::before {
+    color: #455a64;
+}
+
+li.breadcrumb-item.active {
+    color: white;
+}
+
 div.row.event-page-header{
     margin: 2em 0;
 }

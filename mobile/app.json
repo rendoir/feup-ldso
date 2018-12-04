@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "Acontece na U.Porto",
     "description": "A very interesting project.",
-    "slug": "mobile",
+    "slug": "Acontece na U.Porto",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
@@ -22,6 +22,16 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.ldso.agendacultural",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "Replace with your Google API Key",
+          "certificateHash": "Replace with your SHA1 Certifacte Fingerprint"
+        }
+      }
     }
   }
 }
+

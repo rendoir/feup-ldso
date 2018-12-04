@@ -27,12 +27,16 @@ export default class Category extends React.Component {
 
 const styles = StyleSheet.create({
     buttonText: {
-        color: 'black',
+        color: 'white',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
         paddingLeft: 5
     },
     listItem: {
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: '#7C8589',
+        width: '91%',
+        borderBottomWidth: 1,
+        borderBottomColor: 'white'
     }
 });

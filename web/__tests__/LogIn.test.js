@@ -92,7 +92,7 @@ describe("Login", async() => {
         button.simulate('submit');
 
         setImmediate(() => {
-            expect(wrapperLogIn.state().alertMessage).toEqual("Error logging in: undefined");
+            expect(wrapperLogIn.state().alertMessage).toEqual("Error logging in!");
             expect(wrapperLogIn.state().alertType).toEqual("danger");
         });
 

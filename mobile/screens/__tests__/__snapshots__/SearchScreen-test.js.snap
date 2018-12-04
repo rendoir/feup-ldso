@@ -92,6 +92,12 @@ ShallowWrapper {
           language="PT"
         />,
         <ScrollViewMock
+          refreshControl={
+            <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />
+          }
           stickyHeaderIndices={
             Array [
               2,
@@ -99,7 +105,7 @@ ShallowWrapper {
           }
           style={
             Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             }
           }
@@ -107,7 +113,7 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "5%",
                 "paddingBottom": "2%",
                 "paddingTop": "5%",
@@ -117,7 +123,7 @@ ShallowWrapper {
             <Styled(Text)
               style={
                 Object {
-                  "color": "#2c8f7f",
+                  "color": "white",
                   "fontFamily": "OpenSans-Regular",
                   "fontSize": 32,
                   "textAlign": "center",
@@ -129,7 +135,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "flexDirection": "row",
                   "justifyContent": "center",
                   "paddingBottom": "5%",
@@ -158,7 +164,7 @@ ShallowWrapper {
                   style={
                     Object {
                       "borderBottomWidth": 3,
-                      "borderColor": "#002040",
+                      "borderColor": "white",
                       "height": 30,
                     }
                   }
@@ -168,12 +174,13 @@ ShallowWrapper {
                     onChangeText={[Function]}
                     style={
                       Object {
-                        "backgroundColor": "#f0F0F0",
-                        "borderColor": "#002040",
+                        "backgroundColor": "#7C8589",
+                        "borderColor": "white",
                         "borderLeftWidth": 0,
                         "borderRightWidth": 0,
                         "borderTopWidth": 0,
                         "borderWidth": 2,
+                        "color": "white",
                         "fontSize": 20,
                         "height": 30,
                         "width": "100%",
@@ -184,6 +191,7 @@ ShallowWrapper {
                     name="search"
                     style={
                       Object {
+                        "color": "white",
                         "fontSize": 20,
                       }
                     }
@@ -207,7 +215,7 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "2%",
               }
             }
@@ -235,7 +243,7 @@ ShallowWrapper {
         </ScrollViewMock>,
       ],
       "style": Object {
-        "backgroundColor": "#F0F0F0",
+        "backgroundColor": "#7C8589",
       },
       "virtual": undefined,
     },
@@ -262,7 +270,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "5%",
                   "paddingBottom": "2%",
                   "paddingTop": "5%",
@@ -272,7 +280,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -284,7 +292,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -313,7 +321,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -323,12 +331,13 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
+                          "backgroundColor": "#7C8589",
+                          "borderColor": "white",
                           "borderLeftWidth": 0,
                           "borderRightWidth": 0,
                           "borderTopWidth": 0,
                           "borderWidth": 2,
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -339,6 +348,7 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "color": "white",
                           "fontSize": 20,
                         }
                       }
@@ -362,7 +372,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "2%",
                 }
               }
@@ -388,11 +398,15 @@ ShallowWrapper {
               </Styled(Card)>
             </Styled(ViewNB)>,
           ],
+          "refreshControl": <RefreshControlMock
+            onRefresh={[Function]}
+            refreshing={false}
+          />,
           "stickyHeaderIndices": Array [
             2,
           ],
           "style": Object {
-            "backgroundColor": "#F0F0F0",
+            "backgroundColor": "#7C8589",
             "height": "100%",
           },
         },
@@ -407,7 +421,7 @@ ShallowWrapper {
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -419,7 +433,7 @@ ShallowWrapper {
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -448,7 +462,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -458,12 +472,13 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
+                            "backgroundColor": "#7C8589",
+                            "borderColor": "white",
                             "borderLeftWidth": 0,
                             "borderRightWidth": 0,
                             "borderTopWidth": 0,
                             "borderWidth": 2,
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -474,6 +489,7 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "color": "white",
                             "fontSize": 20,
                           }
                         }
@@ -495,7 +511,7 @@ ShallowWrapper {
                 </Styled(ViewNB)>,
               ],
               "style": Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "5%",
                 "paddingBottom": "2%",
                 "paddingTop": "5%",
@@ -511,7 +527,7 @@ ShallowWrapper {
                 "props": Object {
                   "children": "Pesquisa",
                   "style": Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -550,7 +566,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -560,12 +576,13 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -576,6 +593,7 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "color": "white",
                               "fontSize": 20,
                             }
                           }
@@ -596,7 +614,7 @@ ShallowWrapper {
                     </Styled(ViewNB)>,
                   ],
                   "style": Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -642,7 +660,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -652,12 +670,13 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -668,6 +687,7 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "color": "white",
                               "fontSize": 20,
                             }
                           }
@@ -691,12 +711,13 @@ ShallowWrapper {
                             onChangeText={[Function]}
                             style={
                               Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -707,6 +728,7 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "color": "white",
                                 "fontSize": 20,
                               }
                             }
@@ -715,7 +737,7 @@ ShallowWrapper {
                         ],
                         "style": Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         },
                         "virtual": undefined,
@@ -730,12 +752,13 @@ ShallowWrapper {
                             "className": "search-input",
                             "onChangeText": [Function],
                             "style": Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -753,6 +776,7 @@ ShallowWrapper {
                           "props": Object {
                             "name": "search",
                             "style": Object {
+                              "color": "white",
                               "fontSize": 20,
                             },
                             "type": "FontAwesome",
@@ -829,7 +853,7 @@ ShallowWrapper {
                 </Styled(Card)>,
               ],
               "style": Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "2%",
               },
               "virtual": undefined,
@@ -976,6 +1000,12 @@ ShallowWrapper {
             language="PT"
           />,
           <ScrollViewMock
+            refreshControl={
+              <RefreshControlMock
+                onRefresh={[Function]}
+                refreshing={false}
+              />
+            }
             stickyHeaderIndices={
               Array [
                 2,
@@ -983,7 +1013,7 @@ ShallowWrapper {
             }
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "height": "100%",
               }
             }
@@ -991,7 +1021,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "5%",
                   "paddingBottom": "2%",
                   "paddingTop": "5%",
@@ -1001,7 +1031,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -1013,7 +1043,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -1042,7 +1072,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -1052,12 +1082,13 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
+                          "backgroundColor": "#7C8589",
+                          "borderColor": "white",
                           "borderLeftWidth": 0,
                           "borderRightWidth": 0,
                           "borderTopWidth": 0,
                           "borderWidth": 2,
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -1068,6 +1099,7 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "color": "white",
                           "fontSize": 20,
                         }
                       }
@@ -1091,7 +1123,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "2%",
                 }
               }
@@ -1119,7 +1151,7 @@ ShallowWrapper {
           </ScrollViewMock>,
         ],
         "style": Object {
-          "backgroundColor": "#F0F0F0",
+          "backgroundColor": "#7C8589",
         },
         "virtual": undefined,
       },
@@ -1146,7 +1178,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "marginHorizontal": "5%",
                     "paddingBottom": "2%",
                     "paddingTop": "5%",
@@ -1156,7 +1188,7 @@ ShallowWrapper {
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -1168,7 +1200,7 @@ ShallowWrapper {
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -1197,7 +1229,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -1207,12 +1239,13 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
+                            "backgroundColor": "#7C8589",
+                            "borderColor": "white",
                             "borderLeftWidth": 0,
                             "borderRightWidth": 0,
                             "borderTopWidth": 0,
                             "borderWidth": 2,
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -1223,6 +1256,7 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "color": "white",
                             "fontSize": 20,
                           }
                         }
@@ -1246,7 +1280,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "marginHorizontal": "2%",
                   }
                 }
@@ -1272,11 +1306,15 @@ ShallowWrapper {
                 </Styled(Card)>
               </Styled(ViewNB)>,
             ],
+            "refreshControl": <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />,
             "stickyHeaderIndices": Array [
               2,
             ],
             "style": Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             },
           },
@@ -1291,7 +1329,7 @@ ShallowWrapper {
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "#2c8f7f",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 32,
                         "textAlign": "center",
@@ -1303,7 +1341,7 @@ ShallowWrapper {
                   <Styled(ViewNB)
                     style={
                       Object {
-                        "backgroundColor": "#F0F0F0",
+                        "backgroundColor": "#7C8589",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "paddingBottom": "5%",
@@ -1332,7 +1370,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -1342,12 +1380,13 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -1358,6 +1397,7 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "color": "white",
                               "fontSize": 20,
                             }
                           }
@@ -1379,7 +1419,7 @@ ShallowWrapper {
                   </Styled(ViewNB)>,
                 ],
                 "style": Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "5%",
                   "paddingBottom": "2%",
                   "paddingTop": "5%",
@@ -1395,7 +1435,7 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Pesquisa",
                     "style": Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -1434,7 +1474,7 @@ ShallowWrapper {
                           style={
                             Object {
                               "borderBottomWidth": 3,
-                              "borderColor": "#002040",
+                              "borderColor": "white",
                               "height": 30,
                             }
                           }
@@ -1444,12 +1484,13 @@ ShallowWrapper {
                             onChangeText={[Function]}
                             style={
                               Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -1460,6 +1501,7 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "color": "white",
                                 "fontSize": 20,
                               }
                             }
@@ -1480,7 +1522,7 @@ ShallowWrapper {
                       </Styled(ViewNB)>,
                     ],
                     "style": Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -1526,7 +1568,7 @@ ShallowWrapper {
                           style={
                             Object {
                               "borderBottomWidth": 3,
-                              "borderColor": "#002040",
+                              "borderColor": "white",
                               "height": 30,
                             }
                           }
@@ -1536,12 +1578,13 @@ ShallowWrapper {
                             onChangeText={[Function]}
                             style={
                               Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -1552,6 +1595,7 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "color": "white",
                                 "fontSize": 20,
                               }
                             }
@@ -1575,12 +1619,13 @@ ShallowWrapper {
                               onChangeText={[Function]}
                               style={
                                 Object {
-                                  "backgroundColor": "#f0F0F0",
-                                  "borderColor": "#002040",
+                                  "backgroundColor": "#7C8589",
+                                  "borderColor": "white",
                                   "borderLeftWidth": 0,
                                   "borderRightWidth": 0,
                                   "borderTopWidth": 0,
                                   "borderWidth": 2,
+                                  "color": "white",
                                   "fontSize": 20,
                                   "height": 30,
                                   "width": "100%",
@@ -1591,6 +1636,7 @@ ShallowWrapper {
                               name="search"
                               style={
                                 Object {
+                                  "color": "white",
                                   "fontSize": 20,
                                 }
                               }
@@ -1599,7 +1645,7 @@ ShallowWrapper {
                           ],
                           "style": Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           },
                           "virtual": undefined,
@@ -1614,12 +1660,13 @@ ShallowWrapper {
                               "className": "search-input",
                               "onChangeText": [Function],
                               "style": Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -1637,6 +1684,7 @@ ShallowWrapper {
                             "props": Object {
                               "name": "search",
                               "style": Object {
+                                "color": "white",
                                 "fontSize": 20,
                               },
                               "type": "FontAwesome",
@@ -1713,7 +1761,7 @@ ShallowWrapper {
                   </Styled(Card)>,
                 ],
                 "style": Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "2%",
                 },
                 "virtual": undefined,
@@ -1903,6 +1951,12 @@ ShallowWrapper {
           language="PT"
         />,
         <ScrollViewMock
+          refreshControl={
+            <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />
+          }
           stickyHeaderIndices={
             Array [
               2,
@@ -1910,7 +1964,7 @@ ShallowWrapper {
           }
           style={
             Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             }
           }
@@ -1918,7 +1972,7 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "5%",
                 "paddingBottom": "2%",
                 "paddingTop": "5%",
@@ -1928,7 +1982,7 @@ ShallowWrapper {
             <Styled(Text)
               style={
                 Object {
-                  "color": "#2c8f7f",
+                  "color": "white",
                   "fontFamily": "OpenSans-Regular",
                   "fontSize": 32,
                   "textAlign": "center",
@@ -1940,7 +1994,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "flexDirection": "row",
                   "justifyContent": "center",
                   "paddingBottom": "5%",
@@ -1969,7 +2023,7 @@ ShallowWrapper {
                   style={
                     Object {
                       "borderBottomWidth": 3,
-                      "borderColor": "#002040",
+                      "borderColor": "white",
                       "height": 30,
                     }
                   }
@@ -1979,12 +2033,13 @@ ShallowWrapper {
                     onChangeText={[Function]}
                     style={
                       Object {
-                        "backgroundColor": "#f0F0F0",
-                        "borderColor": "#002040",
+                        "backgroundColor": "#7C8589",
+                        "borderColor": "white",
                         "borderLeftWidth": 0,
                         "borderRightWidth": 0,
                         "borderTopWidth": 0,
                         "borderWidth": 2,
+                        "color": "white",
                         "fontSize": 20,
                         "height": 30,
                         "width": "100%",
@@ -1995,6 +2050,7 @@ ShallowWrapper {
                     name="search"
                     style={
                       Object {
+                        "color": "white",
                         "fontSize": 20,
                       }
                     }
@@ -2018,7 +2074,7 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "2%",
               }
             }
@@ -2046,7 +2102,7 @@ ShallowWrapper {
         </ScrollViewMock>,
       ],
       "style": Object {
-        "backgroundColor": "#F0F0F0",
+        "backgroundColor": "#7C8589",
       },
       "virtual": undefined,
     },
@@ -2073,7 +2129,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "5%",
                   "paddingBottom": "2%",
                   "paddingTop": "5%",
@@ -2083,7 +2139,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -2095,7 +2151,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -2124,7 +2180,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -2134,12 +2190,13 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
+                          "backgroundColor": "#7C8589",
+                          "borderColor": "white",
                           "borderLeftWidth": 0,
                           "borderRightWidth": 0,
                           "borderTopWidth": 0,
                           "borderWidth": 2,
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -2150,6 +2207,7 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "color": "white",
                           "fontSize": 20,
                         }
                       }
@@ -2173,7 +2231,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "2%",
                 }
               }
@@ -2199,11 +2257,15 @@ ShallowWrapper {
               </Styled(Card)>
             </Styled(ViewNB)>,
           ],
+          "refreshControl": <RefreshControlMock
+            onRefresh={[Function]}
+            refreshing={false}
+          />,
           "stickyHeaderIndices": Array [
             2,
           ],
           "style": Object {
-            "backgroundColor": "#F0F0F0",
+            "backgroundColor": "#7C8589",
             "height": "100%",
           },
         },
@@ -2218,7 +2280,7 @@ ShallowWrapper {
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -2230,7 +2292,7 @@ ShallowWrapper {
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -2259,7 +2321,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -2269,12 +2331,13 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
+                            "backgroundColor": "#7C8589",
+                            "borderColor": "white",
                             "borderLeftWidth": 0,
                             "borderRightWidth": 0,
                             "borderTopWidth": 0,
                             "borderWidth": 2,
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -2285,6 +2348,7 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "color": "white",
                             "fontSize": 20,
                           }
                         }
@@ -2306,7 +2370,7 @@ ShallowWrapper {
                 </Styled(ViewNB)>,
               ],
               "style": Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "5%",
                 "paddingBottom": "2%",
                 "paddingTop": "5%",
@@ -2322,7 +2386,7 @@ ShallowWrapper {
                 "props": Object {
                   "children": "Pesquisa",
                   "style": Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -2361,7 +2425,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -2371,12 +2435,13 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -2387,6 +2452,7 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "color": "white",
                               "fontSize": 20,
                             }
                           }
@@ -2407,7 +2473,7 @@ ShallowWrapper {
                     </Styled(ViewNB)>,
                   ],
                   "style": Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -2453,7 +2519,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -2463,12 +2529,13 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -2479,6 +2546,7 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "color": "white",
                               "fontSize": 20,
                             }
                           }
@@ -2502,12 +2570,13 @@ ShallowWrapper {
                             onChangeText={[Function]}
                             style={
                               Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -2518,6 +2587,7 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "color": "white",
                                 "fontSize": 20,
                               }
                             }
@@ -2526,7 +2596,7 @@ ShallowWrapper {
                         ],
                         "style": Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         },
                         "virtual": undefined,
@@ -2541,12 +2611,13 @@ ShallowWrapper {
                             "className": "search-input",
                             "onChangeText": [Function],
                             "style": Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -2564,6 +2635,7 @@ ShallowWrapper {
                           "props": Object {
                             "name": "search",
                             "style": Object {
+                              "color": "white",
                               "fontSize": 20,
                             },
                             "type": "FontAwesome",
@@ -2640,7 +2712,7 @@ ShallowWrapper {
                 </Styled(Card)>,
               ],
               "style": Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "marginHorizontal": "2%",
               },
               "virtual": undefined,
@@ -2787,6 +2859,12 @@ ShallowWrapper {
             language="PT"
           />,
           <ScrollViewMock
+            refreshControl={
+              <RefreshControlMock
+                onRefresh={[Function]}
+                refreshing={false}
+              />
+            }
             stickyHeaderIndices={
               Array [
                 2,
@@ -2794,7 +2872,7 @@ ShallowWrapper {
             }
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "height": "100%",
               }
             }
@@ -2802,7 +2880,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "5%",
                   "paddingBottom": "2%",
                   "paddingTop": "5%",
@@ -2812,7 +2890,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -2824,7 +2902,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -2853,7 +2931,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -2863,12 +2941,13 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
+                          "backgroundColor": "#7C8589",
+                          "borderColor": "white",
                           "borderLeftWidth": 0,
                           "borderRightWidth": 0,
                           "borderTopWidth": 0,
                           "borderWidth": 2,
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -2879,6 +2958,7 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "color": "white",
                           "fontSize": 20,
                         }
                       }
@@ -2902,7 +2982,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "2%",
                 }
               }
@@ -2930,7 +3010,7 @@ ShallowWrapper {
           </ScrollViewMock>,
         ],
         "style": Object {
-          "backgroundColor": "#F0F0F0",
+          "backgroundColor": "#7C8589",
         },
         "virtual": undefined,
       },
@@ -2957,7 +3037,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "marginHorizontal": "5%",
                     "paddingBottom": "2%",
                     "paddingTop": "5%",
@@ -2967,7 +3047,7 @@ ShallowWrapper {
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -2979,7 +3059,7 @@ ShallowWrapper {
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -3008,7 +3088,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -3018,12 +3098,13 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
+                            "backgroundColor": "#7C8589",
+                            "borderColor": "white",
                             "borderLeftWidth": 0,
                             "borderRightWidth": 0,
                             "borderTopWidth": 0,
                             "borderWidth": 2,
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -3034,6 +3115,7 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "color": "white",
                             "fontSize": 20,
                           }
                         }
@@ -3057,7 +3139,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "marginHorizontal": "2%",
                   }
                 }
@@ -3083,11 +3165,15 @@ ShallowWrapper {
                 </Styled(Card)>
               </Styled(ViewNB)>,
             ],
+            "refreshControl": <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />,
             "stickyHeaderIndices": Array [
               2,
             ],
             "style": Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             },
           },
@@ -3102,7 +3188,7 @@ ShallowWrapper {
                   <Styled(Text)
                     style={
                       Object {
-                        "color": "#2c8f7f",
+                        "color": "white",
                         "fontFamily": "OpenSans-Regular",
                         "fontSize": 32,
                         "textAlign": "center",
@@ -3114,7 +3200,7 @@ ShallowWrapper {
                   <Styled(ViewNB)
                     style={
                       Object {
-                        "backgroundColor": "#F0F0F0",
+                        "backgroundColor": "#7C8589",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "paddingBottom": "5%",
@@ -3143,7 +3229,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -3153,12 +3239,13 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
+                              "backgroundColor": "#7C8589",
+                              "borderColor": "white",
                               "borderLeftWidth": 0,
                               "borderRightWidth": 0,
                               "borderTopWidth": 0,
                               "borderWidth": 2,
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -3169,6 +3256,7 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "color": "white",
                               "fontSize": 20,
                             }
                           }
@@ -3190,7 +3278,7 @@ ShallowWrapper {
                   </Styled(ViewNB)>,
                 ],
                 "style": Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "5%",
                   "paddingBottom": "2%",
                   "paddingTop": "5%",
@@ -3206,7 +3294,7 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Pesquisa",
                     "style": Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -3245,7 +3333,7 @@ ShallowWrapper {
                           style={
                             Object {
                               "borderBottomWidth": 3,
-                              "borderColor": "#002040",
+                              "borderColor": "white",
                               "height": 30,
                             }
                           }
@@ -3255,12 +3343,13 @@ ShallowWrapper {
                             onChangeText={[Function]}
                             style={
                               Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -3271,6 +3360,7 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "color": "white",
                                 "fontSize": 20,
                               }
                             }
@@ -3291,7 +3381,7 @@ ShallowWrapper {
                       </Styled(ViewNB)>,
                     ],
                     "style": Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -3337,7 +3427,7 @@ ShallowWrapper {
                           style={
                             Object {
                               "borderBottomWidth": 3,
-                              "borderColor": "#002040",
+                              "borderColor": "white",
                               "height": 30,
                             }
                           }
@@ -3347,12 +3437,13 @@ ShallowWrapper {
                             onChangeText={[Function]}
                             style={
                               Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -3363,6 +3454,7 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "color": "white",
                                 "fontSize": 20,
                               }
                             }
@@ -3386,12 +3478,13 @@ ShallowWrapper {
                               onChangeText={[Function]}
                               style={
                                 Object {
-                                  "backgroundColor": "#f0F0F0",
-                                  "borderColor": "#002040",
+                                  "backgroundColor": "#7C8589",
+                                  "borderColor": "white",
                                   "borderLeftWidth": 0,
                                   "borderRightWidth": 0,
                                   "borderTopWidth": 0,
                                   "borderWidth": 2,
+                                  "color": "white",
                                   "fontSize": 20,
                                   "height": 30,
                                   "width": "100%",
@@ -3402,6 +3495,7 @@ ShallowWrapper {
                               name="search"
                               style={
                                 Object {
+                                  "color": "white",
                                   "fontSize": 20,
                                 }
                               }
@@ -3410,7 +3504,7 @@ ShallowWrapper {
                           ],
                           "style": Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           },
                           "virtual": undefined,
@@ -3425,12 +3519,13 @@ ShallowWrapper {
                               "className": "search-input",
                               "onChangeText": [Function],
                               "style": Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
+                                "backgroundColor": "#7C8589",
+                                "borderColor": "white",
                                 "borderLeftWidth": 0,
                                 "borderRightWidth": 0,
                                 "borderTopWidth": 0,
                                 "borderWidth": 2,
+                                "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
                                 "width": "100%",
@@ -3448,6 +3543,7 @@ ShallowWrapper {
                             "props": Object {
                               "name": "search",
                               "style": Object {
+                                "color": "white",
                                 "fontSize": 20,
                               },
                               "type": "FontAwesome",
@@ -3524,7 +3620,7 @@ ShallowWrapper {
                   </Styled(Card)>,
                 ],
                 "style": Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "marginHorizontal": "2%",
                 },
                 "virtual": undefined,

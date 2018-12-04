@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">94% </span>
+        <span class="strong">88.89% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>47/50</span>
+        <span class='fraction'>48/54</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">94.12% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>16/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.25% </span>
+        <span class="strong">76.47% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>13/16</span>
+        <span class='fraction'>13/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">93.75% </span>
+        <span class="strong">88.46% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>45/48</span>
+        <span class='fraction'>46/52</span>
       </div>
     </div>
   </div>
@@ -213,7 +213,17 @@
 168
 169
 170
-171</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,6 +244,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -321,6 +333,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,7 +403,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import {
-    ScrollView
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 import { Font, AppLoading, SecureStore } from "expo";
 import { Root, View, Card, Icon, Text, Item, Input } from 'native-base';
@@ -401,11 +420,13 @@ export default class SearchScreen extends React.Component {
             loading: true,
             searchText: "",
             events: [],
-            token: null
+            token: null,
+            refreshing: false
         };
 &nbsp;
         this.onFavorite = this.onFavorite.bind(this);
         this.doSearch = this.doSearch.bind(this);
+        this._onRefresh = this._onRefresh.bind(this);
     }
 &nbsp;
     static navigationOptions = {
@@ -490,6 +511,12 @@ export default class SearchScreen extends React.Component {
             });
     }
 &nbsp;
+<span class="fstat-no" title="function not covered" >    _o</span>nRefresh() {
+<span class="cstat-no" title="statement not covered" >        this.setState({ refreshing: true, events: [], eventsPage: 0, searchText: "" });</span>
+<span class="cstat-no" title="statement not covered" >        this.doSearch();</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({ refreshing: false });</span>
+    }
+&nbsp;
     render() {
         if (this.state.loading) {
             return (
@@ -520,21 +547,21 @@ export default class SearchScreen extends React.Component {
         }
 &nbsp;
         return (
-            &lt;View style={{ backgroundColor: '#F0F0F0' }}&gt;
+            &lt;View style={{ backgroundColor: '#7C8589' }}&gt;
                 &lt;CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/&gt;
-                &lt;ScrollView stickyHeaderIndices={[2]} style={{ backgroundColor: '#F0F0F0', height: '100%' }}&gt;
+                &lt;ScrollView stickyHeaderIndices={[2]} style={{ backgroundColor: '#7C8589', height: '100%' }} refreshControl={&lt;RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /&gt;} &gt;
 &nbsp;
-                    &lt;View style={{ marginHorizontal: '5%', paddingTop: '5%', paddingBottom: '2%', backgroundColor: '#F0F0F0' }}&gt;
-                        &lt;Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}&gt;{global.dictionary["SEARCH"][this.props.screenProps.language]}&lt;/Text&gt;
+                    &lt;View style={{ marginHorizontal: '5%', paddingTop: '5%', paddingBottom: '2%', backgroundColor: '#7C8589' }}&gt;
+                        &lt;Text style={{ fontSize: 32, color: 'white', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}&gt;{global.dictionary["SEARCH"][this.props.screenProps.language]}&lt;/Text&gt;
 &nbsp;
-                        &lt;View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#F0F0F0' }}&gt;
+                        &lt;View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#7C8589' }}&gt;
                             &lt;View style={{ flex: 1 }}&gt;
                                 &lt;Text&gt; &lt;/Text&gt;
                             &lt;/View&gt;
                             &lt;View style={{ flex: 5 }}&gt;
-                                &lt;Item style={{ height: 30, borderBottomWidth: 3, borderColor: '#002040' }}&gt;
-                                    &lt;Input style={{ fontSize: 20, width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} className="search-input" onChangeText={(searchText) =&gt; { this.setState({ searchText }); this.doSearch(); }} /&gt;
-                                    &lt;Icon style={{ fontSize: 20 }} type="FontAwesome" name="search" /&gt;
+                                &lt;Item style={{ height: 30, borderBottomWidth: 3, borderColor: 'white' }}&gt;
+                                    &lt;Input style={{ fontSize: 20, color: 'white', width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: 'white', backgroundColor: '#7C8589' }} className="search-input" onChangeText={(searchText) =&gt; { this.setState({ searchText }); this.doSearch(); }} /&gt;
+                                    &lt;Icon style={{ fontSize: 20, color: 'white' }} type="FontAwesome" name="search" /&gt;
                                 &lt;/Item&gt;
                             &lt;/View&gt;
                             &lt;View style={{ flex: 1 }}&gt;
@@ -543,7 +570,7 @@ export default class SearchScreen extends React.Component {
                         &lt;/View&gt;
                     &lt;/View&gt;
 &nbsp;
-                    &lt;View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0' }}&gt;
+                    &lt;View style={{ marginHorizontal: '2%', backgroundColor: '#7C8589' }}&gt;
                         {events}
                         {noEventsElement}
                     &lt;/View&gt;
@@ -559,7 +586,7 @@ export default class SearchScreen extends React.Component {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 26 2018 10:02:23 GMT+0000 (WET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 04 2018 16:24:43 GMT+0000 (WET)
 </div>
 </div>
 <script src="../../prettify.js"></script>

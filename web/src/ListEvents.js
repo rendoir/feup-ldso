@@ -123,7 +123,7 @@ class ListEvents extends Component {
 
 
         let events = this.state.events.map((info, i) => (
-            <Event key={i} info={info}
+            <Event key={i} {...info}
                 deleteEventFromArray={this.deleteEventFromArray}
                 updateAlertMessage={this.updateAlertMessage}
             />
@@ -155,7 +155,7 @@ class ListEvents extends Component {
                     <Col sm={2}></Col>
                     <Col sm={1}>
                         <Link to={`/create`}>
-                            <Button className="primary_button">Criar Evento</Button>
+                            <Button className="primary_button" id="create-event">Criar Evento</Button>
                         </Link>
                     </Col>
                     <Col sm={3}>

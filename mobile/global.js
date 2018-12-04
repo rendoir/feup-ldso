@@ -1,4 +1,4 @@
-global.api = "192.168.1.155";
+global.api = "188.166.95.23";
 global.userId = null;
 global.userName = null;
 

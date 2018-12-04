@@ -68,7 +68,6 @@ export default class AgendaScreen extends React.Component {
             apiLink += 'categories=' + this.props.navigation.getParam('selectedCategoryId', 'null') + '&';
         }
 
-        console.log(this.state.events);
         axios.get(apiLink)
             .then(function(response) {
 
@@ -82,8 +81,6 @@ export default class AgendaScreen extends React.Component {
 
                         return { ...event, is_favorite: isFav };
                     });
-                    console.log('EVS');
-                    console.log(evs);
                     self.setState((prevState) => ({ events: [...prevState.events, ...evs] }));
                 }
 
@@ -96,6 +93,7 @@ export default class AgendaScreen extends React.Component {
 
     onSelect = updateCall => {
         this.setState(updateCall);
+        this.getEventsFromApi();
     };
 
     didFocusSubscription() {
@@ -191,44 +189,44 @@ export default class AgendaScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: '#F0F0F0' }}>
+            <View style={{ backgroundColor: '#7C8589' }}>
                 <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
 
                 <ScrollView className="scroll_view" refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />} stickyHeaderIndices={[1]} onScroll={this.handleScroll}
-                    style={{ backgroundColor: '#F0F0F0', height: '100%', marginBottom: '10%' }}>
+                    style={{ backgroundColor: '#7C8589', height: '100%', marginBottom: '10%' }}>
 
                     <View style={{ paddingTop: '5%', marginHorizontal: '5%' }}>
-                        <Text style={{ fontSize: 32, color: '#2c8f7f', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>{global.dictionary["EVENTS"][this.props.screenProps.language]}</Text>
+                        <Text style={{ fontSize: 32, color: 'white', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>{global.dictionary["EVENTS"][this.props.screenProps.language]}</Text>
                     </View>
 
-                    <View style={{ paddingHorizontal: '5%', paddingVertical: '7%', backgroundColor: '#F0F0F0' }}>
-                        <View style={{ paddingHorizontal: '4%', justifyContent: 'center', flexDirection: 'row', backgroundColor: '#F0F0F0' }}>
+                    <View style={{ paddingHorizontal: '5%', paddingVertical: '7%', backgroundColor: '#7C8589' }}>
+                        <View style={{ paddingHorizontal: '4%', justifyContent: 'center', flexDirection: 'row', backgroundColor: '#7C8589' }}>
 
                             <View style={{ flex: 3 }}>
-                                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} className="categories-button" transparent onPress={() => navigate('Categories', { onSelect: this.onSelect, toggleLanguage: this.props.screenProps.toggleLanguage, language: this.props.screenProps.language })}>
+                                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: 'white', backgroundColor: '#7C8589' }} className="categories-button" transparent onPress={() => navigate('Categories', { onSelect: this.onSelect, toggleLanguage: this.props.screenProps.toggleLanguage, language: this.props.screenProps.language })}>
                                     <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}>
                                         <View style={{ flex: 5 }}>
-                                            <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.getCategoryName()}</Text>
+                                            <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.getCategoryName()}</Text>
                                         </View>
                                         <View style={{ flex: 1 }}>
-                                            <Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} />
+                                            <Icon type='FontAwesome' name='angle-down' style={{ color: 'white', position: 'absolute', right: 0, fontSize: 22 }} />
                                         </View>
                                     </View>
                                 </Button>
                             </View>
 
                             <View style={{ flex: 1 }}>
-                                <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}>{global.dictionary["AT"][this.props.screenProps.language]}</Text>
+                                <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 18, textAlign: 'center' }}>{global.dictionary["AT"][this.props.screenProps.language]}</Text>
                             </View>
 
                             <View style={{ flex: 3 }}>
-                                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: '#002040', backgroundColor: '#f0F0F0' }} className="entities-button" transparent onPress={() => navigate('Entities', { onSelect: this.onSelect, toggleLanguage: this.props.screenProps.toggleLanguage, language: this.props.screenProps.language })}>
+                                <Button style={{ width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: 'white', backgroundColor: '#7C8589' }} className="entities-button" transparent onPress={() => navigate('Entities', { onSelect: this.onSelect, toggleLanguage: this.props.screenProps.toggleLanguage, language: this.props.screenProps.language })}>
                                     <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: '1%' }}>
                                         <View style={{ flex: 5 }}>
-                                            <Text style={{ color: '#002040', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.getEntityName()}</Text>
+                                            <Text style={{ color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 16, textAlign: 'left' }} numberOfLines={1} uppercase={false}>{this.getEntityName()}</Text>
                                         </View>
                                         <View style={{ flex: 1 }}>
-                                            <Icon type='FontAwesome' name='angle-down' style={{ color: '#002040', position: 'absolute', right: 0, fontSize: 22 }} />
+                                            <Icon type='FontAwesome' name='angle-down' style={{ color: 'white', position: 'absolute', right: 0, fontSize: 22 }} />
                                         </View>
                                     </View>
                                 </Button>
@@ -236,8 +234,7 @@ export default class AgendaScreen extends React.Component {
                         </View>
                     </View>
 
-
-                    <View style={{ marginHorizontal: '2%', backgroundColor: '#F0F0F0', marginBottom: '10%' }}>
+                    <View style={{ marginHorizontal: '2%', backgroundColor: '#7C8589', marginBottom: '10%' }}>
                         {events}
                         {noEventsElement}
                     </View>

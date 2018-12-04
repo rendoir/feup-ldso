@@ -21,19 +21,22 @@ export default class CustomHeader extends React.Component {
         return (
             <View style={{ height: '6%' }}>
                 <StatusBar hidden />
-                <View style={{ backgroundColor: '#002040', height: '100%', flexDirection: 'row' }}>
-                    <View style={{ flex: 2, height: '100%' }}>
-                        <Image source={require('../assets/images/original.png')}
+                <View style={{ backgroundColor: '#455A64', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ flex: 1, height: '100%', alignSelf: 'center', alignItems: 'flex-start' }}>
+                        <Image source={require('../assets/images/logo_screen.png')}
                             style={{
-                                width: '80%',
-                                height: '100%',
+                                width: '50%',
+                                height: '85%',
                                 resizeMode: 'contain',
-                                marginHorizontal: '1%',
-                                marginVertical: '0%'
+                                marginLeft: '2%',
+                                marginVertical: '1%'
                             }}
                         />
                     </View>
-                    <View>
+                    <View style={{ flex: 1, alignSelf: 'center' }}>
+                        <Text style={{ color: 'white', textAlign: 'center', paddingRight: '1%', marginHorizontal: '1%' }}>{global.userName}</Text>
+                    </View>
+                    <View style={{ flex: 1, alignSelf: 'center', alignItems: 'flex-end', marginRight: '2%' }}>
                         <SwitchToggle
                             buttonText={this.props.language === 'EN' ? 'EN' : ''}
                             backTextRight={"PT"}
@@ -59,11 +62,6 @@ export default class CustomHeader extends React.Component {
                             className="change-language"
                             accessibilityLabel="Toggle language"
                         />
-                    </View>
-                    <View style={{ flex: 2, alignSelf: 'center' }}>
-                        <Text style={{
-                            color: 'white', textAlign: 'right', paddingRight: '1%', marginHorizontal: '1%'
-                        }}>{global.userName}</Text>
                     </View>
                 </View>
             </View>

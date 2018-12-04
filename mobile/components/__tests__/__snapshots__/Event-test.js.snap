@@ -36,7 +36,7 @@ exports[`Event Test renders correctly 1`] = `
     onError={[Function]}
     source={
       Object {
-        "uri": "http://192.168.1.155:3030/2",
+        "uri": "http://10.227.158.218:3030/2",
       }
     }
     style={
@@ -74,7 +74,7 @@ exports[`Event Test renders correctly 1`] = `
           },
           Object {
             "alignItems": "center",
-            "backgroundColor": "#002040",
+            "backgroundColor": "#455A64",
             "flex": 1,
             "height": 68,
             "margin": "3%",
@@ -269,7 +269,7 @@ exports[`Event Test renders correctly in english 1`] = `
     onError={[Function]}
     source={
       Object {
-        "uri": "http://192.168.1.155:3030/2",
+        "uri": "http://10.227.158.218:3030/2",
       }
     }
     style={
@@ -307,7 +307,7 @@ exports[`Event Test renders correctly in english 1`] = `
           },
           Object {
             "alignItems": "center",
-            "backgroundColor": "#002040",
+            "backgroundColor": "#455A64",
             "flex": 1,
             "height": 68,
             "margin": "3%",

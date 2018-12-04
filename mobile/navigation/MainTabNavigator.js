@@ -63,12 +63,13 @@ const MyBottomTabNavigator = createBottomTabNavigator({
     initialRouteName: 'AgendaStack',
     tabBarOptions: {
         showLabel: true,
-        activeTintColor: '#F8F8F8',
-        inactiveTintColor: '#ffffff',
-        activeBackgroundColor: '#6090c0',
+        activeTintColor: '#F0F0F0',
+        inactiveTintColor: '#F0F0F0',
+        activeBackgroundColor: '#61737C',
         style: {
-            backgroundColor: '#002040'
-        }
+            backgroundColor: '#455A64'
+        },
+        backBehaviour: 'none'
     }
 }
 );

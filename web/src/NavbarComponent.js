@@ -52,11 +52,9 @@ class NavbarComponent extends Component {
 
         return (
             <Navbar id="navbar-custom">
-                <Navbar.Brand href="#">
-                    <NavLink className="navbar-brand" to="/events">
-                        <Image src="/logo.png" id="logo" />
-                    </NavLink>
-                </Navbar.Brand>
+                <NavLink className="navbar-brand" to="/events">
+                    <Image src="/logotipo_agenda.png" id="logo" />
+                </NavLink>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav></Nav>
 
