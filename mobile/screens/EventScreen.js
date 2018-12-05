@@ -7,6 +7,8 @@ import {
     Linking
 } from 'react-native';
 import { Font, AppLoading } from "expo";
+import Expo from "expo";
+import DropdownAlert from 'react-native-dropdownalert';
 import { Root, View, Button, Icon, Text } from 'native-base';
 import NewCustomHeader from '../components/NewCustomHeader.js';
 
@@ -22,6 +24,7 @@ export default class AgendaScreen extends React.Component {
         };
 
         this.redirectGoogleMaps = this.redirectGoogleMaps.bind(this);
+        this.addEventToCalendar = this.addEventToCalendar.bind(this);
     }
 
     ImageLoadingError() {
@@ -72,6 +75,48 @@ export default class AgendaScreen extends React.Component {
             : Linking.openURL('http://maps.google.com/maps/geo:0,0?q=' + encodeURI(this.state.event.location));
     }
 
+    async addEventToCalendar() {
+
+        const { status } = await Expo.Permissions.askAsync(Expo.Permissions.CALENDAR);
+
+        if (status === "granted") {
+            let res = null;
+
+            if (this.props.screenProps.language === "PT") {
+
+                res = await Expo.Calendar.createEventAsync(Expo.Calendar.DEFAULT, {
+                    title: this.state.event.title,
+                    startDate: new Date(this.state.event.start_date),
+                    endDate: new Date(this.state.event.end_date),
+                    location: this.state.location,
+                    timeZone: "UTC",
+                    notes: this.state.event.description
+                });
+
+            } else {
+
+                res = await Expo.Calendar.createEventAsync(Expo.Calendar.DEFAULT, {
+                    title: this.state.event.title_english,
+                    startDate: new Date(this.state.event.start_date),
+                    endDate: new Date(this.state.event.end_date),
+                    location: this.state.location,
+                    timeZone: "UTC",
+                    notes: this.state.event.description_english
+                });
+
+            }
+
+            if (res !== null) {
+                this.dropdown.alertWithType('success', global.dictionary["SUCCESS"][this.props.screenProps.language], global.dictionary["EVENT_ADDED_CALENDAR"][this.props.screenProps.language]);
+            } else {
+                this.dropdown.alertWithType('error', global.dictionary["ERROR"][this.props.screenProps.language], global.dictionary["EVENT_NOT_ADDED_CALENDAR"][this.props.screenProps.language]);
+            }
+
+        } else {
+            this.dropdown.alertWithType('error', global.dictionary["ERROR"][this.props.screenProps.language], global.dictionary["EVENT_NOT_ADDED_CALENDAR"][this.props.screenProps.language]);
+        }
+    }
+
     getTitle() {
         if (this.props.screenProps.language === "PT") return this.state.event.title;
         else if (this.props.screenProps.language === "EN") return this.state.event.title_english;
@@ -109,12 +154,12 @@ export default class AgendaScreen extends React.Component {
                     <View style={{ margin: 0, backgroundColor: 'white', flexDirection: 'row' }}>
                         <View style={{ flex: 1 }}></View>
                         <Button className="map-button" rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }} onPress={() => this.redirectGoogleMaps()}>
-                            <Icon type='Entypo' name='location-pin' style={{ flex: 1, fontSize: 13, color: '#D05722' }} />
+                            <Icon type='Entypo' name='location-pin' style={{ flex: 1, fontSize: 10, color: '#D05722' }} />
                             <Text style={{ color: 'black' }} >{global.dictionary["MAP"][this.props.screenProps.language]}</Text>
                         </Button>
                         <View style={{ flex: 1 }}></View>
-                        <Button rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }}>
-                            <Icon type='FontAwesome' name='calendar' style={{ flex: 1, fontSize: 13, color: '#D05722' }} />
+                        <Button className="calendar-button" rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }} onPress={this.addEventToCalendar}>
+                            <Icon type='FontAwesome' name='calendar' style={{ flex: 1, fontSize: 10, color: '#D05722' }} />
                             <Text style={{ color: 'black' }} >{global.dictionary["CALENDAR"][this.props.screenProps.language]}</Text>
                         </Button>
                         <View style={{ flex: 1 }}></View>
@@ -141,8 +186,11 @@ export default class AgendaScreen extends React.Component {
                     <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
                         <Text style={[styles.simpleText, { textAlign: 'justify' }]}>{this.getDescription()}</Text>
                     </View>
-
                 </ScrollView>
+
+                <DropdownAlert ref={ref => this.dropdown = ref} translucent={true}
+                    defaultContainer={{ padding: 8, paddingTop: 0, flexDirection: 'row' }}
+                    defaultTextContainer={{ flex: 1, paddingTop: 0 }} />
             </View >
         );
     }

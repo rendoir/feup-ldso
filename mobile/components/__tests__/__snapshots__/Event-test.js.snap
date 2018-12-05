@@ -36,7 +36,7 @@ exports[`Event Test renders correctly 1`] = `
     onError={[Function]}
     source={
       Object {
-        "uri": "http://10.227.158.218:3030/2",
+        "uri": "http://188.166.95.23:3030/2",
       }
     }
     style={
@@ -269,7 +269,7 @@ exports[`Event Test renders correctly in english 1`] = `
     onError={[Function]}
     source={
       Object {
-        "uri": "http://10.227.158.218:3030/2",
+        "uri": "http://188.166.95.23:3030/2",
       }
     }
     style={
