@@ -54,6 +54,10 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
     - Web - 188.166.41.239:3000
     - API - 188.166.41.239:3030
 
+## Mobile app APK
+
+* You can download the APK to install the app here: [APK](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40dannysoares/Acontece_na_UPorto-ceefef8ff264448dad9690f844eba351-signed.apk)
+
 ## API Documentation
 
 To access the documentation of the API:

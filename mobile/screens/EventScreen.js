@@ -72,7 +72,7 @@ export default class AgendaScreen extends React.Component {
 
         Platform.OS === 'ios'
             ? Linking.openURL('http://maps.apple.com/maps?daddr=' + this.state.event.location)
-            : Linking.openURL('http://maps.google.com/maps/geo:0,0?q=' + encodeURI(this.state.event.location));
+            : Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + encodeURI(this.state.event.location));
     }
 
     async addEventToCalendar() {
