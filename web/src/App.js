@@ -10,8 +10,8 @@ import './App.css';
 
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSignOutAlt, faEdit, faTrashAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
-library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch);
+import { faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
+library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt);
 
 function getTokenFromCookie() {
     let token = document.cookie.split("access_token=")[1];
@@ -35,8 +35,13 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getCategories();
-        this.getEntities();
+        if (this.state.categories.length === 0) {
+            this.getCategories();
+        }
+        if (this.state.entities.length === 0) {
+            this.getEntities();
+        }
+
     }
 
     updateRefreshEvents(value) {
@@ -73,34 +78,57 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Route component={Navbar} />
                 <Switch>
-                    <Route exact path="/" component={LogIn} />
-
-                    <Route exact path="/events/:id" component={EventPage} />
-                    <Route path="/events/:id/edit" render={props =>
-                        <EventPageEdit
+                    <Route exact path="/" render={props => (
+                        <LogIn
                             {...props}
-                            allCategories={this.state.categories}
-                            allEntities={this.state.entities}
+                            getEntities={this.getEntities}
+                            getCategories={this.getCategories}
                         />
+                    )} />
+
+                    <Route exact path="/events/:id" render={props => (
+                        <div>
+                            <Navbar {...props} />
+                            <EventPage {...props} />
+                        </div>
+                    )} />
+
+                    <Route path="/events/:id/edit" render={props =>
+                        <div>
+                            <Navbar {...props} />
+                            <EventPageEdit
+                                {...props}
+                                allCategories={this.state.categories}
+                                allEntities={this.state.entities}
+                            />
+                        </div>
                     } />
 
-                    <Route path="/events" render={() =>
-                        <ListEvents
-                            refreshListEvents={this.state.refreshListEvents}
-                            updateRefreshEvents={this.updateRefreshEvents}
-                            categories={this.state.categories}
-                            entities={this.state.entities}
-                        />
-                    } />
+                    <Route path="/events" render={props => (
+                        <div>
+                            <Navbar {...props} />
+                            <ListEvents
+                                {...props}
+                                refreshListEvents={this.state.refreshListEvents}
+                                updateRefreshEvents={this.updateRefreshEvents}
+                                categories={this.state.categories}
+                                entities={this.state.entities}
+                            />
+                        </div>
+                    )} />
 
-                    <Route path="/create" render={() =>
-                        <AddEventForm
-                            categories={this.state.categories}
-                            entities={this.state.entities}
-                        />
-                    } />
+                    <Route path="/create" render={props => (
+                        <div>
+                            <Navbar />
+                            <AddEventForm
+                                {...props}
+                                categories={this.state.categories}
+                                entities={this.state.entities}
+                            />
+                        </div>
+                    )} />
+
                 </Switch>
             </div>
         );

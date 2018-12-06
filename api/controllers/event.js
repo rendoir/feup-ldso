@@ -149,6 +149,42 @@ module.exports = {
 
     },
 
+    searchForEventsByTextWeb(req, res) {
+
+        if (req.user === undefined) {
+            return res.status(400).send("You don't have permissions to make this request");
+        }
+
+        let result = {};
+        let pattern = patternToTSVector(req.query.text);
+
+        return sequelize.query(
+            "WITH search_title_desc AS ( " +
+                "WITH search_title AS ( " +
+                "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title' as search_by, '1' as priority " +
+                "FROM events WHERE to_tsvector('simple', events.title) @@ to_tsquery('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) ) SELECT * FROM search_title UNION " +
+            "SELECT events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'description' as search_by, '2' as priority " +
+            "FROM events WHERE to_tsvector('simple', events.description) @@ to_tsquery ('simple', $1) AND (start_date > current_timestamp OR end_date > current_timestamp) AND (events.id, title, title_english, events.description, events.description_english, location, price, start_date, end_date, entity_id, 'title', '1') NOT IN (SELECT * FROM search_title) ORDER BY priority ASC, start_date ASC) " +
+            "SELECT search_title_desc.* FROM search_title_desc INNER JOIN permissions ON permissions.entity_id = search_title_desc.entity_id AND permissions.user_id = $2",
+            { bind: [pattern, req.user.id], type: sequelize.QueryTypes.SELECT })
+            .then((events) => {
+
+                result.count = events.length;
+                let subArray = events.slice(req.query.page, events.length);
+
+                if (subArray.length === 0){
+                    result.events = [];
+                } else if (subArray.length >= req.query.limit) {
+                    result.events = subArray.slice(0, req.query.limit);
+                } else {
+                    result.events = subArray;
+                }
+                return res.status(200).send(result);
+
+            })
+            .catch((error) => res.status(400).send(error));
+    },
+
 
     add(req, res) {
         return Event.create({
