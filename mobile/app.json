@@ -2,7 +2,7 @@
   "expo": {
     "name": "Acontece na U.Porto",
     "description": "A very interesting project.",
-    "slug": "Acontece_na_UPorto",
+    "slug": "acontecenauporto",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],

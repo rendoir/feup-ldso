@@ -49,25 +49,301 @@ VALUES ('Instituto de Ciências Biomédicas Abel Salazar', '#FFFF00', '#6FA8DC',
 INSERT INTO entities (name, color, color2, initials, description) 
 VALUES ('Porto Business School', '#192AEA', '#FFFFFF', 'PBS', 'Com origens em 1988, a escola de negócios da Universidade do Porto é uma business school em plena afirmação a nível internacional. Beneficiando de uma relação muito próxima com o tecido empresarial nacional, a escola propõe uma vasta oferta de cursos de pós-graduação na área da gestão. Nesse leque está, por exemplo, o “The Magellan MBA”, um MBA internacional totalmente lecionado em inglês e que atrai, anualmente, candidatos de todo o mundo. A escola oferece ainda um conjunto de pós-graduações de duração anual, programas de executivos, de curta e média duração, seminários de alta direção, programas de in-company training e serviços às empresas. Em 2014, um ano após celebrar 25 anos de vida, a Porto Business School inaugurou o seu novo campus, em Matosinhos. Alinhado com a estratégia de crescimento nacional e internacional da instituição, que passa por se posicionar no top 30 das Escolas de Negócios europeias , o novo complexo vai permitir aumentar o volume de atividade da escola, quer em número de programas oferecidos, quer em número de estudantes.');
 
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('U. Cultura', '#857040', '#FFFFFF', 'UC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('Dep. Com. e Imagem', '#857040', '#FFFFFF', 'DCI', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('Alumni', '#857040', '#FFFFFF', 'ALUMNI', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('U.Porto Edições', '#857040', '#FFFFFF', 'UPE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('SRI', '#857040', '#FFFFFF', 'SRI', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CDUP-UP', '#857040', '#FFFFFF', 'CDUP-UP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('SASUP', '#857040', '#FFFFFF', 'SASUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('ISPUP', '#857040', '#FFFFFF', 'ISPUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('MHNCUP', '#857040', '#FFFFFF', 'MHNCUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('FIMS', '#857040', '#FFFFFF', 'FIMS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('Casa Museu Abel Salazar', '#857040', '#FFFFFF', 'CMAS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('NEFUP', '#857040', '#FFFFFF', 'NEFUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('OUP', '#857040', '#FFFFFF', 'OUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('AAOUP', '#857040', '#FFFFFF', 'AAOUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('Coral de Letras', '#857040', '#FFFFFF', 'CL', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('TUP', '#857040', '#FFFFFF', 'TUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('Sociedade de Debates', '#857040', '#FFFFFF', 'SD', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CRACS', '#857040', '#FFFFFF', 'CRACS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CETAPS', '#857040', '#FFFFFF', 'CETAPS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CAUP', '#857040', '#FFFFFF', 'CAUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CICGE', '#857040', '#FFFFFF', 'CICGE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEF.UP', '#857040', '#FFFFFF', 'CEF.UP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEMUC', '#857040', '#FFFFFF', 'CEMUC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEAUP', '#857040', '#FFFFFF', 'CEAUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEAUCP', '#857040', '#FFFFFF', 'CEAUCP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEC', '#857040', '#FFFFFF', 'CEC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEPESE', '#857040', '#FFFFFF', 'CEPESE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CETAC', '#857040', '#FFFFFF', 'CETAC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEAU', '#857040', '#FFFFFF', 'CEAU', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CECA', '#857040', '#FFFFFF', 'CECA', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEEEEEA', '#857040', '#FFFFFF', 'CEEEEEA', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEFT', '#857040', '#FFFFFF', 'CEFT', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CFBQ', '#857040', '#FFFFFF', 'CFBQ', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CFP', '#857040', '#FFFFFF', 'CFP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CGUP', '#857040', '#FFFFFF', 'CGUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIPES', '#857040', '#FFFFFF', 'CIPES', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CITTA', '#857040', '#FFFFFF', 'CITTA', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIIE', '#857040', '#FFFFFF', 'CIIE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIAFEL', '#857040', '#FFFFFF', 'CIAFEL', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIBIO', '#857040', '#FFFFFF', 'CIBIO', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIGAR', '#857040', '#FFFFFF', 'CIGAR', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIQ', '#857040', '#FFFFFF', 'CIQ', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CINTESIS', '#857040', '#FFFFFF', 'CINTESIS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIJE', '#857040', '#FFFFFF', 'CIJE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CITCEM', '#857040', '#FFFFFF', 'CITCEM', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIFI2D', '#857040', '#FFFFFF', 'CIFI2D', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CLUP', '#857040', '#FFFFFF', 'CLUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CMUP', '#857040', '#FFFFFF', 'CMUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CME', '#857040', '#FFFFFF', 'CME', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LAQV', '#857040', '#FFFFFF', 'LAQV', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEQUIMED', '#857040', '#FFFFFF', 'CEQUIMED', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CIIMAR', '#857040', '#FFFFFF', 'CIIMAR', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('GEHVID', '#857040', '#FFFFFF', 'GEHVID', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('IBMC', '#857040', '#FFFFFF', 'IBMC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('INEB', '#857040', '#FFFFFF', 'INEB', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('INESC', '#857040', '#FFFFFF', 'INESC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('IF', '#857040', '#FFFFFF', 'IF', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('IFIMUP', '#857040', '#FFFFFF', 'IFIMUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('ID+', '#857040', '#FFFFFF', 'ID+', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('ILC', '#857040', '#FFFFFF', 'ILC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('IPATIMUP', '#857040', '#FFFFFF', 'IPATIMUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('ISR', '#857040', '#FFFFFF', 'ISR', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('ISFLUP', '#857040', '#FFFFFF', 'ISFLUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LABEST', '#857040', '#FFFFFF', 'LABEST', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LCM', '#857040', '#FFFFFF', 'LCM', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LEPAE', '#857040', '#FFFFFF', 'LEPAE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LIAAD', '#857040', '#FFFFFF', 'LIAAD', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LIAAC', '#857040', '#FFFFFF', 'LIAAC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LSRE', '#857040', '#FFFFFF', 'LSRE', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LSS', '#857040', '#FFFFFF', 'LSS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('NOTEPAP-INEGI', '#857040', '#FFFFFF', 'NOTEPAP-INEGI', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UCVE-IDMEC', '#857040', '#FFFFFF', 'UCVE-IDMEC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UEAEAC', '#857040', '#FFFFFF', 'UEAEAC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UGEIN-IDMEC', '#857040', '#FFFFFF', 'UGEIN-IDMEC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UIPA-IDMEC', '#857040', '#FFFFFF', 'UIPA-IDMEC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UIDN', '#857040', '#FFFFFF', 'UIDN', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UIDCV', '#857040', '#FFFFFF', 'UIDCV', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UNIFAI', '#857040', '#FFFFFF', 'UNIFAI', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('EXPMAT-INEGI', '#857040', '#FFFFFF', 'EXPMAT-INEGI', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CENUME-IDMEC', '#857040', '#FFFFFF', 'CENUME-IDMEC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UNTE-IDMEC', '#857040', '#FFFFFF', 'UNTE-IDMEC', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UMIB', '#857040', '#FFFFFF', 'UMIB', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('CEMUP', '#857040', '#FFFFFF', 'CEMUP', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('C3P', '#857040', '#FFFFFF', 'C3P', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('PORTO4AGING', '#857040', '#FFFFFF', 'PORTO4AGING', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('LABIOMD', '#857040', '#FFFFFF', 'LABIOMD', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('MIL', '#857040', '#FFFFFF', 'MIL', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('OCEANUS', '#857040', '#FFFFFF', 'OCEANUS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('PAHCS', '#857040', '#FFFFFF', 'PAHCS', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('I3S', '#857040', '#FFFFFF', 'I3S', '');
+
+INSERT INTO entities (name, color, color2, initials, description) 
+VALUES ('UPTEC', '#857040', '#FFFFFF', 'UPTEC', '');
 
 --| CATEGORIES |--
 
 -- Rever com a PO:
 
+INSERT INTO categories (name, name_english) VALUES ('Académicos', 'Academics');
+INSERT INTO categories (name, name_english) VALUES ('Bem estar', 'Welfare');
+INSERT INTO categories (name, name_english) VALUES ('Cinema', 'Cinema');
+INSERT INTO categories (name, name_english) VALUES ('Clubbing', 'Clubbing');
+INSERT INTO categories (name, name_english) VALUES ('Conferências', 'Conferences');
+INSERT INTO categories (name, name_english) VALUES ('Dança', 'Dance');
 INSERT INTO categories (name, name_english) VALUES ('Desporto', 'Sports');
-INSERT INTO categories (name, name_english) VALUES ('Música', 'Music');
-INSERT INTO categories (name, name_english) VALUES ('Tecnologia', 'Technology');
-INSERT INTO categories (name, name_english) VALUES ('Biologia', 'Biology');
-INSERT INTO categories (name, name_english) VALUES ('Química', 'Chemistry');
-INSERT INTO categories (name, name_english) VALUES ('Física', 'Physics');
-INSERT INTO categories (name, name_english) VALUES ('Cultura', 'Culture');
-INSERT INTO categories (name, name_english) VALUES ('Arte', 'Arts');
-INSERT INTO categories (name, name_english) VALUES ('Teatro', 'Theatre');
-INSERT INTO categories (name, name_english) VALUES ('Literatura', 'Literature');
-INSERT INTO categories (name, name_english) VALUES ('Natureza', 'Nature');
+INSERT INTO categories (name, name_english) VALUES ('Encontros', 'Meetings');
+INSERT INTO categories (name, name_english) VALUES ('Exposições', 'Exhibitions');
+INSERT INTO categories (name, name_english) VALUES ('Festival', 'Festival');
+INSERT INTO categories (name, name_english) VALUES ('Formação', 'Training');
 INSERT INTO categories (name, name_english) VALUES ('Gastronomia', 'Gastronomy');
+INSERT INTO categories (name, name_english) VALUES ('Infantil', 'Childlike');
+INSERT INTO categories (name, name_english) VALUES ('Literatura', 'Literature');
 INSERT INTO categories (name, name_english) VALUES ('Moda', 'Fashion');
-INSERT INTO categories (name, name_english) VALUES ('Lazer', 'Recreation');
-INSERT INTO categories (name, name_english) VALUES ('Comédia', 'Comedy');
-INSERT INTO categories (name, name_english) VALUES ('Informática', 'Computer Science');
+INSERT INTO categories (name, name_english) VALUES ('Música', 'Music');
+INSERT INTO categories (name, name_english) VALUES ('Natureza', 'Nature');
+INSERT INTO categories (name, name_english) VALUES ('Passeios e Visitas', 'Tours and Visits');
+INSERT INTO categories (name, name_english) VALUES ('Teatro', 'Theater');
+INSERT INTO categories (name, name_english) VALUES ('Tradição', 'Tradition');
 INSERT INTO categories (name, name_english) VALUES ('Outros', 'Others');
