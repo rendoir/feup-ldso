@@ -997,6 +997,188 @@ describe('List and filter favorited events', () => {
     });
 });
 
+describe('Search events by Text', () => {
+
+    before((done) => {
+        Common.destroyDatabase();
+        // Create entities
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity 1',
+                initials: 'TEST1'
+            }
+        ]).then(() =>
+            // Create categories
+            Category.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Category 1',
+                    name_english: 'Test Category 1'
+                }
+            ]).then(() => { return Entity.findAll(); })
+                .then((entities) =>
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator',
+                        token: 'token'
+                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
+                        .then(() => {
+                            let start_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            let start_date2 = new Date();
+                            start_date2.setDate(start_date2.getDate() + 2);
+                            let start_date3 = new Date();
+                            start_date3.setDate(start_date3.getDate() + 3);
+                            // Create events
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Test 1",
+                                    title_english: "Test 1",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test 2",
+                                    title_english: "Test 2",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date2,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 3,
+                                    title: "Event 3",
+                                    title_english: "Event 3",
+                                    description: "It is a event, without content",
+                                    description_english: "It is a event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 4,
+                                    title: "Test 4",
+                                    title_english: "Test 4",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date3,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 5,
+                                    title: "Event 5",
+                                    title_english: "Event 5",
+                                    description: "It is a event, without content",
+                                    description_english: "It is a event, without content",
+                                    start_date: start_date2,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }
+                            ])
+                                .then(() => done())
+                                .catch(() => done());
+                        })
+                )
+        );
+    });
+
+    describe('/GET Search Event by Text', () => {
+
+        it('it should get event with pagination - Event', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Event", page: 0, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("events");
+                    res.body.events.length.should.be.eql(2);
+                    res.body.count.should.be.eql(5);
+                    res.body.events[0].title.should.be.eql("Event 3");
+                    res.body.events[1].title.should.be.eql("Event 5");
+                    done();
+                });
+        });
+
+        it('it should get event with pagination - Test', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Test", page: 2, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("events");
+                    res.body.events.length.should.be.eql(1);
+                    res.body.count.should.be.eql(3);
+                    res.body.events[0].title.should.be.eql("Test 4");
+                    done();
+                });
+        });
+
+        it('it should get event with pagination - No results', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "asdbfasdbf", page: 0, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("events");
+                    res.body.events.length.should.be.eql(0);
+                    done();
+                });
+        });
+
+        it('it should get event with pagination - Big page ', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Test", page: 10, limit: 10 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("events");
+                    res.body.events.length.should.be.eql(0);
+                    done();
+                });
+        });
+    });
+
+});
+
 describe('Edit events', () => {
 
     before((done) => {

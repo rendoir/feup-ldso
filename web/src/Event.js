@@ -49,7 +49,6 @@ class Event extends Component {
         let self = this;
         axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
-                user_id: 1,
                 id: self.props.id
             },
             headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
@@ -72,7 +71,11 @@ class Event extends Component {
                     <p>{this.props.initials}</p>
 
                     <div className="event-buttons">
-                        <Button><FontAwesomeIcon icon="edit" /></Button>
+                        <Link className="btn btn-link" to={{
+                            pathname: `/events/${this.props.id}/edit`
+                        }}>
+                            <FontAwesomeIcon icon="edit" />
+                        </Link>
                         <Button onClick={this.deleteEvent} className="delete-button"><FontAwesomeIcon icon="trash-alt" /></Button>
                     </div>
                 </Col>

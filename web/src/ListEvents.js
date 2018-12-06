@@ -20,13 +20,17 @@ class ListEvents extends Component {
 
         this.state = {
             searchInput: "",
+            fixedSearchInput: "",
             events: [],
+            pageCountAll: 0,
+            currentEvents: [],
             chosenCategories: [],
             chosenEntities: [],
             alertType: '',
             alertMessage: '',
             activePage: 0,
-            pageCount: 0
+            pageCount: 0,
+            searching: false
         };
 
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
@@ -36,6 +40,7 @@ class ListEvents extends Component {
         this.deleteEventFromArray = this.deleteEventFromArray.bind(this);
         this.updateAlertMessage = this.updateAlertMessage.bind(this);
         this.handlePagination = this.handlePagination.bind(this);
+        this.deleteSearchText = this.deleteSearchText.bind(this);
     }
 
     componentDidMount() {
@@ -47,7 +52,7 @@ class ListEvents extends Component {
             },
             headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
-            .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
+            .then((res) => this.setState({ currentEvents: res.data.events, events: res.data.events, pageCount: Math.ceil(res.data.count / 5), pageCountAll: Math.ceil(res.data.count / 5) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
     }
 
@@ -60,7 +65,7 @@ class ListEvents extends Component {
                 },
                 headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
             })
-                .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5) }))
+                .then((res) => this.setState({ currentEvents: res.data.events, events: res.data.events, pageCount: Math.ceil(res.data.count / 5), pageCountAll: Math.ceil(res.data.count / 5) }))
                 .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
             this.props.updateRefreshEvents(false);
@@ -86,20 +91,53 @@ class ListEvents extends Component {
 
     handlePagination(event) {
         var page = event.target.getAttribute('value') - 1;
-        axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/web', {
-            params: {
-                page: page * 5,
-                limit: 5
-            },
-            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
-        })
-            .then((res) => this.setState({ events: res.data.events, pageCount: Math.ceil(res.data.count / 5), activePage: page }))
-            .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
 
+        if (this.state.searching) {
+
+            axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/search/events/web', {
+                params: {
+                    text: this.state.searchInput,
+                    page: page * 5,
+                    limit: 5
+                },
+                headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
+            })
+                .then((res) => this.setState({ currentEvents: res.data.events, searching: true, pageCount: Math.ceil(res.data.count / 5), activePage: page }))
+                .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível efetuar a pesquisa.' }));
+
+        } else {
+
+            axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/web', {
+                params: {
+                    page: page * 5,
+                    limit: 5
+                },
+                headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
+            })
+                .then((res) => this.setState({ currentEvents: res.data.events, events: res.data.events, pageCount: Math.ceil(res.data.count / 5), activePage: page, pageCountAll: Math.ceil(res.data.count / 5) }))
+                .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar os eventos.' }));
+
+        }
     }
 
     searchEventText() {
-        // Access API to get events with said text
+        if (this.state.searchInput !== "") {
+
+            axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/search/events/web', {
+                params: {
+                    text: this.state.searchInput,
+                    page: 0,
+                    limit: 5
+                },
+                headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
+            })
+                .then((res) => this.setState(prevState => ({ fixedSearchInput: prevState.searchInput, currentEvents: res.data.events, searching: true, pageCount: Math.ceil(res.data.count / 5), activePage: 0 })))
+                .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível efetuar a pesquisa.' }));
+        }
+    }
+
+    deleteSearchText() {
+        this.setState(prevState => ({ searchInput: "", searching: false, currentEvents: prevState.events }));
     }
 
     deleteEventFromArray(event_id) {
@@ -108,8 +146,13 @@ class ListEvents extends Component {
             return parseInt(value.id) !== parseInt(event_id);
         });
 
+        let eventsSlicedCurrent = this.state.currentEvents.filter(function(value) {
+            return parseInt(value.id) !== parseInt(event_id);
+        });
+
         this.setState({
             events: eventsSliced,
+            currentEvents: eventsSlicedCurrent,
             alertType: 'success', alertMessage: 'O evento foi apagado com sucesso.'
         });
 
@@ -121,8 +164,12 @@ class ListEvents extends Component {
         if (document.cookie === undefined ||
             document.cookie.indexOf("access_token=") === -1) return <Redirect to={'/'} />;
 
+        let stopSearchButton;
+        if (this.state.searching) {
+            stopSearchButton = <Button className="btn-stop-search" onClick={this.deleteSearchText}><FontAwesomeIcon icon="times" /></Button>;
+        }
 
-        let events = this.state.events.map((info, i) => (
+        let events = this.state.currentEvents.map((info, i) => (
             <Event key={i} {...info}
                 deleteEventFromArray={this.deleteEventFromArray}
                 updateAlertMessage={this.updateAlertMessage}
@@ -164,10 +211,11 @@ class ListEvents extends Component {
                                 id="search-text-input"
                                 type="text"
                                 value={this.state.searchInput}
-                                placeholder="Procurar Evento"
+                                placeholder="Procurar Evento por título/descrição"
                                 onChange={this.handleChangeSearch}
                             />
                             <Button className="btn-search" onClick={this.searchEventText}><FontAwesomeIcon icon="search" /></Button>
+                            {stopSearchButton}
                         </FormGroup>
                     </Col>
                     <Col sm={4} className="dropdowns-search">

@@ -1356,7 +1356,7 @@ exports[`renders elements 2`] = `
           className="form-control"
           id="search-text-input"
           onChange={[Function]}
-          placeholder="Procurar Evento"
+          placeholder="Procurar Evento por título/descrição"
           type="text"
           value=""
         />

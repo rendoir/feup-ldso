@@ -85,6 +85,7 @@ router.put("/events/:event_id", passport.authenticate('jwt', { session: false })
 router.get("/search/entities", eventController.searchForEntities);
 router.get("/search/categories", eventController.searchForCategories);
 router.get("/search/events", eventController.searchForEvents);
+router.get("/search/events/web", passport.authenticate('jwt', { session: false }), eventController.searchForEventsByTextWeb);
 
 // Getters
 router.get("/entities", passport.authenticate('jwt', { session: false }), entityController.getEntitiesWithPermission);
