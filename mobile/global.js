@@ -21,7 +21,11 @@ global.dictionary = {
     APP_NAME: { PT: "Agenda Cultural da Universidade do Porto", EN: "Porto University's Cultural Agenda" },
     GOOGLE_SIGNIN: { PT: "Entrar com conta Google", EN: "Sign in with Google account" },
     NO_SEARCH_RESULTS: { PT: "Não há eventos para a pesquisa feita.", EN: "There are no events that match your search." },
-    NO_FAVORITES: { PT: "Não há eventos favoritos para mostrar.", EN: "There are no favorite events." }
+    NO_FAVORITES: { PT: "Não há eventos favoritos para mostrar.", EN: "There are no favorite events." },
+    SUCCESS: { PT: "Sucesso", EN: "Success" },
+    ERROR: { PT: "Erro", EN: "Error" },
+    EVENT_ADDED_CALENDAR: { PT: "Evento adicionado ao calendário!", EN: "Event added to calendar!" },
+    EVENT_NOT_ADDED_CALENDAR: { PT: "Ocorreu um erro ao adicionar o evento ao calendário!", EN: "An error occured when adding event to calendar!" }
 };
 
 global.calendar = {
