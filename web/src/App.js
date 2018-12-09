@@ -10,8 +10,8 @@ import './App.css';
 
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
-library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt);
+import { faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt, faMapMarkedAlt);
 
 function getTokenFromCookie() {
     let token = document.cookie.split("access_token=")[1];

@@ -39,44 +39,47 @@ describe("Check Update Functions", () => {
     });
 
 
-    it('check update email input', async() => {
+    it('check update email input', () => {
 
         let wrapperLogIn = wrapper.find(LogIn).first();
 
-        const input = await wrapperLogIn.find("input.email-input").first();
-        await input.simulate('change', {
+        const input = wrapperLogIn.find("input.email-input").first();
+        input.simulate('change', {
             target: { value: 'email@email.com' }
         });
 
-        await wrapperLogIn.update();
+        wrapperLogIn.update();
         expect(wrapperLogIn.state().emailInput).toEqual('email@email.com');
 
     });
 
-    it('check update password input', async() => {
+    it('check update password input', () => {
 
         let wrapperLogIn = wrapper.find(LogIn).first();
 
-        const input = await wrapperLogIn.find("input.password-input").first();
-        await input.simulate('change', {
+        const input = wrapperLogIn.find("input.password-input").first();
+        input.simulate('change', {
             target: { value: 'verysecurepassword' }
         });
 
-        await wrapperLogIn.update();
+        wrapperLogIn.update();
         expect(wrapperLogIn.state().passwordInput).toEqual('verysecurepassword');
 
     });
 
 });
 
-describe("Login", async() => {
+describe("Login", () => {
 
 
     it("Check login returns error", () => {
 
         let wrapper = mount(
             <BrowserRouter>
-                <LogIn />
+                <LogIn
+                    getEntities={jest.fn()}
+                    getCategories={jest.fn()}
+                />
             </BrowserRouter>);
 
         let wrapperLogIn = wrapper.find(LogIn).first();
@@ -102,7 +105,10 @@ describe("Login", async() => {
 
         let wrapper = mount(
             <BrowserRouter>
-                <LogIn />
+                <LogIn
+                    getEntities={jest.fn()}
+                    getCategories={jest.fn()}
+                />
             </BrowserRouter>);
 
         let wrapperLogIn = wrapper.find(LogIn).first();
@@ -113,7 +119,7 @@ describe("Login", async() => {
         });
 
         mockAxios.onPost().reply(200, {
-            token: undefined
+            token: "nicetoken123"
         });
 
 

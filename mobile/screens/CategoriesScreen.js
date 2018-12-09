@@ -61,9 +61,9 @@ export default class CategoriesScreen extends React.Component {
                 <StatusBar hidden />
                 <NewCustomHeader navigation={this.props.navigation} text={global.dictionary["CATEGORIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
                 <Content>
-                    <List style={{ backgroundColor: '#7C8589' }} >
+                    <List style={styles.list} >
                         <ListItem style={styles.listItem} className="list-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
-                            <Button transparent className="all-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }} style={{ alignItems: 'center' }}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
+                            <Button transparent className="all-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }} style={styles.button}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
                         </ListItem>
                         {categories}
                     </List>
@@ -74,6 +74,9 @@ export default class CategoriesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    list: {
+        backgroundColor: '#7C8589'
+    },
     listItem: {
         justifyContent: "center",
         backgroundColor: '#7C8589',
@@ -97,5 +100,8 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
         textAlign: 'center'
+    },
+    button: {
+        alignItems: 'center'
     }
 });

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import Select from 'react-select';
+import Flatpickr from 'react-flatpickr';
 import axios from 'axios';
 import './EventPageEdit.css';
 
@@ -128,11 +129,11 @@ class EventPageEdit extends Component {
     }
 
     updateStartDate(event) {
-        this.setState({ startDate: event.target.value });
+        this.setState({ startDate: event });
     }
 
     updateEndDate(event) {
-        this.setState({ endDate: event.target.value });
+        this.setState({ endDate: event });
     }
 
     updateLocation(event) {
@@ -203,7 +204,7 @@ class EventPageEdit extends Component {
     render() {
 
         if (this.state.redirect) {
-            return <Redirect to={{ pathname: `/events/${this.state.id}`, state: {updateImage: true}}} push />;
+            return <Redirect to={{ pathname: `/events/${this.state.id}`, state: { updateImage: true } }} push />;
         }
 
         let alertElement;
@@ -225,15 +226,16 @@ class EventPageEdit extends Component {
 
         let entityElement;
         if (this.props.allEntities.length > 1) {
-            entityElement = (<Select
-                placeholder="Entidade"
-                id="edit-event-entity"
-                classNamePrefix="entities"
-                isSearchable="true"
-                value={this.state.chosenEntity}
-                onChange={this.handleChangeEntity}
-                options={this.props.allEntities}
-            />);
+            entityElement = (
+                <Select
+                    placeholder="Entidade"
+                    id="edit-event-entity"
+                    classNamePrefix="entities"
+                    isSearchable="true"
+                    value={this.state.chosenEntity}
+                    onChange={this.handleChangeEntity}
+                    options={this.props.allEntities}
+                />);
         } else if (this.props.allEntities.length > 0) {
             entityElement = (<span>{this.props.allEntities[0].text}</span>);
         }
@@ -281,7 +283,7 @@ class EventPageEdit extends Component {
                             <Form onSubmit={this.editEventAction} id="edit_event_form">
                                 <FormGroup controlId="edit-form-title">
                                     <Row>
-                                        <Col sm={2} className="align_left"><Form.Label>Título do Evento: </Form.Label></Col>
+                                        <Col sm={2}><Form.Label>Título do Evento: </Form.Label></Col>
                                         <Col sm={5}>
                                             <FormControl type="text" required value={this.state.title} onChange={this.updateTitle} />
                                         </Col>
@@ -343,7 +345,10 @@ class EventPageEdit extends Component {
                                         </Col>
                                         <Col sm={3}>
                                             <FormGroup controlId="edit-form-date-start">
-                                                <FormControl required type="datetime-local" value={this.state.startDate} onChange={this.updateStartDate} />
+                                                <Flatpickr data-enable-time
+                                                    className="form-control start-date-edit"
+                                                    value={this.state.startDate}
+                                                    onChange={this.updateStartDate} />
                                             </FormGroup>
                                         </Col>
                                         <Col sm={2} className="text-align-center">
@@ -351,7 +356,10 @@ class EventPageEdit extends Component {
                                         </Col>
                                         <Col sm={3}>
                                             <FormGroup controlId="edit-form-date-end">
-                                                <FormControl required type="datetime-local" value={this.state.endDate} onChange={this.updateEndDate} />
+                                                <Flatpickr data-enable-time
+                                                    className="form-control end-date-edit"
+                                                    value={this.state.endDate}
+                                                    onChange={this.updateEndDate} />
                                             </FormGroup>
                                         </Col>
                                         <Col sm={2}></Col>
@@ -389,7 +397,7 @@ class EventPageEdit extends Component {
                                         </Col>
                                         <Col sm={5}>
                                             <input className="form-control"
-                                                type="number" min="0" value={this.state.price} onChange={this.updatePrice} />
+                                                type="number" min="0" step=".01" value={this.state.price} onChange={this.updatePrice} />
                                         </Col>
                                     </Row>
                                 </FormGroup>

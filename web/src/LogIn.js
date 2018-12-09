@@ -46,8 +46,12 @@ class LogIn extends Component {
                 self.props.getCategories();
             })
             .catch((err) => {
-                if (err.response.data) {
-                    self.setState({ alertType: 'danger', alertMessage: "Error logging in: " + err.response.data });
+                if (err.response) {
+                    if (err.response.data) {
+                        self.setState({ alertType: 'danger', alertMessage: "Error logging in: " + err.response.data });
+                    } else {
+                        self.setState({ alertType: 'danger', alertMessage: "Error logging in!" });
+                    }
                 } else {
                     self.setState({ alertType: 'danger', alertMessage: "Error logging in!" });
                 }
@@ -59,19 +63,10 @@ class LogIn extends Component {
         let alertElement;
         if (this.state.alertMessage !== null) {
             alertElement = (
-                <Row>
-                    <Col sm={4} md={2}>
-
-                    </Col>
-                    <Col sm={5} md={8}>
-                        <Alert className={this.state.alertType}>
-                            {this.state.alertMessage}
-                        </Alert>
-                    </Col>
-                    <Col sm={4} md={2}>
-
-                    </Col>
-                </Row>);
+                <Alert className={this.state.alertType + " login-alert"}>
+                    {this.state.alertMessage}
+                </Alert>
+            );
         }
 
         if (document.cookie !== undefined &&
@@ -80,11 +75,11 @@ class LogIn extends Component {
         return (
             <div id="login-container">
                 <Row>
-                    {alertElement}
                     <Col sm={6} className="login-col-first">
                         <Image src="logotipo_completo.png" />
                     </Col>
                     <Col sm={6}>
+                        {alertElement}
                         <Form onSubmit={this.handleLogIn}>
 
                             <InputGroup>

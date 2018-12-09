@@ -60,7 +60,7 @@ export default class EntitiesScreen extends React.Component {
             <Container>
                 <NewCustomHeader navigation={this.props.navigation} text={global.dictionary["ENTITIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
                 <Content>
-                    <List style={{ backgroundColor: '#7C8589' }} >
+                    <List style={styles.list} >
                         <ListItem style={styles.listItem} className="list-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
                             <Button transparent className="all-entities" onPress={() => { navigate('Agenda', { selectedEntity: 'all', selectedEntityId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
                         </ListItem>
@@ -73,6 +73,9 @@ export default class EntitiesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    list: {
+        backgroundColor: '#7C8589'
+    },
     listItem: {
         justifyContent: "center",
         backgroundColor: '#7C8589',

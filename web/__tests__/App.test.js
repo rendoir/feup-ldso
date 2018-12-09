@@ -3,7 +3,6 @@ import rendered from 'react-test-renderer';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../src/NavbarComponent';
 import ListEvents from '../src/ListEvents';
-import AddEventForm from '../src/AddEventForm';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -13,6 +12,7 @@ import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
 var mockAxios = new MockAdapter(axios);
+
 
 it('renders elements', () => {
 
@@ -67,16 +67,4 @@ it('renders elements', () => {
     );
     let treeList = listEvents.toJSON();
     expect(treeList).toMatchSnapshot();
-
-    const AddForm = rendered.create(
-        <BrowserRouter>
-            <AddEventForm
-                displayForm={true}
-                categories={[]}
-                entities={[{ key: 0, value: 1, text: 'Test' }]}
-            />
-        </BrowserRouter>
-    );
-    let treeForm = AddForm.toJSON();
-    expect(treeForm).toMatchSnapshot();
 });

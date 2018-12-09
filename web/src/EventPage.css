@@ -2,6 +2,9 @@ div#page-event {
     margin:  1em 4em 2em 4em;
     padding: 1em 1em;
     background: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 20px #455a64;
 }
 
 li.breadcrumb-item a {
@@ -31,12 +34,20 @@ div.event-title {
 }
 
 div.event-title h2{
-    text-align: left;
+    text-align: center;
 }
 
 div.event-page-buttons {
     padding: 0 3em 0 0;
     text-align: right;
+}
+
+div span {
+    font-size: 16px;
+}
+
+div.event-page-entities span.event-page-entities-name {
+    font-size: 16px;
 }
 
 div.row.event-page-body {
@@ -45,19 +56,26 @@ div.row.event-page-body {
 }
 
 div.row.event-page-body > div:first-of-type {
-    text-align: left;
+    display: flex;
+    justify-content: center;
 }
 
 img.event-image {
-    margin: 1em auto 1em 0;
+    margin: auto auto auto 0;
+    align-self: center;
     max-width: 100%;
-    max-height: 300px;
+    max-height: 24em;
 }
 
 p.event-description {
     margin: 1em 0;
     white-space: pre-wrap;
     text-align: justify;
+    border: 1px solid black;
+    padding: 1em;
+    border-radius: 10px;
+    max-height: 12em;
+    overflow-y: scroll;
 }
 
 span.category-span {
@@ -66,6 +84,13 @@ span.category-span {
     color: white;
     padding: 0.5em;
     margin: 0 0.5em;
+}
+
+a.btn.location-button {
+    border-color: #4a4a4a;
+    background-color: white;
+    color:#4a4a4a;
+    margin-left: 1em;
 }
 
 div.row.event-page-info {
@@ -80,13 +105,6 @@ div.row.event-page-info > div:first-of-type{
 div.row.event-page-info div div {
     margin: 1em 0;
 }
-
-
-div.div-border {
-    border-right: 1px solid black;
-}
-
-
 
 h4.display-inline {
     display: inline;
@@ -134,7 +152,7 @@ div.loading {
 
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #32a794; /* Blue */
+    border-top: 16px solid #4a4a4a; /* Blue */
     border-radius: 50%;
     transform-origin: center center;
     height: 100%;

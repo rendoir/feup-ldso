@@ -352,24 +352,18 @@ describe("EventPageEdit Inputs Change", () => {
             title_english: 'Title',
             description: 'description',
             description_english: 'description',
-            start_date: '2018-10-07 11:00:00',
-            end_date: '2018-10-08 11:00:00',
+            startDate: '2018-09-08T11:00',
+            endDate: '2018-09-08T11:00',
             entity_id: 1,
             location: 'Porto',
             price: 10
         });
 
-        const input = wrapper.find('input#edit-form-date-start.form-control').first();
-        let date = new Date();
-        date = new Date(date.getDay() + 1);
-
-        input.simulate('change', {
-            target: { value: date.toISOString() }
-        });
+        wrapperForm.instance().updateStartDate('2018-09-10T11:00');
 
         expect(
             wrapperForm.state().startDate
-        ).toEqual(date.toISOString());
+        ).toEqual('2018-09-10T11:00');
 
     });
 
@@ -391,24 +385,18 @@ describe("EventPageEdit Inputs Change", () => {
             title_english: 'Title',
             description: 'description',
             description_english: 'description',
-            start_date: '2018-10-07 11:00:00',
-            end_date: '2018-10-08 11:00:00',
+            startDate: '2018-09-08T11:00',
+            endDate: '2018-09-08T11:00',
             entity_id: 1,
             location: 'Porto',
             price: 10
         });
 
-        const input = wrapper.find('input#edit-form-date-end.form-control').first();
-        let date = new Date();
-        date = new Date(date.getDay() + 2);
-
-        input.simulate('change', {
-            target: { value: date.toISOString() }
-        });
+        wrapperForm.instance().updateEndDate('2018-09-10T11:00');
 
         expect(
             wrapperForm.state().endDate
-        ).toEqual(date.toISOString());
+        ).toEqual('2018-09-10T11:00');
 
     });
 

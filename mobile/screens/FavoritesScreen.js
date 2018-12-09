@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     ScrollView,
+    StyleSheet,
     RefreshControl
 } from 'react-native';
 import { Font, AppLoading } from "expo";
@@ -157,15 +158,15 @@ export default class FavoritesScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: '#7C8589' }}>
+            <View style={styles.wrapperView}>
                 <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
-                <ScrollView className="scroll_view" refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /> } stickyHeaderIndices={[0]} style={{ backgroundColor: '#7C8589', height: '100%', marginBottom: '10%' }} onScroll={this.handleScroll}>
+                <ScrollView className="scroll_view" refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /> } stickyHeaderIndices={[0]} style={styles.scrollView} onScroll={this.handleScroll}>
 
-                    <View style={{ marginVertical: '3%', paddingHorizontal: '5%', backgroundColor: '#7C8589', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 25, color: 'white' }}>{global.dictionary["FAVORITES"][this.props.screenProps.language]}</Text>
+                    <View style={styles.favoritesLabelView}>
+                        <Text style={styles.favoritesLabelText}>{global.dictionary["FAVORITES"][this.props.screenProps.language]}</Text>
                     </View>
 
-                    <View style={{ marginHorizontal: '2%', backgroundColor: '#7C8589', marginBottom: '10%' }}>
+                    <View style={styles.eventsView}>
                         {events}
                         {noEventsElement}
                     </View>
@@ -174,3 +175,30 @@ export default class FavoritesScreen extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    eventsView: {
+        marginHorizontal: '2%',
+        backgroundColor: '#7C8589',
+        marginBottom: '10%'
+    },
+    wrapperView: {
+        backgroundColor: '#7C8589'
+    },
+    favoritesLabelText: {
+        fontSize: 25,
+        color: 'white'
+    },
+    favoritesLabelView: {
+        marginVertical: '3%',
+        paddingHorizontal: '5%',
+        backgroundColor: '#7C8589',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    scrollView: {
+        backgroundColor: '#7C8589',
+        height: '100%',
+        marginBottom: '10%'
+    }
+});

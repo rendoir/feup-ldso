@@ -1,5 +1,4 @@
 import React from 'react';
-import rendered from 'react-test-renderer';
 import { BrowserRouter } from 'react-router-dom';
 import AddEventForm from '../src/AddEventForm';
 import { mount } from 'enzyme';
@@ -8,37 +7,6 @@ import MockAdapter from 'axios-mock-adapter';
 
 var mockAxios = new MockAdapter(axios);
 document.cookie = "access_token=123";
-
-describe("AddEventForm Render", () => {
-
-    it('renders form with one entity', () => {
-
-        const form = rendered.create(
-            <BrowserRouter>
-                <AddEventForm
-                    categories={[{ value: 1, label: 'Test' }]}
-                    entities={[{ value: 1, label: 'Test' }, { value: 2, label: 'Test2' }]} />
-            </BrowserRouter>
-        );
-
-        let tree = form.toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-
-    it('renders form with two entities', () => {
-        const form = rendered.create(
-            <BrowserRouter>
-                <AddEventForm
-                    categories={[{ value: 1, label: 'Test' }]}
-                    entities={[{ value: 1, label: 'Test' }, { value: 2, label: 'Test2' }]}
-                />
-            </BrowserRouter>);
-
-        let tree = form.toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-
-});
 
 describe("AddEventForm Inputs Change", () => {
 
@@ -204,17 +172,11 @@ describe("AddEventForm Inputs Change", () => {
         );
 
         let wrapperForm = wrapper.find(AddEventForm).first();
-        const input = wrapper.find('input#form-date-start.form-control').first();
-        let date = new Date();
-        date = new Date(date.getDay() + 1);
-
-        input.simulate('change', {
-            target: { value: date.toISOString() }
-        });
+        wrapperForm.instance().updateStartDate('2018-09-10T11:00');
 
         expect(
             wrapperForm.state().startDate
-        ).toEqual(date.toISOString());
+        ).toEqual('2018-09-10T11:00');
 
     });
 
@@ -229,17 +191,11 @@ describe("AddEventForm Inputs Change", () => {
         );
 
         let wrapperForm = wrapper.find(AddEventForm).first();
-        const input = wrapper.find('input#form-date-end.form-control').first();
-        let date = new Date();
-        date = new Date(date.getDay() + 2);
-
-        input.simulate('change', {
-            target: { value: date.toISOString() }
-        });
+        wrapperForm.instance().updateEndDate('2018-09-10T11:00');
 
         expect(
             wrapperForm.state().endDate
-        ).toEqual(date.toISOString());
+        ).toEqual('2018-09-10T11:00');
 
     });
 

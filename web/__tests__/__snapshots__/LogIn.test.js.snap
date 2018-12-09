@@ -112,5 +112,3 @@ exports[`renders elements 1`] = `
 `;
 
 exports[`renders elements 2`] = `null`;
-
-exports[`renders elements 3`] = `null`;

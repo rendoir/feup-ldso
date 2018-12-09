@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Form, FormGroup, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
 import Select from 'react-select';
+import Flatpickr from 'react-flatpickr';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './AddEventForm.css';
@@ -88,11 +89,11 @@ class AddEventForm extends Component {
     }
 
     updateStartDate(event) {
-        this.setState({ startDate: event.target.value });
+        this.setState({ startDate: event });
     }
 
     updateEndDate(event) {
-        this.setState({ endDate: event.target.value });
+        this.setState({ endDate: event });
     }
 
     updateLocation(event) {
@@ -293,7 +294,11 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={3}>
                                         <FormGroup controlId="form-date-start">
-                                            <FormControl required type="datetime-local" value={this.state.startDate} onChange={this.updateStartDate} />
+                                            <Flatpickr data-enable-time
+                                                className="form-control start-date"
+                                                placeholder="Carregue para selecionar a data de início"
+                                                value={this.state.startDate}
+                                                onChange={this.updateStartDate} />
                                         </FormGroup>
                                     </Col>
                                     <Col sm={2} className="text-align-center">
@@ -301,7 +306,11 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={3}>
                                         <FormGroup controlId="form-date-end">
-                                            <FormControl required type="datetime-local" value={this.state.endDate} onChange={this.updateEndDate} />
+                                            <Flatpickr data-enable-time
+                                                className="form-control end-date"
+                                                placeholder="Carregue para selecionar a data de fim"
+                                                value={this.state.endDate}
+                                                onChange={this.updateEndDate} />
                                         </FormGroup>
                                     </Col>
                                     <Col sm={2}></Col>
@@ -339,7 +348,7 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={5}>
                                         <input className="form-control"
-                                            type="number" min="0" value={this.state.price} onChange={this.updatePrice} />
+                                            type="number" min="0" step=".01" value={this.state.price} onChange={this.updatePrice} />
                                     </Col>
                                 </Row>
                             </FormGroup>
