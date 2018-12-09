@@ -32,22 +32,16 @@ exports[`Custom Header renders correctly in english 1`] = `
             "alignItems": "flex-start",
             "alignSelf": "center",
             "flex": 1,
-            "height": "100%",
+            "justifyContent": "center",
+            "marginHorizontal": "2%",
           },
         ]
       }
     >
-      <Image
-        source={1}
-        style={
-          Object {
-            "height": "85%",
-            "marginLeft": "2%",
-            "marginVertical": "1%",
-            "resizeMode": "contain",
-            "width": "50%",
-          }
-        }
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
       />
     </View>
     <View
@@ -55,6 +49,7 @@ exports[`Custom Header renders correctly in english 1`] = `
         Array [
           Object {},
           Object {
+            "alignItems": "center",
             "alignSelf": "center",
             "flex": 1,
           },
@@ -73,9 +68,7 @@ exports[`Custom Header renders correctly in english 1`] = `
               "fontSize": 16,
             },
             Object {
-              "color": "white",
-              "marginHorizontal": "1%",
-              "paddingRight": "1%",
+              "color": "#F0F0F0",
               "textAlign": "center",
             },
           ]
@@ -240,22 +233,16 @@ exports[`Custom Header renders correctly in portuguese 1`] = `
             "alignItems": "flex-start",
             "alignSelf": "center",
             "flex": 1,
-            "height": "100%",
+            "justifyContent": "center",
+            "marginHorizontal": "2%",
           },
         ]
       }
     >
-      <Image
-        source={1}
-        style={
-          Object {
-            "height": "85%",
-            "marginLeft": "2%",
-            "marginVertical": "1%",
-            "resizeMode": "contain",
-            "width": "50%",
-          }
-        }
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
       />
     </View>
     <View
@@ -263,6 +250,7 @@ exports[`Custom Header renders correctly in portuguese 1`] = `
         Array [
           Object {},
           Object {
+            "alignItems": "center",
             "alignSelf": "center",
             "flex": 1,
           },
@@ -281,9 +269,7 @@ exports[`Custom Header renders correctly in portuguese 1`] = `
               "fontSize": 16,
             },
             Object {
-              "color": "white",
-              "marginHorizontal": "1%",
-              "paddingRight": "1%",
+              "color": "#F0F0F0",
               "textAlign": "center",
             },
           ]

@@ -28,13 +28,6 @@ nav.navbar-light span.navbar-text {
     font-size: 22px;
 }
 
-nav button.btn.btn-primary {
-    background-color: inherit;
-    border-color: #32a794;
-    font-size: 20px;
-    font-weight: 200;
-}
-
 button#logout-button {
     color: white;
     border: 0;

@@ -375,7 +375,7 @@ describe('Infinite scroll', () => {
         await wrapper.instance().handleScroll(event);
 
         expect(wrapper.state().events.length).toBeGreaterThanOrEqual(3);
-
+        expect(wrapper.state().loadingEvents).toEqual(true);
     });
 
 });

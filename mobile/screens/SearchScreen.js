@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     ScrollView,
+    StyleSheet,
     RefreshControl
 } from 'react-native';
 import { Font, AppLoading, SecureStore } from "expo";
@@ -144,21 +145,23 @@ export default class SearchScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: '#7C8589' }}>
-                <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
-                <ScrollView stickyHeaderIndices={[2]} style={{ backgroundColor: '#7C8589', height: '100%' }} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />} >
+            <View style={styles.wrapperView}>
+                <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
+                <ScrollView stickyHeaderIndices={[1]} style={styles.scrollView} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />} >
 
-                    <View style={{ marginHorizontal: '5%', paddingTop: '5%', paddingBottom: '2%', backgroundColor: '#7C8589' }}>
-                        <Text style={{ fontSize: 32, color: 'white', textAlign: 'center', fontFamily: 'OpenSans-Regular' }}>{global.dictionary["SEARCH"][this.props.screenProps.language]}</Text>
+                    <View style={styles.searchLabelView}>
+                        <Text style={styles.searchLabelText}>{global.dictionary["SEARCH"][this.props.screenProps.language]}</Text>
+                    </View>
 
-                        <View style={{ justifyContent: 'center', flexDirection: 'row', paddingBottom: '5%', backgroundColor: '#7C8589' }}>
+                    <View style={styles.mainViewWrapper}>
+                        <View style={styles.mainView}>
                             <View style={{ flex: 1 }}>
                                 <Text> </Text>
                             </View>
                             <View style={{ flex: 5 }}>
-                                <Item style={{ height: 30, borderBottomWidth: 3, borderColor: 'white' }}>
-                                    <Input style={{ fontSize: 20, color: 'white', width: '100%', height: 30, borderWidth: 2, borderTopWidth: 0, borderRightWidth: 0, borderLeftWidth: 0, borderColor: 'white', backgroundColor: '#7C8589' }} className="search-input" onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
-                                    <Icon style={{ fontSize: 20, color: 'white' }} type="FontAwesome" name="search" />
+                                <Item style={styles.searchItem}>
+                                    <Input style={styles.searchInput} className="search-input" onChangeText={(searchText) => { this.setState({ searchText }); this.doSearch(); }} />
+                                    <Icon style={styles.searchIcon} type="FontAwesome" name="search" />
                                 </Item>
                             </View>
                             <View style={{ flex: 1 }}>
@@ -167,7 +170,7 @@ export default class SearchScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={{ marginHorizontal: '2%', backgroundColor: '#7C8589' }}>
+                    <View style={styles.eventsView}>
                         {events}
                         {noEventsElement}
                     </View>
@@ -177,3 +180,61 @@ export default class SearchScreen extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    eventsView: {
+        marginHorizontal: '2%',
+        backgroundColor: '#7C8589',
+        marginBottom: '10%'
+    },
+    searchIcon: {
+        fontSize: 20,
+        color: 'white'
+    },
+    searchInput: {
+        fontSize: 20,
+        color: 'white',
+        width: '100%',
+        height: 30,
+        borderWidth: 2,
+        borderTopWidth: 0,
+        borderRightWidth: 0,
+        borderLeftWidth: 0,
+        borderColor: 'white',
+        backgroundColor: '#7C8589'
+    },
+    searchItem: {
+        height: 30,
+        borderBottomWidth: 3,
+        borderColor: 'white'
+    },
+    wrapperView: {
+        backgroundColor: '#7C8589'
+    },
+    scrollView: {
+        backgroundColor: '#7C8589',
+        height: '100%'
+    },
+    searchLabelView: {
+        paddingTop: '5%',
+        marginHorizontal: '5%'
+    },
+    searchLabelText: {
+        fontSize: 32,
+        color: 'white',
+        textAlign: 'center',
+        fontFamily: 'OpenSans-Regular'
+    },
+    mainViewWrapper: {
+        width: '100%',
+        paddingTop: '5%',
+        paddingBottom: '2%',
+        backgroundColor: '#7C8589'
+    },
+    mainView: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        paddingBottom: '5%',
+        backgroundColor: '#7C8589'
+    }
+});

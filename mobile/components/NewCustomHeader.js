@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    StatusBar
+    StatusBar,
+    StyleSheet
 } from 'react-native';
 import {
     View,
@@ -18,22 +19,23 @@ export default class NewCustomHeader extends React.Component {
     render() {
 
         return (
-            <View style={{ height: '6%' }}>
+            <View style={styles.wrapperView}>
                 <StatusBar hidden />
-                <View style={{ backgroundColor: '#455A64', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <View style={{ flex: 1, justifyContent: 'center', marginHorizontal: '2%', alignItems: 'flex-start', alignSelf: 'center' }}>
+                <View style={styles.mainView}>
+                    <View style={styles.goBackIconView}>
                         <Icon
+                            className='goBack'
                             onPress={ () => this.props.navigation.goBack(null) }
                             name='arrow-circle-left'
                             type='FontAwesome'
-                            style={{ color: '#D05722', fontSize: 28 }} />
+                            style={styles.goBackIcon} />
                     </View>
-                    <View style={{ flex: 1, alignSelf: 'center', alignItems: 'center' }} >
-                        <Text style={{ color: '#F0F0F0', textAlign: 'center' }}>
+                    <View style={styles.textView} >
+                        <Text style={styles.text}>
                             {this.props.text}
                         </Text>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'flex-end', marginRight: '2%', alignSelf: 'center' }}>
+                    <View style={styles.toggleView}>
                         <SwitchToggle
                             buttonText={this.props.language === 'EN' ? 'EN' : ''}
                             backTextRight={"PT"}
@@ -66,3 +68,41 @@ export default class NewCustomHeader extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    wrapperView: {
+        height: '6%'
+    },
+    mainView: {
+        backgroundColor: '#455A64',
+        height: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    goBackIconView: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: '2%',
+        alignItems: 'flex-start',
+        alignSelf: 'center'
+    },
+    goBackIcon: {
+        color: '#D05722',
+        fontSize: 28
+    },
+    toggleView: {
+        flex: 1,
+        alignItems: 'flex-end',
+        marginRight: '2%',
+        alignSelf: 'center'
+    },
+    textView: {
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    text: {
+        color: '#F0F0F0',
+        textAlign: 'center'
+    }
+});

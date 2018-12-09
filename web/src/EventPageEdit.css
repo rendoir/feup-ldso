@@ -1,7 +1,4 @@
 #edit_event_form_div {
-    background-position: center;
-    background-repeat: no-repeat; 
-    background-size: cover;
     padding: 1em 1em;
     height: 100vh;
 }
@@ -9,7 +6,9 @@
 #edit_event_form {
     background-color: #fff;
     padding: 2em 2em;
-    box-shadow: 12px 12px 15px 10px #8e9196;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 20px #455a64;
 }
 
 #edit_event_form div.form-group {
@@ -25,6 +24,6 @@ div#edit-form-dates-div .form-group {
     margin: 0;
 }
 
-div.dropdowns-search#dropdowns-edit-event {
-    text-align: right;
+div.entities__menu {
+    text-align: left;
 }

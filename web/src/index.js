@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'flatpickr/dist/themes/dark.css';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

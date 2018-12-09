@@ -43,3 +43,15 @@ div.event-info div.event-buttons button.btn{
 div.event-info div.event-buttons button.delete-button.btn.btn-primary {
     color: #e0314f;
 }
+
+div.event-info div.event-buttons a.btn.btn-link:active {
+    background-color: #4a4a4a;
+    border-color: #4a4a4a;
+    color: white;
+}
+
+div.event-info div.event-buttons button.delete-button.btn.btn-primary:active {
+    color: #e0314f;
+    background-color: #4a4a4a;
+    border-color: #4a4a4a;
+}

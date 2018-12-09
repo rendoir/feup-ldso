@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Image,
+    StyleSheet,
     StatusBar
 } from 'react-native';
 import {
@@ -21,22 +22,16 @@ export default class CustomHeader extends React.Component {
         return (
             <View style={{ height: '6%' }}>
                 <StatusBar hidden />
-                <View style={{ backgroundColor: '#455A64', height: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <View style={{ flex: 1, height: '100%', alignSelf: 'center', alignItems: 'flex-start' }}>
+                <View style={styles.mainView}>
+                    <View style={styles.imageView}>
                         <Image source={require('../assets/images/logo_screen.png')}
-                            style={{
-                                width: '50%',
-                                height: '85%',
-                                resizeMode: 'contain',
-                                marginLeft: '2%',
-                                marginVertical: '1%'
-                            }}
+                            style={styles.image}
                         />
                     </View>
-                    <View style={{ flex: 1, alignSelf: 'center' }}>
-                        <Text style={{ color: 'white', textAlign: 'center', paddingRight: '1%', marginHorizontal: '1%' }}>{global.userName}</Text>
+                    <View style={styles.userNameView}>
+                        <Text style={styles.userName}>{global.userName}</Text>
                     </View>
-                    <View style={{ flex: 1, alignSelf: 'center', alignItems: 'flex-end', marginRight: '2%' }}>
+                    <View style={styles.toggleView}>
                         <SwitchToggle
                             buttonText={this.props.language === 'EN' ? 'EN' : ''}
                             backTextRight={"PT"}
@@ -72,3 +67,41 @@ export default class CustomHeader extends React.Component {
         this.props.toggleLanguage();
     }
 }
+
+const styles = StyleSheet.create({
+    mainView: {
+        backgroundColor: '#455A64',
+        height: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    image: {
+        width: '50%',
+        height: '85%',
+        resizeMode: 'contain',
+        marginLeft: '2%',
+        marginVertical: '1%'
+    },
+    imageView: {
+        flex: 1,
+        height: '100%',
+        alignSelf: 'center',
+        alignItems: 'flex-start'
+    },
+    userName: {
+        color: 'white',
+        textAlign: 'center',
+        paddingRight: '1%',
+        marginHorizontal: '1%'
+    },
+    userNameView: {
+        flex: 1,
+        alignSelf: 'center'
+    },
+    toggleView: {
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'flex-end',
+        marginRight: '2%'
+    }
+});

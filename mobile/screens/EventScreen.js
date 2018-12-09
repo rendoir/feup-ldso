@@ -62,10 +62,20 @@ export default class AgendaScreen extends React.Component {
             let endDay = endDate.split('T')[0].split('-')[2];
             let endMonth = endDate.split('T')[0].split('-')[1];
             let endYear = endDate.split('T')[0].split('-')[0];
-            date += ' até ' + endDay + '-' + endMonth + '-' + endYear;
+            if (this.props.screenProps.language === 'PT')
+                date += ' até ';
+            else
+                date += ' to ';
+            date += endDay + '-' + endMonth + '-' + endYear;
         }
 
         return date;
+    }
+
+    getEventTime(event){
+        let startTime = event.start_date.split('T')[1];
+        startTime = startTime.split(':')[0] + ':' + startTime.split(':')[1] + (this.props.screenProps.language === "PT" ? ' horas' : ' hours');
+        return startTime;
     }
 
     redirectGoogleMaps() {
@@ -117,6 +127,20 @@ export default class AgendaScreen extends React.Component {
         }
     }
 
+    getEntity(){
+        if (this.props.screenProps.language === 'PT')
+            return "Entidade promotora: " + this.state.event.entity.initials;
+        else
+            return "Promoting entity: " + this.state.event.entity.initials;
+    }
+
+    getPrice() {
+        if (this.state.event.price == 0)
+            return this.props.screenProps.language === "PT" ? 'Gratuito' : 'Free';
+        else
+            return this.state.event.price + "€";
+    }
+
     getTitle() {
         if (this.props.screenProps.language === "PT") return this.state.event.title;
         else if (this.props.screenProps.language === "EN") return this.state.event.title_english;
@@ -139,52 +163,59 @@ export default class AgendaScreen extends React.Component {
         return (
             <View style={{ backgroundColor: 'white' }}>
                 <NewCustomHeader navigation={this.props.navigation} text=' ' fave={true} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
-                <ScrollView stickyHeaderIndices={[0]} style={{ backgroundColor: 'white', height: '100%' }}>
+                <ScrollView stickyHeaderIndices={[1]} style={styles.scrollView}>
 
-                    <View style={{ margin: '0%', padding: '0%', width: '100%', backgroundColor: 'white' }}>
+                    <View style={styles.imageView}>
                         <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.state.event.id } : require('../assets/images/default.png')}
                             style={styles.image}
                             onError={this.ImageLoadingError.bind(this)} />
                     </View>
 
-                    <View style={{ margin: 0, borderBottomColor: 'black', borderBottomWidth: 1, backgroundColor: 'white' }}>
-                        <Text style={{ textAlign: 'center', lineHeight: 45, fontSize: 20, color: 'black', fontFamily: 'OpenSans-Regular' }}>{this.getTitle()}</Text>
+                    <View style={styles.titleView}>
+                        <Text style={styles.eventTitle}>{this.getTitle()}</Text>
                     </View>
 
-                    <View style={{ margin: 0, backgroundColor: 'white', flexDirection: 'row' }}>
-                        <View style={{ flex: 1 }}></View>
-                        <Button className="map-button" rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }} onPress={() => this.redirectGoogleMaps()}>
-                            <Icon type='Entypo' name='location-pin' style={{ flex: 1, fontSize: 10, color: '#D05722' }} />
-                            <Text style={{ color: 'black' }} >{global.dictionary["MAP"][this.props.screenProps.language]}</Text>
+                    <View style={styles.buttonsView}>
+                        <Button className="map-button" rounded style={styles.button} onPress={() => this.redirectGoogleMaps()}>
+                            <Icon type='Entypo' name='location-pin' style={styles.buttonIcon} />
+                            <Text style={styles.buttonText} >{global.dictionary["MAP"][this.props.screenProps.language]}</Text>
                         </Button>
-                        <View style={{ flex: 1 }}></View>
-                        <Button className="calendar-button" rounded style={{ flex: 2, height: 35, backgroundColor: 'white', flexDirection: 'column' }} onPress={this.addEventToCalendar}>
-                            <Icon type='FontAwesome' name='calendar' style={{ flex: 1, fontSize: 10, color: '#D05722' }} />
-                            <Text style={{ color: 'black' }} >{global.dictionary["CALENDAR"][this.props.screenProps.language]}</Text>
+                        <Button className="calendar-button" rounded style={styles.button} onPress={this.addEventToCalendar}>
+                            <Icon type='FontAwesome' name='calendar' style={styles.buttonIcon} />
+                            <Text style={styles.buttonText} >{global.dictionary["CALENDAR"][this.props.screenProps.language]}</Text>
                         </Button>
-                        <View style={{ flex: 1 }}></View>
                     </View>
 
-                    <View style={{ marginHorizontal: '0%', backgroundColor: '#7C8589' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon type='Entypo' name='dot-single' style={{ flex: 1, fontSize: 20, color: 'white' }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>{this.getEventDate(this.state.event)}</Text>
+                    <View style={styles.listView}>
+                        <View style={styles.listItemView}>
+                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Text style={styles.simpleText}>{this.getEventDate(this.state.event)}</Text>
                         </View>
 
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon type='Entypo' name='dot-single' style={{ flex: 1, fontSize: 20, color: 'white' }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>{this.state.event.location}</Text>
+                        <View style={styles.listItemView}>
+                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Text style={styles.simpleText}>{this.getEventTime(this.state.event)}</Text>
                         </View>
 
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon type='Entypo' name='dot-single' style={{ flex: 1, fontSize: 20, color: 'white' }} />
-                            <Text style={[styles.simpleText, { flex: 11 }]}>{global.dictionary["PRICE"][this.props.screenProps.language]}: {this.state.event.price}€</Text>
+                        <View style={styles.listItemView}>
+                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Text style={styles.simpleText}>{this.state.event.location}</Text>
+                        </View>
+
+                        <View style={styles.listItemView}>
+                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Text style={styles.simpleText}>{global.dictionary["PRICE"][this.props.screenProps.language]}: {this.getPrice()}</Text>
+                        </View>
+
+                        <View style={styles.listItemView}>
+                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Text style={styles.simpleText}>{this.getEntity()}</Text>
                         </View>
 
                     </View>
 
-                    <View style={{ marginHorizontal: '5%', backgroundColor: 'white' }}>
-                        <Text style={[styles.simpleText, { textAlign: 'justify' }]}>{this.getDescription()}</Text>
+                    <View style={styles.descriptionView}>
+                        <Text style={styles.descriptionText}>{this.getDescription()}</Text>
                     </View>
                 </ScrollView>
 
@@ -204,26 +235,86 @@ const styles = StyleSheet.create({
         fontSize: 13,
         paddingLeft: 0
     },
+    buttonsView: {
+        marginVertical: '2%',
+        backgroundColor: 'white',
+        flexDirection: 'row'
+    },
+    button: {
+        flex: 1,
+        height: 40,
+        backgroundColor: 'white',
+        marginHorizontal: '5%'
+    },
     buttonText: {
         color: 'black',
         fontFamily: 'OpenSans-Regular',
+        fontSize: 12,
+        flex: 5
+    },
+    buttonIcon: {
+        flex: 1,
         fontSize: 18,
-        paddingLeft: 5
+        color: '#D05722'
     },
     simpleText: {
         color: 'white',
         fontFamily: 'OpenSans-Regular',
-        fontSize: 16
+        fontSize: 16,
+        flex: 11
     },
-    eventTitle: {
+    descriptionView: {
+        marginHorizontal: '5%',
+        backgroundColor: 'white',
+        marginBottom: '15%',
+        marginTop: '5%'
+    },
+    descriptionText: {
         color: 'black',
         fontFamily: 'OpenSans-Regular',
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 16,
+        textAlign: 'center'
+    },
+    titleView: {
+        margin: 0,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        backgroundColor: 'white'
+    },
+    listView: {
+        marginHorizontal: '0%',
+        backgroundColor: '#7C8589'
+    },
+    listItemView: {
+        flexDirection: 'row',
+        marginBottom: '3%'
+    },
+    eventTitle: {
+        color: '#455A64',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        lineHeight: 45
+    },
+    dotIcon: {
+        flex: 1,
+        fontSize: 40,
+        color: 'white'
+    },
+    imageView: {
+        margin: '0%',
+        padding: '0%',
+        width: '100%',
+        backgroundColor: 'white'
     },
     image: {
-        height: 300,
+        height: 250,
         width: null,
         flex: 1
+    },
+    scrollView: {
+        backgroundColor: 'white',
+        height: '100%'
     }
 });

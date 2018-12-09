@@ -1,13 +1,4 @@
 div#login-container {
-    /* transform-origin: center center;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    margin: auto auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0; */
     background-color: white;
     height: 100vh;
 }
@@ -28,14 +19,18 @@ div.login-col-first img {
 }
 
 div#login-container div.row {
-    /* transform-origin: center center;
+    height: 100%;
+}
+
+div#login-container div.login-alert {
+    transform-origin: center center;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 25%; */
-    height: 100%;
+    top: 30%;
+    max-width: 50%;
 }
 
 div#login-container form {

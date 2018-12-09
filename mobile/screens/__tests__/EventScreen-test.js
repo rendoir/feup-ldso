@@ -58,7 +58,8 @@ describe('App snapshot', () => {
             location: "Auditório FEUP",
             price: 0,
             entity_id: 9,
-            user_id: 1
+            user_id: 1,
+            entity: { initials: 'FEUP' }
         };
 
         const date = wrapper.instance().getEventDate(event);
@@ -78,7 +79,8 @@ describe('App snapshot', () => {
             location: "Auditório FEUP",
             price: 0,
             entity_id: 9,
-            user_id: 1
+            user_id: 1,
+            entity: { initials: 'FEUP' }
         };
 
         const date = wrapper.instance().getEventDate(event);
@@ -111,10 +113,11 @@ describe('App snapshot', () => {
             event: {
                 title: "Event",
                 descritpion: "Event",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
                 price: 10,
-                location: 'Letraria, Porto'
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 
@@ -137,10 +140,11 @@ describe('App snapshot', () => {
             event: {
                 title: "Event",
                 descritpion: "Event",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                price: 10,
-                location: 'Letraria, Porto'
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
+                price: 0,
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 
@@ -171,10 +175,11 @@ describe('App snapshot', () => {
             event: {
                 title: "Event",
                 descritpion: "Event",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                price: 10,
-                location: 'Letraria, Porto'
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
+                price: 0,
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 
@@ -205,10 +210,11 @@ describe('App snapshot', () => {
             event: {
                 title: "Event",
                 descritpion: "Event",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
                 price: 10,
-                location: 'Letraria, Porto'
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 
@@ -236,10 +242,11 @@ describe('App snapshot', () => {
             event: {
                 title: "Event",
                 descritpion: "Event",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
                 price: 10,
-                location: 'Letraria, Porto'
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 
@@ -269,10 +276,11 @@ describe('App snapshot', () => {
                 title_english: "Event English",
                 descritpion: "Event",
                 description_english: "Description English",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
                 price: 10,
-                location: 'Letraria, Porto'
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 
@@ -289,10 +297,11 @@ describe('App snapshot', () => {
                 title_english: "Event English",
                 descritpion: "Event",
                 description_english: "Description English",
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
+                start_date: '2018-10-27T11:11:00',
+                end_date: '2018-10-28T11:11:00',
                 price: 10,
-                location: 'Letraria, Porto'
+                location: 'Letraria, Porto',
+                entity: { initials: 'FEUP' }
             }
         });
 

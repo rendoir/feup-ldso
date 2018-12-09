@@ -1,0 +1,357 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Event Test renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#ccc",
+        "borderLeftWidth": 0.5,
+        "borderRadius": 2,
+        "borderRightWidth": 0.5,
+        "borderTopWidth": 0.5,
+        "elevation": 3,
+        "flexWrap": "nowrap",
+        "marginBottom": 5,
+        "marginLeft": 2,
+        "marginRight": 2,
+        "marginTop": 5,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 1.5,
+      },
+      Object {
+        "backgroundColor": "white",
+        "height": 125,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "flexDirection": "row",
+          "height": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "flex": 2,
+          },
+        ]
+      }
+    >
+      <Image
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "http://188.166.95.23:3030/2",
+          }
+        }
+        style={
+          Object {
+            "flex": 1,
+            "width": null,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "borderLeftColor": "#D05722",
+            "borderLeftWidth": 5,
+            "flex": 5,
+            "justifyContent": "space-between",
+            "paddingBottom": "2%",
+            "paddingHorizontal": "2%",
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        Feup Career Fair 2018
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 18,
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        15 de Outubro às 23:00
+      </Text>
+      <View
+        style={
+          Array [
+            Object {},
+            Object {
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            },
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000",
+                "fontFamily": "System",
+                "fontSize": 16,
+              },
+              Object {
+                "color": "black",
+                "fontFamily": "OpenSans-Regular",
+                "fontSize": 18,
+              },
+            ]
+          }
+          uppercase={false}
+        >
+          Preço
+          : 
+          Gratuito
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Event Test renders correctly in english 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#ccc",
+        "borderLeftWidth": 0.5,
+        "borderRadius": 2,
+        "borderRightWidth": 0.5,
+        "borderTopWidth": 0.5,
+        "elevation": 3,
+        "flexWrap": "nowrap",
+        "marginBottom": 5,
+        "marginLeft": 2,
+        "marginRight": 2,
+        "marginTop": 5,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 1.5,
+      },
+      Object {
+        "backgroundColor": "white",
+        "height": 125,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "flexDirection": "row",
+          "height": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "flex": 2,
+          },
+        ]
+      }
+    >
+      <Image
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "http://188.166.95.23:3030/2",
+          }
+        }
+        style={
+          Object {
+            "flex": 1,
+            "width": null,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "borderLeftColor": "#D05722",
+            "borderLeftWidth": 5,
+            "flex": 5,
+            "justifyContent": "space-between",
+            "paddingBottom": "2%",
+            "paddingHorizontal": "2%",
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        Feup Career Fair 2018
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "OpenSans-Regular",
+              "fontSize": 18,
+            },
+          ]
+        }
+        uppercase={false}
+      >
+        October 15 at 23:00
+      </Text>
+      <View
+        style={
+          Array [
+            Object {},
+            Object {
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            },
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000",
+                "fontFamily": "System",
+                "fontSize": 16,
+              },
+              Object {
+                "color": "black",
+                "fontFamily": "OpenSans-Regular",
+                "fontSize": 18,
+              },
+            ]
+          }
+          uppercase={false}
+        >
+          Price
+          : 
+          Free
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;
