@@ -6,12 +6,15 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import './EventPage.css';
 
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+}
+
 class EventPage extends Component {
 
     constructor(props) {
         super(props);
-
-        // Console.log(props);
 
         this.state = {
             id: props.match.params.id,
@@ -117,9 +120,9 @@ class EventPage extends Component {
         let self = this;
         axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
-                user_id: 1,
                 id: self.state.id
-            }
+            },
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then(() => this.setState({ redirect: true }))
             .catch(() => self.setState({ alertType: "danger", alertMessage: "Um erro ocorreu a apagar o evento. Tente mais tarde." }));

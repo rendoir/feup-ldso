@@ -80,15 +80,15 @@ exports[`Check Render ListEvents don't display list events 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="css-vj8t7z"
+          className="css-vj8t7z categories__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className="css-1hwfws3"
+            className="css-1hwfws3 categories__value-container categories__value-container--is-multi"
           >
             <div
-              className="css-1492t68"
+              className="css-1492t68 categories__placeholder"
             >
               Categorias
             </div>
@@ -96,7 +96,7 @@ exports[`Check Render ListEvents don't display list events 1`] = `
               className="css-1g6gooi"
             >
               <div
-                className=""
+                className="categories__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -150,14 +150,14 @@ exports[`Check Render ListEvents don't display list events 1`] = `
             </div>
           </div>
           <div
-            className="css-1wy0on6"
+            className="css-1wy0on6 categories__indicators"
           >
             <span
-              className="css-d8oujb"
+              className="css-d8oujb categories__indicator-separator"
             />
             <div
               aria-hidden="true"
-              className="css-1ep9fjw"
+              className="css-1ep9fjw categories__indicator categories__dropdown-indicator"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -182,15 +182,15 @@ exports[`Check Render ListEvents don't display list events 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="css-vj8t7z"
+          className="css-vj8t7z entities__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className="css-1hwfws3"
+            className="css-1hwfws3 entities__value-container entities__value-container--is-multi"
           >
             <div
-              className="css-1492t68"
+              className="css-1492t68 entities__placeholder"
             >
               Entidades
             </div>
@@ -198,7 +198,7 @@ exports[`Check Render ListEvents don't display list events 1`] = `
               className="css-1g6gooi"
             >
               <div
-                className=""
+                className="entities__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -252,14 +252,14 @@ exports[`Check Render ListEvents don't display list events 1`] = `
             </div>
           </div>
           <div
-            className="css-1wy0on6"
+            className="css-1wy0on6 entities__indicators"
           >
             <span
-              className="css-d8oujb"
+              className="css-d8oujb entities__indicator-separator"
             />
             <div
               aria-hidden="true"
-              className="css-1ep9fjw"
+              className="css-1ep9fjw entities__indicator entities__dropdown-indicator"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -402,15 +402,15 @@ exports[`Check Render ListEvents renders list events 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="css-vj8t7z"
+          className="css-vj8t7z categories__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className="css-1hwfws3"
+            className="css-1hwfws3 categories__value-container categories__value-container--is-multi"
           >
             <div
-              className="css-1492t68"
+              className="css-1492t68 categories__placeholder"
             >
               Categorias
             </div>
@@ -418,7 +418,7 @@ exports[`Check Render ListEvents renders list events 1`] = `
               className="css-1g6gooi"
             >
               <div
-                className=""
+                className="categories__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -472,14 +472,14 @@ exports[`Check Render ListEvents renders list events 1`] = `
             </div>
           </div>
           <div
-            className="css-1wy0on6"
+            className="css-1wy0on6 categories__indicators"
           >
             <span
-              className="css-d8oujb"
+              className="css-d8oujb categories__indicator-separator"
             />
             <div
               aria-hidden="true"
-              className="css-1ep9fjw"
+              className="css-1ep9fjw categories__indicator categories__dropdown-indicator"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -504,15 +504,15 @@ exports[`Check Render ListEvents renders list events 1`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="css-vj8t7z"
+          className="css-vj8t7z entities__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className="css-1hwfws3"
+            className="css-1hwfws3 entities__value-container entities__value-container--is-multi"
           >
             <div
-              className="css-1492t68"
+              className="css-1492t68 entities__placeholder"
             >
               Entidades
             </div>
@@ -520,7 +520,7 @@ exports[`Check Render ListEvents renders list events 1`] = `
               className="css-1g6gooi"
             >
               <div
-                className=""
+                className="entities__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -574,14 +574,14 @@ exports[`Check Render ListEvents renders list events 1`] = `
             </div>
           </div>
           <div
-            className="css-1wy0on6"
+            className="css-1wy0on6 entities__indicators"
           >
             <span
-              className="css-d8oujb"
+              className="css-d8oujb entities__indicator-separator"
             />
             <div
               aria-hidden="true"
-              className="css-1ep9fjw"
+              className="css-1ep9fjw entities__indicator entities__dropdown-indicator"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -766,15 +766,15 @@ exports[`renders elements 2`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="css-vj8t7z"
+          className="css-vj8t7z categories__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className="css-1hwfws3"
+            className="css-1hwfws3 categories__value-container categories__value-container--is-multi"
           >
             <div
-              className="css-1492t68"
+              className="css-1492t68 categories__placeholder"
             >
               Categorias
             </div>
@@ -782,7 +782,7 @@ exports[`renders elements 2`] = `
               className="css-1g6gooi"
             >
               <div
-                className=""
+                className="categories__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -836,14 +836,14 @@ exports[`renders elements 2`] = `
             </div>
           </div>
           <div
-            className="css-1wy0on6"
+            className="css-1wy0on6 categories__indicators"
           >
             <span
-              className="css-d8oujb"
+              className="css-d8oujb categories__indicator-separator"
             />
             <div
               aria-hidden="true"
-              className="css-1ep9fjw"
+              className="css-1ep9fjw categories__indicator categories__dropdown-indicator"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -868,15 +868,15 @@ exports[`renders elements 2`] = `
         onKeyDown={[Function]}
       >
         <div
-          className="css-vj8t7z"
+          className="css-vj8t7z entities__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
           <div
-            className="css-1hwfws3"
+            className="css-1hwfws3 entities__value-container entities__value-container--is-multi"
           >
             <div
-              className="css-1492t68"
+              className="css-1492t68 entities__placeholder"
             >
               Entidades
             </div>
@@ -884,7 +884,7 @@ exports[`renders elements 2`] = `
               className="css-1g6gooi"
             >
               <div
-                className=""
+                className="entities__input"
                 style={
                   Object {
                     "display": "inline-block",
@@ -938,14 +938,14 @@ exports[`renders elements 2`] = `
             </div>
           </div>
           <div
-            className="css-1wy0on6"
+            className="css-1wy0on6 entities__indicators"
           >
             <span
-              className="css-d8oujb"
+              className="css-d8oujb entities__indicator-separator"
             />
             <div
               aria-hidden="true"
-              className="css-1ep9fjw"
+              className="css-1ep9fjw entities__indicator entities__dropdown-indicator"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >

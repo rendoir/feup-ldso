@@ -100,23 +100,20 @@ module.exports = {
 
     },
 
-    findUserById(id) {
-        return User.findById(id);
-    },
-
     checkPassword(password, user) {
         return bcrypt.compare(password, user.password);
     },
 
-    tokenMatches(token, user) {
+    tokenHasMatch(users) {
+        return users.length == 1;
+    },
+
+    searchToken(token, user) {
         return User.findAll( {
             where: {
                 id: user,
                 token: token
             }
-        })
-            .then((users) => { return users.length == 1; })
-            .catch(() => { return false; });
+        });
     }
-
 };

@@ -227,23 +227,6 @@ describe('List Events', () => {
         }).catch(() => done());
     });
 
-
-    describe('/GET List Events App', () => {
-        it('it should list all events on the App', (done) => {
-
-            chai.request(app)
-                .get('/app')
-                .set('Authorization', '12345') // Token
-                .query({ page: 0, limit: 10 })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(1);
-                    done();
-                });
-        });
-    });
-
     describe('/GET List Events Web', () => {
         it('it should list all events on the web', (done) => {
 
@@ -454,7 +437,6 @@ describe('Filter events', () => {
         it('It should filter events by categories', (done) => {
             chai.request(app)
                 .get('/events')
-                .set('Authorization', '12345') // Token
                 .query({ categories: 1, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -469,7 +451,6 @@ describe('Filter events', () => {
         it('It should filter events by entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .set('Authorization', '12345') // Token
                 .query({ entities: [2, 3], user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -503,6 +484,18 @@ describe('Filter events', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events with wrong token', () => {
+        it('It should not return events', (done) => {
+            chai.request(app)
+                .get('/events')
+                .query({ user_id: 1, token: 'wrong_token' })
+                .end((err, res) => {
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -649,7 +642,6 @@ describe('Search', () => {
         it('It should show entities by search pattern', (done) => {
             chai.request(app)
                 .get('/search/entities/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -666,7 +658,6 @@ describe('Search', () => {
         it('It should show categories by search pattern', (done) => {
             chai.request(app)
                 .get('/search/categories/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -683,7 +674,6 @@ describe('Search', () => {
         it('It should show events by search pattern', (done) => {
             chai.request(app)
                 .get('/search/events/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "conf", user_id: 1, token: '123', lang: 'PT' })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -693,7 +683,6 @@ describe('Search', () => {
                     chai.expect(res.body).to.contain.something.like({ title: 'Test Class 4', search_by: 'location' });
                     chai.expect(res.body).to.contain.something.like({ title: 'Evento 1', search_by: 'description' });
                     chai.expect(res.body).to.contain.something.like({ title: 'Another Conference 3', search_by: 'title' });
-                    // TODO: should add category test.
                     done();
                 });
         });
@@ -703,7 +692,6 @@ describe('Search', () => {
         it('It should show events by search pattern in English', (done) => {
             chai.request(app)
                 .get('/search/events/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "Event", user_id: 1, token: '123', lang: 'EN' })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -711,7 +699,18 @@ describe('Search', () => {
                     res.body.length.should.be.eql(2);
                     chai.expect(res.body).to.contain.something.like({ title_english: 'Global Event 6', search_by: 'title_english' });
                     chai.expect(res.body).to.contain.something.like({ title_english: 'Event 1', search_by: 'title_english' });
-                    // TODO: should add category test.
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Search for events', () => {
+        it('It should not show events with a wrong token', (done) => {
+            chai.request(app)
+                .get('/search/events/')
+                .query({ text: "conf", user_id: 1, token: '321', lang: 'PT' })
+                .end((err, res) => {
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -783,7 +782,6 @@ describe('Information of an event', () => {
 describe('List and filter favorited events', () => {
 
     before((done) => {
-        // This.enableTimeouts(false);
         models.sequelize.sync().then(() => {
             Common.destroyDatabase();
             // Create entities
@@ -910,14 +908,20 @@ describe('List and filter favorited events', () => {
                                         location: 'Anywhere'
                                     }
                                 ]).then((events) => {
-                                    events[0].addCategory(categories[0]);
-                                    events[1].addCategory(categories[0]);
-                                    user.setFavorite(events[0]);
-                                    user.setFavorite(events[1]);
-                                    user.setFavorite(events[2]);
-                                    user.setFavorite(events[3]);
-                                })
-                                    .then(() => done());
+                                    events[0].addCategory(categories[0]).then(function() {
+                                        events[1].addCategory(categories[0]).then(function() {
+                                            user.addFavorite(events[0]).then(function() {
+                                                user.addFavorite(events[1]).then(function() {
+                                                    user.addFavorite(events[2]).then(function() {
+                                                        user.addFavorite(events[3]).then(function() {
+                                                            done();
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
                             }))));
         });
     });
@@ -925,8 +929,7 @@ describe('List and filter favorited events', () => {
     describe('/GET List all favorites', () => {
         it('It should list all favorited events ', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -939,8 +942,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by categories', () => {
         it('It should filter favorited events by categories', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ categories: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -954,8 +956,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by entities', () => {
         it('It should filter favorited events by entities', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ entities: [1, 2, 3] })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -969,8 +970,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by categories and entities', () => {
         it('It should filter favorited events by categories and entities', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ categories: 1, entities: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -984,13 +984,23 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events with pagination', () => {
         it('It should filter favorited events using pagination', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ offset: 0, limit: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET List all favorites unauthorized', () => {
+        it('It should not list events if user token is wrong', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1&token=321')
+                .end((err, res) => {
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -1117,11 +1127,11 @@ describe('Search events by Text', () => {
                     res.should.have.status(200);
                     res.body.should.be.a("object");
                     res.body.should.have.property("count");
-                    res.body.should.have.property("events");
-                    res.body.events.length.should.be.eql(2);
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(2);
                     res.body.count.should.be.eql(5);
-                    res.body.events[0].title.should.be.eql("Event 3");
-                    res.body.events[1].title.should.be.eql("Event 5");
+                    res.body.rows[0].title.should.be.eql("Event 3");
+                    res.body.rows[1].title.should.be.eql("Event 5");
                     done();
                 });
         });
@@ -1136,10 +1146,10 @@ describe('Search events by Text', () => {
                     res.should.have.status(200);
                     res.body.should.be.a("object");
                     res.body.should.have.property("count");
-                    res.body.should.have.property("events");
-                    res.body.events.length.should.be.eql(1);
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(1);
                     res.body.count.should.be.eql(3);
-                    res.body.events[0].title.should.be.eql("Test 4");
+                    res.body.rows[0].title.should.be.eql("Test 4");
                     done();
                 });
         });
@@ -1154,8 +1164,8 @@ describe('Search events by Text', () => {
                     res.should.have.status(200);
                     res.body.should.be.a("object");
                     res.body.should.have.property("count");
-                    res.body.should.have.property("events");
-                    res.body.events.length.should.be.eql(0);
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(0);
                     done();
                 });
         });
@@ -1170,8 +1180,8 @@ describe('Search events by Text', () => {
                     res.should.have.status(200);
                     res.body.should.be.a("object");
                     res.body.should.have.property("count");
-                    res.body.should.have.property("events");
-                    res.body.events.length.should.be.eql(0);
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(0);
                     done();
                 });
         });

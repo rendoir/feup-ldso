@@ -67,40 +67,6 @@ paths:
           $ref: '#/components/responses/400Error' 
       x-router-controller: "user"
 
-  /app:
-    post:
-      summary: Lists all events on the app
-      operationId: listForUsers
-      description: Returns a list of all events available to the user
-      tags:
-        - Mobile Application 
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object 
-              properties:
-                email:
-                  type: string
-                accessToken:
-                  type: string
-      responses:
-        '200':
-          description: Authenticates the user
-          content:
-            application/json:
-              schema:
-                properties:
-                  token:
-                    type: string
-                  userID:
-                    type: integer
-        '400':
-          $ref: '#/components/responses/400Error'
-      x-router-controller: "event"
-  
-  
   /app/login:
     post:
       summary: Logs in the user on the app
@@ -157,13 +123,27 @@ paths:
   /web:
     get:
       summary: Lists events that a User has permission
-      operationId: listForWeb
+      operationId: getEventsWeb
       description: Returns a list containing all events to which the logged in user has permissions
       tags:
         - Website
       parameters:
         - $ref: '#/components/parameters/pageNumber'
-        - $ref: '#/components/parameters/pageLimit'      
+        - $ref: '#/components/parameters/pageLimit'
+        - name: entities
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'
+        - name: categories
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'     
       responses:
         '200':
           description: Successfully returned a list of events
@@ -587,9 +567,9 @@ components:
       schema:
         type: string
     pageNumber:
-      name: page
+      name: offset
       in: query
-      description: Page number
+      description: Offset from first event
       schema:
         type: integer
     pageLimit:

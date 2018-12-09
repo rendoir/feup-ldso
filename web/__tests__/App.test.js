@@ -23,21 +23,27 @@ it('renders elements', () => {
             description: 'description',
             start_date: '2018-10-27 11:11:00',
             end_date: '2018-10-28 11:11:00',
-            initials: 'FEUP'
+            entity: {
+                initials: 'FEUP'
+            }
         },
         {
             title: 'Title',
             description: 'description',
             start_date: '2018-10-27 11:11:00',
             end_date: '2018-10-28 11:11:00',
-            initials: 'FEUP'
+            entity: {
+                initials: 'FEUP'
+            }
         },
         {
             title: 'Title',
             description: 'description',
             start_date: '2018-10-27 11:11:00',
             end_date: '2018-10-28 11:11:00',
-            initials: 'FEUP'
+            entity: {
+                initials: 'FEUP'
+            }
         }]
     });
 

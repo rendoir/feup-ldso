@@ -319,4 +319,21 @@ describe('Favorite/Unfavorite an event', () => {
                 });
         });
     });
+
+    describe('/POST Favorite an event with wrong token', () => {
+        it('it should not favorite event', (done) => {
+
+            chai.request(app)
+                .post('/favorite')
+                .send({
+                    event_id: 1,
+                    user_id: 1,
+                    token: 'wrong_token'
+                })
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+    });
 });
