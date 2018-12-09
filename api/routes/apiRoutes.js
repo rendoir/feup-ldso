@@ -101,8 +101,7 @@ router.get("/events/favorites", eventController.listFavorites);
 router.get("/events/:event_id", eventController.getEventInfo);
 
 // List events
-router.get("/app", eventController.listForUsers);
-router.get("/web", passport.authenticate('jwt', { session: false }), eventController.listForWeb);
+router.get("/web", passport.authenticate('jwt', { session: false }), eventController.getEventsWeb);
 
 
 module.exports = router;

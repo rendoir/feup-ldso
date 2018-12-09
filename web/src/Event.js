@@ -68,7 +68,7 @@ class Event extends Component {
                     <Link to={`/events/${this.props.id}`}>
                         <p className="event-title" onClick={this.props.showEventPage}>{this.props.title}</p>
                     </Link>
-                    <p>{this.props.initials}</p>
+                    <p>{this.props.entity !== undefined ? this.props.entity.initials : this.props.initials}</p>
 
                     <div className="event-buttons">
                         <Link className="btn btn-link" to={{

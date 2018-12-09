@@ -3,6 +3,7 @@ var passport = require('passport'),
     StrategyMock = require('./strategy-mock'),
     passportJWT = require("passport-jwt"),
     userController = require('../controllers').user,
+    User = require('../models').users,
     env = process.env.NODE_ENV || 'development',
     config = require(__dirname + '/../config/config.js')[env];
 
@@ -45,7 +46,7 @@ module.exports = () => {
             secretOrKey: config.jwtSecret
         }, (jwtPayload, done) => {
 
-            return userController.findUserById(jwtPayload.sub)
+            return User.findById(jwtPayload.sub)
                 .then(user => {
                     return done(null, user);
                 })
@@ -61,7 +62,7 @@ module.exports = () => {
     });
 
     passport.deserializeUser((id, done) => {
-        userController.findUserById(id)
+        User.findById(id)
             .then((user) => done(null, user))
             .catch((err) => done(err, null));
     });
