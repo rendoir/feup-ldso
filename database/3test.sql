@@ -172,3 +172,7 @@ INSERT INTO favorites (user_id, event_id) VALUES (64, 1);
 INSERT INTO event_categories (event_id, category_id) VALUES (1, 3);
 INSERT INTO event_categories (event_id, category_id) VALUES (2, 1);
 INSERT INTO event_categories (event_id, category_id) VALUES (3, 1);
+
+INSERT INTO notifications (date, description, description_english, seen, user_id, event_id) VALUES (current_timestamp, 'Exemplo notif vista', 'Example seen notif', true, 1, 1);
+INSERT INTO notifications (date, description, description_english, seen, user_id, event_id) VALUES (current_timestamp, 'Exemplo notif nao vista', 'Example unseen notif', false, 1, 1);
+INSERT INTO notifications (date, description, description_english, seen, user_id, event_id) VALUES (current_timestamp, 'Exemplo notif outro user', 'Example notif other user', true, 2, 1);

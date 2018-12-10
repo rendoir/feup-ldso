@@ -4,6 +4,7 @@ let models = require('../models');
 let EventModel = require('../models').events;
 let Entity = require('../models').entities;
 let User = require('../models').users;
+let Notification = require('../models').notifications;
 let Common = require('./common');
 
 let chai = require('chai');
@@ -332,6 +333,127 @@ describe('Favorite/Unfavorite an event', () => {
                 })
                 .end((err, res) => {
                     res.should.have.status(401);
+                    done();
+                });
+        });
+    });
+});
+
+describe('Notifications', () => {
+    before((done) => {
+        Common.destroyDatabase();
+        Entity.create({
+            id: 1,
+            name: 'Test Entity',
+            initials: 'TEST',
+            description: 'test description'
+        }).then(function(entity) {
+            User.bulkCreate([
+                {
+                    id: 1,
+                    username: 'TestUser',
+                    name: 'Test User',
+                    password: 'nasdasdasd',
+                    email: 'email@email.com',
+                    type: 'moderator'
+                },
+                {
+                    id: 2,
+                    username: 'TestUser 2',
+                    name: 'Test User 2',
+                    password: 'nasdasdasd',
+                    email: 'email2@email.com',
+                    type: 'moderator'
+                }
+            ]).then(function(users) {
+                users[0].addEntity(entity).then(() => {
+                    users[1].addEntity(entity).then(() => {
+                        let start_date = new Date();
+                        let start_date2 = new Date();
+                        let start_date3 = new Date();
+                        let end_date = new Date();
+                        start_date.setDate(start_date.getDate() + 1);
+                        start_date2.setDate(start_date2.getDate() + 3);
+                        start_date3.setDate(start_date3.getDate() + 5);
+                        end_date.setDate(end_date.getDate() + 2);
+                        EventModel.create({
+                            id: 1,
+                            title: "Event Test",
+                            title_english: "Event Test",
+                            description: "It is a test event, without content",
+                            description_english: "It is a test event, without content",
+                            start_date: start_date.toISOString(),
+                            end_date: end_date.toISOString(),
+                            location: "Random Location",
+                            price: 10,
+                            user_id: 1,
+                            entity_id: 1
+                        }).then(() => {
+                            Notification.bulkCreate([
+                                {
+                                    id: 1,
+                                    date: start_date,
+                                    description: 'Notif Vista',
+                                    description_english: 'Seen Notif',
+
+                                    seen: true,
+                                    user_id: 1,
+                                    event_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    date: start_date2,
+                                    description: 'Notif Nao Vista',
+                                    description_english: 'Unseen Notif',
+
+                                    seen: false,
+                                    user_id: 1,
+                                    event_id: 1
+                                },
+                                {
+                                    id: 3,
+                                    date: start_date3,
+                                    description: 'Notif Outro user',
+                                    description_english: 'Other user Notif',
+
+                                    seen: true,
+                                    user_id: 2,
+                                    event_id: 1
+                                }
+                            ]).then(() => done());
+                        }).catch(() => done());
+                    }).catch(() => done());
+                }).catch(() => done());
+            }).catch(() => done());
+        }).catch(() => done());
+    });
+
+    describe('/GET Get All User Notifications', () => {
+        it('it should retrieve all seen and unseen user notifications', (done) => {
+            chai.request(app)
+                .get('/user/notifications/all')
+                .query({ user_id: 1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.length(2);
+                    res.body[0].id.should.equal(2);
+                    res.body[1].id.should.equal(1);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Get Unseen User Notifications', () => {
+        it('it should retrieve unseen user notifications', (done) => {
+            chai.request(app)
+                .get('/user/notifications/unseen')
+                .query({ user_id: 1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.length(1);
+                    res.body[0].id.should.equal(2);
                     done();
                 });
         });

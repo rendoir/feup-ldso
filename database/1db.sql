@@ -67,7 +67,7 @@ CREATE TABLE notifications
     date TIMESTAMP NOT NULL,
     description TEXT NOT NULL,
     description_english TEXT NOT NULL,
-    seen BOOLEAN NOT NULL,
+    seen BOOLEAN NOT NULL DEFAULT false,
     
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     event_id INTEGER REFERENCES events(id) ON DELETE CASCADE
