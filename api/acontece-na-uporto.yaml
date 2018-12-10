@@ -366,7 +366,7 @@ paths:
       tags:
         - Search 
       parameters:
-        - $ref: '#/components/parameters/text'
+        - $ref: '#/components/parameters/givenText'
       responses:
         '200':
           description: Successfully returned a list of events
