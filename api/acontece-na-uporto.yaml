@@ -489,7 +489,34 @@ paths:
           description: There was an error
       x-router-controller: "event"
             
-
+  /user/notifications/unseen:
+    get:
+      summary: Returns the unseen notifications by the user
+      operationId: getUnseenNotifications
+      description: Gets the notifications unseen by the user ordered by date descending
+      tags:
+        - Mobile Application
+      responses:
+        '200':
+          description: Returns a list of notifications
+        '400':
+          $ref: '#/components/responses/400Error' 
+      x-router-controller: "user"
+      
+  /user/notifications/all:
+    get:
+      summary: Returns the notifications of a user
+      operationId: getNotifications
+      description: Gets the notifications of a user ordered by date descending
+      tags:
+        - Mobile Application
+      responses:
+        '200':
+          description: Returns a list of notifications
+        '400':
+          $ref: '#/components/responses/400Error' 
+      x-router-controller: "user"
+      
 components:
   securitySchemes:
     BasicAuth:

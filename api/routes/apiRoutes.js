@@ -103,5 +103,6 @@ router.get("/events/:event_id", eventController.getEventInfo);
 // List events
 router.get("/web", passport.authenticate('jwt', { session: false }), eventController.getEventsWeb);
 
-
+router.get("/user/notifications/unseen", userController.getUnseenNotifications);
+router.get("/user/notifications/all", userController.getNotifications);
 module.exports = router;

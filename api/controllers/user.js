@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var config = require(__dirname + '/../config/config.js')[env];
 const User = require('../models').users;
+var sequelize = require('../models').sequelize;
+
 
 module.exports = {
 
@@ -32,7 +34,7 @@ module.exports = {
             });
     },
 
-    appLogOut(req, res){
+    appLogOut(req, res) {
         req.logout();
         return res.status(200).send({ message: 'Logged out successfully' });
     },
@@ -41,7 +43,7 @@ module.exports = {
 
         return this.findUser(userBody.email)
             .then(foundUser => {
-                if (foundUser != null){
+                if (foundUser != null) {
                     return this.updateToken(foundUser, userBody.accessToken)
                         .then(() => {
                             return foundUser.id;
@@ -115,5 +117,31 @@ module.exports = {
                 token: token
             }
         });
+    },
+
+    getUnseenNotifications(req, res) {
+
+        // Check if user token matches
+        let user_id = req.query.user_id;
+
+        return sequelize.query(
+            "SELECT * FROM notifications WHERE user_id = $1 AND seen = false ORDER BY date DESC",
+            { bind: [user_id], type: sequelize.QueryTypes.SELECT })
+
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
+    },
+
+    getNotifications(req, res) {
+
+        // Check if user token matches
+        let user_id = req.query.user_id;
+
+        return sequelize.query(
+            "SELECT * FROM notifications WHERE user_id = $1 ORDER BY date DESC",
+            { bind: [user_id], type: sequelize.QueryTypes.SELECT })
+
+            .then((events) => res.status(200).send(events))
+            .catch((error) => res.status(400).send(error));
     }
 };
