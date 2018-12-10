@@ -287,7 +287,7 @@ module.exports = {
                 model: sequelize.models.users,
                 required: true,
                 where: {
-                    id: 1
+                    id: req.user.id
                 }
             }
         });
