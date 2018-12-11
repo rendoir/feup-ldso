@@ -1,0 +1,518 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0-oas3"
+  title: Acontece na UPorto
+  description: The API related to the event app Acontece na UPorto
+  
+servers:
+  - url: 'http://localhost:3000'
+
+security:
+  - BasicAuth: []
+
+paths:
+
+  /login:
+    post:
+      summary: Logs in the user on the website
+      description: Authenticates a user on the website application to have access to all his/her entities and events
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                user_id:
+                  type: integer
+      responses:
+        '200':
+          description: Authenticates the user
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                  info:
+                    type: object
+        '400':
+          $ref: '#/components/responses/400Error' 
+          
+  
+  /app:
+    post:
+      summary: Lists all events on the app
+      description: Returns a list of all events available to the user
+      tags:
+        - Mobile Application 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                email:
+                  type: string
+                accessToken:
+                  type: string
+      responses:
+        '200':
+          description: Authenticates the user
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                  userID:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/400Error' 
+  
+  
+  /app/login:
+    post:
+      summary: Logs in the user on the app
+      description: Authenticates a user on the mobile application
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                email:
+                  type: string
+                accessToken:
+                  type: string
+      responses:
+        '200':
+          description: Authenticates the user
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                  userID:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/400Error' 
+          
+  /app/entities:
+    get:
+      summary: Lists all entities
+      description: Returns a list containing all entities
+      tags:
+        - Mobile Application 
+      responses:
+        '200':
+          description: Successfully returned a list of entities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entity'
+        '400':
+          $ref: '#/components/responses/400Error'
+          
+          
+  /logout:
+    post:
+      summary: Logs out a user
+      description: Authenticates a user on the mobile application
+      tags:
+        - Authentication      
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object 
+                properties:
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/400Error' 
+          
+  /web:
+    get:
+      summary: Lists events that a User has permission
+      description: Returns a list containing all events to which the logged in user has permissions
+      tags:
+        - Website
+      parameters:
+        - $ref: '#/components/parameters/pageNumber'
+        - $ref: '#/components/parameters/pageLimit'      
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+          
+  /events:
+    get:
+      summary: Lists some events for a User with optional filters
+      description:  Returns a list of events with startDate greater or equal than today and with the applied
+      tags:
+        - Mobile Application
+      parameters:
+        - $ref: '#/components/parameters/pageNumber'
+        - $ref: '#/components/parameters/pageLimit'      
+        - name: entities
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'
+        - name: categories
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+          
+  /events/{event_id}:
+    get:
+      summary: Gets information of an event
+      description: Returns the event with the given id
+      tags:
+        - Website
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          description: Page number
+          schema:
+            type: integer
+       
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+  
+  /search/entities:
+    get:
+      summary: Lists events related to the searched entities with the given text
+      description: Returns a list of events whose entities matches the searched ones
+      tags:
+        - Search 
+      parameters:
+        - $ref: '#/components/parameters/givenText'
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+  
+  /search/categories:
+    get:
+      summary: Lists events related to the searched categories with the given text
+      description: Returns a list of events whose categories matches the searched ones
+      tags:
+        - Search 
+      parameters:
+        - $ref: '#/components/parameters/givenText'
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+          
+  /search/events:
+    get:
+      summary: Lists events with the given text
+      description: Returns a list of events whose title or description matches the given text
+      tags:
+        - Search 
+      parameters:
+        - $ref: '#/components/parameters/givenText'
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+          
+  /entities/{user_id}:
+    get:
+      summary: Lists entities that the given user has permission
+      description: Returns a list of entities that the given user has permission to use
+      tags:
+        - Website 
+      parameters:
+        - $ref: '#/components/parameters/pathUserID'
+
+      responses:
+        '200':
+          description: Successfully returned a list of entities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entity'
+        '400':
+          $ref: '#/components/responses/400Error'        
+
+  /categories:
+    get:
+      summary: Lists all categories
+      description: Returns a list containing all categories
+      tags:
+        - Mobile Application 
+      responses:
+        '200':
+          description: Successfully returned a list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '400':
+          $ref: '#/components/responses/400Error'
+          
+  /favorite:
+    get:
+      summary: Verifies if an event is favorited
+      description: Returns true if is favorited, false if not
+      tags:
+        - Mobile Application 
+      parameters:
+        - $ref: '#/components/parameters/pathUserID'
+      responses:
+        '200':
+          description: The endpoint was successful
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '400':
+          $ref: '#/components/responses/400Error'    
+    post:
+      summary: Favorites or unfavorites an event
+      description: If an event is favorited, it unfavorites the event, else it favorites the event.
+      tags:
+        - Mobile Application 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                user_id:
+                  type: integer
+                event_id:
+                  type: integer
+      responses:
+        '200':
+          description: Successfully created a new favorite or removed the favorite
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Favorite'
+        '400':
+          $ref: '#/components/responses/400Error' 
+          
+  /:
+    post:
+      summary: Creates an event
+      description: Adds an event to the events list
+      tags:
+        - Website
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Successfully created a new artist
+        '400':
+          $ref: '#/components/responses/400Error' 
+    
+    
+    delete:
+      summary: Deletes an event
+      description: Removes an event from the events
+      tags:
+        - Website
+      responses:
+        '200':
+          description: The toggle was successful
+        '404':
+          description: There was an error
+    
+            
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+
+  schemas:
+  
+    Event:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          description: Event title
+          type: string
+        description:
+          description: Event description
+          type: string
+        start_date:
+          description: Event start date
+          type: string
+          format: date-time
+        end_date:
+          description: Event end date
+          type: string
+          format: date-time
+        location:
+          description: Event location
+          type: string
+        price:
+          description: Event price
+          type: string
+        user_id:
+          description: User creating the event
+          type: integer
+        entity_id:
+          description: Entity associated to the event
+          type: integer
+          
+    Entity:
+      type: object
+      properties:
+        id:
+          type: integer
+        initials:
+          type: string
+          
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        initials:
+          type: string
+          
+    Favorite:
+      properties:
+        user_id:
+          type: integer
+        event_id:
+          type: integer
+  
+  parameters:
+    givenText:
+      name: text
+      in: query
+      description: Inputted text
+      schema:
+        type: string
+    pageNumber:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+    pageLimit:
+      name: limit
+      in: query
+      description: Number of events
+      schema:
+        type: integer
+    pathUserID:
+      name: user_id
+      in: path
+      required: true
+      description: User ID
+      schema:
+        type: integer
+    bodyUserID:
+      name: user_id
+      in: path
+      required: true
+      description: User ID
+      schema:
+        type: integer
+
+
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object 
+            properties:
+              message:
+                type: string
+    500Error:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object 
+            properties:
+              message:
+                type: string

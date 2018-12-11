@@ -49,7 +49,6 @@ export default class SearchScreen extends React.Component {
 
     doSearch() {
         let self = this;
-
         if (self.state.searchText == "" || self.state.searchText == null) {
             self.setState({ events: [] });
             return;

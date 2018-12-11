@@ -24,13 +24,21 @@ You will need:
 
 ## Running for development
 
-1. Run **docker-compose up** in the root of the project
-2. In the file _mobile/screens/AgendaScreen.js_, change the IP to your machine's wifi IP.
-3. Run **expo start**. Inside the terminal, there should be a QRCode to be read via the Expo App.
+1. Run `docker-compose up` in the root of the project
+2. In the file _mobile/global.js_, change the presented IP to your machine's wifi IP.
+3. Run `expo start`. Inside the terminal, there should be a QRCode to be read via the Expo App.
+    3.1. You can also access more information in indicated localhost IP.
 
 <img src="https://i.imgur.com/I8ZyCta.png"  width="450" height="450">
 
-__NOTE__ If you're using the NoxPlayer Emulator, connect the device with adb command, run expo android and then expo start
+
+### Running with an Android Emulator
+
+If you're using an Android emulator, such as the NoxPlayer Emulator:
+
+1. Connect the device with the `adb connect` command(for example, `adb connect 127.0.0.1:62001`) and
+run the emulator. 
+2. Run `expo start` and, in the indicated localhost IP, select **Run on Android device/emulator**. 
 
 ## Running the tests
 

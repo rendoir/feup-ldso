@@ -3,6 +3,8 @@ import {
     StyleSheet,
     Image
 } from 'react-native';
+import axios from 'axios';
+import { SecureStore } from 'expo';
 
 import { Card, Icon, View, Badge, Text } from 'native-base';
 
@@ -29,6 +31,24 @@ export default class Event extends React.Component {
 
     onFavoriteCall() {
         this.props.onFavorite(this.props.id);
+    }
+
+    async onFavorite() {
+        let token = await SecureStore.getItemAsync('access_token');
+        let self = this;
+        let apiLink = 'http://' + global.api + ':3030/favorite';
+        axios.post(apiLink, {
+            user_id: global.userId,
+            event_id: this.props.data.id,
+            token: token
+        })
+            .then(function(response) {
+                if (response.status == 200)
+                    self.setState({ isFavorite: !self.state.isFavorite });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     render() {
