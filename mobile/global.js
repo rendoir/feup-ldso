@@ -17,7 +17,7 @@ global.dictionary = {
     PRICE: { PT: "Preço", EN: "Price" },
     FREE: { PT: "Gratuito", EN: "Free" },
     MAP: { PT: "Mapa", EN: "Map" },
-    CALENDAR: { PT: "Calendário", EN: "Calendar" },
+    CALENDAR: { PT: "Cal", EN: "Cal" },
     APP_NAME: { PT: "Agenda Cultural da Universidade do Porto", EN: "Porto University's Cultural Agenda" },
     GOOGLE_SIGNIN: { PT: "Entrar com conta Google", EN: "Sign in with Google account" },
     NO_SEARCH_RESULTS: { PT: "Não há eventos para a pesquisa feita.", EN: "There are no events that match your search." },

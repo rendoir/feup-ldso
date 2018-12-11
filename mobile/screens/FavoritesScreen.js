@@ -160,7 +160,7 @@ export default class FavoritesScreen extends React.Component {
         return (
             <View style={styles.wrapperView}>
                 <CustomHeader language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
-                <ScrollView className="scroll_view" refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /> } stickyHeaderIndices={[0]} style={styles.scrollView} onScroll={this.handleScroll}>
+                <ScrollView className="scroll_view" refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} /> } style={styles.scrollView} onScroll={this.handleScroll}>
 
                     <View style={styles.favoritesLabelView}>
                         <Text style={styles.favoritesLabelText}>{global.dictionary["FAVORITES"][this.props.screenProps.language]}</Text>
@@ -186,8 +186,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#7C8589'
     },
     favoritesLabelText: {
-        fontSize: 25,
-        color: 'white'
+        fontSize: 32,
+        color: 'white',
+        textAlign: 'center',
+        fontFamily: 'OpenSans-Regular'
     },
     favoritesLabelView: {
         marginVertical: '3%',

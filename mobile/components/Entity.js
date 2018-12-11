@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5
+        textAlign: 'center'
     },
     listItem: {
         justifyContent: "center",

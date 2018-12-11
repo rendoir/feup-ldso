@@ -96,7 +96,7 @@ export default class AgendaScreen extends React.Component {
 
     onSelect = updateCall => {
         this.setState(updateCall);
-        this.getEventsFromApi();
+        this.setState({ events: [], eventsPage: 0 });
     };
 
     didFocusSubscription() {
@@ -175,9 +175,6 @@ export default class AgendaScreen extends React.Component {
         const events = this.state.events.map((event) => (
             <Event language={this.props.screenProps.language} {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
-
-        if (this.state.updateCall)
-            this.getEventsFromApi();
 
         let noEventsElement;
         if (this.state.events.length == 0) {

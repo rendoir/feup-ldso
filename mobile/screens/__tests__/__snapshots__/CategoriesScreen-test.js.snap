@@ -92,6 +92,9 @@ ShallowWrapper {
           </Styled(List)>
         </Styled(Content)>,
       ],
+      "style": Object {
+        "backgroundColor": "#7C8589",
+      },
       "virtual": undefined,
     },
     "ref": null,
@@ -397,6 +400,9 @@ ShallowWrapper {
             </Styled(List)>
           </Styled(Content)>,
         ],
+        "style": Object {
+          "backgroundColor": "#7C8589",
+        },
         "virtual": undefined,
       },
       "ref": null,
@@ -775,6 +781,9 @@ ShallowWrapper {
           </Styled(List)>
         </Styled(Content)>,
       ],
+      "style": Object {
+        "backgroundColor": "#7C8589",
+      },
       "virtual": undefined,
     },
     "ref": null,
@@ -1219,6 +1228,9 @@ ShallowWrapper {
             </Styled(List)>
           </Styled(Content)>,
         ],
+        "style": Object {
+          "backgroundColor": "#7C8589",
+        },
         "virtual": undefined,
       },
       "ref": null,

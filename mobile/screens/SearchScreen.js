@@ -127,6 +127,7 @@ export default class SearchScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         let events = this.state.events.map((event) => (
+            console.log(event),
             <Event language={this.props.screenProps.language} {...event} key={event.id} onPress={() => navigate('Event', { eventData: event })} onFavorite={this.onFavorite} />
         ));
 
@@ -189,17 +190,17 @@ const styles = StyleSheet.create({
     },
     searchIcon: {
         fontSize: 20,
-        color: 'white'
+        color: 'white',
+        height: 30,
+        borderColor: 'white',
+        borderBottomWidth: 1
     },
     searchInput: {
         fontSize: 20,
         color: 'white',
         width: '100%',
         height: 30,
-        borderWidth: 2,
-        borderTopWidth: 0,
-        borderRightWidth: 0,
-        borderLeftWidth: 0,
+        borderBottomWidth: 2,
         borderColor: 'white',
         backgroundColor: '#7C8589'
     },

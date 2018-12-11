@@ -697,8 +697,8 @@ describe('Search', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
-                    chai.expect(res.body).to.contain.something.like({ title_english: 'Global Event 6', search_by: 'title_english' });
-                    chai.expect(res.body).to.contain.something.like({ title_english: 'Event 1', search_by: 'title_english' });
+                    chai.expect(res.body).to.contain.something.like({ title_english: 'Global Event 6', search_by: 'title' });
+                    chai.expect(res.body).to.contain.something.like({ title_english: 'Event 1', search_by: 'title' });
                     done();
                 });
         });

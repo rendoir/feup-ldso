@@ -57,7 +57,7 @@ export default class CategoriesScreen extends React.Component {
         ));
 
         return (
-            <Container>
+            <Container style={styles.list}>
                 <StatusBar hidden />
                 <NewCustomHeader navigation={this.props.navigation} text={global.dictionary["CATEGORIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
                 <Content>
