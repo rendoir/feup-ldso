@@ -2,7 +2,34 @@
 
 The following list representes the group of changes throughout the development of the project.
 
-## [Sprint 4](https://gitlab.com/feup-tbs/ldso18-19/t3g2/tree/5ff827ce9345cc1712b082a29fb3cf9e182726b11) - 2018-11-29
+## [Sprint 5](https://gitlab.com/feup-tbs/ldso18-19/t3g2/tree/1d7f885d4156c96820d8d285bfa9d8db2261072f) - 2018-12-11
+
+In the final sprint, we implemented the Editing Event option(_US#34_ and _US#9_), as well as search options (_US#22_, _US#23_ and _US#42_) on the web.
+
+We also began work on notifications by returning a user's unseen or all notifications(_US#36_).
+
+We finished work on the design on both app and web(_US#48_)
+
+In order to improve the app's connectivity between other apps, there's an option to add an event to the smartphone's calendar(_US#25_).
+
+Finally, we updated the database with new categories and entities(_US#54_) and generated the Mobile APK to be stored on the README.MD file (_US#53_).
+
+With the setup of the servers, any change on the API and on the Web is now changed remotely.
+The notifications issue is the issue that wasn't fully implemented, but some part of it is done with the developed endpoints
+
+### Closed issues
+* US[#9](https://gitlab.com/ldso18-19/t3g2/issues/9) 
+* US[#22](https://gitlab.com/ldso18-19/t3g2/issues/22)
+* US[#23](https://gitlab.com/ldso18-19/t3g2/issues/23)
+* US[#25](https://gitlab.com/ldso18-19/t3g2/issues/25)
+* US[#34](https://gitlab.com/ldso18-19/t3g2/issues/34)
+* US[#36](https://gitlab.com/ldso18-19/t3g2/issues/36)
+* US[#42](https://gitlab.com/ldso18-19/t3g2/issues/42)
+* US[#48](https://gitlab.com/ldso18-19/t3g2/issues/48)
+* US[#53](https://gitlab.com/ldso18-19/t3g2/issues/53)
+* US[#54](https://gitlab.com/ldso18-19/t3g2/issues/54)
+
+## [Sprint 4](https://gitlab.com/feup-tbs/ldso18-19/t3g2/tree/5ff827ce9345cc1712b082a29fb3cf9e182726b1) - 2018-11-29
 
 In the fourth sprint, we fixed some bugs regarding screen refreshing when a screen was switched to another(_US#50_).
 

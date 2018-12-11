@@ -1,4 +1,4 @@
-# Cultural Agenda of University of Porto
+# Acontece na UPorto - Cultural Agenda of University of Porto 
 
 
 University of Porto's cultural agenda. It will contain all the events of all the faculties and cultural organizations related to UPorto, for ease of access to such information, as well as an event management for organizations
@@ -36,13 +36,13 @@ You will need:
 
 If you're using an Android emulator, such as the NoxPlayer Emulator:
 
-1. Connect the device with the `adb connect` command(for example, `adb connect 127.0.0.1:62001`) and
+1. Connect the device with the `adb connect` command (for example, `adb connect 127.0.0.1:62001`) and
 run the emulator. 
 2. Run `expo start` and, in the indicated localhost IP, select **Run on Android device/emulator**. 
 
 ## Running the tests
 
-To run the tests, open a new terminal inside the _api_ folder and run command _npm test_
+To run the tests, open a new terminal inside the _api_ folder and run command `npm test`
 
 ### Test Examples
 
@@ -85,16 +85,5 @@ To access the documentation of the API:
 * **Tiago Carvalho** - *Developer* - [TiagoC97](https://gitlab.com/TiagoC97)
 * **Vítor Magalhães** - *Surrogate Product Owner* - [LastLombax](https://gitlab.com/LastLombax)
 
-## Screenshots of Sprint 1
-
-
-### Logo
-<img src="https://i.imgur.com/FfCDDEE.png">
-
-### App
-<img src="https://i.imgur.com/c6PU8Ia.jpg">
-
-### Web
-<img src="https://i.imgur.com/lfQG6y0.png">
 
 
