@@ -14,8 +14,14 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Custom Header', () => {
 
-    it('renders correctly', () => {
+    it('renders correctly in portuguese', () => {
         const tree = renderer.create(<CustomHeader language='PT' />).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('renders correctly in english', () => {
+        const tree = renderer.create(<CustomHeader language='EN' />).toJSON();
 
         expect(tree).toMatchSnapshot();
     });

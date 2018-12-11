@@ -1,19 +1,7 @@
 const Entity = require('../models').entities;
 var sequelize = require('../models').sequelize;
-const Op = sequelize.Op;
 
 module.exports = {
-
-    searchbyNames(req) {
-        return Entity.findAll({
-            where: {
-                [Op.or]: [
-                    { 'name': { like: '%' + req.query.search + '%' } },
-                    { 'initials': { like: req.query.search + '%' } }
-                ]
-            }
-        });
-    },
 
     getEntities(req, res) {
         return Entity.findAll({

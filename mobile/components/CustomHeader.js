@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Image,
+    StyleSheet,
     StatusBar
 } from 'react-native';
 import {
@@ -21,19 +22,16 @@ export default class CustomHeader extends React.Component {
         return (
             <View style={{ height: '6%' }}>
                 <StatusBar hidden />
-                <View style={{ backgroundColor: '#002040', height: '100%', flexDirection: 'row' }}>
-                    <View style={{ flex: 2, height: '100%' }}>
-                        <Image source={require('../assets/images/original.png')}
-                            style={{
-                                width: '80%',
-                                height: '100%',
-                                resizeMode: 'contain',
-                                marginHorizontal: '1%',
-                                marginVertical: '0%'
-                            }}
+                <View style={styles.mainView}>
+                    <View style={styles.imageView}>
+                        <Image source={require('../assets/images/logo_screen.png')}
+                            style={styles.image}
                         />
                     </View>
-                    <View>
+                    <View style={styles.userNameView}>
+                        <Text style={styles.userName}>{global.userName}</Text>
+                    </View>
+                    <View style={styles.toggleView}>
                         <SwitchToggle
                             buttonText={this.props.language === 'EN' ? 'EN' : ''}
                             backTextRight={"PT"}
@@ -60,11 +58,6 @@ export default class CustomHeader extends React.Component {
                             accessibilityLabel="Toggle language"
                         />
                     </View>
-                    <View style={{ flex: 2, alignSelf: 'center' }}>
-                        <Text style={{
-                            color: 'white', textAlign: 'right', paddingRight: '1%', marginHorizontal: '1%'
-                        }}>{global.userName}</Text>
-                    </View>
                 </View>
             </View>
         );
@@ -74,3 +67,41 @@ export default class CustomHeader extends React.Component {
         this.props.toggleLanguage();
     }
 }
+
+const styles = StyleSheet.create({
+    mainView: {
+        backgroundColor: '#455A64',
+        height: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    image: {
+        width: '50%',
+        height: '85%',
+        resizeMode: 'contain',
+        marginLeft: '2%',
+        marginVertical: '1%'
+    },
+    imageView: {
+        flex: 1,
+        height: '100%',
+        alignSelf: 'center',
+        alignItems: 'flex-start'
+    },
+    userName: {
+        color: 'white',
+        textAlign: 'center',
+        paddingRight: '1%',
+        marginHorizontal: '1%'
+    },
+    userNameView: {
+        flex: 1,
+        alignSelf: 'center'
+    },
+    toggleView: {
+        flex: 1,
+        alignSelf: 'center',
+        alignItems: 'flex-end',
+        marginRight: '2%'
+    }
+});

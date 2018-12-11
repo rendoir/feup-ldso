@@ -5,12 +5,13 @@ import LogIn from './LogIn';
 import AddEventForm from './AddEventForm';
 import ListEvents from './ListEvents';
 import EventPage from './EventPage';
+import EventPageEdit from './EventPageEdit';
 import './App.css';
 
 import axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSignOutAlt, faEdit, faTrashAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
-library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch);
+import { faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+library.add(faSignOutAlt, faEdit, faTrashAlt, faSearch, faTimes, faAt, faUnlockAlt, faMapMarkedAlt);
 
 function getTokenFromCookie() {
     let token = document.cookie.split("access_token=")[1];
@@ -34,8 +35,13 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getCategories();
-        this.getEntities();
+        if (this.state.categories.length === 0) {
+            this.getCategories();
+        }
+        if (this.state.entities.length === 0) {
+            this.getEntities();
+        }
+
     }
 
     updateRefreshEvents(value) {
@@ -44,7 +50,7 @@ class App extends Component {
 
     getCategories() {
         axios.get('http://' + process.env.REACT_APP_API_URL + ':3030/categories')
-            .then((res) => this.setState({ categories: res.data.map((obj, i) => { return { key: i, value: obj.id, text: obj.name }; }) }))
+            .then((res) => this.setState({ categories: res.data.map((obj) => { return { value: obj.id, label: obj.name }; }) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar as categorias.' }));
 
     }
@@ -56,7 +62,7 @@ class App extends Component {
                 'Authorization': "Bearer " + getTokenFromCookie()
             }
         })
-            .then((res) => this.setState({ entities: res.data.map((obj, i) => { return { key: i, value: obj.id, text: obj.initials }; }) }))
+            .then((res) => this.setState({ entities: res.data.map((obj) => { return { value: obj.id, label: obj.initials }; }) }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. Não foi possível mostrar as entidades.' }));
 
     }
@@ -72,24 +78,57 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Route component={Navbar} />
                 <Switch>
-                    <Route exact path="/" component={LogIn} />
-                    <Route path="/events" render={() =>
-                        <ListEvents
-                            refreshListEvents={this.state.refreshListEvents}
-                            updateRefreshEvents={this.updateRefreshEvents}
-                            categories={this.state.categories}
-                            entities={this.state.entities}
+                    <Route exact path="/" render={props => (
+                        <LogIn
+                            {...props}
+                            getEntities={this.getEntities}
+                            getCategories={this.getCategories}
                         />
+                    )} />
+
+                    <Route exact path="/events/:id" render={props => (
+                        <div>
+                            <Navbar {...props} />
+                            <EventPage {...props} />
+                        </div>
+                    )} />
+
+                    <Route path="/events/:id/edit" render={props =>
+                        <div>
+                            <Navbar {...props} />
+                            <EventPageEdit
+                                {...props}
+                                allCategories={this.state.categories}
+                                allEntities={this.state.entities}
+                            />
+                        </div>
                     } />
-                    <Route path="/create" render={() =>
-                        <AddEventForm
-                            categories={this.state.categories}
-                            entities={this.state.entities}
-                        />
-                    } />
-                    <Route path="/event/:id" component={EventPage}/>
+
+                    <Route path="/events" render={props => (
+                        <div>
+                            <Navbar {...props} />
+                            <ListEvents
+                                {...props}
+                                refreshListEvents={this.state.refreshListEvents}
+                                updateRefreshEvents={this.updateRefreshEvents}
+                                categories={this.state.categories}
+                                entities={this.state.entities}
+                            />
+                        </div>
+                    )} />
+
+                    <Route path="/create" render={props => (
+                        <div>
+                            <Navbar />
+                            <AddEventForm
+                                {...props}
+                                categories={this.state.categories}
+                                entities={this.state.entities}
+                            />
+                        </div>
+                    )} />
+
                 </Switch>
             </div>
         );

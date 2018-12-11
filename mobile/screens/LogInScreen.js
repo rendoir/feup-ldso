@@ -1,7 +1,7 @@
 import React from 'react';
 import { Font, AppLoading } from "expo";
-import { Root } from 'native-base';
-import { Text, View, Image, Button, StatusBar } from "react-native";
+import { Root, Button, Text } from 'native-base';
+import { View, Image, StatusBar, StyleSheet } from "react-native";
 
 export default class LogInScreen extends React.Component {
 
@@ -36,48 +36,47 @@ export default class LogInScreen extends React.Component {
         }
 
         return (
-            <View style={{ backgroundColor: '#2c8f7f', height: '100%' }}>
+            <View style={styles.wrapperView}>
                 <StatusBar hidden />
 
-                <View
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%'
-                    }}>
-                    <Image
-                        style={{
-                            flex: 1,
-                            width: '100%',
-                            height: '100%',
-                            opacity: 0.7
-                        }}
-                        source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Edif%C3%ADcio_da_Reitoria_da_Universidade_do_Porto.jpg" }}
-                    />
-                </View>
-
-                <View style={{ alignItems: 'center', flexDirection: 'column', height: '99%' }}>
-                    <View style={{ flex: 3 }}></View>
-                    <View style={{ flex: 1 }}>
-                        <Image source={require('../assets/images/original.png')}
-                            style={{
-                            }}
-                        />
+                <View style={styles.mainView}>
+                    <View style={{ flex: 2 }}></View>
+                    <Image source={require('../assets/images/logo.png')} resizeMode="contain" style={{ flex: 3 }} />
+                    <View style={styles.buttonView}>
+                        <Button iconLeft light onPress={() => this.props.signIn()} className={'login_button'} >
+                            <Image source={require('../assets/images/google.png')} resizeMode="contain" style={styles.image} />
+                            <Text style={styles.text}>{global.dictionary["GOOGLE_SIGNIN"][this.props.language]}</Text>
+                        </Button>
                     </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: 25, color: 'white', fontFamily: 'Roboto', textAlign: 'center', marginHorizontal: '10%' }} >
-                            {global.dictionary["APP_NAME"][this.props.language]}
-                        </Text>
-                    </View>
-                    <View style={{ width: '60%', flex: 1 }}>
-                        <Button title={global.dictionary["GOOGLE_SIGNIN"][this.props.language]} className={'login_button'} onPress={() => this.props.signIn()} />
-                    </View>
-                    <View style={{ flex: 2 }}>{this.props.signInErrorMessage}</View>
+                    <View style={{ flex: 1 }}>{this.props.signInErrorMessage}</View>
                 </View>
             </View>
 
         );
     }
 }
+
+const styles = StyleSheet.create({
+    wrapperView: {
+        backgroundColor: '#292929',
+        height: '100%'
+    },
+    mainView: {
+        alignItems: 'center',
+        flexDirection: 'column',
+        height: '99%'
+    },
+    buttonView: {
+        width: '60%',
+        flex: 1,
+        paddingTop: '10%'
+    },
+    text: {
+        color: '#696969',
+        flex: 4
+    },
+    image: {
+        flex: 1,
+        height: '75%'
+    }
+});

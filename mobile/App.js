@@ -17,7 +17,8 @@ export default class App extends React.Component {
       userToken: "",
       userEmail: "",
       signInError: false,
-      language: "PT"
+      language: "PT",
+      googleLog: ""
   };
 
   async componentDidMount() {
@@ -31,8 +32,9 @@ export default class App extends React.Component {
   signIn = async() => {
       try {
           const result = await Expo.Google.logInAsync({
-              androidClientId:
-          "813704659594-aanm6hu12jn47cmek4b47d6uar3nd2kt.apps.googleusercontent.com",
+              androidStandaloneAppClientId: "813704659594-ucq5omdtloe7ntb3oe4t6u4glgioq5s2.apps.googleusercontent.com",
+              androidClientId: "813704659594-aanm6hu12jn47cmek4b47d6uar3nd2kt.apps.googleusercontent.com",
+              behavior: 'web',
               scopes: ["profile", "email"]
           });
 
@@ -46,9 +48,11 @@ export default class App extends React.Component {
               this.handleLogIn();
           } else {
               console.log("cancelled");
+              this.setState({ googleLog: "cancelled" });
           }
       } catch (e) {
           console.log("error", e);
+          this.setState({ googleLog: e });
       }
   }
 
@@ -82,7 +86,7 @@ export default class App extends React.Component {
       if (this.state.signInError == true) {
           signInErrorMessage = (
               <View>
-                  <Button title="Não foi possível fazer login!" disabled onPress={() => {}}/>
+                  <Button title={"Não foi possível fazer login!\n(Error: " + this.state.googleLog + ")"} disabled onPress={() => {}}/>
               </View>
           );
       }

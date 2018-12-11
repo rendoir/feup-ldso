@@ -67,40 +67,6 @@ paths:
           $ref: '#/components/responses/400Error' 
       x-router-controller: "user"
 
-  /app:
-    post:
-      summary: Lists all events on the app
-      operationId: listForUsers
-      description: Returns a list of all events available to the user
-      tags:
-        - Mobile Application 
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object 
-              properties:
-                email:
-                  type: string
-                accessToken:
-                  type: string
-      responses:
-        '200':
-          description: Authenticates the user
-          content:
-            application/json:
-              schema:
-                properties:
-                  token:
-                    type: string
-                  userID:
-                    type: integer
-        '400':
-          $ref: '#/components/responses/400Error'
-      x-router-controller: "event"
-  
-  
   /app/login:
     post:
       summary: Logs in the user on the app
@@ -153,19 +119,31 @@ paths:
         '400':
           $ref: '#/components/responses/400Error'
       x-router-controller: "entity"
-          
-
-         
+                   
   /web:
     get:
       summary: Lists events that a User has permission
-      operationId: listForWeb
+      operationId: getEventsWeb
       description: Returns a list containing all events to which the logged in user has permissions
       tags:
         - Website
       parameters:
         - $ref: '#/components/parameters/pageNumber'
-        - $ref: '#/components/parameters/pageLimit'      
+        - $ref: '#/components/parameters/pageLimit'
+        - name: entities
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'
+        - name: categories
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'     
       responses:
         '200':
           description: Successfully returned a list of events
@@ -183,7 +161,7 @@ paths:
     get:
       summary: Lists some events for a User with optional filters
       operationId: getEvents
-      description:  Returns a list of events with startDate greater or equal than today and with the applied
+      description:  Returns a list of events with startDate greater or equal than today and with the applied filters
       tags:
         - Mobile Application
       parameters:
@@ -231,6 +209,76 @@ paths:
           schema:
             type: integer
        
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+      x-router-controller: "event"
+
+    put:
+      summary: Edits an event
+      operationId: edit
+      description: Edits an event by overriding the event with the body content and returns the new event 
+      tags:
+        - Website
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          description: Page number
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+       
+      responses:
+        '200':
+          description: Successfully edit the event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+      x-router-controller: "event"
+
+  /events/favorites:
+    get:
+      summary: Lists the favorited events for a User with optional filters
+      operationId: listFavorites
+      description:  Returns a list of favorite events with startDate greater or equal than today and with the applied filters
+      tags:
+        - Mobile Application
+      parameters:
+        - $ref: '#/components/parameters/pageNumber'
+        - $ref: '#/components/parameters/pageLimit'      
+        - name: entities
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'
+        - name: categories
+          in: query
+          description: Array of entities to filter
+          schema:
+            type: array
+            items: 
+              $ref: '#/components/schemas/Event'
       responses:
         '200':
           description: Successfully returned a list of events
@@ -292,7 +340,7 @@ paths:
     get:
       summary: Lists events with the given text
       operationId: searchForEvents
-      description: Returns a list of events whose title or description matches the given text
+      description: Returns a list of events whose title or description, location or categories matches the given text
       tags:
         - Search 
       parameters:
@@ -310,6 +358,33 @@ paths:
           $ref: '#/components/responses/400Error'
       x-router-controller: "event"  
 
+  /search/events/web:
+    get:
+      summary: Lists events for the web app with the given text
+      operationId: searchForEventsByTextWeb
+      description: Returns a list of events whose title or description matches the given text
+      tags:
+        - Search 
+      parameters:
+        - $ref: '#/components/parameters/givenText'
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: object 
+                properties:
+                  count:
+                    type: integer
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/400Error'
+      x-router-controller: "event" 
+
   /entities/{user_id}:
     get:
       summary: Lists entities that the given user has permission
@@ -319,7 +394,6 @@ paths:
         - Website 
       parameters:
         - $ref: '#/components/parameters/pathUserID'
-
       responses:
         '200':
           description: Successfully returned a list of entities
@@ -415,7 +489,34 @@ paths:
           description: There was an error
       x-router-controller: "event"
             
-
+  /user/notifications/unseen:
+    get:
+      summary: Returns the unseen notifications by the user
+      operationId: getUnseenNotifications
+      description: Gets the notifications unseen by the user ordered by date descending
+      tags:
+        - Mobile Application
+      responses:
+        '200':
+          description: Returns a list of notifications
+        '400':
+          $ref: '#/components/responses/400Error' 
+      x-router-controller: "user"
+      
+  /user/notifications/all:
+    get:
+      summary: Returns the notifications of a user
+      operationId: getNotifications
+      description: Gets the notifications of a user ordered by date descending
+      tags:
+        - Mobile Application
+      responses:
+        '200':
+          description: Returns a list of notifications
+        '400':
+          $ref: '#/components/responses/400Error' 
+      x-router-controller: "user"
+      
 components:
   securitySchemes:
     BasicAuth:
@@ -432,9 +533,15 @@ components:
         title:
           description: Event title
           type: string
+        title_english:
+          description: Event title in english
+          type: string
         description:
           description: Event description
           type: string
+        description_english:
+          description: Event description
+          type: string          
         start_date:
           description: Event start date
           type: string
@@ -487,9 +594,9 @@ components:
       schema:
         type: string
     pageNumber:
-      name: page
+      name: offset
       in: query
-      description: Page number
+      description: Offset from first event
       schema:
         type: integer
     pageLimit:

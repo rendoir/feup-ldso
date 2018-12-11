@@ -1,18 +1,16 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "Acontece na U.Porto",
     "description": "A very interesting project.",
-    "slug": "mobile",
+    "slug": "acontecenauporto",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo_icon.png",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#292929"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,6 +20,16 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.ldso.agendacultural",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "Replace with your Google API Key",
+          "certificateHash": "Replace with your SHA1 Certifacte Fingerprint"
+        }
+      }
     }
   }
 }
+

@@ -102,6 +102,7 @@ const event = (sequelize, DataTypes) => {
     EventModel.associate = function(models) {
         models.events.belongsToMany(models.categories, { through: 'event_categories'});
         models.events.belongsToMany(models.users, { through: 'favorites', as: 'favorite'});
+        models.events.hasMany(models.notifications, { foreignKey: 'event_id', targetKey: 'id'});
         models.events.belongsTo(models.entities, { foreignKey: 'entity_id', targetKey: 'id' });
         models.events.belongsTo(models.users, { foreignKey: 'user_id', targetKey: 'id' });
     };

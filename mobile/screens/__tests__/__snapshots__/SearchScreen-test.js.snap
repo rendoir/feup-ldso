@@ -92,14 +92,20 @@ ShallowWrapper {
           language="PT"
         />,
         <ScrollViewMock
+          refreshControl={
+            <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />
+          }
           stickyHeaderIndices={
             Array [
-              2,
+              1,
             ]
           }
           style={
             Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             }
           }
@@ -107,9 +113,7 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
                 "marginHorizontal": "5%",
-                "paddingBottom": "2%",
                 "paddingTop": "5%",
               }
             }
@@ -117,7 +121,7 @@ ShallowWrapper {
             <Styled(Text)
               style={
                 Object {
-                  "color": "#2c8f7f",
+                  "color": "white",
                   "fontFamily": "OpenSans-Regular",
                   "fontSize": 32,
                   "textAlign": "center",
@@ -126,10 +130,21 @@ ShallowWrapper {
             >
               Pesquisa
             </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Object {
+                "backgroundColor": "#7C8589",
+                "paddingBottom": "2%",
+                "paddingTop": "5%",
+                "width": "100%",
+              }
+            }
+          >
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "flexDirection": "row",
                   "justifyContent": "center",
                   "paddingBottom": "5%",
@@ -158,7 +173,7 @@ ShallowWrapper {
                   style={
                     Object {
                       "borderBottomWidth": 3,
-                      "borderColor": "#002040",
+                      "borderColor": "white",
                       "height": 30,
                     }
                   }
@@ -168,12 +183,10 @@ ShallowWrapper {
                     onChangeText={[Function]}
                     style={
                       Object {
-                        "backgroundColor": "#f0F0F0",
-                        "borderColor": "#002040",
-                        "borderLeftWidth": 0,
-                        "borderRightWidth": 0,
-                        "borderTopWidth": 0,
-                        "borderWidth": 2,
+                        "backgroundColor": "#7C8589",
+                        "borderBottomWidth": 2,
+                        "borderColor": "white",
+                        "color": "white",
                         "fontSize": 20,
                         "height": 30,
                         "width": "100%",
@@ -184,7 +197,11 @@ ShallowWrapper {
                     name="search"
                     style={
                       Object {
+                        "borderBottomWidth": 1,
+                        "borderColor": "white",
+                        "color": "white",
                         "fontSize": 20,
+                        "height": 30,
                       }
                     }
                     type="FontAwesome"
@@ -207,7 +224,8 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
+                "marginBottom": "10%",
                 "marginHorizontal": "2%",
               }
             }
@@ -235,7 +253,7 @@ ShallowWrapper {
         </ScrollViewMock>,
       ],
       "style": Object {
-        "backgroundColor": "#F0F0F0",
+        "backgroundColor": "#7C8589",
       },
       "virtual": undefined,
     },
@@ -262,9 +280,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
                   "marginHorizontal": "5%",
-                  "paddingBottom": "2%",
                   "paddingTop": "5%",
                 }
               }
@@ -272,7 +288,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -281,10 +297,21 @@ ShallowWrapper {
               >
                 Pesquisa
               </Styled(Text)>
+            </Styled(ViewNB)>,
+            <Styled(ViewNB)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                  "paddingBottom": "2%",
+                  "paddingTop": "5%",
+                  "width": "100%",
+                }
+              }
+            >
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -313,7 +340,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -323,12 +350,10 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
+                          "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -339,7 +364,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -362,7 +391,8 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
+                  "marginBottom": "10%",
                   "marginHorizontal": "2%",
                 }
               }
@@ -388,11 +418,15 @@ ShallowWrapper {
               </Styled(Card)>
             </Styled(ViewNB)>,
           ],
+          "refreshControl": <RefreshControlMock
+            onRefresh={[Function]}
+            refreshing={false}
+          />,
           "stickyHeaderIndices": Array [
-            2,
+            1,
           ],
           "style": Object {
-            "backgroundColor": "#F0F0F0",
+            "backgroundColor": "#7C8589",
             "height": "100%",
           },
         },
@@ -403,29 +437,144 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": Array [
-                <Styled(Text)
-                  style={
-                    Object {
-                      "color": "#2c8f7f",
-                      "fontFamily": "OpenSans-Regular",
-                      "fontSize": 32,
-                      "textAlign": "center",
-                    }
+              "children": <Styled(Text)
+                style={
+                  Object {
+                    "color": "white",
+                    "fontFamily": "OpenSans-Regular",
+                    "fontSize": 32,
+                    "textAlign": "center",
                   }
-                >
-                  Pesquisa
-                </Styled(Text)>,
+                }
+              >
+                Pesquisa
+              </Styled(Text)>,
+              "style": Object {
+                "marginHorizontal": "5%",
+                "paddingTop": "5%",
+              },
+              "virtual": undefined,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Pesquisa",
+                "style": Object {
+                  "color": "white",
+                  "fontFamily": "OpenSans-Regular",
+                  "fontSize": 32,
+                  "textAlign": "center",
+                },
+                "virtual": undefined,
+              },
+              "ref": null,
+              "rendered": "Pesquisa",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": <Styled(ViewNB)
+                style={
+                  Object {
+                    "backgroundColor": "#7C8589",
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": "5%",
+                  }
+                }
+              >
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "paddingBottom": "5%",
+                      "flex": 1,
                     }
                   }
                 >
+                  <Styled(Text)>
+                     
+                  </Styled(Text)>
+                </Styled(ViewNB)>
+                <Styled(ViewNB)
+                  style={
+                    Object {
+                      "flex": 5,
+                    }
+                  }
+                >
+                  <Styled(Item)
+                    style={
+                      Object {
+                        "borderBottomWidth": 3,
+                        "borderColor": "white",
+                        "height": 30,
+                      }
+                    }
+                  >
+                    <Styled(Input)
+                      className="search-input"
+                      onChangeText={[Function]}
+                      style={
+                        Object {
+                          "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
+                          "borderColor": "white",
+                          "color": "white",
+                          "fontSize": 20,
+                          "height": 30,
+                          "width": "100%",
+                        }
+                      }
+                    />
+                    <Styled(Icon)
+                      name="search"
+                      style={
+                        Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
+                          "color": "white",
+                          "fontSize": 20,
+                          "height": 30,
+                        }
+                      }
+                      type="FontAwesome"
+                    />
+                  </Styled(Item)>
+                </Styled(ViewNB)>
+                <Styled(ViewNB)
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Styled(Text)>
+                     
+                  </Styled(Text)>
+                </Styled(ViewNB)>
+              </Styled(ViewNB)>,
+              "style": Object {
+                "backgroundColor": "#7C8589",
+                "paddingBottom": "2%",
+                "paddingTop": "5%",
+                "width": "100%",
+              },
+              "virtual": undefined,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
                   <Styled(ViewNB)
                     style={
                       Object {
@@ -436,7 +585,7 @@ ShallowWrapper {
                     <Styled(Text)>
                        
                     </Styled(Text)>
-                  </Styled(ViewNB)>
+                  </Styled(ViewNB)>,
                   <Styled(ViewNB)
                     style={
                       Object {
@@ -448,7 +597,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -458,12 +607,10 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -474,13 +621,17 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
                       />
                     </Styled(Item)>
-                  </Styled(ViewNB)>
+                  </Styled(ViewNB)>,
                   <Styled(ViewNB)
                     style={
                       Object {
@@ -491,314 +642,217 @@ ShallowWrapper {
                     <Styled(Text)>
                        
                     </Styled(Text)>
-                  </Styled(ViewNB)>
-                </Styled(ViewNB)>,
-              ],
-              "style": Object {
-                "backgroundColor": "#F0F0F0",
-                "marginHorizontal": "5%",
-                "paddingBottom": "2%",
-                "paddingTop": "5%",
-              },
-              "virtual": undefined,
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "children": "Pesquisa",
-                  "style": Object {
-                    "color": "#2c8f7f",
-                    "fontFamily": "OpenSans-Regular",
-                    "fontSize": 32,
-                    "textAlign": "center",
-                  },
-                  "virtual": undefined,
-                },
-                "ref": null,
-                "rendered": "Pesquisa",
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "children": Array [
-                    <Styled(ViewNB)
-                      style={
-                        Object {
-                          "flex": 1,
-                        }
-                      }
-                    >
-                      <Styled(Text)>
-                         
-                      </Styled(Text)>
-                    </Styled(ViewNB)>,
-                    <Styled(ViewNB)
-                      style={
-                        Object {
-                          "flex": 5,
-                        }
-                      }
-                    >
-                      <Styled(Item)
-                        style={
-                          Object {
-                            "borderBottomWidth": 3,
-                            "borderColor": "#002040",
-                            "height": 30,
-                          }
-                        }
-                      >
-                        <Styled(Input)
-                          className="search-input"
-                          onChangeText={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
-                              "fontSize": 20,
-                              "height": 30,
-                              "width": "100%",
-                            }
-                          }
-                        />
-                        <Styled(Icon)
-                          name="search"
-                          style={
-                            Object {
-                              "fontSize": 20,
-                            }
-                          }
-                          type="FontAwesome"
-                        />
-                      </Styled(Item)>
-                    </Styled(ViewNB)>,
-                    <Styled(ViewNB)
-                      style={
-                        Object {
-                          "flex": 1,
-                        }
-                      }
-                    >
-                      <Styled(Text)>
-                         
-                      </Styled(Text)>
-                    </Styled(ViewNB)>,
-                  ],
-                  "style": Object {
-                    "backgroundColor": "#F0F0F0",
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "paddingBottom": "5%",
-                  },
-                  "virtual": undefined,
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <Styled(Text)>
-                         
-                      </Styled(Text)>,
-                      "style": Object {
-                        "flex": 1,
-                      },
-                      "virtual": undefined,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": " ",
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": " ",
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <Styled(Item)
-                        style={
-                          Object {
-                            "borderBottomWidth": 3,
-                            "borderColor": "#002040",
-                            "height": 30,
-                          }
-                        }
-                      >
-                        <Styled(Input)
-                          className="search-input"
-                          onChangeText={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
-                              "fontSize": 20,
-                              "height": 30,
-                              "width": "100%",
-                            }
-                          }
-                        />
-                        <Styled(Icon)
-                          name="search"
-                          style={
-                            Object {
-                              "fontSize": 20,
-                            }
-                          }
-                          type="FontAwesome"
-                        />
-                      </Styled(Item)>,
-                      "style": Object {
-                        "flex": 5,
-                      },
-                      "virtual": undefined,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": Array [
-                          <Styled(Input)
-                            className="search-input"
-                            onChangeText={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              }
-                            }
-                          />,
-                          <Styled(Icon)
-                            name="search"
-                            style={
-                              Object {
-                                "fontSize": 20,
-                              }
-                            }
-                            type="FontAwesome"
-                          />,
-                        ],
-                        "style": Object {
-                          "borderBottomWidth": 3,
-                          "borderColor": "#002040",
-                          "height": 30,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "className": "search-input",
-                            "onChangeText": [Function],
-                            "style": Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
-                              "fontSize": 20,
-                              "height": 30,
-                              "width": "100%",
-                            },
-                            "virtual": undefined,
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "name": "search",
-                            "style": Object {
-                              "fontSize": 20,
-                            },
-                            "type": "FontAwesome",
-                            "virtual": undefined,
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
-                        },
-                      ],
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <Styled(Text)>
-                         
-                      </Styled(Text)>,
-                      "style": Object {
-                        "flex": 1,
-                      },
-                      "virtual": undefined,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": " ",
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": " ",
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
+                  </Styled(ViewNB)>,
                 ],
-                "type": [Function],
+                "style": Object {
+                  "backgroundColor": "#7C8589",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "paddingBottom": "5%",
+                },
+                "virtual": undefined,
               },
-            ],
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <Styled(Text)>
+                       
+                    </Styled(Text)>,
+                    "style": Object {
+                      "flex": 1,
+                    },
+                    "virtual": undefined,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": " ",
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": " ",
+                    "type": [Function],
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <Styled(Item)
+                      style={
+                        Object {
+                          "borderBottomWidth": 3,
+                          "borderColor": "white",
+                          "height": 30,
+                        }
+                      }
+                    >
+                      <Styled(Input)
+                        className="search-input"
+                        onChangeText={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                            "width": "100%",
+                          }
+                        }
+                      />
+                      <Styled(Icon)
+                        name="search"
+                        style={
+                          Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                          }
+                        }
+                        type="FontAwesome"
+                      />
+                    </Styled(Item)>,
+                    "style": Object {
+                      "flex": 5,
+                    },
+                    "virtual": undefined,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": Array [
+                        <Styled(Input)
+                          className="search-input"
+                          onChangeText={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                              "width": "100%",
+                            }
+                          }
+                        />,
+                        <Styled(Icon)
+                          name="search"
+                          style={
+                            Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                            }
+                          }
+                          type="FontAwesome"
+                        />,
+                      ],
+                      "style": Object {
+                        "borderBottomWidth": 3,
+                        "borderColor": "white",
+                        "height": 30,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "className": "search-input",
+                          "onChangeText": [Function],
+                          "style": Object {
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                            "width": "100%",
+                          },
+                          "virtual": undefined,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "name": "search",
+                          "style": Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                          },
+                          "type": "FontAwesome",
+                          "virtual": undefined,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": [Function],
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <Styled(Text)>
+                       
+                    </Styled(Text)>,
+                    "style": Object {
+                      "flex": 1,
+                    },
+                    "virtual": undefined,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": " ",
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": " ",
+                    "type": [Function],
+                  },
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
             "type": [Function],
           },
           Object {
@@ -829,7 +883,8 @@ ShallowWrapper {
                 </Styled(Card)>,
               ],
               "style": Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
+                "marginBottom": "10%",
                 "marginHorizontal": "2%",
               },
               "virtual": undefined,
@@ -976,14 +1031,20 @@ ShallowWrapper {
             language="PT"
           />,
           <ScrollViewMock
+            refreshControl={
+              <RefreshControlMock
+                onRefresh={[Function]}
+                refreshing={false}
+              />
+            }
             stickyHeaderIndices={
               Array [
-                2,
+                1,
               ]
             }
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "height": "100%",
               }
             }
@@ -991,9 +1052,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
                   "marginHorizontal": "5%",
-                  "paddingBottom": "2%",
                   "paddingTop": "5%",
                 }
               }
@@ -1001,7 +1060,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -1010,10 +1069,21 @@ ShallowWrapper {
               >
                 Pesquisa
               </Styled(Text)>
+            </Styled(ViewNB)>
+            <Styled(ViewNB)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                  "paddingBottom": "2%",
+                  "paddingTop": "5%",
+                  "width": "100%",
+                }
+              }
+            >
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -1042,7 +1112,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -1052,12 +1122,10 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
+                          "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -1068,7 +1136,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -1091,7 +1163,8 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
+                  "marginBottom": "10%",
                   "marginHorizontal": "2%",
                 }
               }
@@ -1119,7 +1192,7 @@ ShallowWrapper {
           </ScrollViewMock>,
         ],
         "style": Object {
-          "backgroundColor": "#F0F0F0",
+          "backgroundColor": "#7C8589",
         },
         "virtual": undefined,
       },
@@ -1146,9 +1219,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
                     "marginHorizontal": "5%",
-                    "paddingBottom": "2%",
                     "paddingTop": "5%",
                   }
                 }
@@ -1156,7 +1227,7 @@ ShallowWrapper {
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -1165,10 +1236,21 @@ ShallowWrapper {
                 >
                   Pesquisa
                 </Styled(Text)>
+              </Styled(ViewNB)>,
+              <Styled(ViewNB)
+                style={
+                  Object {
+                    "backgroundColor": "#7C8589",
+                    "paddingBottom": "2%",
+                    "paddingTop": "5%",
+                    "width": "100%",
+                  }
+                }
+              >
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -1197,7 +1279,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -1207,12 +1289,10 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -1223,7 +1303,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -1246,7 +1330,8 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
+                    "marginBottom": "10%",
                     "marginHorizontal": "2%",
                   }
                 }
@@ -1272,11 +1357,15 @@ ShallowWrapper {
                 </Styled(Card)>
               </Styled(ViewNB)>,
             ],
+            "refreshControl": <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />,
             "stickyHeaderIndices": Array [
-              2,
+              1,
             ],
             "style": Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             },
           },
@@ -1287,29 +1376,144 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": Array [
-                  <Styled(Text)
-                    style={
-                      Object {
-                        "color": "#2c8f7f",
-                        "fontFamily": "OpenSans-Regular",
-                        "fontSize": 32,
-                        "textAlign": "center",
-                      }
+                "children": <Styled(Text)
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontFamily": "OpenSans-Regular",
+                      "fontSize": 32,
+                      "textAlign": "center",
                     }
-                  >
-                    Pesquisa
-                  </Styled(Text)>,
+                  }
+                >
+                  Pesquisa
+                </Styled(Text)>,
+                "style": Object {
+                  "marginHorizontal": "5%",
+                  "paddingTop": "5%",
+                },
+                "virtual": undefined,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Pesquisa",
+                  "style": Object {
+                    "color": "white",
+                    "fontFamily": "OpenSans-Regular",
+                    "fontSize": 32,
+                    "textAlign": "center",
+                  },
+                  "virtual": undefined,
+                },
+                "ref": null,
+                "rendered": "Pesquisa",
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <Styled(ViewNB)
+                  style={
+                    Object {
+                      "backgroundColor": "#7C8589",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "paddingBottom": "5%",
+                    }
+                  }
+                >
                   <Styled(ViewNB)
                     style={
                       Object {
-                        "backgroundColor": "#F0F0F0",
-                        "flexDirection": "row",
-                        "justifyContent": "center",
-                        "paddingBottom": "5%",
+                        "flex": 1,
                       }
                     }
                   >
+                    <Styled(Text)>
+                       
+                    </Styled(Text)>
+                  </Styled(ViewNB)>
+                  <Styled(ViewNB)
+                    style={
+                      Object {
+                        "flex": 5,
+                      }
+                    }
+                  >
+                    <Styled(Item)
+                      style={
+                        Object {
+                          "borderBottomWidth": 3,
+                          "borderColor": "white",
+                          "height": 30,
+                        }
+                      }
+                    >
+                      <Styled(Input)
+                        className="search-input"
+                        onChangeText={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                            "width": "100%",
+                          }
+                        }
+                      />
+                      <Styled(Icon)
+                        name="search"
+                        style={
+                          Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                          }
+                        }
+                        type="FontAwesome"
+                      />
+                    </Styled(Item)>
+                  </Styled(ViewNB)>
+                  <Styled(ViewNB)
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <Styled(Text)>
+                       
+                    </Styled(Text)>
+                  </Styled(ViewNB)>
+                </Styled(ViewNB)>,
+                "style": Object {
+                  "backgroundColor": "#7C8589",
+                  "paddingBottom": "2%",
+                  "paddingTop": "5%",
+                  "width": "100%",
+                },
+                "virtual": undefined,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
                     <Styled(ViewNB)
                       style={
                         Object {
@@ -1320,7 +1524,7 @@ ShallowWrapper {
                       <Styled(Text)>
                          
                       </Styled(Text)>
-                    </Styled(ViewNB)>
+                    </Styled(ViewNB)>,
                     <Styled(ViewNB)
                       style={
                         Object {
@@ -1332,7 +1536,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -1342,12 +1546,10 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -1358,13 +1560,17 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
                         />
                       </Styled(Item)>
-                    </Styled(ViewNB)>
+                    </Styled(ViewNB)>,
                     <Styled(ViewNB)
                       style={
                         Object {
@@ -1375,314 +1581,217 @@ ShallowWrapper {
                       <Styled(Text)>
                          
                       </Styled(Text)>
-                    </Styled(ViewNB)>
-                  </Styled(ViewNB)>,
-                ],
-                "style": Object {
-                  "backgroundColor": "#F0F0F0",
-                  "marginHorizontal": "5%",
-                  "paddingBottom": "2%",
-                  "paddingTop": "5%",
-                },
-                "virtual": undefined,
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "Pesquisa",
-                    "style": Object {
-                      "color": "#2c8f7f",
-                      "fontFamily": "OpenSans-Regular",
-                      "fontSize": 32,
-                      "textAlign": "center",
-                    },
-                    "virtual": undefined,
-                  },
-                  "ref": null,
-                  "rendered": "Pesquisa",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <Styled(ViewNB)
-                        style={
-                          Object {
-                            "flex": 1,
-                          }
-                        }
-                      >
-                        <Styled(Text)>
-                           
-                        </Styled(Text)>
-                      </Styled(ViewNB)>,
-                      <Styled(ViewNB)
-                        style={
-                          Object {
-                            "flex": 5,
-                          }
-                        }
-                      >
-                        <Styled(Item)
-                          style={
-                            Object {
-                              "borderBottomWidth": 3,
-                              "borderColor": "#002040",
-                              "height": 30,
-                            }
-                          }
-                        >
-                          <Styled(Input)
-                            className="search-input"
-                            onChangeText={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              }
-                            }
-                          />
-                          <Styled(Icon)
-                            name="search"
-                            style={
-                              Object {
-                                "fontSize": 20,
-                              }
-                            }
-                            type="FontAwesome"
-                          />
-                        </Styled(Item)>
-                      </Styled(ViewNB)>,
-                      <Styled(ViewNB)
-                        style={
-                          Object {
-                            "flex": 1,
-                          }
-                        }
-                      >
-                        <Styled(Text)>
-                           
-                        </Styled(Text)>
-                      </Styled(ViewNB)>,
-                    ],
-                    "style": Object {
-                      "backgroundColor": "#F0F0F0",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "paddingBottom": "5%",
-                    },
-                    "virtual": undefined,
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <Styled(Text)>
-                           
-                        </Styled(Text)>,
-                        "style": Object {
-                          "flex": 1,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": " ",
-                          "virtual": undefined,
-                        },
-                        "ref": null,
-                        "rendered": " ",
-                        "type": [Function],
-                      },
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <Styled(Item)
-                          style={
-                            Object {
-                              "borderBottomWidth": 3,
-                              "borderColor": "#002040",
-                              "height": 30,
-                            }
-                          }
-                        >
-                          <Styled(Input)
-                            className="search-input"
-                            onChangeText={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              }
-                            }
-                          />
-                          <Styled(Icon)
-                            name="search"
-                            style={
-                              Object {
-                                "fontSize": 20,
-                              }
-                            }
-                            type="FontAwesome"
-                          />
-                        </Styled(Item)>,
-                        "style": Object {
-                          "flex": 5,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": Array [
-                            <Styled(Input)
-                              className="search-input"
-                              onChangeText={[Function]}
-                              style={
-                                Object {
-                                  "backgroundColor": "#f0F0F0",
-                                  "borderColor": "#002040",
-                                  "borderLeftWidth": 0,
-                                  "borderRightWidth": 0,
-                                  "borderTopWidth": 0,
-                                  "borderWidth": 2,
-                                  "fontSize": 20,
-                                  "height": 30,
-                                  "width": "100%",
-                                }
-                              }
-                            />,
-                            <Styled(Icon)
-                              name="search"
-                              style={
-                                Object {
-                                  "fontSize": 20,
-                                }
-                              }
-                              type="FontAwesome"
-                            />,
-                          ],
-                          "style": Object {
-                            "borderBottomWidth": 3,
-                            "borderColor": "#002040",
-                            "height": 30,
-                          },
-                          "virtual": undefined,
-                        },
-                        "ref": null,
-                        "rendered": Array [
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "class",
-                            "props": Object {
-                              "className": "search-input",
-                              "onChangeText": [Function],
-                              "style": Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              },
-                              "virtual": undefined,
-                            },
-                            "ref": null,
-                            "rendered": null,
-                            "type": [Function],
-                          },
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "class",
-                            "props": Object {
-                              "name": "search",
-                              "style": Object {
-                                "fontSize": 20,
-                              },
-                              "type": "FontAwesome",
-                              "virtual": undefined,
-                            },
-                            "ref": null,
-                            "rendered": null,
-                            "type": [Function],
-                          },
-                        ],
-                        "type": [Function],
-                      },
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <Styled(Text)>
-                           
-                        </Styled(Text)>,
-                        "style": Object {
-                          "flex": 1,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": " ",
-                          "virtual": undefined,
-                        },
-                        "ref": null,
-                        "rendered": " ",
-                        "type": [Function],
-                      },
-                      "type": [Function],
-                    },
+                    </Styled(ViewNB)>,
                   ],
-                  "type": [Function],
+                  "style": Object {
+                    "backgroundColor": "#7C8589",
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": "5%",
+                  },
+                  "virtual": undefined,
                 },
-              ],
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <Styled(Text)>
+                         
+                      </Styled(Text)>,
+                      "style": Object {
+                        "flex": 1,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": " ",
+                        "virtual": undefined,
+                      },
+                      "ref": null,
+                      "rendered": " ",
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <Styled(Item)
+                        style={
+                          Object {
+                            "borderBottomWidth": 3,
+                            "borderColor": "white",
+                            "height": 30,
+                          }
+                        }
+                      >
+                        <Styled(Input)
+                          className="search-input"
+                          onChangeText={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                              "width": "100%",
+                            }
+                          }
+                        />
+                        <Styled(Icon)
+                          name="search"
+                          style={
+                            Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                            }
+                          }
+                          type="FontAwesome"
+                        />
+                      </Styled(Item)>,
+                      "style": Object {
+                        "flex": 5,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": Array [
+                          <Styled(Input)
+                            className="search-input"
+                            onChangeText={[Function]}
+                            style={
+                              Object {
+                                "backgroundColor": "#7C8589",
+                                "borderBottomWidth": 2,
+                                "borderColor": "white",
+                                "color": "white",
+                                "fontSize": 20,
+                                "height": 30,
+                                "width": "100%",
+                              }
+                            }
+                          />,
+                          <Styled(Icon)
+                            name="search"
+                            style={
+                              Object {
+                                "borderBottomWidth": 1,
+                                "borderColor": "white",
+                                "color": "white",
+                                "fontSize": 20,
+                                "height": 30,
+                              }
+                            }
+                            type="FontAwesome"
+                          />,
+                        ],
+                        "style": Object {
+                          "borderBottomWidth": 3,
+                          "borderColor": "white",
+                          "height": 30,
+                        },
+                        "virtual": undefined,
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "className": "search-input",
+                            "onChangeText": [Function],
+                            "style": Object {
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                              "width": "100%",
+                            },
+                            "virtual": undefined,
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "name": "search",
+                            "style": Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                            },
+                            "type": "FontAwesome",
+                            "virtual": undefined,
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <Styled(Text)>
+                         
+                      </Styled(Text)>,
+                      "style": Object {
+                        "flex": 1,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": " ",
+                        "virtual": undefined,
+                      },
+                      "ref": null,
+                      "rendered": " ",
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
               "type": [Function],
             },
             Object {
@@ -1713,7 +1822,8 @@ ShallowWrapper {
                   </Styled(Card)>,
                 ],
                 "style": Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
+                  "marginBottom": "10%",
                   "marginHorizontal": "2%",
                 },
                 "virtual": undefined,
@@ -1903,14 +2013,20 @@ ShallowWrapper {
           language="PT"
         />,
         <ScrollViewMock
+          refreshControl={
+            <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />
+          }
           stickyHeaderIndices={
             Array [
-              2,
+              1,
             ]
           }
           style={
             Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             }
           }
@@ -1918,9 +2034,7 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
                 "marginHorizontal": "5%",
-                "paddingBottom": "2%",
                 "paddingTop": "5%",
               }
             }
@@ -1928,7 +2042,7 @@ ShallowWrapper {
             <Styled(Text)
               style={
                 Object {
-                  "color": "#2c8f7f",
+                  "color": "white",
                   "fontFamily": "OpenSans-Regular",
                   "fontSize": 32,
                   "textAlign": "center",
@@ -1937,10 +2051,21 @@ ShallowWrapper {
             >
               Pesquisa
             </Styled(Text)>
+          </Styled(ViewNB)>
+          <Styled(ViewNB)
+            style={
+              Object {
+                "backgroundColor": "#7C8589",
+                "paddingBottom": "2%",
+                "paddingTop": "5%",
+                "width": "100%",
+              }
+            }
+          >
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
                   "flexDirection": "row",
                   "justifyContent": "center",
                   "paddingBottom": "5%",
@@ -1969,7 +2094,7 @@ ShallowWrapper {
                   style={
                     Object {
                       "borderBottomWidth": 3,
-                      "borderColor": "#002040",
+                      "borderColor": "white",
                       "height": 30,
                     }
                   }
@@ -1979,12 +2104,10 @@ ShallowWrapper {
                     onChangeText={[Function]}
                     style={
                       Object {
-                        "backgroundColor": "#f0F0F0",
-                        "borderColor": "#002040",
-                        "borderLeftWidth": 0,
-                        "borderRightWidth": 0,
-                        "borderTopWidth": 0,
-                        "borderWidth": 2,
+                        "backgroundColor": "#7C8589",
+                        "borderBottomWidth": 2,
+                        "borderColor": "white",
+                        "color": "white",
                         "fontSize": 20,
                         "height": 30,
                         "width": "100%",
@@ -1995,7 +2118,11 @@ ShallowWrapper {
                     name="search"
                     style={
                       Object {
+                        "borderBottomWidth": 1,
+                        "borderColor": "white",
+                        "color": "white",
                         "fontSize": 20,
+                        "height": 30,
                       }
                     }
                     type="FontAwesome"
@@ -2018,7 +2145,8 @@ ShallowWrapper {
           <Styled(ViewNB)
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
+                "marginBottom": "10%",
                 "marginHorizontal": "2%",
               }
             }
@@ -2046,7 +2174,7 @@ ShallowWrapper {
         </ScrollViewMock>,
       ],
       "style": Object {
-        "backgroundColor": "#F0F0F0",
+        "backgroundColor": "#7C8589",
       },
       "virtual": undefined,
     },
@@ -2073,9 +2201,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
                   "marginHorizontal": "5%",
-                  "paddingBottom": "2%",
                   "paddingTop": "5%",
                 }
               }
@@ -2083,7 +2209,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -2092,10 +2218,21 @@ ShallowWrapper {
               >
                 Pesquisa
               </Styled(Text)>
+            </Styled(ViewNB)>,
+            <Styled(ViewNB)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                  "paddingBottom": "2%",
+                  "paddingTop": "5%",
+                  "width": "100%",
+                }
+              }
+            >
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -2124,7 +2261,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -2134,12 +2271,10 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
+                          "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -2150,7 +2285,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -2173,7 +2312,8 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
+                  "marginBottom": "10%",
                   "marginHorizontal": "2%",
                 }
               }
@@ -2199,11 +2339,15 @@ ShallowWrapper {
               </Styled(Card)>
             </Styled(ViewNB)>,
           ],
+          "refreshControl": <RefreshControlMock
+            onRefresh={[Function]}
+            refreshing={false}
+          />,
           "stickyHeaderIndices": Array [
-            2,
+            1,
           ],
           "style": Object {
-            "backgroundColor": "#F0F0F0",
+            "backgroundColor": "#7C8589",
             "height": "100%",
           },
         },
@@ -2214,29 +2358,144 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": Array [
-                <Styled(Text)
-                  style={
-                    Object {
-                      "color": "#2c8f7f",
-                      "fontFamily": "OpenSans-Regular",
-                      "fontSize": 32,
-                      "textAlign": "center",
-                    }
+              "children": <Styled(Text)
+                style={
+                  Object {
+                    "color": "white",
+                    "fontFamily": "OpenSans-Regular",
+                    "fontSize": 32,
+                    "textAlign": "center",
                   }
-                >
-                  Pesquisa
-                </Styled(Text)>,
+                }
+              >
+                Pesquisa
+              </Styled(Text)>,
+              "style": Object {
+                "marginHorizontal": "5%",
+                "paddingTop": "5%",
+              },
+              "virtual": undefined,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Pesquisa",
+                "style": Object {
+                  "color": "white",
+                  "fontFamily": "OpenSans-Regular",
+                  "fontSize": 32,
+                  "textAlign": "center",
+                },
+                "virtual": undefined,
+              },
+              "ref": null,
+              "rendered": "Pesquisa",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": <Styled(ViewNB)
+                style={
+                  Object {
+                    "backgroundColor": "#7C8589",
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": "5%",
+                  }
+                }
+              >
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "paddingBottom": "5%",
+                      "flex": 1,
                     }
                   }
                 >
+                  <Styled(Text)>
+                     
+                  </Styled(Text)>
+                </Styled(ViewNB)>
+                <Styled(ViewNB)
+                  style={
+                    Object {
+                      "flex": 5,
+                    }
+                  }
+                >
+                  <Styled(Item)
+                    style={
+                      Object {
+                        "borderBottomWidth": 3,
+                        "borderColor": "white",
+                        "height": 30,
+                      }
+                    }
+                  >
+                    <Styled(Input)
+                      className="search-input"
+                      onChangeText={[Function]}
+                      style={
+                        Object {
+                          "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
+                          "borderColor": "white",
+                          "color": "white",
+                          "fontSize": 20,
+                          "height": 30,
+                          "width": "100%",
+                        }
+                      }
+                    />
+                    <Styled(Icon)
+                      name="search"
+                      style={
+                        Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
+                          "color": "white",
+                          "fontSize": 20,
+                          "height": 30,
+                        }
+                      }
+                      type="FontAwesome"
+                    />
+                  </Styled(Item)>
+                </Styled(ViewNB)>
+                <Styled(ViewNB)
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <Styled(Text)>
+                     
+                  </Styled(Text)>
+                </Styled(ViewNB)>
+              </Styled(ViewNB)>,
+              "style": Object {
+                "backgroundColor": "#7C8589",
+                "paddingBottom": "2%",
+                "paddingTop": "5%",
+                "width": "100%",
+              },
+              "virtual": undefined,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
                   <Styled(ViewNB)
                     style={
                       Object {
@@ -2247,7 +2506,7 @@ ShallowWrapper {
                     <Styled(Text)>
                        
                     </Styled(Text)>
-                  </Styled(ViewNB)>
+                  </Styled(ViewNB)>,
                   <Styled(ViewNB)
                     style={
                       Object {
@@ -2259,7 +2518,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -2269,12 +2528,10 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -2285,13 +2542,17 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
                       />
                     </Styled(Item)>
-                  </Styled(ViewNB)>
+                  </Styled(ViewNB)>,
                   <Styled(ViewNB)
                     style={
                       Object {
@@ -2302,314 +2563,217 @@ ShallowWrapper {
                     <Styled(Text)>
                        
                     </Styled(Text)>
-                  </Styled(ViewNB)>
-                </Styled(ViewNB)>,
-              ],
-              "style": Object {
-                "backgroundColor": "#F0F0F0",
-                "marginHorizontal": "5%",
-                "paddingBottom": "2%",
-                "paddingTop": "5%",
-              },
-              "virtual": undefined,
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "children": "Pesquisa",
-                  "style": Object {
-                    "color": "#2c8f7f",
-                    "fontFamily": "OpenSans-Regular",
-                    "fontSize": 32,
-                    "textAlign": "center",
-                  },
-                  "virtual": undefined,
-                },
-                "ref": null,
-                "rendered": "Pesquisa",
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "children": Array [
-                    <Styled(ViewNB)
-                      style={
-                        Object {
-                          "flex": 1,
-                        }
-                      }
-                    >
-                      <Styled(Text)>
-                         
-                      </Styled(Text)>
-                    </Styled(ViewNB)>,
-                    <Styled(ViewNB)
-                      style={
-                        Object {
-                          "flex": 5,
-                        }
-                      }
-                    >
-                      <Styled(Item)
-                        style={
-                          Object {
-                            "borderBottomWidth": 3,
-                            "borderColor": "#002040",
-                            "height": 30,
-                          }
-                        }
-                      >
-                        <Styled(Input)
-                          className="search-input"
-                          onChangeText={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
-                              "fontSize": 20,
-                              "height": 30,
-                              "width": "100%",
-                            }
-                          }
-                        />
-                        <Styled(Icon)
-                          name="search"
-                          style={
-                            Object {
-                              "fontSize": 20,
-                            }
-                          }
-                          type="FontAwesome"
-                        />
-                      </Styled(Item)>
-                    </Styled(ViewNB)>,
-                    <Styled(ViewNB)
-                      style={
-                        Object {
-                          "flex": 1,
-                        }
-                      }
-                    >
-                      <Styled(Text)>
-                         
-                      </Styled(Text)>
-                    </Styled(ViewNB)>,
-                  ],
-                  "style": Object {
-                    "backgroundColor": "#F0F0F0",
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "paddingBottom": "5%",
-                  },
-                  "virtual": undefined,
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <Styled(Text)>
-                         
-                      </Styled(Text)>,
-                      "style": Object {
-                        "flex": 1,
-                      },
-                      "virtual": undefined,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": " ",
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": " ",
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <Styled(Item)
-                        style={
-                          Object {
-                            "borderBottomWidth": 3,
-                            "borderColor": "#002040",
-                            "height": 30,
-                          }
-                        }
-                      >
-                        <Styled(Input)
-                          className="search-input"
-                          onChangeText={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
-                              "fontSize": 20,
-                              "height": 30,
-                              "width": "100%",
-                            }
-                          }
-                        />
-                        <Styled(Icon)
-                          name="search"
-                          style={
-                            Object {
-                              "fontSize": 20,
-                            }
-                          }
-                          type="FontAwesome"
-                        />
-                      </Styled(Item)>,
-                      "style": Object {
-                        "flex": 5,
-                      },
-                      "virtual": undefined,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": Array [
-                          <Styled(Input)
-                            className="search-input"
-                            onChangeText={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              }
-                            }
-                          />,
-                          <Styled(Icon)
-                            name="search"
-                            style={
-                              Object {
-                                "fontSize": 20,
-                              }
-                            }
-                            type="FontAwesome"
-                          />,
-                        ],
-                        "style": Object {
-                          "borderBottomWidth": 3,
-                          "borderColor": "#002040",
-                          "height": 30,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "className": "search-input",
-                            "onChangeText": [Function],
-                            "style": Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
-                              "fontSize": 20,
-                              "height": 30,
-                              "width": "100%",
-                            },
-                            "virtual": undefined,
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "class",
-                          "props": Object {
-                            "name": "search",
-                            "style": Object {
-                              "fontSize": 20,
-                            },
-                            "type": "FontAwesome",
-                            "virtual": undefined,
-                          },
-                          "ref": null,
-                          "rendered": null,
-                          "type": [Function],
-                        },
-                      ],
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": <Styled(Text)>
-                         
-                      </Styled(Text)>,
-                      "style": Object {
-                        "flex": 1,
-                      },
-                      "virtual": undefined,
-                    },
-                    "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": " ",
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": " ",
-                      "type": [Function],
-                    },
-                    "type": [Function],
-                  },
+                  </Styled(ViewNB)>,
                 ],
-                "type": [Function],
+                "style": Object {
+                  "backgroundColor": "#7C8589",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "paddingBottom": "5%",
+                },
+                "virtual": undefined,
               },
-            ],
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <Styled(Text)>
+                       
+                    </Styled(Text)>,
+                    "style": Object {
+                      "flex": 1,
+                    },
+                    "virtual": undefined,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": " ",
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": " ",
+                    "type": [Function],
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <Styled(Item)
+                      style={
+                        Object {
+                          "borderBottomWidth": 3,
+                          "borderColor": "white",
+                          "height": 30,
+                        }
+                      }
+                    >
+                      <Styled(Input)
+                        className="search-input"
+                        onChangeText={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                            "width": "100%",
+                          }
+                        }
+                      />
+                      <Styled(Icon)
+                        name="search"
+                        style={
+                          Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                          }
+                        }
+                        type="FontAwesome"
+                      />
+                    </Styled(Item)>,
+                    "style": Object {
+                      "flex": 5,
+                    },
+                    "virtual": undefined,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": Array [
+                        <Styled(Input)
+                          className="search-input"
+                          onChangeText={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                              "width": "100%",
+                            }
+                          }
+                        />,
+                        <Styled(Icon)
+                          name="search"
+                          style={
+                            Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                            }
+                          }
+                          type="FontAwesome"
+                        />,
+                      ],
+                      "style": Object {
+                        "borderBottomWidth": 3,
+                        "borderColor": "white",
+                        "height": 30,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "className": "search-input",
+                          "onChangeText": [Function],
+                          "style": Object {
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                            "width": "100%",
+                          },
+                          "virtual": undefined,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "name": "search",
+                          "style": Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                          },
+                          "type": "FontAwesome",
+                          "virtual": undefined,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": [Function],
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <Styled(Text)>
+                       
+                    </Styled(Text)>,
+                    "style": Object {
+                      "flex": 1,
+                    },
+                    "virtual": undefined,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": " ",
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": " ",
+                    "type": [Function],
+                  },
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
             "type": [Function],
           },
           Object {
@@ -2640,7 +2804,8 @@ ShallowWrapper {
                 </Styled(Card)>,
               ],
               "style": Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
+                "marginBottom": "10%",
                 "marginHorizontal": "2%",
               },
               "virtual": undefined,
@@ -2787,14 +2952,20 @@ ShallowWrapper {
             language="PT"
           />,
           <ScrollViewMock
+            refreshControl={
+              <RefreshControlMock
+                onRefresh={[Function]}
+                refreshing={false}
+              />
+            }
             stickyHeaderIndices={
               Array [
-                2,
+                1,
               ]
             }
             style={
               Object {
-                "backgroundColor": "#F0F0F0",
+                "backgroundColor": "#7C8589",
                 "height": "100%",
               }
             }
@@ -2802,9 +2973,7 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
                   "marginHorizontal": "5%",
-                  "paddingBottom": "2%",
                   "paddingTop": "5%",
                 }
               }
@@ -2812,7 +2981,7 @@ ShallowWrapper {
               <Styled(Text)
                 style={
                   Object {
-                    "color": "#2c8f7f",
+                    "color": "white",
                     "fontFamily": "OpenSans-Regular",
                     "fontSize": 32,
                     "textAlign": "center",
@@ -2821,10 +2990,21 @@ ShallowWrapper {
               >
                 Pesquisa
               </Styled(Text)>
+            </Styled(ViewNB)>
+            <Styled(ViewNB)
+              style={
+                Object {
+                  "backgroundColor": "#7C8589",
+                  "paddingBottom": "2%",
+                  "paddingTop": "5%",
+                  "width": "100%",
+                }
+              }
+            >
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
                     "flexDirection": "row",
                     "justifyContent": "center",
                     "paddingBottom": "5%",
@@ -2853,7 +3033,7 @@ ShallowWrapper {
                     style={
                       Object {
                         "borderBottomWidth": 3,
-                        "borderColor": "#002040",
+                        "borderColor": "white",
                         "height": 30,
                       }
                     }
@@ -2863,12 +3043,10 @@ ShallowWrapper {
                       onChangeText={[Function]}
                       style={
                         Object {
-                          "backgroundColor": "#f0F0F0",
-                          "borderColor": "#002040",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
+                          "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
                           "height": 30,
                           "width": "100%",
@@ -2879,7 +3057,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
+                          "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -2902,7 +3084,8 @@ ShallowWrapper {
             <Styled(ViewNB)
               style={
                 Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
+                  "marginBottom": "10%",
                   "marginHorizontal": "2%",
                 }
               }
@@ -2930,7 +3113,7 @@ ShallowWrapper {
           </ScrollViewMock>,
         ],
         "style": Object {
-          "backgroundColor": "#F0F0F0",
+          "backgroundColor": "#7C8589",
         },
         "virtual": undefined,
       },
@@ -2957,9 +3140,7 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
                     "marginHorizontal": "5%",
-                    "paddingBottom": "2%",
                     "paddingTop": "5%",
                   }
                 }
@@ -2967,7 +3148,7 @@ ShallowWrapper {
                 <Styled(Text)
                   style={
                     Object {
-                      "color": "#2c8f7f",
+                      "color": "white",
                       "fontFamily": "OpenSans-Regular",
                       "fontSize": 32,
                       "textAlign": "center",
@@ -2976,10 +3157,21 @@ ShallowWrapper {
                 >
                   Pesquisa
                 </Styled(Text)>
+              </Styled(ViewNB)>,
+              <Styled(ViewNB)
+                style={
+                  Object {
+                    "backgroundColor": "#7C8589",
+                    "paddingBottom": "2%",
+                    "paddingTop": "5%",
+                    "width": "100%",
+                  }
+                }
+              >
                 <Styled(ViewNB)
                   style={
                     Object {
-                      "backgroundColor": "#F0F0F0",
+                      "backgroundColor": "#7C8589",
                       "flexDirection": "row",
                       "justifyContent": "center",
                       "paddingBottom": "5%",
@@ -3008,7 +3200,7 @@ ShallowWrapper {
                       style={
                         Object {
                           "borderBottomWidth": 3,
-                          "borderColor": "#002040",
+                          "borderColor": "white",
                           "height": 30,
                         }
                       }
@@ -3018,12 +3210,10 @@ ShallowWrapper {
                         onChangeText={[Function]}
                         style={
                           Object {
-                            "backgroundColor": "#f0F0F0",
-                            "borderColor": "#002040",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
                             "height": 30,
                             "width": "100%",
@@ -3034,7 +3224,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -3057,7 +3251,8 @@ ShallowWrapper {
               <Styled(ViewNB)
                 style={
                   Object {
-                    "backgroundColor": "#F0F0F0",
+                    "backgroundColor": "#7C8589",
+                    "marginBottom": "10%",
                     "marginHorizontal": "2%",
                   }
                 }
@@ -3083,11 +3278,15 @@ ShallowWrapper {
                 </Styled(Card)>
               </Styled(ViewNB)>,
             ],
+            "refreshControl": <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />,
             "stickyHeaderIndices": Array [
-              2,
+              1,
             ],
             "style": Object {
-              "backgroundColor": "#F0F0F0",
+              "backgroundColor": "#7C8589",
               "height": "100%",
             },
           },
@@ -3098,29 +3297,144 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "children": Array [
-                  <Styled(Text)
-                    style={
-                      Object {
-                        "color": "#2c8f7f",
-                        "fontFamily": "OpenSans-Regular",
-                        "fontSize": 32,
-                        "textAlign": "center",
-                      }
+                "children": <Styled(Text)
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontFamily": "OpenSans-Regular",
+                      "fontSize": 32,
+                      "textAlign": "center",
                     }
-                  >
-                    Pesquisa
-                  </Styled(Text)>,
+                  }
+                >
+                  Pesquisa
+                </Styled(Text)>,
+                "style": Object {
+                  "marginHorizontal": "5%",
+                  "paddingTop": "5%",
+                },
+                "virtual": undefined,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Pesquisa",
+                  "style": Object {
+                    "color": "white",
+                    "fontFamily": "OpenSans-Regular",
+                    "fontSize": 32,
+                    "textAlign": "center",
+                  },
+                  "virtual": undefined,
+                },
+                "ref": null,
+                "rendered": "Pesquisa",
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <Styled(ViewNB)
+                  style={
+                    Object {
+                      "backgroundColor": "#7C8589",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "paddingBottom": "5%",
+                    }
+                  }
+                >
                   <Styled(ViewNB)
                     style={
                       Object {
-                        "backgroundColor": "#F0F0F0",
-                        "flexDirection": "row",
-                        "justifyContent": "center",
-                        "paddingBottom": "5%",
+                        "flex": 1,
                       }
                     }
                   >
+                    <Styled(Text)>
+                       
+                    </Styled(Text)>
+                  </Styled(ViewNB)>
+                  <Styled(ViewNB)
+                    style={
+                      Object {
+                        "flex": 5,
+                      }
+                    }
+                  >
+                    <Styled(Item)
+                      style={
+                        Object {
+                          "borderBottomWidth": 3,
+                          "borderColor": "white",
+                          "height": 30,
+                        }
+                      }
+                    >
+                      <Styled(Input)
+                        className="search-input"
+                        onChangeText={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                            "width": "100%",
+                          }
+                        }
+                      />
+                      <Styled(Icon)
+                        name="search"
+                        style={
+                          Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
+                            "color": "white",
+                            "fontSize": 20,
+                            "height": 30,
+                          }
+                        }
+                        type="FontAwesome"
+                      />
+                    </Styled(Item)>
+                  </Styled(ViewNB)>
+                  <Styled(ViewNB)
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <Styled(Text)>
+                       
+                    </Styled(Text)>
+                  </Styled(ViewNB)>
+                </Styled(ViewNB)>,
+                "style": Object {
+                  "backgroundColor": "#7C8589",
+                  "paddingBottom": "2%",
+                  "paddingTop": "5%",
+                  "width": "100%",
+                },
+                "virtual": undefined,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": Array [
                     <Styled(ViewNB)
                       style={
                         Object {
@@ -3131,7 +3445,7 @@ ShallowWrapper {
                       <Styled(Text)>
                          
                       </Styled(Text)>
-                    </Styled(ViewNB)>
+                    </Styled(ViewNB)>,
                     <Styled(ViewNB)
                       style={
                         Object {
@@ -3143,7 +3457,7 @@ ShallowWrapper {
                         style={
                           Object {
                             "borderBottomWidth": 3,
-                            "borderColor": "#002040",
+                            "borderColor": "white",
                             "height": 30,
                           }
                         }
@@ -3153,12 +3467,10 @@ ShallowWrapper {
                           onChangeText={[Function]}
                           style={
                             Object {
-                              "backgroundColor": "#f0F0F0",
-                              "borderColor": "#002040",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
                               "fontSize": 20,
                               "height": 30,
                               "width": "100%",
@@ -3169,13 +3481,17 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
                         />
                       </Styled(Item)>
-                    </Styled(ViewNB)>
+                    </Styled(ViewNB)>,
                     <Styled(ViewNB)
                       style={
                         Object {
@@ -3186,314 +3502,217 @@ ShallowWrapper {
                       <Styled(Text)>
                          
                       </Styled(Text)>
-                    </Styled(ViewNB)>
-                  </Styled(ViewNB)>,
-                ],
-                "style": Object {
-                  "backgroundColor": "#F0F0F0",
-                  "marginHorizontal": "5%",
-                  "paddingBottom": "2%",
-                  "paddingTop": "5%",
-                },
-                "virtual": undefined,
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "Pesquisa",
-                    "style": Object {
-                      "color": "#2c8f7f",
-                      "fontFamily": "OpenSans-Regular",
-                      "fontSize": 32,
-                      "textAlign": "center",
-                    },
-                    "virtual": undefined,
-                  },
-                  "ref": null,
-                  "rendered": "Pesquisa",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": Array [
-                      <Styled(ViewNB)
-                        style={
-                          Object {
-                            "flex": 1,
-                          }
-                        }
-                      >
-                        <Styled(Text)>
-                           
-                        </Styled(Text)>
-                      </Styled(ViewNB)>,
-                      <Styled(ViewNB)
-                        style={
-                          Object {
-                            "flex": 5,
-                          }
-                        }
-                      >
-                        <Styled(Item)
-                          style={
-                            Object {
-                              "borderBottomWidth": 3,
-                              "borderColor": "#002040",
-                              "height": 30,
-                            }
-                          }
-                        >
-                          <Styled(Input)
-                            className="search-input"
-                            onChangeText={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              }
-                            }
-                          />
-                          <Styled(Icon)
-                            name="search"
-                            style={
-                              Object {
-                                "fontSize": 20,
-                              }
-                            }
-                            type="FontAwesome"
-                          />
-                        </Styled(Item)>
-                      </Styled(ViewNB)>,
-                      <Styled(ViewNB)
-                        style={
-                          Object {
-                            "flex": 1,
-                          }
-                        }
-                      >
-                        <Styled(Text)>
-                           
-                        </Styled(Text)>
-                      </Styled(ViewNB)>,
-                    ],
-                    "style": Object {
-                      "backgroundColor": "#F0F0F0",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "paddingBottom": "5%",
-                    },
-                    "virtual": undefined,
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <Styled(Text)>
-                           
-                        </Styled(Text)>,
-                        "style": Object {
-                          "flex": 1,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": " ",
-                          "virtual": undefined,
-                        },
-                        "ref": null,
-                        "rendered": " ",
-                        "type": [Function],
-                      },
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <Styled(Item)
-                          style={
-                            Object {
-                              "borderBottomWidth": 3,
-                              "borderColor": "#002040",
-                              "height": 30,
-                            }
-                          }
-                        >
-                          <Styled(Input)
-                            className="search-input"
-                            onChangeText={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              }
-                            }
-                          />
-                          <Styled(Icon)
-                            name="search"
-                            style={
-                              Object {
-                                "fontSize": 20,
-                              }
-                            }
-                            type="FontAwesome"
-                          />
-                        </Styled(Item)>,
-                        "style": Object {
-                          "flex": 5,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": Array [
-                            <Styled(Input)
-                              className="search-input"
-                              onChangeText={[Function]}
-                              style={
-                                Object {
-                                  "backgroundColor": "#f0F0F0",
-                                  "borderColor": "#002040",
-                                  "borderLeftWidth": 0,
-                                  "borderRightWidth": 0,
-                                  "borderTopWidth": 0,
-                                  "borderWidth": 2,
-                                  "fontSize": 20,
-                                  "height": 30,
-                                  "width": "100%",
-                                }
-                              }
-                            />,
-                            <Styled(Icon)
-                              name="search"
-                              style={
-                                Object {
-                                  "fontSize": 20,
-                                }
-                              }
-                              type="FontAwesome"
-                            />,
-                          ],
-                          "style": Object {
-                            "borderBottomWidth": 3,
-                            "borderColor": "#002040",
-                            "height": 30,
-                          },
-                          "virtual": undefined,
-                        },
-                        "ref": null,
-                        "rendered": Array [
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "class",
-                            "props": Object {
-                              "className": "search-input",
-                              "onChangeText": [Function],
-                              "style": Object {
-                                "backgroundColor": "#f0F0F0",
-                                "borderColor": "#002040",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
-                                "fontSize": 20,
-                                "height": 30,
-                                "width": "100%",
-                              },
-                              "virtual": undefined,
-                            },
-                            "ref": null,
-                            "rendered": null,
-                            "type": [Function],
-                          },
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "class",
-                            "props": Object {
-                              "name": "search",
-                              "style": Object {
-                                "fontSize": 20,
-                              },
-                              "type": "FontAwesome",
-                              "virtual": undefined,
-                            },
-                            "ref": null,
-                            "rendered": null,
-                            "type": [Function],
-                          },
-                        ],
-                        "type": [Function],
-                      },
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {
-                        "children": <Styled(Text)>
-                           
-                        </Styled(Text)>,
-                        "style": Object {
-                          "flex": 1,
-                        },
-                        "virtual": undefined,
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {
-                          "children": " ",
-                          "virtual": undefined,
-                        },
-                        "ref": null,
-                        "rendered": " ",
-                        "type": [Function],
-                      },
-                      "type": [Function],
-                    },
+                    </Styled(ViewNB)>,
                   ],
-                  "type": [Function],
+                  "style": Object {
+                    "backgroundColor": "#7C8589",
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": "5%",
+                  },
+                  "virtual": undefined,
                 },
-              ],
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <Styled(Text)>
+                         
+                      </Styled(Text)>,
+                      "style": Object {
+                        "flex": 1,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": " ",
+                        "virtual": undefined,
+                      },
+                      "ref": null,
+                      "rendered": " ",
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <Styled(Item)
+                        style={
+                          Object {
+                            "borderBottomWidth": 3,
+                            "borderColor": "white",
+                            "height": 30,
+                          }
+                        }
+                      >
+                        <Styled(Input)
+                          className="search-input"
+                          onChangeText={[Function]}
+                          style={
+                            Object {
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                              "width": "100%",
+                            }
+                          }
+                        />
+                        <Styled(Icon)
+                          name="search"
+                          style={
+                            Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                            }
+                          }
+                          type="FontAwesome"
+                        />
+                      </Styled(Item)>,
+                      "style": Object {
+                        "flex": 5,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": Array [
+                          <Styled(Input)
+                            className="search-input"
+                            onChangeText={[Function]}
+                            style={
+                              Object {
+                                "backgroundColor": "#7C8589",
+                                "borderBottomWidth": 2,
+                                "borderColor": "white",
+                                "color": "white",
+                                "fontSize": 20,
+                                "height": 30,
+                                "width": "100%",
+                              }
+                            }
+                          />,
+                          <Styled(Icon)
+                            name="search"
+                            style={
+                              Object {
+                                "borderBottomWidth": 1,
+                                "borderColor": "white",
+                                "color": "white",
+                                "fontSize": 20,
+                                "height": 30,
+                              }
+                            }
+                            type="FontAwesome"
+                          />,
+                        ],
+                        "style": Object {
+                          "borderBottomWidth": 3,
+                          "borderColor": "white",
+                          "height": 30,
+                        },
+                        "virtual": undefined,
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "className": "search-input",
+                            "onChangeText": [Function],
+                            "style": Object {
+                              "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                              "width": "100%",
+                            },
+                            "virtual": undefined,
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "name": "search",
+                            "style": Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
+                              "color": "white",
+                              "fontSize": 20,
+                              "height": 30,
+                            },
+                            "type": "FontAwesome",
+                            "virtual": undefined,
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <Styled(Text)>
+                         
+                      </Styled(Text)>,
+                      "style": Object {
+                        "flex": 1,
+                      },
+                      "virtual": undefined,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": " ",
+                        "virtual": undefined,
+                      },
+                      "ref": null,
+                      "rendered": " ",
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
               "type": [Function],
             },
             Object {
@@ -3524,7 +3743,8 @@ ShallowWrapper {
                   </Styled(Card)>,
                 ],
                 "style": Object {
-                  "backgroundColor": "#F0F0F0",
+                  "backgroundColor": "#7C8589",
+                  "marginBottom": "10%",
                   "marginHorizontal": "2%",
                 },
                 "virtual": undefined,

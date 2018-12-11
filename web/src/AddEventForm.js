@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Form, FormGroup, Image, Col, Button, Row, Breadcrumb, Alert, FormControl } from 'react-bootstrap';
-import { Dropdown } from 'semantic-ui-react';
+import Select from 'react-select';
+import Flatpickr from 'react-flatpickr';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './AddEventForm.css';
@@ -18,6 +19,7 @@ const initialState = {
     price: 0,
     displayImage: "",
     chosenEntity: null,
+    chosenCategories: [],
     alertType: null,
     alertMessage: null,
     eventAdded: false
@@ -60,8 +62,8 @@ class AddEventForm extends Component {
         this.updateLocation = this.updateLocation.bind(this);
         this.updatePrice = this.updatePrice.bind(this);
         this.handleChangeEntity = this.handleChangeEntity.bind(this);
+        this.handleChangeCategory = this.handleChangeCategory.bind(this);
         this.addEventAction = this.addEventAction.bind(this);
-        this.findIDEntity = this.findIDEntity.bind(this);
 
     }
 
@@ -87,11 +89,11 @@ class AddEventForm extends Component {
     }
 
     updateStartDate(event) {
-        this.setState({ startDate: event.target.value });
+        this.setState({ startDate: event });
     }
 
     updateEndDate(event) {
-        this.setState({ endDate: event.target.value });
+        this.setState({ endDate: event });
     }
 
     updateLocation(event) {
@@ -102,42 +104,27 @@ class AddEventForm extends Component {
         this.setState({ price: event.target.value });
     }
 
-    handleChangeEntity() {
-        let element = document.querySelector("#add-event-entity div.text");
-        if (element !== null) {
-            let value = this.findIDEntity(element.innerHTML);
-            if (value !== -1) {
-                this.setState({ chosenEntity: value });
-            }
-        }
+    handleChangeEntity(event) {
+        this.setState({ chosenEntity: event });
     }
 
-    findIDEntity(entity) {
-        for (let i = 0; i < this.props.entities.length; i++) {
-            if (this.props.entities[i].text === entity) {
-                return this.props.entities[i].value;
-            }
-        }
-        return -1;
+    handleChangeCategory(event) {
+        this.setState({ chosenCategories: event });
     }
 
     addEventAction(event) {
         event.preventDefault();
 
-        let categoryDropdown = document.querySelectorAll("#add-event-category > a");
-        let categories = [];
-        for (let i = 0; i < categoryDropdown.length; i++) {
-            categories[i] = parseInt(categoryDropdown[i].getAttribute('value'));
-        }
-
         if (this.state.chosenEntity === null) {
             this.setState({ alertType: "danger", alertMessage: 'Escolha uma entidade, por favor.' });
             return;
         }
-        if (categories.length === 0) {
+        if (this.state.chosenCategories.length === 0) {
             this.setState({ alertType: "danger", alertMessage: 'Não é possível criar um evento sem categorias.' });
             return;
         }
+
+        let categories = this.state.chosenCategories.map((cat) => cat.value);
 
         var data = new FormData();
         data.append('title', this.state.title);
@@ -150,7 +137,7 @@ class AddEventForm extends Component {
         data.append('image', this.state.image);
         data.append('price', this.state.price);
         data.append('categories', categories);
-        data.append('entity_id', this.state.chosenEntity);
+        data.append('entity_id', this.state.chosenEntity.value);
 
         axios({
             method: 'POST',
@@ -161,14 +148,7 @@ class AddEventForm extends Component {
             },
             data: data
         })
-            .then(() => {
-                let entityElement = document.querySelector("#add-event-entity div.text");
-                if (entityElement !== null) {
-                    entityElement.setAttribute("class", "text default");
-                    entityElement.innerHTML = "Entidade";
-                }
-                this.setState({ ...initialState, eventAdded: true, alertType: "success", alertMessage: 'O evento foi adicionado!' });
-            })
+            .then(() => this.setState({ ...initialState, eventAdded: true, alertType: "success", alertMessage: 'O evento foi adicionado!' }))
             .catch(() => this.setState({ alertType: "danger", alertMessage: 'Ocorreu um erro. O evento não foi adicionado.' }));
 
     }
@@ -210,8 +190,15 @@ class AddEventForm extends Component {
 
         let entityElement;
         if (this.props.entities.length > 1) {
-            entityElement = (<Dropdown placeholder='Entidade' id="add-event-entity" search fluid
-                selection options={this.props.entities} onChange={this.handleChangeEntity} />);
+            entityElement = (<Select
+                placeholder="Entidade"
+                id="add-event-entity"
+                classNamePrefix="entities"
+                isSearchable="true"
+                value={this.state.chosenEntity}
+                onChange={this.handleChangeEntity}
+                options={this.props.entities}
+            />);
         } else if (this.props.entities.length > 0) {
             entityElement = (<span>{this.props.entities[0].text}</span>);
         }
@@ -307,7 +294,11 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={3}>
                                         <FormGroup controlId="form-date-start">
-                                            <FormControl required type="datetime-local" value={this.state.startDate} onChange={this.updateStartDate} />
+                                            <Flatpickr data-enable-time
+                                                className="form-control start-date"
+                                                placeholder="Carregue para selecionar a data de início"
+                                                value={this.state.startDate}
+                                                onChange={this.updateStartDate} />
                                         </FormGroup>
                                     </Col>
                                     <Col sm={2} className="text-align-center">
@@ -315,7 +306,11 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={3}>
                                         <FormGroup controlId="form-date-end">
-                                            <FormControl required type="datetime-local" value={this.state.endDate} onChange={this.updateEndDate} />
+                                            <Flatpickr data-enable-time
+                                                className="form-control end-date"
+                                                placeholder="Carregue para selecionar a data de fim"
+                                                value={this.state.endDate}
+                                                onChange={this.updateEndDate} />
                                         </FormGroup>
                                     </Col>
                                     <Col sm={2}></Col>
@@ -333,7 +328,16 @@ class AddEventForm extends Component {
                                         <Form.Label>Categorias: </Form.Label>
                                     </Col>
                                     <Col sm={5} id="add-event-form-categories-div" >
-                                        <Dropdown placeholder='Categorias' id="add-event-category" fluid multiple search selection options={this.props.categories} />
+                                        <Select
+                                            placeholder="Categorias"
+                                            id="add-event-category"
+                                            classNamePrefix="categories"
+                                            isMulti={true}
+                                            closeMenuOnSelect={false}
+                                            value={this.state.chosenCategories}
+                                            onChange={this.handleChangeCategory}
+                                            options={this.props.categories}
+                                        />
                                     </Col>
                                 </Row>
                             </FormGroup>
@@ -344,7 +348,7 @@ class AddEventForm extends Component {
                                     </Col>
                                     <Col sm={5}>
                                         <input className="form-control"
-                                            type="number" min="0" value={this.state.price} onChange={this.updatePrice} />
+                                            type="number" min="0" step=".01" value={this.state.price} onChange={this.updatePrice} />
                                     </Col>
                                 </Row>
                             </FormGroup>

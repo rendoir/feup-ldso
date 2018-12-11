@@ -20,7 +20,7 @@ class Event extends Component {
     constructor(props) {
         super(props);
 
-        var date = new Date(props.info.start_date);
+        var date = new Date(props.start_date);
 
         this.state = {
             day: (date.getDate() < 10 ? '0' : '') + date.getDate(),
@@ -49,11 +49,10 @@ class Event extends Component {
         let self = this;
         axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
-                user_id: 1,
-                id: self.props.info.id
+                id: self.props.id
             },
-            headers: {'Authorization': "Bearer " + getTokenFromCookie()}
-        }).then(() => self.props.deleteEventFromArray(self.props.info.id))
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
+        }).then(() => self.props.deleteEventFromArray(self.props.id))
             .catch((err) => self.props.updateAlertMessage('danger', 'Ocorreu um erro a apagar o evento.:' + err));
     }
 
@@ -66,13 +65,17 @@ class Event extends Component {
                     <h4>{this.state.year}</h4>
                 </Col>
                 <Col sm={10} className="event-info">
-                    <Link to={`/event/${this.props.info.id}`}>
-                        <p className="event-title" onClick={this.props.showEventPage}>{this.props.info.title}</p>
+                    <Link to={`/events/${this.props.id}`}>
+                        <p className="event-title" onClick={this.props.showEventPage}>{this.props.title}</p>
                     </Link>
-                    <p>{this.props.info.initials}</p>
+                    <p>{this.props.entity !== undefined ? this.props.entity.initials : this.props.initials}</p>
 
                     <div className="event-buttons">
-                        <Button><FontAwesomeIcon icon="edit" /></Button>
+                        <Link className="btn btn-link" to={{
+                            pathname: `/events/${this.props.id}/edit`
+                        }}>
+                            <FontAwesomeIcon icon="edit" />
+                        </Link>
                         <Button onClick={this.deleteEvent} className="delete-button"><FontAwesomeIcon icon="trash-alt" /></Button>
                     </div>
                 </Col>

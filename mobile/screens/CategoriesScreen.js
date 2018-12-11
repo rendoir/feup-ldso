@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { Font, AppLoading } from "expo";
 import { Root, Container, Content, List, Text, Button, ListItem } from 'native-base';
 import axios from 'axios';
@@ -53,16 +53,17 @@ export default class CategoriesScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         const categories = this.state.categories.map((category, i) => (
-            <Category language={this.props.screenProps.language} data={category} key={i} onPress={() => { navigate('Agenda', { selectedCategory: category, selectedCategoryId: category.id }); this.props.navigation.state.params.onSelect({ updateCall: true }); } } />
+            <Category language={this.props.screenProps.language} data={category} key={i} onPress={() => { navigate('Agenda', { selectedCategory: category, selectedCategoryId: category.id }); this.props.navigation.state.params.onSelect({ updateCall: true }); }} />
         ));
 
         return (
-            <Container>
-                <NewCustomHeader text={global.dictionary["CATEGORIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage}/>
+            <Container style={styles.list}>
+                <StatusBar hidden />
+                <NewCustomHeader navigation={this.props.navigation} text={global.dictionary["CATEGORIES"][this.props.screenProps.language]} fave={false} language={this.props.screenProps.language} toggleLanguage={this.props.screenProps.toggleLanguage} />
                 <Content>
-                    <List>
-                        <ListItem style={styles.listItem} className="list-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); } }>
-                            <Button transparent className="all-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
+                    <List style={styles.list} >
+                        <ListItem style={styles.listItem} className="list-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }}>
+                            <Button transparent className="all-categories" onPress={() => { navigate('Agenda', { selectedCategory: 'all', selectedCategoryId: 'null' }); this.props.navigation.state.params.onSelect({ updateCall: true }); }} style={styles.button}><Text style={styles.buttonText}>{global.dictionary["ALL"][this.props.screenProps.language]}</Text></Button>
                         </ListItem>
                         {categories}
                     </List>
@@ -73,8 +74,15 @@ export default class CategoriesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    list: {
+        backgroundColor: '#7C8589'
+    },
     listItem: {
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: '#7C8589',
+        width: '91%',
+        borderBottomWidth: 1,
+        borderBottomColor: 'white'
     },
     header: {
         backgroundColor: '#2c8f7f',
@@ -88,9 +96,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     buttonText: {
-        color: 'black',
+        color: 'white',
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        paddingLeft: 5
+        textAlign: 'center'
+    },
+    button: {
+        alignItems: 'center'
     }
 });
