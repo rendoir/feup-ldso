@@ -92,12 +92,18 @@ export default class AgendaScreen extends React.Component {
         if (status === "granted") {
             let res = null;
 
+            let endDate = this.state.event.end_date;
+            if (this.state.event.end_date == null) {
+                endDate = new Date(this.state.event.start_date);
+                endDate.setHours(endDate.getHours() + 1);
+            }
+
             if (this.props.screenProps.language === "PT") {
 
                 res = await Expo.Calendar.createEventAsync(Expo.Calendar.DEFAULT, {
                     title: this.state.event.title,
                     startDate: new Date(this.state.event.start_date),
-                    endDate: new Date(this.state.event.end_date),
+                    endDate: new Date(endDate),
                     location: this.state.location,
                     timeZone: "UTC",
                     notes: this.state.event.description
@@ -108,7 +114,7 @@ export default class AgendaScreen extends React.Component {
                 res = await Expo.Calendar.createEventAsync(Expo.Calendar.DEFAULT, {
                     title: this.state.event.title_english,
                     startDate: new Date(this.state.event.start_date),
-                    endDate: new Date(this.state.event.end_date),
+                    endDate: new Date(endDate),
                     location: this.state.location,
                     timeZone: "UTC",
                     notes: this.state.event.description_english
