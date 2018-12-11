@@ -6,6 +6,11 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import './EventPage.css';
 
+function getTokenFromCookie() {
+    let token = document.cookie.split("access_token=")[1];
+    return token;
+}
+
 class EventPage extends Component {
 
     constructor(props) {
@@ -19,12 +24,14 @@ class EventPage extends Component {
             description_english: "",
             entity_id: null,
             entity: null,
+            end_date_nonformat: "",
+            start_date_nonformat: "",
             end_date: "",
             start_date: "",
             location: "",
             price: null,
             categories: [],
-            image: "http://" + process.env.REACT_APP_API_URL + ":3030/" + props.match.params.id,
+            image: null,
             alertType: null,
             alertMessage: null,
             redirect: false,
@@ -43,7 +50,6 @@ class EventPage extends Component {
                 if (res.data === "" || Object.keys(res.data).length === 0) {
                     this.setState({ alertType: "danger", alertMessage: "Este evento não existe." });
                 } else {
-
 
                     let date = new Date(res.data.start_date);
                     let dd = date.getDate();
@@ -77,13 +83,16 @@ class EventPage extends Component {
                         title_english: res.data.title_english,
                         description: res.data.description,
                         description_english: res.data.description_english,
+                        start_date_nonformat: res.data.start_date,
+                        end_date_nonformat: res.data.end_date,
                         start_date: stringDateStart,
                         end_date: stringDateEnd,
                         location: res.data.location,
                         price: res.data.price,
                         entity: res.data.entity,
                         entity_id: res.data.entity_id,
-                        categories: res.data.categories
+                        categories: res.data.categories,
+                        image: "http://" + process.env.REACT_APP_API_URL + ":3030/" + this.state.id + "?" + Date.now()
                     });
 
                 }
@@ -93,7 +102,6 @@ class EventPage extends Component {
                 this.setState({ alertType: "danger", alertMessage: "Ocorreu um erro. Por favor tente novamente." });
             });
     }
-
 
     deleteEvent() {
         swal({
@@ -112,9 +120,9 @@ class EventPage extends Component {
         let self = this;
         axios.delete('http://' + process.env.REACT_APP_API_URL + ':3030/', {
             data: {
-                user_id: 1,
                 id: self.state.id
-            }
+            },
+            headers: { 'Authorization': "Bearer " + getTokenFromCookie() }
         })
             .then(() => this.setState({ redirect: true }))
             .catch(() => self.setState({ alertType: "danger", alertMessage: "Um erro ocorreu a apagar o evento. Tente mais tarde." }));
@@ -189,29 +197,28 @@ class EventPage extends Component {
                     </Row>
                     <div id="page-event">
                         <Row className="event-page-header">
+                            <Col sm={2}>
+                            </Col>
                             <Col sm={8} className="event-title">
                                 <h2>{this.state.title} / {this.state.title_english}</h2>
+                                <div className="event-page-entities">
+                                    <span>Entidade: </span><span className="event-page-entities-name">{this.state.entity.initials}</span>
+                                </div>
                             </Col>
-                            <Col sm={4} className="event-page-buttons">
-                                <Button><FontAwesomeIcon icon="edit" /></Button>
-                                <Button className="delete-button" onClick={this.deleteEvent}>
-                                    <FontAwesomeIcon icon="trash-alt" />
-                                </Button>
+                            <Col sm={2}>
                             </Col>
                         </Row>
                         <Row className="event-page-body">
                             <Col sm={4}>
                                 <Image
-                                    src={'http://' + process.env.REACT_APP_API_URL + ':3030/' + this.state.id}
+                                    src={this.state.image}
                                     className="event-image"
                                     onError={this.getDefaultImage}
                                 />
 
                             </Col>
-                            <Col sm={4} className="div-border">
+                            <Col sm={8}>
                                 <p className="event-description">{this.state.description}</p>
-                            </Col>
-                            <Col sm={4}>
                                 <p className="event-description">{this.state.description_english}</p>
                             </Col>
                         </Row>
@@ -225,6 +232,13 @@ class EventPage extends Component {
                                 <div className="event-location">
                                     <h4 className="display-inline">Localização: </h4>
                                     <span>{this.state.location}</span>
+                                    <Button
+                                        className="location-button"
+                                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(this.state.location)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        <FontAwesomeIcon icon="map-marked-alt" />
+                                    </Button>
                                 </div>
                             </Col>
                             <Col sm={5} className="event-page-ent-cat">
@@ -232,17 +246,20 @@ class EventPage extends Component {
                                     <h4 className="display-inline">Categorias: </h4>
                                     {categories}
                                 </div>
-                                <div className="event-page-entities">
-                                    <h4 className="display-inline">Entidade: </h4>
-                                    <span>{this.state.entity.initials}</span>
+                                <div className="event-page-price">
+                                    <h4 className="display-inline">Preço: </h4>
+                                    <span>{this.state.price}€</span>
                                 </div>
                             </Col>
-                            <Col sm={2} className="event-page-button-map">
-                                <Button
-                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(this.state.location)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    Ver no Mapa
+                            <Col sm={2} className="event-page-buttons">
+                                <Link className="btn btn-link btn-primary" to={{
+                                    pathname: `/events/${this.state.id}/edit`,
+                                    state: { event: this.state }
+                                }}>
+                                    <FontAwesomeIcon icon="edit" />
+                                </Link>
+                                <Button className="delete-button" onClick={this.deleteEvent}>
+                                    <FontAwesomeIcon icon="trash-alt" />
                                 </Button>
                             </Col>
                         </Row>

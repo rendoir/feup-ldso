@@ -10,6 +10,15 @@ import MockAdapter from 'axios-mock-adapter';
 
 var mockAxios = new MockAdapter(axios);
 
+let eventInfo = {
+    id: 1,
+    title: 'Title',
+    description: 'description',
+    start_date: '2018-10-27 11:11:00',
+    end_date: '2018-10-28 11:11:00',
+    initials: 'FEUP'
+};
+
 describe("render event", () => {
 
     it('renders event', () => {
@@ -17,16 +26,7 @@ describe("render event", () => {
             <BrowserRouter>
                 <EventComponent
                     key={0}
-                    info={
-                        {
-                            id: 1,
-                            title: 'Title',
-                            description: 'description',
-                            start_date: '2018-10-27 11:11:00',
-                            end_date: '2018-10-28 11:11:00',
-                            initials: 'FEUP'
-                        }
-                    }
+                    {...eventInfo}
                     deleteEventFromArray={null}
                     updateAlertMessage={null}
                 />
@@ -47,16 +47,7 @@ describe("Delete Event", () => {
             <BrowserRouter>
                 <EventComponent
                     key={0}
-                    info={
-                        {
-                            id: 1,
-                            title: 'Title',
-                            description: 'description',
-                            start_date: '2018-10-27 11:11:00',
-                            end_date: '2018-10-28 11:11:00',
-                            initials: 'FEUP'
-                        }
-                    }
+                    {...eventInfo}
                     deleteEventFromArray={null}
                     updateAlertMessage={null}
                 />
@@ -77,14 +68,12 @@ describe("Delete Event", () => {
 
         let props = {
             key: 0,
-            info: {
-                id: 1,
-                title: 'Title',
-                description: 'description',
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                initials: 'FEUP'
-            },
+            id: 1,
+            title: 'Title',
+            description: 'description',
+            start_date: '2018-10-27 11:11:00',
+            end_date: '2018-10-28 11:11:00',
+            initials: 'FEUP',
             deleteEventFromArray: jest.fn(),
             updateAlertMessage: null
         };
@@ -109,13 +98,11 @@ describe("Delete Event", () => {
 
         let props = {
             key: 0,
-            info: {
-                title: 'Title',
-                description: 'description',
-                start_date: '2018-10-27 11:11:00',
-                end_date: '2018-10-28 11:11:00',
-                initials: 'FEUP'
-            },
+            title: 'Title',
+            description: 'description',
+            start_date: '2018-10-27 11:11:00',
+            end_date: '2018-10-28 11:11:00',
+            initials: 'FEUP',
             deleteEventFromArray: jest.fn(),
             updateAlertMessage: jest.fn()
         };

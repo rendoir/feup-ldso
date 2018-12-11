@@ -27,7 +27,11 @@ exports[`renders correctly 1`] = `
           "paddingTop": 13,
         },
         Object {
+          "backgroundColor": "#7C8589",
+          "borderBottomColor": "white",
+          "borderBottomWidth": 1,
           "justifyContent": "center",
+          "width": "91%",
         },
       ]
     }
@@ -84,10 +88,10 @@ exports[`renders correctly 1`] = `
               "paddingRight": 16,
             },
             Object {
-              "color": "black",
+              "color": "white",
               "fontFamily": "OpenSans-Regular",
               "fontSize": 18,
-              "paddingLeft": 5,
+              "textAlign": "center",
             },
           ]
         }

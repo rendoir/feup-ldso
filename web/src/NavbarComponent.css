@@ -1,9 +1,9 @@
 img#logo {
-    width: 200px;
+    max-height: 45px;
 }
 
 nav#navbar-custom {
-    background-color: #32a794;
+    background-color: #455a64;
     display: flex;
     justify-content: space-between;
 }
@@ -28,11 +28,9 @@ nav.navbar-light span.navbar-text {
     font-size: 22px;
 }
 
-nav button.btn.btn-primary {
-    background-color: inherit;
-    border-color: #32a794;
-    font-size: 20px;
-    font-weight: 200;
+button#logout-button {
+    color: white;
+    border: 0;
 }
 
 nav.navbar {

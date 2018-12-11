@@ -67,10 +67,25 @@ router.delete("/", passport.authenticate('jwt', { session: false }), function(re
 
 });
 
+router.put("/events/:event_id", passport.authenticate('jwt', { session: false }), function(req, res) {
+
+    if (req.user === undefined) {
+        return res.status(400).send("You don't have permissions to make this request");
+    }
+
+    var user_id = req.user.id;
+    var reqData = req;
+    reqData.body.user_id = user_id;
+
+    eventController.edit(reqData, res);
+
+});
+
 // Search
 router.get("/search/entities", eventController.searchForEntities);
 router.get("/search/categories", eventController.searchForCategories);
 router.get("/search/events", eventController.searchForEvents);
+router.get("/search/events/web", passport.authenticate('jwt', { session: false }), eventController.searchForEventsByTextWeb);
 
 // Getters
 router.get("/entities", passport.authenticate('jwt', { session: false }), entityController.getEntitiesWithPermission);
@@ -86,7 +101,8 @@ router.get("/events/favorites", eventController.listFavorites);
 router.get("/events/:event_id", eventController.getEventInfo);
 
 // List events
-router.get("/app", eventController.listForUsers);
-router.get("/web", passport.authenticate('jwt', { session: false }), eventController.listForWeb);
+router.get("/web", passport.authenticate('jwt', { session: false }), eventController.getEventsWeb);
 
+router.get("/user/notifications/unseen", userController.getUnseenNotifications);
+router.get("/user/notifications/all", userController.getNotifications);
 module.exports = router;

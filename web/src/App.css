@@ -1,5 +1,10 @@
+html {
+  font-family: 'Open Sans', sans-serif;
+}
+
 body {
-  background-color: #dadadc;
+  background-color: #7c8589;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .App {
@@ -18,14 +23,23 @@ body {
 }
 
 button.primary_button {
-  background-color: #32a794;
-  border-color: #32a794;
+  border-color: #a5e091;
+  background-color: #a5e091;
+  color:#4a4a4a;
 }
 
-button.primary_button:hover {
-  background-color: #3ed8bf;
-  border-color: #3ed8bf;
+button.primary_button.btn.btn-primary:hover {
+  border-color: #5aa83f;
+  background-color: #5aa83f;
+  color:white;
 }
+
+button.primary_button.btn.btn-primary:active {
+  border-color: #5aa83f;
+  background-color: #5aa83f;
+  color:white;
+}
+
 div.dropdowns-search {
   text-align: left;
 }

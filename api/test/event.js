@@ -227,23 +227,6 @@ describe('List Events', () => {
         }).catch(() => done());
     });
 
-
-    describe('/GET List Events App', () => {
-        it('it should list all events on the App', (done) => {
-
-            chai.request(app)
-                .get('/app')
-                .set('Authorization', '12345') // Token
-                .query({ page: 0, limit: 10 })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(1);
-                    done();
-                });
-        });
-    });
-
     describe('/GET List Events Web', () => {
         it('it should list all events on the web', (done) => {
 
@@ -454,7 +437,6 @@ describe('Filter events', () => {
         it('It should filter events by categories', (done) => {
             chai.request(app)
                 .get('/events')
-                .set('Authorization', '12345') // Token
                 .query({ categories: 1, user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -469,7 +451,6 @@ describe('Filter events', () => {
         it('It should filter events by entities', (done) => {
             chai.request(app)
                 .get('/events')
-                .set('Authorization', '12345') // Token
                 .query({ entities: [2, 3], user_id: 1, token: 'token' })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -503,6 +484,18 @@ describe('Filter events', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Filter events with wrong token', () => {
+        it('It should not return events', (done) => {
+            chai.request(app)
+                .get('/events')
+                .query({ user_id: 1, token: 'wrong_token' })
+                .end((err, res) => {
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -649,7 +642,6 @@ describe('Search', () => {
         it('It should show entities by search pattern', (done) => {
             chai.request(app)
                 .get('/search/entities/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -666,7 +658,6 @@ describe('Search', () => {
         it('It should show categories by search pattern', (done) => {
             chai.request(app)
                 .get('/search/categories/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "tes" })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -683,17 +674,15 @@ describe('Search', () => {
         it('It should show events by search pattern', (done) => {
             chai.request(app)
                 .get('/search/events/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "conf", user_id: 1, token: '123', lang: 'PT' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(4);
-                    chai.expect(res.body).to.contain.something.like({title: 'Test Conference 2', search_by: 'title'});
-                    chai.expect(res.body).to.contain.something.like({title: 'Test Class 4', search_by: 'location'});
-                    chai.expect(res.body).to.contain.something.like({title: 'Evento 1', search_by: 'description'});
-                    chai.expect(res.body).to.contain.something.like({title: 'Another Conference 3', search_by: 'title'});
-                    // TODO: should add category test.
+                    chai.expect(res.body).to.contain.something.like({ title: 'Test Conference 2', search_by: 'title' });
+                    chai.expect(res.body).to.contain.something.like({ title: 'Test Class 4', search_by: 'location' });
+                    chai.expect(res.body).to.contain.something.like({ title: 'Evento 1', search_by: 'description' });
+                    chai.expect(res.body).to.contain.something.like({ title: 'Another Conference 3', search_by: 'title' });
                     done();
                 });
         });
@@ -703,15 +692,25 @@ describe('Search', () => {
         it('It should show events by search pattern in English', (done) => {
             chai.request(app)
                 .get('/search/events/')
-                .set('Authorization', '12345') // Token
                 .query({ text: "Event", user_id: 1, token: '123', lang: 'EN' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.length.should.be.eql(2);
-                    chai.expect(res.body).to.contain.something.like({title_english: 'Global Event 6', search_by: 'title_english'});
-                    chai.expect(res.body).to.contain.something.like({title_english: 'Event 1', search_by: 'title_english'});
-                    // TODO: should add category test.
+                    chai.expect(res.body).to.contain.something.like({ title_english: 'Global Event 6', search_by: 'title' });
+                    chai.expect(res.body).to.contain.something.like({ title_english: 'Event 1', search_by: 'title' });
+                    done();
+                });
+        });
+    });
+
+    describe('/GET Search for events', () => {
+        it('It should not show events with a wrong token', (done) => {
+            chai.request(app)
+                .get('/search/events/')
+                .query({ text: "conf", user_id: 1, token: '321', lang: 'PT' })
+                .end((err, res) => {
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -783,7 +782,6 @@ describe('Information of an event', () => {
 describe('List and filter favorited events', () => {
 
     before((done) => {
-        // This.enableTimeouts(false);
         models.sequelize.sync().then(() => {
             Common.destroyDatabase();
             // Create entities
@@ -910,14 +908,20 @@ describe('List and filter favorited events', () => {
                                         location: 'Anywhere'
                                     }
                                 ]).then((events) => {
-                                    events[0].addCategory(categories[0]);
-                                    events[1].addCategory(categories[0]);
-                                    user.setFavorite(events[0]);
-                                    user.setFavorite(events[1]);
-                                    user.setFavorite(events[2]);
-                                    user.setFavorite(events[3]);
-                                })
-                                    .then(() => done());
+                                    events[0].addCategory(categories[0]).then(function() {
+                                        events[1].addCategory(categories[0]).then(function() {
+                                            user.addFavorite(events[0]).then(function() {
+                                                user.addFavorite(events[1]).then(function() {
+                                                    user.addFavorite(events[2]).then(function() {
+                                                        user.addFavorite(events[3]).then(function() {
+                                                            done();
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
                             }))));
         });
     });
@@ -925,8 +929,7 @@ describe('List and filter favorited events', () => {
     describe('/GET List all favorites', () => {
         it('It should list all favorited events ', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -939,8 +942,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by categories', () => {
         it('It should filter favorited events by categories', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ categories: 1 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -954,8 +956,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by entities', () => {
         it('It should filter favorited events by entities', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ entities: [1, 2, 3] })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -969,8 +970,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events by categories and entities', () => {
         it('It should filter favorited events by categories and entities', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ categories: 1, entities: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -984,8 +984,7 @@ describe('List and filter favorited events', () => {
     describe('/GET Filter events with pagination', () => {
         it('It should filter favorited events using pagination', (done) => {
             chai.request(app)
-                .get('/events/favorites?user_id=1')
-                .set('Authorization', '12345') // Token
+                .get('/events/favorites?user_id=1&token=123')
                 .query({ offset: 0, limit: 2 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -993,6 +992,396 @@ describe('List and filter favorited events', () => {
                     res.body.length.should.be.eql(2);
                     done();
                 });
+        });
+    });
+
+    describe('/GET List all favorites unauthorized', () => {
+        it('It should not list events if user token is wrong', (done) => {
+            chai.request(app)
+                .get('/events/favorites?user_id=1&token=321')
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+    });
+});
+
+describe('Search events by Text', () => {
+
+    before((done) => {
+        Common.destroyDatabase();
+        // Create entities
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity 1',
+                initials: 'TEST1'
+            }
+        ]).then(() =>
+            // Create categories
+            Category.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Category 1',
+                    name_english: 'Test Category 1'
+                }
+            ]).then(() => { return Entity.findAll(); })
+                .then((entities) =>
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator',
+                        token: 'token'
+                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
+                        .then(() => {
+                            let start_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            let start_date2 = new Date();
+                            start_date2.setDate(start_date2.getDate() + 2);
+                            let start_date3 = new Date();
+                            start_date3.setDate(start_date3.getDate() + 3);
+                            // Create events
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Test 1",
+                                    title_english: "Test 1",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test 2",
+                                    title_english: "Test 2",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date2,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 3,
+                                    title: "Event 3",
+                                    title_english: "Event 3",
+                                    description: "It is a event, without content",
+                                    description_english: "It is a event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 4,
+                                    title: "Test 4",
+                                    title_english: "Test 4",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date3,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 5,
+                                    title: "Event 5",
+                                    title_english: "Event 5",
+                                    description: "It is a event, without content",
+                                    description_english: "It is a event, without content",
+                                    start_date: start_date2,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }
+                            ])
+                                .then(() => done())
+                                .catch(() => done());
+                        })
+                )
+        );
+    });
+
+    describe('/GET Search Event by Text', () => {
+
+        it('it should get event with pagination - Event', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Event", page: 0, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(2);
+                    res.body.count.should.be.eql(5);
+                    res.body.rows[0].title.should.be.eql("Event 3");
+                    res.body.rows[1].title.should.be.eql("Event 5");
+                    done();
+                });
+        });
+
+        it('it should get event with pagination - Test', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Test", page: 2, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(1);
+                    res.body.count.should.be.eql(3);
+                    res.body.rows[0].title.should.be.eql("Test 4");
+                    done();
+                });
+        });
+
+        it('it should get event with pagination - No results', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "asdbfasdbf", page: 0, limit: 2 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(0);
+                    done();
+                });
+        });
+
+        it('it should get event with pagination - Big page ', (done) => {
+
+            chai.request(app)
+                .get('/search/events/web')
+                .set('Authorization', '12345') // Token
+                .query({ text: "Test", page: 10, limit: 10 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("object");
+                    res.body.should.have.property("count");
+                    res.body.should.have.property("rows");
+                    res.body.rows.length.should.be.eql(0);
+                    done();
+                });
+        });
+    });
+
+});
+
+describe('Edit events', () => {
+
+    before((done) => {
+        Common.destroyDatabase();
+        // Create entities
+        Entity.bulkCreate([
+            {
+                id: 1,
+                name: 'Test Entity 1',
+                initials: 'TEST1'
+            }
+        ]).then(() =>
+            // Create categories
+            Category.bulkCreate([
+                {
+                    id: 1,
+                    name: 'Test Category 1',
+                    name_english: 'Test Category 1'
+                }
+            ]).then(() => { return Entity.findAll(); })
+                .then((entities) =>
+                    // Create user
+                    User.create({
+                        id: 1,
+                        username: 'TestUser',
+                        name: 'Test User',
+                        password: 'nasdasdasd',
+                        email: 'email@email.com',
+                        type: 'moderator',
+                        token: 'token'
+                    }).then((user) => user.setEntities(entities)) // Give full permissions to user
+                        .then(() => {
+                            let start_date = new Date();
+                            start_date.setDate(start_date.getDate() + 1);
+                            // Create events
+                            EventModel.bulkCreate([
+                                {
+                                    id: 1,
+                                    title: "Test 1",
+                                    title_english: "Test 1",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                },
+                                {
+                                    id: 2,
+                                    title: "Test 2",
+                                    title_english: "Test 2",
+                                    description: "It is a test event, without content",
+                                    description_english: "It is a test event, without content",
+                                    start_date: start_date,
+                                    end_date: null,
+                                    price: 10,
+                                    user_id: 1,
+                                    entity_id: 1
+                                }
+                            ])
+                                // Add category 1 to event 1
+                                .then(() => Category.findByPrimary(1)
+                                    .then((category) => EventModel.findByPrimary(1)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                // Add category 1 to event 2
+                                .then(() => Category.findByPrimary(1)
+                                    .then((category) => EventModel.findByPrimary(2)
+                                        .then((event) => event.addCategory(category)
+                                        )))
+                                .then(() => done());
+                        })
+                )
+        );
+    });
+
+    describe('/POST Edit Event', () => {
+        it('it should edit an event', (done) => {
+
+            let start_date = new Date();
+            start_date.setDate(start_date.getDate() + 1);
+            let newEvent = {
+                title: "New Test Event",
+                title_english: "Test Event",
+                description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
+                start_date: start_date.toISOString(),
+                end_date: null,
+                location: "Random Location",
+                price: 10,
+                user_id: 1,
+                entity_id: 1,
+                categories: '1'
+            };
+
+            EventModel.findByPrimary(1)
+                .then((oldEvent) => {
+                    chai.request(app)
+                        .put('/events/1')
+                        .set('Authorization', '12345') // Token
+                        .send(newEvent)
+                        .end((err, res) => {
+                            res.should.have.status(201);
+                            res.body.title.should.be.eql("New Test Event");
+                            res.body.title.should.not.be.eql(oldEvent.dataValues.title);
+                            res.body.title_english.should.be.eql("Test Event");
+                            res.body.title_english.should.not.be.eql(oldEvent.dataValues.title_english);
+                            res.body.should.have.property('title');
+                            done();
+                        });
+                });
+        });
+    });
+
+    describe('/POST Edit Event With a new File', () => {
+
+        it('it should save the new file in directory', (done) => {
+
+            EventModel.findByPrimary(2)
+                .then((oldEvent) => {
+                    let start_date = new Date();
+                    start_date.setDate(start_date.getDate() + 1);
+                    let end_date = new Date();
+                    end_date.setDate(start_date.getDate() + 2);
+                    let event = {
+                        title: "New Test Event 2",
+                        title_english: "Test Event",
+                        description: "It is a test event, without content",
+                        description_english: "It is a test event, without content",
+                        start_date: start_date.toISOString(),
+                        end_date: end_date.toISOString(),
+                        location: "Random Location",
+                        price: 10,
+                        user_id: 1,
+                        entity_id: 1,
+                        categories: '1'
+                    };
+                    chai.request(app)
+                        .put('/events/1')
+                        .set('Authorization', '12345') // Token
+                        .field("title", event.title)
+                        .field("title_english", event.title_english)
+                        .field("description", event.description)
+                        .field("description_english", event.description_english)
+                        .field("start_date", event.start_date)
+                        .field("end_date", event.end_date)
+                        .field("location", event.location)
+                        .field("price", event.price)
+                        .field("user_id", event.user_id)
+                        .field("entity_id", event.entity_id)
+                        .field("categories", event.categories)
+                        .attach('image', './test/assets/test_image.jpg', 'image')
+                        .end((err, res) => {
+                            res.should.have.status(201);
+                            res.body.title.should.be.eql("New Test Event 2");
+                            res.body.title.should.not.be.eql(oldEvent.dataValues.title);
+                            res.body.should.have.property('title');
+                            done();
+                        });
+                });
+        });
+    });
+
+    describe('/POST Edit Event Failure', () => {
+        it('it should fail to edit an event because there is no event with said id', (done) => {
+
+            let start_date = new Date();
+            start_date.setDate(start_date.getDate() + 1);
+            let newEvent = {
+                title: "New Test Event",
+                title_english: "Test Event",
+                description: "It is a test event, without content",
+                description_english: "It is a test event, without content",
+                start_date: start_date.toISOString(),
+                end_date: null,
+                location: "Random Location",
+                price: 10,
+                user_id: 1,
+                entity_id: 1,
+                categories: '1'
+            };
+
+            chai.request(app)
+                .put('/events/10')
+                .set('Authorization', '12345') // Token
+                .send(newEvent)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.text.should.be.eql("There was a problem editing this event. Please try again later.");
+                    done();
+                });
+
         });
     });
 });

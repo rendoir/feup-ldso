@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Custom Header renders correctly 1`] = `
+exports[`Custom Header renders correctly in english 1`] = `
 <View
   style={
     Array [
@@ -16,9 +16,10 @@ exports[`Custom Header renders correctly 1`] = `
       Array [
         Object {},
         Object {
-          "backgroundColor": "#002040",
+          "backgroundColor": "#455A64",
           "flexDirection": "row",
           "height": "100%",
+          "justifyContent": "space-between",
         },
       ]
     }
@@ -28,7 +29,9 @@ exports[`Custom Header renders correctly 1`] = `
         Array [
           Object {},
           Object {
-            "flex": 2,
+            "alignItems": "flex-start",
+            "alignSelf": "center",
+            "flex": 1,
             "height": "100%",
           },
         ]
@@ -38,17 +41,268 @@ exports[`Custom Header renders correctly 1`] = `
         source={1}
         style={
           Object {
-            "height": "100%",
-            "marginHorizontal": "1%",
-            "marginVertical": "0%",
+            "height": "85%",
+            "marginLeft": "2%",
+            "marginVertical": "1%",
             "resizeMode": "contain",
-            "width": "80%",
+            "width": "50%",
           }
         }
       />
     </View>
     <View
-      style={Object {}}
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "center",
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "white",
+              "marginHorizontal": "1%",
+              "paddingRight": "1%",
+              "textAlign": "center",
+            },
+          ]
+        }
+        uppercase={false}
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignItems": "flex-end",
+            "alignSelf": "center",
+            "flex": 1,
+            "marginRight": "2%",
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderRadius": 18,
+              "flexDirection": "row",
+              "height": 36,
+              "padding": 3,
+              "width": 72,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "flex-start",
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 9,
+                }
+              }
+            >
+              EN
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(229, 225, 224, 1)",
+                "borderRadius": 15,
+                "height": 30,
+                "justifyContent": "center",
+                "position": "absolute",
+                "transform": Array [
+                  Object {
+                    "translateX": 6,
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          >
+            <View>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Object {
+                    "fontSize": 9,
+                  }
+                }
+              >
+                EN
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 9,
+                }
+              }
+            >
+              PT
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Custom Header renders correctly in portuguese 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "height": "6%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "backgroundColor": "#455A64",
+          "flexDirection": "row",
+          "height": "100%",
+          "justifyContent": "space-between",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignItems": "flex-start",
+            "alignSelf": "center",
+            "flex": 1,
+            "height": "100%",
+          },
+        ]
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": "85%",
+            "marginLeft": "2%",
+            "marginVertical": "1%",
+            "resizeMode": "contain",
+            "width": "50%",
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "center",
+            "flex": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+            },
+            Object {
+              "color": "white",
+              "marginHorizontal": "1%",
+              "paddingRight": "1%",
+              "textAlign": "center",
+            },
+          ]
+        }
+        uppercase={false}
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignItems": "flex-end",
+            "alignSelf": "center",
+            "flex": 1,
+            "marginRight": "2%",
+          },
+        ]
+      }
     >
       <View
         accessible={true}
@@ -157,39 +411,6 @@ exports[`Custom Header renders correctly 1`] = `
           </View>
         </View>
       </View>
-    </View>
-    <View
-      style={
-        Array [
-          Object {},
-          Object {
-            "alignSelf": "center",
-            "flex": 2,
-          },
-        ]
-      }
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "color": "#000",
-              "fontFamily": "System",
-              "fontSize": 16,
-            },
-            Object {
-              "color": "white",
-              "marginHorizontal": "1%",
-              "paddingRight": "1%",
-              "textAlign": "right",
-            },
-          ]
-        }
-        uppercase={false}
-      />
     </View>
   </View>
 </View>

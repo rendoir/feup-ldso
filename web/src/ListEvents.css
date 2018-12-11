@@ -1,5 +1,10 @@
 #list_events {
     margin: 2em 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#list_events h1 {
+    color: white;
 }
 
 div#list_events div.row:first-of-type {
@@ -18,14 +23,31 @@ input[type="text"].form-control#search-text-input{
     vertical-align: middle;
 }
 
+button#create-event {
+    background-color: #455a64;
+    border-color: #455a64;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+}
+
 button.btn-search {
     display: inline;
     background-color: inherit;
     color: black;
     border-color: #6c757d;
-    margin-right: 2em;
+    margin-right: 1em;
 }
 
 div.row {
     width: 100%;
+}
+
+div.dropdowns-search > * {
+    display: inline-block;
+    width: 50%;
+}
+
+.btn.btn-link {
+    color: #4a4a4a;
 }

@@ -1,0 +1,375 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventPageEdit Render renders form with one entity 1`] = `
+<div
+  className="loading"
+>
+  <div
+    className="loader"
+  />
+</div>
+`;
+
+exports[`renders elements 1`] = `
+<nav
+  className="navbar navbar-expand navbar-light"
+  id="navbar-custom"
+>
+  <a
+    aria-current={null}
+    className="navbar-brand"
+    href="/events"
+    onClick={[Function]}
+  >
+    <img
+      className=""
+      id="logo"
+      src="/logotipo_agenda.png"
+    />
+  </a>
+  <div
+    aria-expanded={null}
+    className="navbar-collapse collapse"
+    id="responsive-navbar-nav"
+  >
+    <div
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    />
+    <div
+      className="navbar-nav"
+      onKeyDown={[Function]}
+    >
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        id="logout-button"
+        onClick={[Function]}
+        type="button"
+      />
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`renders elements 2`] = `
+<div
+  id="list_events"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-2 col-sm-4"
+    />
+    <div
+      className="col-md-8 col-sm-5"
+    >
+      <div
+        className="fade alert show"
+        role="alert"
+      >
+        
+      </div>
+    </div>
+    <div
+      className="col-md-2 col-sm-4"
+    />
+  </div>
+  <h1>
+    Eventos
+  </h1>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-2"
+    />
+    <div
+      className="col-sm-1"
+    >
+      <a
+        href="/create"
+        onClick={[Function]}
+      >
+        <button
+          className="primary_button btn btn-primary"
+          disabled={false}
+          id="create-event"
+          type="button"
+        >
+          Criar Evento
+        </button>
+      </a>
+    </div>
+    <div
+      className="col-sm-3"
+    >
+      <div
+        className="search-bar form-group"
+      >
+        <input
+          className="form-control"
+          id="search-text-input"
+          onChange={[Function]}
+          placeholder="Procurar Evento por título/descrição"
+          type="text"
+          value=""
+        />
+        <button
+          className="btn-search btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+    </div>
+    <div
+      className="dropdowns-search col-sm-4"
+    >
+      <div
+        className="css-10nd86i"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="css-vj8t7z categories__control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className="css-1hwfws3 categories__value-container categories__value-container--is-multi"
+          >
+            <div
+              className="css-1492t68 categories__placeholder"
+            >
+              Categorias
+            </div>
+            <div
+              className="css-1g6gooi"
+            >
+              <div
+                className="categories__input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-autocomplete="list"
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  disabled={false}
+                  id="react-select-2-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  spellCheck="false"
+                  style={
+                    Object {
+                      "background": 0,
+                      "border": 0,
+                      "boxSizing": "content-box",
+                      "color": "inherit",
+                      "fontSize": "inherit",
+                      "opacity": 1,
+                      "outline": 0,
+                      "padding": 0,
+                      "width": "1px",
+                    }
+                  }
+                  tabIndex="0"
+                  type="text"
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-1wy0on6 categories__indicators"
+          >
+            <span
+              className="css-d8oujb categories__indicator-separator"
+            />
+            <div
+              aria-hidden="true"
+              className="css-1ep9fjw categories__indicator categories__dropdown-indicator"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-19bqh2r"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-10nd86i"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="css-vj8t7z entities__control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className="css-1hwfws3 entities__value-container entities__value-container--is-multi"
+          >
+            <div
+              className="css-1492t68 entities__placeholder"
+            >
+              Entidades
+            </div>
+            <div
+              className="css-1g6gooi"
+            >
+              <div
+                className="entities__input"
+                style={
+                  Object {
+                    "display": "inline-block",
+                  }
+                }
+              >
+                <input
+                  aria-autocomplete="list"
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  disabled={false}
+                  id="react-select-3-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  spellCheck="false"
+                  style={
+                    Object {
+                      "background": 0,
+                      "border": 0,
+                      "boxSizing": "content-box",
+                      "color": "inherit",
+                      "fontSize": "inherit",
+                      "opacity": 1,
+                      "outline": 0,
+                      "padding": 0,
+                      "width": "1px",
+                    }
+                  }
+                  tabIndex="0"
+                  type="text"
+                  value=""
+                />
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "scroll",
+                      "position": "absolute",
+                      "top": 0,
+                      "visibility": "hidden",
+                      "whiteSpace": "pre",
+                    }
+                  }
+                >
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-1wy0on6 entities__indicators"
+          >
+            <span
+              className="css-d8oujb entities__indicator-separator"
+            />
+            <div
+              aria-hidden="true"
+              className="css-1ep9fjw entities__indicator entities__dropdown-indicator"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-19bqh2r"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-sm-2"
+    />
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      aria-label="Pagination Navigation"
+      className="ui pagination pointing secondary menu"
+      onClick={[Function]}
+      role="navigation"
+    >
+      <a
+        aria-current={false}
+        aria-label="Previous item"
+        className="item"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex={0}
+        type="prevItem"
+        value={1}
+      >
+        ⟨
+      </a>
+      <a
+        aria-current={false}
+        aria-label="Next item"
+        className="item"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex={0}
+        type="nextItem"
+        value={0}
+      >
+        ⟩
+      </a>
+    </div>
+  </div>
+</div>
+`;

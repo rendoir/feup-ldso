@@ -56,19 +56,19 @@ export default class FavoriteEvent extends React.Component {
         return (
             <Card onPress={this.props.onPress} style={{ backgroundColor: 'white', height: 125 }}>
 
-                <View style={{ flexDirection: 'row', height: '100%' }}>
-                    <View style={{ flex: 2 }}>
+                <View style={styles.mainView}>
+                    <View style={styles.imageView}>
                         <Image source={this.state.imageLoaded ? { uri: 'http://' + global.api + ':3030/' + this.props.id } : require('../assets/images/default.png')}
                             style={styles.image}
                             onError={this.ImageLoadingError.bind(this)}
                             onPress={this.props.onPress} />
                     </View>
-                    <View style={{ flex: 5, borderLeftColor: '#D05722', borderLeftWidth: 5, justifyContent: 'space-between', paddingHorizontal: '2%', paddingBottom: '2%' }}>
-                        <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 20, fontWeight: 'bold' }} numberOfLines={1} onPress={this.props.onPress}>{this.getTitle()}</Text>
-                        <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 18 }} numberOfLines={1} onPress={this.props.onPress}>{this.getDateString()}</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
-                            <Text style={{ color: 'black', fontFamily: 'OpenSans-Regular', fontSize: 18 }} numberOfLines={1} onPress={this.props.onPress}>{global.dictionary["PRICE"][this.props.language]}: {this.getPrice()}</Text>
-                            <Icon className="fave_icon" style={{ fontSize: 25, alignSelf: 'center', color: '#FF5722' }} type='FontAwesome' name={this.props.is_favorite ? 'heart' : 'heart-o'} onPress={this.onFavoriteCall} />
+                    <View style={styles.infoView}>
+                        <Text style={styles.title} numberOfLines={1} onPress={this.props.onPress}>{this.getTitle()}</Text>
+                        <Text style={styles.date} numberOfLines={1} onPress={this.props.onPress}>{this.getDateString()}</Text>
+                        <View style={styles.iconView} >
+                            <Text style={styles.price} numberOfLines={1} onPress={this.props.onPress}>{global.dictionary["PRICE"][this.props.language]}: {this.getPrice()}</Text>
+                            <Icon className="fave_icon" style={styles.faveIcon} type='FontAwesome' name={this.props.is_favorite ? 'heart' : 'heart-o'} onPress={this.onFavoriteCall} />
                         </View>
                     </View>
                 </View>
@@ -81,5 +81,45 @@ const styles = StyleSheet.create({
     image: {
         width: null,
         flex: 1
+    },
+    imageView: {
+        flex: 2
+    },
+    mainView: {
+        flexDirection: 'row',
+        height: '100%'
+    },
+    infoView: {
+        flex: 5,
+        borderLeftColor: '#D05722',
+        borderLeftWidth: 5,
+        justifyContent: 'space-between',
+        paddingHorizontal: '2%',
+        paddingBottom: '2%'
+    },
+    title: {
+        color: 'black',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    date: {
+        color: 'black',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18
+    },
+    iconView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    price: {
+        color: 'black',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18
+    },
+    faveIcon: {
+        fontSize: 25,
+        alignSelf: 'center',
+        color: '#FF5722'
     }
 });
