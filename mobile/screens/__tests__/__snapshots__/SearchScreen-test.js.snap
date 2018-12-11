@@ -184,11 +184,8 @@ ShallowWrapper {
                     style={
                       Object {
                         "backgroundColor": "#7C8589",
+                        "borderBottomWidth": 2,
                         "borderColor": "white",
-                        "borderLeftWidth": 0,
-                        "borderRightWidth": 0,
-                        "borderTopWidth": 0,
-                        "borderWidth": 2,
                         "color": "white",
                         "fontSize": 20,
                         "height": 30,
@@ -200,8 +197,11 @@ ShallowWrapper {
                     name="search"
                     style={
                       Object {
+                        "borderBottomWidth": 1,
+                        "borderColor": "white",
                         "color": "white",
                         "fontSize": 20,
+                        "height": 30,
                       }
                     }
                     type="FontAwesome"
@@ -351,11 +351,8 @@ ShallowWrapper {
                       style={
                         Object {
                           "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
                           "borderColor": "white",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
                           "color": "white",
                           "fontSize": 20,
                           "height": 30,
@@ -367,8 +364,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
                           "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -524,11 +524,8 @@ ShallowWrapper {
                       style={
                         Object {
                           "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
                           "borderColor": "white",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
                           "color": "white",
                           "fontSize": 20,
                           "height": 30,
@@ -540,8 +537,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
                           "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -608,11 +608,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -624,8 +621,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -702,11 +702,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -718,8 +715,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -743,11 +743,8 @@ ShallowWrapper {
                           style={
                             Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -759,8 +756,11 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
@@ -784,11 +784,8 @@ ShallowWrapper {
                           "onChangeText": [Function],
                           "style": Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -807,8 +804,11 @@ ShallowWrapper {
                         "props": Object {
                           "name": "search",
                           "style": Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           },
                           "type": "FontAwesome",
                           "virtual": undefined,
@@ -1123,11 +1123,8 @@ ShallowWrapper {
                       style={
                         Object {
                           "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
                           "borderColor": "white",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
                           "color": "white",
                           "fontSize": 20,
                           "height": 30,
@@ -1139,8 +1136,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
                           "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -1290,11 +1290,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -1306,8 +1303,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -1463,11 +1463,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -1479,8 +1476,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -1547,11 +1547,8 @@ ShallowWrapper {
                           style={
                             Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -1563,8 +1560,11 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
@@ -1641,11 +1641,8 @@ ShallowWrapper {
                           style={
                             Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -1657,8 +1654,11 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
@@ -1682,11 +1682,8 @@ ShallowWrapper {
                             style={
                               Object {
                                 "backgroundColor": "#7C8589",
+                                "borderBottomWidth": 2,
                                 "borderColor": "white",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
                                 "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
@@ -1698,8 +1695,11 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "borderBottomWidth": 1,
+                                "borderColor": "white",
                                 "color": "white",
                                 "fontSize": 20,
+                                "height": 30,
                               }
                             }
                             type="FontAwesome"
@@ -1723,11 +1723,8 @@ ShallowWrapper {
                             "onChangeText": [Function],
                             "style": Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -1746,8 +1743,11 @@ ShallowWrapper {
                           "props": Object {
                             "name": "search",
                             "style": Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             },
                             "type": "FontAwesome",
                             "virtual": undefined,
@@ -2105,11 +2105,8 @@ ShallowWrapper {
                     style={
                       Object {
                         "backgroundColor": "#7C8589",
+                        "borderBottomWidth": 2,
                         "borderColor": "white",
-                        "borderLeftWidth": 0,
-                        "borderRightWidth": 0,
-                        "borderTopWidth": 0,
-                        "borderWidth": 2,
                         "color": "white",
                         "fontSize": 20,
                         "height": 30,
@@ -2121,8 +2118,11 @@ ShallowWrapper {
                     name="search"
                     style={
                       Object {
+                        "borderBottomWidth": 1,
+                        "borderColor": "white",
                         "color": "white",
                         "fontSize": 20,
+                        "height": 30,
                       }
                     }
                     type="FontAwesome"
@@ -2272,11 +2272,8 @@ ShallowWrapper {
                       style={
                         Object {
                           "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
                           "borderColor": "white",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
                           "color": "white",
                           "fontSize": 20,
                           "height": 30,
@@ -2288,8 +2285,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
                           "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -2445,11 +2445,8 @@ ShallowWrapper {
                       style={
                         Object {
                           "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
                           "borderColor": "white",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
                           "color": "white",
                           "fontSize": 20,
                           "height": 30,
@@ -2461,8 +2458,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
                           "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -2529,11 +2529,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -2545,8 +2542,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -2623,11 +2623,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -2639,8 +2636,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -2664,11 +2664,8 @@ ShallowWrapper {
                           style={
                             Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -2680,8 +2677,11 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
@@ -2705,11 +2705,8 @@ ShallowWrapper {
                           "onChangeText": [Function],
                           "style": Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -2728,8 +2725,11 @@ ShallowWrapper {
                         "props": Object {
                           "name": "search",
                           "style": Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           },
                           "type": "FontAwesome",
                           "virtual": undefined,
@@ -3044,11 +3044,8 @@ ShallowWrapper {
                       style={
                         Object {
                           "backgroundColor": "#7C8589",
+                          "borderBottomWidth": 2,
                           "borderColor": "white",
-                          "borderLeftWidth": 0,
-                          "borderRightWidth": 0,
-                          "borderTopWidth": 0,
-                          "borderWidth": 2,
                           "color": "white",
                           "fontSize": 20,
                           "height": 30,
@@ -3060,8 +3057,11 @@ ShallowWrapper {
                       name="search"
                       style={
                         Object {
+                          "borderBottomWidth": 1,
+                          "borderColor": "white",
                           "color": "white",
                           "fontSize": 20,
+                          "height": 30,
                         }
                       }
                       type="FontAwesome"
@@ -3211,11 +3211,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -3227,8 +3224,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -3384,11 +3384,8 @@ ShallowWrapper {
                         style={
                           Object {
                             "backgroundColor": "#7C8589",
+                            "borderBottomWidth": 2,
                             "borderColor": "white",
-                            "borderLeftWidth": 0,
-                            "borderRightWidth": 0,
-                            "borderTopWidth": 0,
-                            "borderWidth": 2,
                             "color": "white",
                             "fontSize": 20,
                             "height": 30,
@@ -3400,8 +3397,11 @@ ShallowWrapper {
                         name="search"
                         style={
                           Object {
+                            "borderBottomWidth": 1,
+                            "borderColor": "white",
                             "color": "white",
                             "fontSize": 20,
+                            "height": 30,
                           }
                         }
                         type="FontAwesome"
@@ -3468,11 +3468,8 @@ ShallowWrapper {
                           style={
                             Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -3484,8 +3481,11 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
@@ -3562,11 +3562,8 @@ ShallowWrapper {
                           style={
                             Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -3578,8 +3575,11 @@ ShallowWrapper {
                           name="search"
                           style={
                             Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             }
                           }
                           type="FontAwesome"
@@ -3603,11 +3603,8 @@ ShallowWrapper {
                             style={
                               Object {
                                 "backgroundColor": "#7C8589",
+                                "borderBottomWidth": 2,
                                 "borderColor": "white",
-                                "borderLeftWidth": 0,
-                                "borderRightWidth": 0,
-                                "borderTopWidth": 0,
-                                "borderWidth": 2,
                                 "color": "white",
                                 "fontSize": 20,
                                 "height": 30,
@@ -3619,8 +3616,11 @@ ShallowWrapper {
                             name="search"
                             style={
                               Object {
+                                "borderBottomWidth": 1,
+                                "borderColor": "white",
                                 "color": "white",
                                 "fontSize": 20,
+                                "height": 30,
                               }
                             }
                             type="FontAwesome"
@@ -3644,11 +3644,8 @@ ShallowWrapper {
                             "onChangeText": [Function],
                             "style": Object {
                               "backgroundColor": "#7C8589",
+                              "borderBottomWidth": 2,
                               "borderColor": "white",
-                              "borderLeftWidth": 0,
-                              "borderRightWidth": 0,
-                              "borderTopWidth": 0,
-                              "borderWidth": 2,
                               "color": "white",
                               "fontSize": 20,
                               "height": 30,
@@ -3667,8 +3664,11 @@ ShallowWrapper {
                           "props": Object {
                             "name": "search",
                             "style": Object {
+                              "borderBottomWidth": 1,
+                              "borderColor": "white",
                               "color": "white",
                               "fontSize": 20,
+                              "height": 30,
                             },
                             "type": "FontAwesome",
                             "virtual": undefined,

@@ -134,10 +134,17 @@ export default class AgendaScreen extends React.Component {
     }
 
     getEntity(){
-        if (this.props.screenProps.language === 'PT')
-            return "Entidade promotora: " + this.state.event.entity.initials;
-        else
-            return "Promoting entity: " + this.state.event.entity.initials;
+        if (this.props.screenProps.language === 'PT'){
+            if (this.state.event.entity == null)
+                return "Entidade promotora: " + this.state.event.initials;
+            else
+                return "Entidade promotora: " + this.state.event.entity.initials;
+        } else {
+            if (this.state.event.entity == null)
+                return "Promoting entity: " + this.state.event.initials;
+            else
+                return "Promoting entity: " + this.state.event.entity.initials;
+        }
     }
 
     getPrice() {
@@ -194,27 +201,27 @@ export default class AgendaScreen extends React.Component {
 
                     <View style={styles.listView}>
                         <View style={styles.listItemView}>
-                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Icon type='FontAwesome' name='circle' style={styles.dotIcon} />
                             <Text style={styles.simpleText}>{this.getEventDate(this.state.event)}</Text>
                         </View>
 
                         <View style={styles.listItemView}>
-                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Icon type='FontAwesome' name='circle' style={styles.dotIcon} />
                             <Text style={styles.simpleText}>{this.getEventTime(this.state.event)}</Text>
                         </View>
 
                         <View style={styles.listItemView}>
-                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Icon type='FontAwesome' name='circle' style={styles.dotIcon} />
                             <Text style={styles.simpleText}>{this.state.event.location}</Text>
                         </View>
 
                         <View style={styles.listItemView}>
-                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Icon type='FontAwesome' name='circle' style={styles.dotIcon} />
                             <Text style={styles.simpleText}>{global.dictionary["PRICE"][this.props.screenProps.language]}: {this.getPrice()}</Text>
                         </View>
 
                         <View style={styles.listItemView}>
-                            <Icon type='Entypo' name='dot-single' style={styles.dotIcon} />
+                            <Icon type='FontAwesome' name='circle' style={styles.dotIcon} />
                             <Text style={styles.simpleText}>{this.getEntity()}</Text>
                         </View>
 
@@ -242,7 +249,7 @@ const styles = StyleSheet.create({
         paddingLeft: 0
     },
     buttonsView: {
-        marginVertical: '2%',
+        marginVertical: '3%',
         backgroundColor: 'white',
         flexDirection: 'row'
     },
@@ -250,13 +257,14 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 40,
         backgroundColor: 'white',
-        marginHorizontal: '5%'
+        marginHorizontal: '10%'
     },
     buttonText: {
         color: 'black',
         fontFamily: 'OpenSans-Regular',
-        fontSize: 12,
-        flex: 5
+        fontSize: 14,
+        textAlign: 'center',
+        flex: 2
     },
     buttonIcon: {
         flex: 1,
@@ -288,10 +296,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     listView: {
+        paddingTop: '5%',
+        paddingBottom: '2%',
+        paddingLeft: '3%',
         marginHorizontal: '0%',
         backgroundColor: '#7C8589'
     },
     listItemView: {
+        alignItems: 'center',
         flexDirection: 'row',
         marginBottom: '3%'
     },
@@ -305,7 +317,7 @@ const styles = StyleSheet.create({
     },
     dotIcon: {
         flex: 1,
-        fontSize: 40,
+        fontSize: 13,
         color: 'white'
     },
     imageView: {

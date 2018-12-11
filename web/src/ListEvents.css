@@ -3,6 +3,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+#list_events h1 {
+    color: white;
+}
+
 div#list_events div.row:first-of-type {
     margin-top: 2em;
 }

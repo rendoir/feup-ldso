@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     faveIcon: {
         fontSize: 35,
-        flex: 1,
+        flex: 2,
         alignSelf: 'center',
         color: '#FF5722'
     },
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         lineHeight: 30
     },
     badge: {
-        flex: 1,
+        flex: 2,
         backgroundColor: '#455A64',
         margin: '3%',
         height: 68,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     mainView: {
-        flex: 5,
+        flex: 9,
         marginRight: '3%',
         marginVertical: '3%'
     },

@@ -75,7 +75,7 @@ exports[`Event Test renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "#455A64",
-            "flex": 1,
+            "flex": 2,
             "height": 68,
             "margin": "3%",
           },
@@ -142,7 +142,7 @@ exports[`Event Test renders correctly 1`] = `
         Array [
           Object {},
           Object {
-            "flex": 5,
+            "flex": 9,
             "marginRight": "3%",
             "marginVertical": "3%",
           },
@@ -308,7 +308,7 @@ exports[`Event Test renders correctly in english 1`] = `
           Object {
             "alignItems": "center",
             "backgroundColor": "#455A64",
-            "flex": 1,
+            "flex": 2,
             "height": 68,
             "margin": "3%",
           },
@@ -375,7 +375,7 @@ exports[`Event Test renders correctly in english 1`] = `
         Array [
           Object {},
           Object {
-            "flex": 5,
+            "flex": 9,
             "marginRight": "3%",
             "marginVertical": "3%",
           },
