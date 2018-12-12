@@ -42,7 +42,16 @@ run the emulator.
 
 ## Running the tests
 
-To run the tests, open a new terminal inside the _api_ folder and run command `npm test`
+To run the tests: 
+
+* Inside the _api_ folder, run command `npm test`
+* Inside the _web__folder, run command `npm test`
+* Inside the _mobile_folder, run command `npm test -- -u`
+
+## Running Linter
+
+To run lint, run command `npm run lint`.
+
 
 ### Test Examples
 
@@ -64,7 +73,7 @@ To run the tests, open a new terminal inside the _api_ folder and run command `n
 
 ## Mobile app APK
 
-* You can download the APK to install the app here: [APK](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40dannysoares/Acontece_na_UPorto-ceefef8ff264448dad9690f844eba351-signed.apk)
+* You can download the APK to install the app here: [APK](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40dannysoares/acontecenauporto-04ad379a4af2467db6f19354051980c5-signed.apk)
 
 ## API Documentation
 
