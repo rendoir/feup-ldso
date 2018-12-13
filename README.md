@@ -1,4 +1,4 @@
-# Cultural Agenda of University of Porto
+# Acontece na UPorto - Cultural Agenda of University of Porto 
 
 
 University of Porto's cultural agenda. It will contain all the events of all the faculties and cultural organizations related to UPorto, for ease of access to such information, as well as an event management for organizations
@@ -36,13 +36,22 @@ You will need:
 
 If you're using an Android emulator, such as the NoxPlayer Emulator:
 
-1. Connect the device with the `adb connect` command(for example, `adb connect 127.0.0.1:62001`) and
+1. Connect the device with the `adb connect` command (for example, `adb connect 127.0.0.1:62001`) and
 run the emulator. 
 2. Run `expo start` and, in the indicated localhost IP, select **Run on Android device/emulator**. 
 
 ## Running the tests
 
-To run the tests, open a new terminal inside the _api_ folder and run command _npm test_
+To run the tests: 
+
+* Inside the _api_ folder, run command `npm test`
+* Inside the _web__folder, run command `npm test`
+* Inside the _mobile_folder, run command `npm test -- -u`
+
+## Running Linter
+
+To run lint, run command `npm run lint`.
+
 
 ### Test Examples
 
@@ -64,7 +73,7 @@ To run the tests, open a new terminal inside the _api_ folder and run command _n
 
 ## Mobile app APK
 
-* You can download the APK to install the app here: [APK](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40dannysoares/Acontece_na_UPorto-ceefef8ff264448dad9690f844eba351-signed.apk)
+* You can download the APK to install the app here: [APK](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40dannysoares/acontecenauporto-04ad379a4af2467db6f19354051980c5-signed.apk)
 
 ## API Documentation
 
@@ -85,16 +94,5 @@ To access the documentation of the API:
 * **Tiago Carvalho** - *Developer* - [TiagoC97](https://gitlab.com/TiagoC97)
 * **Vítor Magalhães** - *Surrogate Product Owner* - [LastLombax](https://gitlab.com/LastLombax)
 
-## Screenshots of Sprint 1
-
-
-### Logo
-<img src="https://i.imgur.com/FfCDDEE.png">
-
-### App
-<img src="https://i.imgur.com/c6PU8Ia.jpg">
-
-### Web
-<img src="https://i.imgur.com/lfQG6y0.png">
 
 
