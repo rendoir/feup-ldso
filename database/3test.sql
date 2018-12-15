@@ -227,7 +227,6 @@ INSERT INTO permissions (user_id, entity_id) VALUES (3, 12);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 3);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 12);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 2);
-INSERT INTO permissions (user_id, entity_id) VALUES (1, 5);
 INSERT INTO permissions (user_id, entity_id) VALUES (4, 1);
 
 
