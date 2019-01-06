@@ -128,6 +128,33 @@ module.exports = {
 
 
     add(req, res) {
+        if (req.body.end_date == "") {
+            return Event.create({
+                title: req.body.title,
+                title_english: req.body.title_english,
+                description: req.body.description,
+                description_english: req.body.description_english,
+                start_date: req.body.start_date,
+                location: req.body.location,
+                price: req.body.price,
+                user_id: req.body.user_id,
+                entity_id: req.body.entity_id
+            })
+                .then((event) => {
+                    event.setCategories(req.body.categories.split(','))
+                        .then(() => {
+                            try {
+                                this.saveImage(req.files, event);
+                                res.status(201).send(event);
+                            } catch (err) {
+                                res.status(400).send(err);
+                            }
+                        })
+                        .catch((error) => res.status(400).send(error));
+
+                })
+                .catch((error) => res.status(400).send(error));
+        }
         return Event.create({
             title: req.body.title,
             title_english: req.body.title_english,
@@ -169,6 +196,42 @@ module.exports = {
     },
 
     edit(req, res) {
+        if (req.body.end_date == 'null') {
+            return Event.update(
+                {
+                    title: req.body.title,
+                    title_english: req.body.title_english,
+                    description: req.body.description,
+                    description_english: req.body.description_english,
+                    start_date: req.body.start_date,
+                    location: req.body.location,
+                    price: req.body.price,
+                    user_id: req.body.user_id,
+                    entity_id: req.body.entity_id
+                },
+                {
+                    returning: true,
+                    where: { id: req.params.event_id }
+                })
+                .then(([updatedRows, [updatedEvent]]) => {
+                    updatedEvent.setCategories(req.body.categories.split(','))
+                        .then(() => {
+                            if (updatedRows !== 1)
+                                res.status(400).send("There was a problem editing this event. Please try again later.");
+                            try {
+
+                                this.saveImage(req.files, updatedEvent);
+                                getEventInfoFunction(req.params.event_id, 201, res);
+
+                            } catch (err) {
+                                res.status(400).send(err);
+                            }
+                        })
+                        .catch((error) => res.status(400).send(error));
+
+                })
+                .catch(() => res.status(400).send("There was a problem editing this event. Please try again later."));
+        }
         return Event.update(
             {
                 title: req.body.title,
