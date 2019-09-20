@@ -16,9 +16,12 @@ You will need:
 * Expo - https://expo.io/learn
 * Expo App on Android
 * Android Studio Emulator - If you don't have an Android, you can use the AS emulator to test.
+* A Google API Key - https://support.google.com/googleapi/answer/6158862?hl=en
+* A SHA-1 Certificate Fingerprint - https://developers.google.com/android/guides/client-auth
 
 ### 1st time Configuration
 
+* Replace `apiKey` and `certificateHash` in **mobile/app.json** with your Google API Key and SHA-1 Certificate Fingerprint
 * Run **docker-compose build** in the root of the project, to setup the app and the web modules.
 * Run **npm install** in the _mobile_ folder.
 
