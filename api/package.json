@@ -19,7 +19,7 @@
   },
   "homepage": "https://gitlab.com/ldso18-19/t3g2#readme",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "chai-http": "^4.2.0",
     "chai-like": "^1.1.1",
